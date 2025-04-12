@@ -278,92 +278,93 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const mainContainer = document.querySelector('.main-container');
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-links a');
             let isScrolling = false;
-            let currentSection = 0;
 
-            // Navigation click handlers
-            navLinks.forEach((link) => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-                    const index = Array.from(sections).indexOf(targetSection);
+            // Update active section based on scroll position
+            function updateActiveSection() {
+                const scrollPosition = window.scrollY;
+                
+                sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionBottom = sectionTop + section.offsetHeight;
                     
-                    if (!isScrolling) {
-                        isScrolling = true;
-                        scrollToSection(index);
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        navLinks[index].classList.add('active');
                     }
+                });
+            }
+
+            // Smooth scroll to section when clicking nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    const targetPosition = targetSection.offsetTop - 60;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
                 });
             });
 
-            // Function to scroll to a specific section
-            function scrollToSection(index) {
-                const scrollPosition = index * window.innerWidth;
-                mainContainer.scrollTo({
-                    left: scrollPosition,
-                    behavior: 'smooth'
-                });
-                updateActiveSection(index);
-                
-                // Reset scrolling flag after animation
-                setTimeout(() => {
-                    isScrolling = false;
-                }, 1000);
-            }
-
-            // Function to update active section
-            function updateActiveSection(index) {
-                sections.forEach(section => section.classList.remove('active'));
-                navLinks.forEach(link => link.classList.remove('active'));
-
-                sections[index].classList.add('active');
-                navLinks[index].classList.add('active');
-                currentSection = index;
-            }
-
-            // Scroll handler with debounce
+            // Handle scroll events with debounce
             let scrollTimeout;
-            mainContainer.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
                 
                 scrollTimeout = setTimeout(() => {
                     if (!isScrolling) {
-                        const scrollPosition = mainContainer.scrollLeft;
-                        const sectionIndex = Math.round(scrollPosition / window.innerWidth);
-                        
-                        if (sectionIndex !== currentSection) {
-                            updateActiveSection(sectionIndex);
-                        }
+                        updateActiveSection();
                     }
                 }, 50);
             });
 
-            // Keyboard navigation
+            // Initialize active section
+            updateActiveSection();
+
+            // Handle keyboard navigation
             document.addEventListener('keydown', (e) => {
                 if (!isScrolling) {
-                    if (e.key === 'ArrowRight' && currentSection < sections.length - 1) {
+                    const currentIndex = Array.from(sections).findIndex(section => {
+                        const rect = section.getBoundingClientRect();
+                        return rect.top <= 100 && rect.bottom > 100;
+                    });
+
+                    if (e.key === 'ArrowDown' && currentIndex < sections.length - 1) {
                         isScrolling = true;
-                        scrollToSection(currentSection + 1);
-                    } else if (e.key === 'ArrowLeft' && currentSection > 0) {
+                        const nextSection = sections[currentIndex + 1];
+                        const targetPosition = nextSection.offsetTop - 60;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        setTimeout(() => {
+                            isScrolling = false;
+                        }, 1000);
+                    } else if (e.key === 'ArrowUp' && currentIndex > 0) {
                         isScrolling = true;
-                        scrollToSection(currentSection - 1);
+                        const prevSection = sections[currentIndex - 1];
+                        const targetPosition = prevSection.offsetTop - 60;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        setTimeout(() => {
+                            isScrolling = false;
+                        }, 1000);
                     }
                 }
-            });
-
-            // Initialize first section
-            updateActiveSection(0);
-
-            // Handle resize events
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    scrollToSection(currentSection);
-                }, 100);
             });
         });
     </script>
