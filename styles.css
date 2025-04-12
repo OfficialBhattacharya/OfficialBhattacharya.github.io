@@ -1,8 +1,11 @@
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --text-color: #333;
-    --light-bg: #f5f6fa;
+    --primary-color: #ffffff;
+    --secondary-color: #64ffda;
+    --text-color: #e6e6e6;
+    --bg-color: #0a192f;
+    --card-bg: #112240;
+    --hover-color: #233554;
+    --light-bg: #112240;
     --white: #ffffff;
     --transition: all 0.3s ease;
 }
@@ -21,6 +24,7 @@ body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background-color: var(--bg-color);
 }
 
 .container {
@@ -34,8 +38,9 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: var(--white);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(10, 25, 47, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
 }
 
@@ -51,7 +56,7 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .nav-links {
@@ -62,13 +67,25 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--secondary-color);
     transition: var(--transition);
 }
 
-.nav-links a:hover {
-    color: var(--secondary-color);
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 /* Hero Section */
@@ -77,8 +94,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: var(--white);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     text-align: center;
     padding: 0 20px;
 }
@@ -86,12 +103,14 @@ body {
 .hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
+    color: var(--primary-color);
 }
 
 .subtitle {
     font-size: 1.5rem;
     margin-bottom: 2rem;
     opacity: 0.9;
+    color: var(--secondary-color);
 }
 
 .social-links {
@@ -101,12 +120,13 @@ body {
 }
 
 .social-links a {
-    color: var(--white);
+    color: var(--text-color);
     font-size: 1.5rem;
     transition: var(--transition);
 }
 
 .social-links a:hover {
+    color: var(--secondary-color);
     transform: translateY(-3px);
 }
 
@@ -124,7 +144,7 @@ section h2 {
 
 /* About Section */
 .about {
-    background-color: var(--light-bg);
+    background-color: var(--bg-color);
 }
 
 .about-content {
@@ -137,6 +157,7 @@ section h2 {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: var(--text-color);
 }
 
 /* Education Section */
@@ -163,10 +184,11 @@ section h2 {
 }
 
 .timeline-content {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 .timeline-content h3 {
@@ -181,11 +203,12 @@ section h2 {
 
 /* Experience Section */
 .experience-item {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     margin-bottom: 2rem;
+    border: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 .experience-item h3 {
@@ -212,17 +235,18 @@ section h2 {
 }
 
 .project-card {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
+    border: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 .project-card.featured {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, var(--white) 0%, var(--light-bg) 100%);
-    border: 1px solid rgba(52, 152, 219, 0.2);
+    background: var(--card-bg);
+    border: 1px solid rgba(100, 255, 218, 0.2);
 }
 
 .project-header {
@@ -238,7 +262,7 @@ section h2 {
 }
 
 .project-links a {
-    color: var(--primary-color);
+    color: var(--text-color);
     font-size: 1.2rem;
     transition: var(--transition);
 }
@@ -262,24 +286,26 @@ section h2 {
 }
 
 .tech-tag {
-    background-color: var(--secondary-color);
-    color: var(--white);
+    background-color: rgba(100, 255, 218, 0.1);
+    color: var(--secondary-color);
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.9rem;
     transition: var(--transition);
+    border: 1px solid rgba(100, 255, 218, 0.2);
 }
 
 .tech-tag:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(100, 255, 218, 0.2);
 }
 
 .project-features {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 .project-features h4 {
@@ -307,7 +333,7 @@ section h2 {
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--secondary-color);
 }
 
 /* Project Modal */
@@ -318,19 +344,20 @@ section h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(10, 25, 47, 0.95);
     z-index: 1000;
     overflow-y: auto;
 }
 
 .modal-content {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     margin: 5% auto;
     padding: 2rem;
     width: 90%;
     max-width: 1200px;
     border-radius: 8px;
     position: relative;
+    border: 1px solid rgba(100, 255, 218, 0.2);
 }
 
 .modal-close {
@@ -349,7 +376,7 @@ section h2 {
 
 /* Contact Section */
 .contact {
-    background-color: var(--light-bg);
+    background-color: var(--bg-color);
 }
 
 .contact-info {
@@ -362,10 +389,11 @@ section h2 {
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 .contact-item i {
@@ -385,10 +413,11 @@ section h2 {
 
 /* Footer */
 footer {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--card-bg);
+    color: var(--text-color);
     padding: 2rem 0;
     text-align: center;
+    border-top: 1px solid rgba(100, 255, 218, 0.1);
 }
 
 /* Responsive Design */
