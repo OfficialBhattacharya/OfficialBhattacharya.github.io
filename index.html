@@ -13,187 +13,200 @@
         <div class="nav-content">
             <div class="logo">DB</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a data-section="home">Home</a></li>
+                <li><a data-section="about">About</a></li>
+                <li><a data-section="experience">Experience</a></li>
+                <li><a data-section="projects">Projects</a></li>
+                <li><a data-section="skills">Skills</a></li>
+                <li><a data-section="contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Diganta Bhattacharya</h1>
-            <p class="subtitle">Statistical Modeling | Neural Networks | Data Science</p>
-            <div class="social-links">
-                <a href="mailto:officialbhattacharya@gmail.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="tel:+918388954577"><i class="fas fa-phone"></i></a>
-            </div>
-        </div>
-    </section>
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="home"></div>
+        <div class="nav-dot" data-section="about"></div>
+        <div class="nav-dot" data-section="experience"></div>
+        <div class="nav-dot" data-section="projects"></div>
+        <div class="nav-dot" data-section="skills"></div>
+        <div class="nav-dot" data-section="contact"></div>
+    </div>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Statistics graduate from the Indian Statistical Institute with expertise in Statistical Modeling, Neural Networks, and Data Science. Currently working as an Associate at Morgan Stanley, FID (Mumbai).</p>
-                    <p>Passionate about applying statistical methods and machine learning techniques to solve complex problems in finance and data science. Experienced in developing predictive models, analyzing financial data, and implementing data-driven solutions.</p>
-                    <div class="location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Kolkata, West Bengal, India</span>
+    <div class="main-container">
+        <section id="home" class="hero">
+            <div class="section-content">
+                <div class="hero-content">
+                    <h1>Diganta Bhattacharya</h1>
+                    <p class="subtitle">Statistical Modeling | Neural Networks | Data Science</p>
+                    <div class="social-links">
+                        <a href="mailto:officialbhattacharya@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="tel:+918388954577"><i class="fas fa-phone"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2>Experience</h2>
-            <div class="experience-item">
-                <h3>Associate - FID, Morgan Stanley</h3>
-                <p class="duration">2022 - Present</p>
-                <p class="location">Mumbai</p>
-                <ul>
-                    <li>Working in Fixed Income Division, Strategic Analytics</li>
-                    <li>Developing and implementing quantitative models for financial analysis</li>
-                    <li>Analyzing market data and creating predictive models</li>
-                    <li>Collaborating with cross-functional teams to deliver data-driven solutions</li>
-                </ul>
-            </div>
-            <div class="experience-item">
-                <h3>Summer Associate - FID, Morgan Stanley</h3>
-                <p class="duration">May 2021 - July 2021</p>
-                <p class="location">Mumbai</p>
-                <ul>
-                    <li>Documentation and implementation of ANN Model for House Price Prediction</li>
-                    <li>Implementation of Hedonic and Spatial Pricing Models</li>
-                    <li>Created R-KDB framework for model implementations</li>
-                    <li>Secured a Pre-Placement Offer for the Associate Position</li>
-                </ul>
-            </div>
-            <div class="experience-item">
-                <h3>R C Bose Summer Internship - Microsoft Research India</h3>
-                <p class="duration">May 2019 - July 2019, May 2020 - July 2020</p>
-                <p class="location">Bangalore</p>
-                <ul>
-                    <li>Studied different aspects of the Hidden Subgroup Problem</li>
-                    <li>Prepared algorithms for solved cases</li>
-                    <li>Studied and proposed an alternative proof for Fermat's Theorem</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-card featured">
-                    <div class="project-header">
-                        <h3>TradeDash</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/OfficialBhattacharya/TradeDash" target="_blank" class="github-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="demo-link" id="tradeDashDemo">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">A comprehensive trading dashboard for real-time market analysis and portfolio management.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">WebSocket</span>
-                            <span class="tech-tag">Chart.js</span>
+        <section id="about" class="about">
+            <div class="section-content">
+                <h2>About</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Statistics graduate from the Indian Statistical Institute with expertise in Statistical Modeling, Neural Networks, and Data Science. Currently working as an Associate at Morgan Stanley, FID (Mumbai).</p>
+                        <p>Passionate about applying statistical methods and machine learning techniques to solve complex problems in finance and data science. Experienced in developing predictive models, analyzing financial data, and implementing data-driven solutions.</p>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kolkata, West Bengal, India</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <h3>Voter Model Simulations</h3>
-                    <p>Studying Basic Voter Model and its asymptotic behavior with simulations</p>
-                </div>
-                <div class="project-card">
-                    <h3>Salinity Prediction</h3>
-                    <p>Predicting salinity levels using statistical models on CALCOFI data</p>
-                </div>
-                <div class="project-card">
-                    <h3>Data Obfuscation</h3>
-                    <p>Implementation and improvement of data obfuscation models in R</p>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">R</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Q/kdb+</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Matlab</span>
-                        <span class="skill-tag">C</span>
-                    </div>
+        <section id="experience" class="experience">
+            <div class="container">
+                <h2>Experience</h2>
+                <div class="experience-item">
+                    <h3>Associate - FID, Morgan Stanley</h3>
+                    <p class="duration">2022 - Present</p>
+                    <p class="location">Mumbai</p>
+                    <ul>
+                        <li>Working in Fixed Income Division, Strategic Analytics</li>
+                        <li>Developing and implementing quantitative models for financial analysis</li>
+                        <li>Analyzing market data and creating predictive models</li>
+                        <li>Collaborating with cross-functional teams to deliver data-driven solutions</li>
+                    </ul>
                 </div>
-                <div class="skill-category">
-                    <h3>Tools & Technologies</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">LATEX</span>
-                        <span class="skill-tag">R-Studio</span>
-                        <span class="skill-tag">MS Office</span>
-                        <span class="skill-tag">Geogebra</span>
-                        <span class="skill-tag">Desmos</span>
-                        <span class="skill-tag">GIT</span>
-                        <span class="skill-tag">PySpark</span>
-                        <span class="skill-tag">RShiny</span>
-                    </div>
+                <div class="experience-item">
+                    <h3>Summer Associate - FID, Morgan Stanley</h3>
+                    <p class="duration">May 2021 - July 2021</p>
+                    <p class="location">Mumbai</p>
+                    <ul>
+                        <li>Documentation and implementation of ANN Model for House Price Prediction</li>
+                        <li>Implementation of Hedonic and Spatial Pricing Models</li>
+                        <li>Created R-KDB framework for model implementations</li>
+                        <li>Secured a Pre-Placement Offer for the Associate Position</li>
+                    </ul>
                 </div>
-                <div class="skill-category">
-                    <h3>Areas of Expertise</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Statistical Modeling</span>
-                        <span class="skill-tag">Neural Networks</span>
-                        <span class="skill-tag">Mean Field Games</span>
-                        <span class="skill-tag">Convex Optimization</span>
-                        <span class="skill-tag">Data Analysis</span>
-                        <span class="skill-tag">Machine Learning</span>
-                    </div>
+                <div class="experience-item">
+                    <h3>R C Bose Summer Internship - Microsoft Research India</h3>
+                    <p class="duration">May 2019 - July 2019, May 2020 - July 2020</p>
+                    <p class="location">Bangalore</p>
+                    <ul>
+                        <li>Studied different aspects of the Hidden Subgroup Problem</li>
+                        <li>Prepared algorithms for solved cases</li>
+                        <li>Studied and proposed an alternative proof for Fermat's Theorem</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:officialbhattacharya@gmail.com">officialbhattacharya@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:+918388954577">+91 8388954577</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-linkedin"></i>
-                    <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank">LinkedIn Profile</a>
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2>Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card featured">
+                        <div class="project-header">
+                            <h3>TradeDash</h3>
+                            <div class="project-links">
+                                <a href="https://github.com/OfficialBhattacharya/TradeDash" target="_blank" class="github-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="demo-link" id="tradeDashDemo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-description">A comprehensive trading dashboard for real-time market analysis and portfolio management.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">WebSocket</span>
+                                <span class="tech-tag">Chart.js</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3>Voter Model Simulations</h3>
+                        <p>Studying Basic Voter Model and its asymptotic behavior with simulations</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Salinity Prediction</h3>
+                        <p>Predicting salinity levels using statistical models on CALCOFI data</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Data Obfuscation</h3>
+                        <p>Implementation and improvement of data obfuscation models in R</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">R</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Q/kdb+</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Matlab</span>
+                            <span class="skill-tag">C</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Tools & Technologies</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">LATEX</span>
+                            <span class="skill-tag">R-Studio</span>
+                            <span class="skill-tag">MS Office</span>
+                            <span class="skill-tag">Geogebra</span>
+                            <span class="skill-tag">Desmos</span>
+                            <span class="skill-tag">GIT</span>
+                            <span class="skill-tag">PySpark</span>
+                            <span class="skill-tag">RShiny</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Areas of Expertise</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Statistical Modeling</span>
+                            <span class="skill-tag">Neural Networks</span>
+                            <span class="skill-tag">Mean Field Games</span>
+                            <span class="skill-tag">Convex Optimization</span>
+                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:officialbhattacharya@gmail.com">officialbhattacharya@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+918388954577">+91 8388954577</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank">LinkedIn Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <footer>
         <div class="container">
@@ -201,6 +214,59 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainContainer = document.querySelector('.main-container');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const navDots = document.querySelectorAll('.nav-dot');
+            let currentSection = 0;
+
+            // Function to update active section
+            function updateActiveSection(index) {
+                sections.forEach(section => section.classList.remove('active'));
+                navLinks.forEach(link => link.classList.remove('active'));
+                navDots.forEach(dot => dot.classList.remove('active'));
+
+                sections[index].classList.add('active');
+                navLinks[index].classList.add('active');
+                navDots[index].classList.add('active');
+                currentSection = index;
+            }
+
+            // Navigation click handlers
+            navLinks.forEach((link, index) => {
+                link.addEventListener('click', () => {
+                    mainContainer.scrollTo({
+                        left: index * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                    updateActiveSection(index);
+                });
+            });
+
+            navDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    mainContainer.scrollTo({
+                        left: index * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                    updateActiveSection(index);
+                });
+            });
+
+            // Scroll handler
+            mainContainer.addEventListener('scroll', () => {
+                const scrollPosition = mainContainer.scrollLeft;
+                const sectionIndex = Math.round(scrollPosition / window.innerWidth);
+                if (sectionIndex !== currentSection) {
+                    updateActiveSection(sectionIndex);
+                }
+            });
+
+            // Initialize first section
+            updateActiveSection(0);
+        });
+    </script>
 </body>
 </html> 
