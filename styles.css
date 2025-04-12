@@ -693,4 +693,149 @@ footer {
     100% {
         transform: translateY(0px) rotate(0deg);
     }
+}
+
+/* Profile Sketch SVG Styles */
+.sketch-svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    fill: none;
+}
+
+.sketch-svg .face-shape {
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease forwards;
+}
+
+.sketch-svg .hair {
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease forwards 0.3s;
+}
+
+.sketch-svg .glasses {
+    fill: none;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1s ease forwards 0.6s;
+}
+
+.sketch-svg .eye {
+    fill: var(--secondary-color);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 1.5s;
+}
+
+.sketch-svg .nose {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 1.2s;
+}
+
+.sketch-svg .mouth {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 1.3s;
+}
+
+.sketch-svg .neck, .sketch-svg .jacket {
+    fill: none;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 1s ease forwards 1.8s;
+}
+
+/* Anime Character SVG Styles */
+.character-svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    fill: none;
+}
+
+.character-svg .face {
+    fill: none;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1s ease forwards;
+}
+
+.character-svg .hair,
+.character-svg .hair-spiky,
+.character-svg .hair-long,
+.character-svg .hair-messy {
+    fill: none;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 1.5s ease forwards 0.2s;
+}
+
+.character-svg .eye {
+    fill: var(--secondary-color);
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 1s;
+}
+
+.character-svg .smile {
+    stroke: var(--secondary-color);
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 0.8s;
+}
+
+/* Animation Keyframes */
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Interactive Hover Effects */
+.anime-character:hover .character-svg {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px var(--secondary-color));
+}
+
+.anime-character:hover .eye {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.1); }
+}
+
+.profile-sketch:hover .sketch-svg {
+    filter: drop-shadow(0 0 20px var(--secondary-color));
+}
+
+.profile-sketch:hover .eye {
+    animation: blink 1s infinite;
+}
+
+/* Responsive adjustments for SVGs */
+@media (max-width: 768px) {
+    .profile-sketch {
+        width: 250px;
+        height: 250px;
+    }
+
+    .anime-character {
+        width: 100px;
+        height: 100px;
+    }
 } 
