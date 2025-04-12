@@ -54,6 +54,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--secondary-color);
+    text-shadow: var(--neon-glow);
 }
 
 .nav-links {
@@ -68,6 +69,7 @@ body {
     font-weight: 500;
     transition: var(--transition);
     position: relative;
+    padding: 0.5rem 1rem;
 }
 
 .nav-links a::before {
@@ -83,9 +85,23 @@ body {
     transition: transform 0.3s ease;
 }
 
+.nav-links a:hover {
+    color: var(--secondary-color);
+    text-shadow: var(--neon-glow);
+}
+
 .nav-links a:hover::before {
     transform: scaleX(1);
     transform-origin: left;
+}
+
+.nav-links a.active {
+    color: var(--secondary-color);
+    text-shadow: var(--neon-glow);
+}
+
+.nav-links a.active::before {
+    transform: scaleX(1);
 }
 
 /* Section Content Styles */
@@ -135,34 +151,6 @@ body {
     font-size: 1.5rem;
     color: var(--secondary-color);
     text-shadow: var(--neon-glow);
-}
-
-/* Navigation Dots */
-.nav-dots {
-    position: fixed;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 1000;
-}
-
-.nav-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: var(--text-color);
-    opacity: 0.5;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.nav-dot.active {
-    background-color: var(--secondary-color);
-    opacity: 1;
-    transform: scale(1.2);
 }
 
 /* Section Styles */
@@ -577,10 +565,6 @@ footer {
 
     .subtitle {
         font-size: 1.2rem;
-    }
-
-    .nav-dots {
-        right: 1rem;
     }
 }
 

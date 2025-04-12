@@ -13,24 +13,15 @@
         <div class="nav-content">
             <div class="logo">DB</div>
             <ul class="nav-links">
-                <li><a data-section="home">Home</a></li>
-                <li><a data-section="about">About</a></li>
-                <li><a data-section="experience">Experience</a></li>
-                <li><a data-section="projects">Projects</a></li>
-                <li><a data-section="skills">Skills</a></li>
-                <li><a data-section="contact">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
-
-    <div class="nav-dots">
-        <div class="nav-dot active" data-section="home"></div>
-        <div class="nav-dot" data-section="about"></div>
-        <div class="nav-dot" data-section="experience"></div>
-        <div class="nav-dot" data-section="projects"></div>
-        <div class="nav-dot" data-section="skills"></div>
-        <div class="nav-dot" data-section="contact"></div>
-    </div>
 
     <div class="anime-characters">
         <div class="anime-character top-left">
@@ -290,41 +281,33 @@
             const mainContainer = document.querySelector('.main-container');
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-links a');
-            const navDots = document.querySelectorAll('.nav-dot');
             let currentSection = 0;
+
+            // Navigation click handlers
+            navLinks.forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    const index = Array.from(sections).indexOf(targetSection);
+                    
+                    mainContainer.scrollTo({
+                        left: index * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                    updateActiveSection(index);
+                });
+            });
 
             // Function to update active section
             function updateActiveSection(index) {
                 sections.forEach(section => section.classList.remove('active'));
                 navLinks.forEach(link => link.classList.remove('active'));
-                navDots.forEach(dot => dot.classList.remove('active'));
 
                 sections[index].classList.add('active');
                 navLinks[index].classList.add('active');
-                navDots[index].classList.add('active');
                 currentSection = index;
             }
-
-            // Navigation click handlers
-            navLinks.forEach((link, index) => {
-                link.addEventListener('click', () => {
-                    mainContainer.scrollTo({
-                        left: index * window.innerWidth,
-                        behavior: 'smooth'
-                    });
-                    updateActiveSection(index);
-                });
-            });
-
-            navDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    mainContainer.scrollTo({
-                        left: index * window.innerWidth,
-                        behavior: 'smooth'
-                    });
-                    updateActiveSection(index);
-                });
-            });
 
             // Scroll handler
             mainContainer.addEventListener('scroll', () => {
