@@ -1,16 +1,34 @@
 .blog {
     padding: 4rem 0;
     background-color: var(--bg-color);
+    position: relative;
+}
+
+.blog-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
     gap: 2rem;
     margin-top: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.blog-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .blog-post {
+    flex: 0 0 calc(33.333% - 1.33rem);
+    min-width: 300px;
     background: var(--card-bg);
     border-radius: 10px;
     overflow: hidden;
@@ -67,8 +85,38 @@
     text-decoration: underline;
 }
 
+.blog-scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.blog-scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.blog-scroll-btn.prev {
+    left: 1rem;
+}
+
+.blog-scroll-btn.next {
+    right: 1rem;
+}
+
 @media (max-width: 768px) {
-    .blog-grid {
-        grid-template-columns: 1fr;
+    .blog-post {
+        flex: 0 0 calc(100% - 2rem);
+    }
+    
+    .blog-scroll-btn {
+        display: none;
     }
 } 

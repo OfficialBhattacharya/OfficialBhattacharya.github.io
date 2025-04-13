@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repeat-Sales Transaction Index for Custom Indexes - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Repeat-Sales Transaction Index for Custom Indexes: Example of Home Prices</h1>
+        <div class="blog-meta">
+            <span class="blog-date">April 1, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>Creating a repeat sales transaction index, like the Case-Shiller Index, involves tracking the price changes of the same properties over time to measure housing price trends.</p>
+
+            <h2>Step 1: Data Collection</h2>
+            <p>1. <strong>Gather Transaction Data</strong>: Collect data on property sales, including:</p>
+            <ul>
+                <li>Property identifier (e.g., address or parcel ID)</li>
+                <li>Sale price</li>
+                <li>Sale date</li>
+                <li>Property characteristics (e.g., size, location, number of bedrooms, etc.)</li>
+            </ul>
+
+            <p>2. <strong>Filter Repeat Sales</strong>: Identify properties that have been sold at least twice. These repeat sales form the basis of the index.</p>
+
+            <h2>Step 2: Model Specification</h2>
+            <p>The Case-Shiller Index uses a <strong>weighted repeat sales (WRS) method</strong> to account for heteroskedasticity (varying volatility in price changes). The model is based on the following regression equation:</p>
+            
+            <div class="math">
+                \[ \ln\left(\frac{P_{it}}{P_{is}}\right) = \sum_{t=1}^T \beta_t D_{it} - \sum_{s=1}^T \beta_s D_{is} + \epsilon_{is,t} \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(P_{it}\): Price of property \(i\) at time \(t\)</li>
+                <li>\(P_{is}\): Price of property \(i\) at time \(s\) (earlier sale)</li>
+                <li>\(D_{it}\): Dummy variable equal to 1 if the sale occurred at time \(t\), otherwise 0</li>
+                <li>\(D_{is}\): Dummy variable equal to 1 if the sale occurred at time \(s\), otherwise 0</li>
+                <li>\(\beta_t\): Coefficient representing the log price index at time \(t\)</li>
+                <li>\(\epsilon_{is,t}\): Error term</li>
+            </ul>
+
+            <h2>Step 3: Regression Setup</h2>
+            <p>1. <strong>Log Price Ratios</strong>: Compute the log price ratio for each repeat sale pair:</p>
+            <div class="math">
+                \[ y_i = \ln\left(\frac{P_{it}}{P_{is}}\right) \]
+            </div>
+            <p>This is the dependent variable.</p>
+
+            <p>2. <strong>Dummy Variables</strong>: Create dummy variables for each time period \(t\) and \(s\) (sale dates). For each repeat sale pair:</p>
+            <ul>
+                <li>Set \(D_{it} = 1\) for the later sale date \(t\)</li>
+                <li>Set \(D_{is} = -1\) for the earlier sale date \(s\)</li>
+                <li>All other dummies are set to 0</li>
+            </ul>
+
+            <p>3. <strong>Regression Equation</strong>: The model can be written in matrix form as:</p>
+            <div class="math">
+                \[ \mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon} \]
+            </div>
+            <p>Where:</p>
+            <ul>
+                <li>\(\mathbf{y}\): Vector of log price ratios</li>
+                <li>\(\mathbf{X}\): Design matrix of dummy variables</li>
+                <li>\(\boldsymbol{\beta}\): Vector of coefficients (log price indices)</li>
+                <li>\(\boldsymbol{\epsilon}\): Vector of error terms</li>
+            </ul>
+
+            <h2>Step 4: Weighted Least Squares (WLS)</h2>
+            <p>1. <strong>Weighting</strong>: To account for heteroskedasticity, assign weights to each observation. The weight for each repeat sale pair is typically the inverse of the time between sales:</p>
+            <div class="math">
+                \[ w_i = \frac{1}{t - s} \]
+            </div>
+            <p>This gives more weight to sales with shorter intervals, as they are less volatile.</p>
+
+            <p>2. <strong>Estimation</strong>: Use weighted least squares (WLS) to estimate the coefficients \(\boldsymbol{\beta}\):</p>
+            <div class="math">
+                \[ \hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y} \]
+            </div>
+            <p>Where \(\mathbf{W}\) is a diagonal matrix of weights \(w_i\).</p>
+
+            <h2>Step 5: Index Construction</h2>
+            <p>1. <strong>Exponentiate Coefficients</strong>: The estimated coefficients \(\hat{\beta}_t\) represent the log price indices. Convert them to price indices by exponentiating:</p>
+            <div class="math">
+                \[ I_t = e^{\hat{\beta}_t} \]
+            </div>
+
+            <p>2. <strong>Normalize the Index</strong>: Set the index value to 100 (or another base value) at a reference time period (e.g., the first period or a specific year).</p>
+
+            <h2>Step 6: Smoothing and Adjustment</h2>
+            <p>1. <strong>Smoothing</strong>: Apply a moving average or other smoothing technique to reduce noise in the index.</p>
+            <p>2. <strong>Seasonal Adjustment</strong>: Adjust for seasonal variations in housing prices if necessary.</p>
+
+            <h2>Step 7: Validation and Refinement</h2>
+            <p>1. <strong>Outlier Detection</strong>: Remove outliers or extreme values that may distort the index.</p>
+            <p>2. <strong>Robustness Checks</strong>: Validate the index against alternative methods or external benchmarks.</p>
+
+            <h2>Mathematical Summary</h2>
+            <p>The Case-Shiller Index is derived from a weighted repeat sales regression model:</p>
+            <div class="math">
+                \[ \ln\left(\frac{P_{it}}{P_{is}}\right) = \sum_{t=1}^T \beta_t D_{it} - \sum_{s=1}^T \beta_s D_{is} + \epsilon_{is,t} \]
+            </div>
+            <p>Estimated via weighted least squares:</p>
+            <div class="math">
+                \[ \hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y} \]
+            </div>
+            <p>The final index is:</p>
+            <div class="math">
+                \[ I_t = e^{\hat{\beta}_t} \]
+            </div>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 

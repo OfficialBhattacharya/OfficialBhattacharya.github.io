@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Tic-Tac-Toe - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../css/sections/games.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-page">
+        <header class="game-header">
+            <a href="../../index.html#games" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </a>
+            <h1>Ultimate Tic-Tac-Toe</h1>
+        </header>
+        
+        <main class="game-content">
+            <div class="game-description">
+                <p>A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
+                <h2>How to Play</h2>
+                <ul>
+                    <li>You are X, the computer is O</li>
+                    <li>Your move in one board determines which board your opponent must play in next</li>
+                    <li>If sent to a completed board, your opponent can choose any available board</li>
+                    <li>Win 3 small boards in a row to win the game</li>
+                </ul>
+            </div>
+            
+            <div class="game-container">
+                <div class="game-status">Your turn! Click any cell to start</div>
+                <div class="ultimate-board">
+                    <!-- 9 main boards -->
+                    <div class="main-board" data-board="0">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="1">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="2">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="3">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="4">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="5">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="6">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="7">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                    <div class="main-board" data-board="8">
+                        <div class="cell" data-cell="0"></div>
+                        <div class="cell" data-cell="1"></div>
+                        <div class="cell" data-cell="2"></div>
+                        <div class="cell" data-cell="3"></div>
+                        <div class="cell" data-cell="4"></div>
+                        <div class="cell" data-cell="5"></div>
+                        <div class="cell" data-cell="6"></div>
+                        <div class="cell" data-cell="7"></div>
+                        <div class="cell" data-cell="8"></div>
+                    </div>
+                </div>
+                <button class="restart-button">Restart Game</button>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <p>&copy; 2024 Diganta Bhattacharya</p>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 

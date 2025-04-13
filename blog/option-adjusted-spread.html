@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculating Spreads using bootstrap techniques - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Calculating Spreads using bootstrap techniques: Example of Option Adjusted Spread for MBS</h1>
+        <div class="blog-meta">
+            <span class="blog-date">April 13, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>Calculating <strong>Option-Adjusted Spreads (OAS)</strong> for Mortgage-Backed Securities (MBS) using bootstrap techniques involves simulating interest rate paths, valuing the MBS under these paths, and determining the spread that equates the average present value of the MBS to its market price.</p>
+
+            <h2>Step 1: Bootstrap the Yield Curve</h2>
+            <ol>
+                <li><strong>Collect Market Data</strong>: Gather prices or yields for zero-coupon bonds or liquid instruments (e.g., Treasury securities) across various maturities.</li>
+                <li><strong>Bootstrap the Spot Curve</strong>: Use bootstrapping to derive the spot interest rates for each maturity:
+                    <div class="math">
+                        \[ P(t) = \frac{1}{(1 + r(t))^t} \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(P(t)\): Price of a zero-coupon bond with maturity \(t\)</li>
+                        <li>\(r(t)\): Spot rate for maturity \(t\)</li>
+                    </ul>
+                    Solve iteratively for \(r(t)\) using market prices.
+                </li>
+            </ol>
+
+            <h2>Step 2: Simulate Interest Rate Paths</h2>
+            <ol>
+                <li><strong>Choose a Short-Rate Model</strong>: Use a model like Hull-White, Vasicek, or Cox-Ingersoll-Ross to simulate future short-term interest rates.</li>
+                <li><strong>Generate Paths</strong>: Simulate \(N\) interest rate paths over the life of the MBS using Monte Carlo simulation. For each path \(i\) and time step \(t\), generate the short rate \(r_{i,t}\).</li>
+            </ol>
+
+            <h2>Step 3: Model Prepayment Behavior</h2>
+            <ol>
+                <li><strong>Prepayment Model</strong>: Use a prepayment model (e.g., PSA, CPR) to estimate prepayment rates for each interest rate path. Prepayment rates depend on:
+                    <ul>
+                        <li>Current and historical interest rates</li>
+                        <li>Loan characteristics (e.g., age, coupon rate)</li>
+                    </ul>
+                </li>
+                <li><strong>Cash Flow Projections</strong>: For each path \(i\), project the cash flows of the MBS, incorporating prepayments:
+                    <div class="math">
+                        \[ CF_{i,t} = ScheduledPayment_{i,t} + Prepayment_{i,t} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 4: Discount Cash Flows</h2>
+            <ol>
+                <li><strong>Calculate Discount Factors</strong>: For each path \(i\), compute the discount factors for each time step \(t\) using the simulated short rates:
+                    <div class="math">
+                        \[ DF_{i,t} = \exp\left(-\sum_{s=1}^t r_{i,s} \cdot \Delta t\right) \]
+                    </div>
+                </li>
+                <li><strong>Present Value of Cash Flows</strong>: Discount the cash flows for each path:
+                    <div class="math">
+                        \[ PV_{i} = \sum_{t=1}^T CF_{i,t} \cdot DF_{i,t} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 5: Calculate Option-Adjusted Spread (OAS)</h2>
+            <ol>
+                <li><strong>Define OAS</strong>: The OAS is the constant spread \(s\) that, when added to the discount rates, equates the average present value of the MBS to its market price \(P\):
+                    <div class="math">
+                        \[ P = \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T CF_{i,t} \cdot \exp\left(-\sum_{s=1}^t (r_{i,s} + s) \cdot \Delta t\right) \]
+                    </div>
+                </li>
+                <li><strong>Solve for OAS</strong>: Use numerical methods (e.g., Newton-Raphson) to solve for \(s\):
+                    <div class="math">
+                        \[ \text{Find } s \text{ such that } P = \frac{1}{N} \sum_{i=1}^N PV_{i}(s) \]
+                    </div>
+                    Where \(PV_{i}(s)\) is the present value of path \(i\) with spread \(s\).
+                </li>
+            </ol>
+
+            <h2>Step 6: Validate Results</h2>
+            <ol>
+                <li><strong>Convergence Check</strong>: Ensure the Monte Carlo simulation has converged by increasing the number of paths \(N\) until the OAS stabilizes.</li>
+                <li><strong>Sensitivity Analysis</strong>: Test the sensitivity of the OAS to changes in model assumptions (e.g., prepayment rates, interest rate volatility).</li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li>Bootstrap the yield curve to derive spot rates \(r(t)\).</li>
+                <li>Simulate \(N\) interest rate paths \(r_{i,t}\) using a short-rate model.</li>
+                <li>Project cash flows \(CF_{i,t}\) for each path using a prepayment model.</li>
+                <li>Discount cash flows using:
+                    <div class="math">
+                        \[ PV_{i} = \sum_{t=1}^T CF_{i,t} \cdot \exp\left(-\sum_{s=1}^t r_{i,s} \cdot \Delta t\right) \]
+                    </div>
+                </li>
+                <li>Solve for OAS \(s\) such that:
+                    <div class="math">
+                        \[ P = \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T CF_{i,t} \cdot \exp\left(-\sum_{s=1}^t (r_{i,s} + s) \cdot \Delta t\right) \]
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,557 @@
+.game-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+}
+
+.game-header {
+    padding: 1rem 2rem;
+    background-color: var(--bg-secondary);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 5px var(--accent-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.6;
+}
+
+.back-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.back-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 5px var(--accent-color);
+}
+
+.back-link:hover {
+    color: var(--accent-hover);
+    transform: translateX(-5px);
+}
+
+.back-link:hover::after {
+    width: 100%;
+}
+
+.back-link i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.back-link:hover i {
+    transform: translateX(-3px);
+}
+
+.game-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 5px var(--accent-color);
+    letter-spacing: 1px;
+}
+
+.game-content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.game-description {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-description p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.game-description h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.game-description ul {
+    padding-left: 1.5rem;
+}
+
+.game-description li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.difficulty-selector {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.difficulty-selector h2 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.difficulty-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.difficulty-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    transition: all 0.5s ease;
+}
+
+.difficulty-btn:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 5px var(--accent-color);
+}
+
+.difficulty-btn:hover::before {
+    left: 100%;
+}
+
+.difficulty-btn.active {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.game-container {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), 0 0 10px var(--accent-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.game-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.6;
+}
+
+.game-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.6;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.game-info::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+.score-updated {
+    animation: scoreUpdate 0.3s ease-in-out;
+}
+
+@keyframes scoreUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); color: #fff; text-shadow: 0 0 15px var(--accent-color); }
+    100% { transform: scale(1); }
+}
+
+.game-board {
+    display: grid;
+    gap: 1px;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3), 0 0 10px var(--accent-color);
+    position: relative;
+}
+
+.game-board::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 18px;
+    border: 1px solid var(--accent-color);
+    opacity: 0.3;
+    pointer-events: none;
+    animation: pulseBorder 3s infinite;
+}
+
+@keyframes pulseBorder {
+    0%, 100% { opacity: 0.2; border-color: var(--accent-color); }
+    50% { opacity: 0.6; border-color: #8bfdfe; }
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    background: var(--card-bg);
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 80%, rgba(0, 255, 255, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cell:hover::after {
+    opacity: 1;
+}
+
+.wall {
+    background: var(--bg-secondary);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.wall-decoration {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 85%, var(--accent-color) 95%);
+    opacity: 0.2;
+}
+
+.wall::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.player {
+    background: var(--card-bg);
+    position: relative;
+    z-index: 2;
+}
+
+.player::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-color);
+    border-radius: 50%;
+    transform: scale(0.6);
+    box-shadow: 0 0 10px var(--accent-color), 0 0 5px #fff;
+    animation: playerPulse 1.5s infinite;
+}
+
+.player-trail {
+    position: absolute;
+    inset: 0;
+    background: var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.5;
+    transform: scale(0.5);
+    animation: fadeOut 0.3s forwards;
+}
+
+.player-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px;
+    background: radial-gradient(circle at center, var(--accent-color) 0%, transparent 70%);
+    opacity: 0.7;
+    animation: glowPulse 0.5s forwards;
+}
+
+@keyframes playerPulse {
+    0%, 100% { transform: scale(0.6); box-shadow: 0 0 10px var(--accent-color), 0 0 5px #fff; }
+    50% { transform: scale(0.7); box-shadow: 0 0 15px var(--accent-color), 0 0 8px #fff; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 0.5; transform: scale(0.5); }
+    100% { opacity: 0; transform: scale(0.2); }
+}
+
+@keyframes glowPulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0; }
+}
+
+.ghost {
+    position: relative;
+    z-index: 2;
+}
+
+.ghost::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 3px;
+}
+
+.ghost-1::before {
+    background: #ff3860;
+    transform: scale(0.7);
+    box-shadow: 0 0 10px #ff3860;
+    animation: ghostPulse 2s infinite;
+}
+
+.ghost-2::before {
+    background: #3273dc;
+    transform: scale(0.7);
+    box-shadow: 0 0 10px #3273dc;
+    animation: ghostPulse 2s infinite 0.3s;
+}
+
+.ghost-3::before {
+    background: #ffdd57;
+    transform: scale(0.7);
+    box-shadow: 0 0 10px #ffdd57;
+    animation: ghostPulse 2s infinite 0.6s;
+}
+
+.ghost-trail {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px;
+    opacity: 0.5;
+    transform: scale(0.6);
+    animation: fadeOut 0.3s forwards;
+}
+
+.ghost-trail-1 {
+    background: #ff3860;
+}
+
+.ghost-trail-2 {
+    background: #3273dc;
+}
+
+.ghost-trail-3 {
+    background: #ffdd57;
+}
+
+.capture-effect {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, #fff 0%, transparent 70%);
+    opacity: 0;
+    animation: captureAnimation 0.8s forwards;
+    z-index: 3;
+}
+
+@keyframes ghostPulse {
+    0%, 100% { transform: scale(0.7); }
+    50% { transform: scale(0.8); }
+}
+
+@keyframes captureAnimation {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(2); }
+}
+
+.restart-button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.restart-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.restart-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+}
+
+.restart-button:hover::before {
+    left: 100%;
+}
+
+.game-footer {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    position: relative;
+}
+
+.game-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0.2;
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        padding: 1.5rem;
+    }
+    
+    .game-board {
+        padding: 5px;
+    }
+    
+    .cell {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .difficulty-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-content {
+        padding: 1rem;
+    }
+    
+    .cell {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: center;
+    }
+} 

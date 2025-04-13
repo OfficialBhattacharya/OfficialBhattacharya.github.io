@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Mean-Reverting Process to Estimate Volatility and Drift - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Using Mean-Reverting Process to Estimate Volatility and Drift: Example of Ornstein-Uhlenbeck</h1>
+        <div class="blog-meta">
+            <span class="blog-date">April 7, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>To estimate the <strong>volatility</strong> and <strong>drift</strong> of a stock price using a mean-reverting stochastic process, we typically use the <strong>Ornstein-Uhlenbeck (OU) process</strong>. The OU process is a continuous-time stochastic process that models mean-reverting behavior.</p>
+
+            <h2>Step 1: Model Specification</h2>
+            <p>The Ornstein-Uhlenbeck process is defined by the following stochastic differential equation (SDE):</p>
+            
+            <div class="math">
+                \[ dS_t = \theta (\mu - S_t) dt + \sigma dW_t \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(S_t\): Stock price at time \(t\)</li>
+                <li>\(\mu\): Long-term mean (equilibrium level)</li>
+                <li>\(\theta\): Speed of mean reversion (rate at which \(S_t\) reverts to \(\mu\))</li>
+                <li>\(\sigma\): Volatility of the process</li>
+                <li>\(W_t\): Wiener process (standard Brownian motion)</li>
+            </ul>
+
+            <h2>Step 2: Discretization</h2>
+            <p>To estimate the parameters (\(\theta\), \(\mu\), \(\sigma\)), discretize the SDE using the Euler-Maruyama method. For a small time step \(\Delta t\), the discretized form is:</p>
+            
+            <div class="math">
+                \[ S_{t+1} - S_t = \theta (\mu - S_t) \Delta t + \sigma \sqrt{\Delta t} \, \epsilon_t \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(\epsilon_t \sim N(0, 1)\): Standard normal random variable</li>
+                <li>\(\Delta t\): Time step (e.g., daily, monthly)</li>
+            </ul>
+
+            <h2>Step 3: Rearrange the Equation</h2>
+            <p>Rewrite the discretized equation as a linear regression model:</p>
+            
+            <div class="math">
+                \[ S_{t+1} - S_t = \alpha + \beta S_t + \eta_t \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(\alpha = \theta \mu \Delta t\)</li>
+                <li>\(\beta = -\theta \Delta t\)</li>
+                <li>\(\eta_t = \sigma \sqrt{\Delta t} \, \epsilon_t\) (error term)</li>
+            </ul>
+
+            <h2>Step 4: Estimate Parameters</h2>
+            <ol>
+                <li><strong>Collect Data</strong>: Obtain a time series of stock prices \(S_0, S_1, \dots, S_T\)</li>
+                <li><strong>Compute Differences</strong>: Calculate the differences \(S_{t+1} - S_t\)</li>
+                <li><strong>Perform Linear Regression</strong>: Regress \(S_{t+1} - S_t\) on \(S_t\) to estimate \(\alpha\) and \(\beta\):
+                    <div class="math">
+                        \[ S_{t+1} - S_t = \alpha + \beta S_t + \eta_t \]
+                    </div>
+                    Use ordinary least squares (OLS) to estimate \(\hat{\alpha}\) and \(\hat{\beta}\).</li>
+                <li><strong>Recover Parameters</strong>:
+                    <ul>
+                        <li>Speed of mean reversion: \(\hat{\theta} = -\frac{\hat{\beta}}{\Delta t}\)</li>
+                        <li>Long-term mean: \(\hat{\mu} = -\frac{\hat{\alpha}}{\hat{\beta}}\)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 5: Estimate Volatility</h2>
+            <ol>
+                <li><strong>Compute Residuals</strong>: Calculate the residuals from the regression:
+                    <div class="math">
+                        \[ \hat{\eta}_t = (S_{t+1} - S_t) - (\hat{\alpha} + \hat{\beta} S_t) \]
+                    </div>
+                </li>
+                <li><strong>Estimate Variance</strong>: Compute the variance of the residuals:
+                    <div class="math">
+                        \[ \hat{\sigma}^2 = \frac{1}{T-1} \sum_{t=1}^T \hat{\eta}_t^2 \]
+                    </div>
+                </li>
+                <li><strong>Recover Volatility</strong>:
+                    <div class="math">
+                        \[ \hat{\sigma} = \sqrt{\frac{\hat{\sigma}^2}{\Delta t}} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 6: Validate the Model</h2>
+            <ol>
+                <li><strong>Goodness of Fit</strong>: Check the \(R^2\) of the regression to assess how well the model fits the data.</li>
+                <li><strong>Residual Analysis</strong>: Ensure residuals are normally distributed and exhibit no autocorrelation.</li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li>Discretized OU process:
+                    <div class="math">
+                        \[ S_{t+1} - S_t = \theta (\mu - S_t) \Delta t + \sigma \sqrt{\Delta t} \, \epsilon_t \]
+                    </div>
+                </li>
+                <li>Regression model:
+                    <div class="math">
+                        \[ S_{t+1} - S_t = \alpha + \beta S_t + \eta_t \]
+                    </div>
+                </li>
+                <li>Parameter recovery:
+                    <div class="math">
+                        \[ \hat{\theta} = -\frac{\hat{\beta}}{\Delta t}, \quad \hat{\mu} = -\frac{\hat{\alpha}}{\hat{\beta}}, \quad \hat{\sigma} = \sqrt{\frac{\hat{\sigma}^2}{\Delta t}} \]
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 
