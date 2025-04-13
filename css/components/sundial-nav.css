@@ -1,0 +1,117 @@
+.sundial-nav {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 150px;
+    z-index: 1000;
+}
+
+.sundial-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 150px;
+    background: rgba(var(--primary-rgb), 0.1);
+    border-top-left-radius: 150px;
+    border-top-right-radius: 150px;
+    backdrop-filter: blur(10px);
+}
+
+.sundial-marker {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    height: 140px;
+    background: var(--accent-color);
+    transform-origin: bottom center;
+    transition: transform 0.5s ease;
+}
+
+.sundial-sections {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.sundial-section {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom center;
+    cursor: pointer;
+    padding: 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.sundial-section:hover {
+    color: var(--accent-color);
+}
+
+.sundial-subsections {
+    position: fixed;
+    bottom: calc(100% + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sundial-section.active .sundial-subsections {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sundial-subsection {
+    padding: 0.5rem 1rem;
+    background: rgba(var(--primary-rgb), 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sundial-subsection:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Main content layout */
+.main-container {
+    display: flex;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    height: 100vh;
+}
+
+section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+/* Hide scrollbar but keep functionality */
+section::-webkit-scrollbar {
+    display: none;
+}
+
+section {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+} 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diganta Bhattacharya</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/components/sundial-nav.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/sections/manga.css">
@@ -65,7 +66,7 @@
             </div>
         </section>
 
-        <section id="about" class="about">
+        <section id="about" class="about active">
             <div class="section-content">
                 <h2 class="section-title">About</h2>
                 <div class="about-content">
@@ -353,69 +354,110 @@
         </div>
     </div>
 
+    <nav class="sundial-nav">
+        <div class="sundial-base"></div>
+        <div class="sundial-marker"></div>
+        <div class="sundial-sections">
+            <a href="#about" class="sundial-section" data-angle="0">
+                About
+                <div class="sundial-subsections">
+                    <a href="#profile" class="sundial-subsection">Profile</a>
+                    <a href="#background" class="sundial-subsection">Background</a>
+                </div>
+            </a>
+            <a href="#experience" class="sundial-section" data-angle="30">
+                Experience
+                <div class="sundial-subsections">
+                    <a href="#morgan-stanley" class="sundial-subsection">Morgan Stanley</a>
+                    <a href="#microsoft" class="sundial-subsection">Microsoft Research</a>
+                </div>
+            </a>
+            <a href="#projects" class="sundial-section" data-angle="60">
+                Projects
+                <div class="sundial-subsections">
+                    <a href="#tradedash" class="sundial-subsection">TradeDash</a>
+                    <a href="#other-projects" class="sundial-subsection">Other Projects</a>
+                </div>
+            </a>
+            <a href="#blog" class="sundial-section" data-angle="90">
+                Blog
+                <div class="sundial-subsections">
+                    <a href="#latest" class="sundial-subsection">Latest Posts</a>
+                    <a href="#categories" class="sundial-subsection">Categories</a>
+                </div>
+            </a>
+            <a href="#skills" class="sundial-section" data-angle="120">
+                Skills
+                <div class="sundial-subsections">
+                    <a href="#technical" class="sundial-subsection">Technical</a>
+                    <a href="#soft-skills" class="sundial-subsection">Soft Skills</a>
+                </div>
+            </a>
+            <a href="#contact" class="sundial-section" data-angle="150">
+                Contact
+                <div class="sundial-subsections">
+                    <a href="#message" class="sundial-subsection">Message</a>
+                    <a href="#social" class="sundial-subsection">Social</a>
+                </div>
+            </a>
+        </div>
+    </nav>
+
     <script src="script.js"></script>
-    
-    <!-- Inline script for manga modal functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Manga modal script loaded');
-            
-            // Get modal elements
-            const mangaModal = document.getElementById('manga-modal');
-            const mangaModalImage = document.getElementById('manga-modal-image');
-            const mangaModalClose = document.querySelector('.manga-modal-close');
-            const mangaItems = document.querySelectorAll('.manga-item');
-            
-            console.log('Manga modal:', mangaModal);
-            console.log('Manga modal image:', mangaModalImage);
-            console.log('Manga modal close:', mangaModalClose);
-            console.log('Manga items:', mangaItems.length);
-            
-            // Add click event to manga items
-            mangaItems.forEach(item => {
-                item.addEventListener('click', function(e) {
+            const sections = document.querySelectorAll('.sundial-section');
+            const marker = document.querySelector('.sundial-marker');
+            const mainContainer = document.querySelector('.main-container');
+
+            // Position sundial sections
+            sections.forEach(section => {
+                const angle = section.dataset.angle;
+                section.style.transform = `rotate(${angle}deg) translateX(-50%)`;
+            });
+
+            // Handle section clicks
+            sections.forEach(section => {
+                section.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
+                    const angle = this.dataset.angle;
+                    marker.style.transform = `rotate(${angle}deg)`;
                     
-                    const imgSrc = this.querySelector('.manga-image').getAttribute('src');
-                    console.log('Opening modal with image:', imgSrc);
-                    
-                    mangaModalImage.setAttribute('src', imgSrc);
-                    mangaModal.classList.add('show');
-                    document.body.style.overflow = 'hidden';
+                    // Remove active class from all sections
+                    sections.forEach(s => s.classList.remove('active'));
+                    // Add active class to clicked section
+                    this.classList.add('active');
+
+                    // Scroll to section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
                 });
             });
-            
-            // Add click event to close button
-            if (mangaModalClose) {
-                mangaModalClose.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    console.log('Closing modal');
-                    mangaModal.classList.remove('show');
-                    document.body.style.overflow = 'auto';
-                });
-            }
-            
-            // Add click event to modal background
-            if (mangaModal) {
-                mangaModal.addEventListener('click', function(e) {
-                    if (e.target === mangaModal) {
-                        console.log('Closing modal (clicked outside)');
-                        mangaModal.classList.remove('show');
-                        document.body.style.overflow = 'auto';
-                    }
-                });
-            }
-            
-            // Add keyboard event for Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mangaModal && mangaModal.classList.contains('show')) {
-                    console.log('Closing modal (Escape key)');
-                    mangaModal.classList.remove('show');
-                    document.body.style.overflow = 'auto';
+
+            // Handle scroll
+            let isScrolling = false;
+            mainContainer.addEventListener('scroll', function() {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(function() {
+                        const currentSection = Array.from(sections).find(section => {
+                            const targetId = section.getAttribute('href').substring(1);
+                            const targetSection = document.getElementById(targetId);
+                            const rect = targetSection.getBoundingClientRect();
+                            return rect.left >= 0 && rect.left <= window.innerWidth;
+                        });
+
+                        if (currentSection) {
+                            const angle = currentSection.dataset.angle;
+                            marker.style.transform = `rotate(${angle}deg)`;
+                            
+                            sections.forEach(s => s.classList.remove('active'));
+                            currentSection.classList.add('active');
+                        }
+                        isScrolling = false;
+                    });
                 }
+                isScrolling = true;
             });
         });
     </script>

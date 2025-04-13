@@ -117,6 +117,10 @@ const createModal = () => {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all interactive elements
+    initSundialNavigation();
+    initMangaModal();
+
     function initializeModal() {
         // Create modal container if it doesn't exist
         const modalContainer = document.querySelector('.project-modal') || createModal();
@@ -126,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const tradeDashDemo = document.getElementById('tradeDashDemo');
         if (tradeDashDemo) {
             tradeDashDemo.addEventListener('click', function(e) {
-    e.preventDefault();
+                e.preventDefault();
                 showModal();
             });
         }
@@ -145,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function showModal() {
             modalContainer.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
 
             // Verify images are loading
             const images = modalContainer.querySelectorAll('img');
@@ -245,8 +249,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Project Modal
-const projectCards = document.querySelectorAll('.project-card');
-projectCards.forEach(card => {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
         card.addEventListener('click', () => {
             const projectId = card.getAttribute('data-project-id');
             const projectDetails = getProjectDetails(projectId);
@@ -418,63 +422,175 @@ projectCards.forEach(card => {
 
     // Initialize subtitle observer
     subtitleObserver.observe(subtitle);
+});
 
-    // Manga Modal Functionality
+function initSundialNavigation() {
+    const sections = document.querySelectorAll('.sundial-section');
+    const marker = document.querySelector('.sundial-marker');
+    const mainContainer = document.querySelector('.main-container');
+
+    // Initialize the sundial
+    function initSundial() {
+        sections.forEach(section => {
+            const angle = section.dataset.angle;
+            section.style.transform = `rotate(${angle}deg) translateX(-50%)`;
+        });
+
+        // Set initial position
+        const activeSection = document.querySelector('section.active');
+        if (activeSection) {
+            const activeSundialSection = document.querySelector(`[href="#${activeSection.id}"]`);
+            if (activeSundialSection) {
+                const angle = activeSundialSection.dataset.angle;
+                marker.style.transform = `rotate(${angle}deg)`;
+                activeSundialSection.classList.add('active');
+            }
+        }
+    }
+
+    // Handle section navigation
+    function navigateToSection(section) {
+        const angle = section.dataset.angle;
+        marker.style.transform = `rotate(${angle}deg)`;
+        
+        sections.forEach(s => s.classList.remove('active'));
+        section.classList.add('active');
+
+        const targetId = section.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+        }
+    }
+
+    // Click handlers for sundial sections
+    sections.forEach(section => {
+        section.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigateToSection(this);
+        });
+    });
+
+    // Scroll handler for main container
+    let isScrolling = false;
+    mainContainer.addEventListener('scroll', function() {
+        if (!isScrolling) {
+            window.requestAnimationFrame(function() {
+                const currentSection = Array.from(sections).find(section => {
+                    const targetId = section.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    const rect = targetSection.getBoundingClientRect();
+                    return rect.left >= 0 && rect.left <= window.innerWidth / 2;
+                });
+
+                if (currentSection) {
+                    const angle = currentSection.dataset.angle;
+                    marker.style.transform = `rotate(${angle}deg)`;
+                    
+                    sections.forEach(s => s.classList.remove('active'));
+                    currentSection.classList.add('active');
+                }
+                isScrolling = false;
+            });
+        }
+        isScrolling = true;
+    });
+
+    // Handle subsection navigation
+    const subsections = document.querySelectorAll('.sundial-subsection');
+    subsections.forEach(subsection => {
+        subsection.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                const parentSection = targetElement.closest('section');
+                if (parentSection) {
+                    const sundialSection = document.querySelector(`[href="#${parentSection.id}"]`);
+                    if (sundialSection) {
+                        navigateToSection(sundialSection);
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 500);
+                    }
+                }
+            }
+        });
+    });
+
+    // Handle keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const activeSection = document.querySelector('.sundial-section.active');
+        if (!activeSection) return;
+
+        const currentAngle = parseInt(activeSection.dataset.angle);
+        let nextSection;
+
+        switch(e.key) {
+            case 'ArrowLeft':
+                nextSection = Array.from(sections).find(s => parseInt(s.dataset.angle) === currentAngle - 30);
+                break;
+            case 'ArrowRight':
+                nextSection = Array.from(sections).find(s => parseInt(s.dataset.angle) === currentAngle + 30);
+                break;
+        }
+
+        if (nextSection) {
+            navigateToSection(nextSection);
+        }
+    });
+
+    // Initialize
+    initSundial();
+}
+
+function initMangaModal() {
     const mangaModal = document.getElementById('manga-modal');
     const mangaModalImage = document.getElementById('manga-modal-image');
     const mangaModalClose = document.querySelector('.manga-modal-close');
     const mangaItems = document.querySelectorAll('.manga-item');
 
-    // Debug logs to check if elements are found
-    console.log('Manga modal:', mangaModal);
-    console.log('Manga modal image:', mangaModalImage);
-    console.log('Manga modal close:', mangaModalClose);
-    console.log('Manga items:', mangaItems.length);
-
-    // Open modal when manga image is clicked
-    mangaItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const imgSrc = this.querySelector('.manga-image').getAttribute('src');
-            console.log('Opening modal with image:', imgSrc);
-            
-            mangaModalImage.setAttribute('src', imgSrc);
-            mangaModal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    if (mangaItems.length > 0) {
+        mangaItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const imgSrc = this.querySelector('.manga-image').getAttribute('src');
+                mangaModalImage.setAttribute('src', imgSrc);
+                mangaModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
         });
-    });
 
-    // Close modal when close button is clicked
-    if (mangaModalClose) {
-        mangaModalClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log('Closing modal');
-            mangaModal.classList.remove('show');
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
-        });
-    }
-
-    // Close modal when clicking outside the image
-    if (mangaModal) {
-        mangaModal.addEventListener('click', function(e) {
-            if (e.target === mangaModal) {
-                console.log('Closing modal (clicked outside)');
+        if (mangaModalClose) {
+            mangaModalClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 mangaModal.classList.remove('show');
-                document.body.style.overflow = 'auto'; // Re-enable scrolling
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        if (mangaModal) {
+            mangaModal.addEventListener('click', function(e) {
+                if (e.target === mangaModal) {
+                    mangaModal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mangaModal && mangaModal.classList.contains('show')) {
+                mangaModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
             }
         });
     }
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mangaModal && mangaModal.classList.contains('show')) {
-            console.log('Closing modal (Escape key)');
-            mangaModal.classList.remove('show');
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
-        }
-    });
-}); 
+} 
