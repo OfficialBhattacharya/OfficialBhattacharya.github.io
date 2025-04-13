@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regression Lines in Regular Polygons - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/sections/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .blog-post-full {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-header {
+            margin-bottom: 2rem;
+        }
+
+        .blog-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .blog-featured-image {
+            width: 100%;
+            max-height: none;
+            object-fit: contain;
+            border-radius: 10px;
+            margin: 2rem 0;
+            background-color: var(--bg-color);
+        }
+
+        .blog-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        .blog-content h2 {
+            color: var(--accent-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-navigation {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <article class="blog-post-full">
+            <header class="blog-header">
+                <h1>Regression Lines in Regular Polygons: A Statistical Curiosity</h1>
+                <div class="blog-meta">
+                    <span class="blog-date">March 15, 2024</span>
+                    <span class="blog-author">By Diganta Bhattacharya</span>
+                </div>
+            </header>
+            
+            <div class="blog-content">
+                <img src="../assets/regression-polygon.jpg" alt="Regression Line in Regular Polygon" class="blog-featured-image">
+                
+                <p>One hurdle for every B.Stat student to cross in the final year is the Statistics comprehensive viva where every one of us had to face questions from every stat course professor present in the interview panel. One way to prepare ourselves naturally was creating problems in statistics and solving them in groups. Here is one intriguing problem that Souvik and I came up with in those discussions:</p>
+
+                <h2>The Problem</h2>
+                <p>Let's say there is an equilateral triangle on the XY plane. Taking the three vertices as data points, a regression line can be drawn on the plane. If we rotate this triangle, keeping the centroid fixed, how does the regression line change?</p>
+
+                <h2>The Insight</h2>
+                <p>The quickest insight to this problem was proposed by Sayak Chatterjee. Evaluating the slope of the line directly for various rotations, he showed that in all of the cases the regression line was parallel to the X-axis! With that information in mind, it's easy to guess that the line had to be the constant line passing through the centroid.</p>
+
+                <p>Think about the implication of this result: there is no LINEAR dependence between the X and Y coordinates.</p>
+
+                <h2>The Extension</h2>
+                <p>Can you extend the result we have now to regular polygons?</p>
+
+                <div class="blog-navigation">
+                    <a href="../index.html" class="back-to-home">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Diganta Bhattacharya</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html> 

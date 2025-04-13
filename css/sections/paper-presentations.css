@@ -1,0 +1,87 @@
+.paper-presentations {
+    background-color: var(--bg-color);
+    padding: 5rem 0;
+}
+
+.paper-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.paper-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    background: linear-gradient(135deg, rgba(10, 10, 31, 0.9), rgba(20, 20, 50, 0.9));
+    border: 1px solid rgba(0, 247, 255, 0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.paper-item:hover {
+    transform: translateY(-10px);
+    border-color: var(--secondary-color);
+    box-shadow: 0 8px 30px rgba(0, 247, 255, 0.2);
+}
+
+.paper-content {
+    color: white;
+    text-align: center;
+}
+
+.paper-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.paper-content p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.paper-content .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.paper-content .tech-tag {
+    background-color: rgba(0, 247, 255, 0.1);
+    color: var(--secondary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 247, 255, 0.3);
+}
+
+@media (max-width: 1200px) {
+    .paper-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .paper-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .paper-item {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+} 

@@ -1,0 +1,86 @@
+.profile-sketch {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 2rem;
+    transition: var(--transition);
+}
+
+.profile-sketch img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+    box-shadow: var(--neon-glow);
+    transition: var(--transition);
+}
+
+.profile-sketch:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--secondary-color);
+}
+
+.sketch-svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    fill: none;
+}
+
+.sketch-svg .face-shape {
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease forwards;
+}
+
+.sketch-svg .hair {
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease forwards 0.3s;
+}
+
+.sketch-svg .glasses {
+    fill: none;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1s ease forwards 0.6s;
+}
+
+.sketch-svg .eye {
+    fill: var(--secondary-color);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 1.5s;
+}
+
+.sketch-svg .nose {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 1.2s;
+}
+
+.sketch-svg .mouth {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 1.3s;
+}
+
+.sketch-svg .neck, .sketch-svg .jacket {
+    fill: none;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 1s ease forwards 1.8s;
+}
+
+.profile-sketch:hover .sketch-svg {
+    filter: drop-shadow(0 0 20px var(--secondary-color));
+}
+
+.profile-sketch:hover .eye {
+    animation: blink 1s infinite;
+} 

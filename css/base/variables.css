@@ -1,0 +1,14 @@
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #00f7ff;
+    --accent-color: #ff00ff;
+    --text-color: #e6e6e6;
+    --bg-color: #0a0a1f;
+    --card-bg: rgba(17, 34, 64, 0.8);
+    --hover-color: #233554;
+    --neon-glow: 0 0 10px var(--secondary-color);
+    --accent-glow: 0 0 10px var(--accent-color);
+    --cyberpunk-gradient: linear-gradient(45deg, #00f7ff, #ff00ff);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --grid-lines: 1px solid rgba(0, 247, 255, 0.1);
+} 

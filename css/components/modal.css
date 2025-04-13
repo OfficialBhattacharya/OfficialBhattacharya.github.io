@@ -1,0 +1,119 @@
+.project-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 25, 47, 0.95);
+    z-index: 1000;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1400px;
+    border-radius: 8px;
+    position: relative;
+    border: 1px solid rgba(0, 247, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(0, 247, 255, 0.1);
+}
+
+.modal-close:hover {
+    color: var(--secondary-color);
+    transform: rotate(90deg);
+    background-color: rgba(0, 247, 255, 0.2);
+}
+
+.modal-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+}
+
+.project-overview {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.screenshot-item {
+    background: rgba(17, 34, 64, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 247, 255, 0.2);
+    transition: var(--transition);
+}
+
+.screenshot-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+}
+
+.screenshot-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+}
+
+.screenshot-item h3 {
+    color: var(--primary-color);
+    font-family: 'Orbitron', sans-serif;
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.screenshot-item p {
+    color: var(--text-color);
+    padding: 0 1rem 1rem;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.project-details {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.project-details h3 {
+    color: var(--primary-color);
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 1rem;
+} 

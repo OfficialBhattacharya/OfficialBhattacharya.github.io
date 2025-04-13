@@ -6,73 +6,25 @@
     <title>Diganta Bhattacharya</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/sections/manga.css">
+    <link rel="stylesheet" href="css/sections/paper-presentations.css">
+    <link rel="stylesheet" href="css/sections/blog.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">DB</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="anime-characters">
-        <div class="anime-character top-left">
-            <svg class="character-svg" viewBox="0 0 100 100">
-                <path class="hair" d="M50 10 C60 10, 80 20, 80 40 C80 50, 70 60, 60 65 C55 68, 45 68, 40 65 C30 60, 20 50, 20 40 C20 20, 40 10, 50 10"/>
-                <circle class="face" cx="50" cy="45" r="25"/>
-                <path class="glasses" d="M35 40 L65 40"/>
-                <circle class="eye" cx="40" cy="40" r="3"/>
-                <circle class="eye" cx="60" cy="40" r="3"/>
-            </svg>
-        </div>
-        <div class="anime-character top-right">
-            <svg class="character-svg" viewBox="0 0 100 100">
-                <path class="hair-spiky" d="M50 10 L60 20 L70 10 L80 25 L70 30 L60 20 L50 30 L40 20 L30 30 L20 25 L30 10 L40 20 L50 10"/>
-                <circle class="face" cx="50" cy="45" r="25"/>
-                <path class="smile" d="M40 50 Q50 60 60 50" fill="none"/>
-                <circle class="eye" cx="40" cy="40" r="3"/>
-                <circle class="eye" cx="60" cy="40" r="3"/>
-            </svg>
-        </div>
-        <div class="anime-character bottom-left">
-            <svg class="character-svg" viewBox="0 0 100 100">
-                <path class="hair-long" d="M50 10 C70 10, 80 30, 80 50 C80 70, 70 80, 50 90 C30 80, 20 70, 20 50 C20 30, 30 10, 50 10"/>
-                <circle class="face" cx="50" cy="45" r="25"/>
-                <path class="smile" d="M40 50 Q50 60 60 50" fill="none"/>
-                <circle class="eye" cx="40" cy="40" r="3"/>
-                <circle class="eye" cx="60" cy="40" r="3"/>
-            </svg>
-        </div>
-        <div class="anime-character bottom-right">
-            <svg class="character-svg" viewBox="0 0 100 100">
-                <path class="hair-messy" d="M50 10 Q60 0, 70 10 T90 20 T70 40 T50 50 T30 40 T10 20 T30 10 T50 10"/>
-                <circle class="face" cx="50" cy="45" r="25"/>
-                <path class="smile" d="M40 50 Q50 60 60 50" fill="none"/>
-                <circle class="eye" cx="40" cy="40" r="3"/>
-                <circle class="eye" cx="60" cy="40" r="3"/>
-            </svg>
-        </div>
-    </div>
-
     <div class="main-container">
         <section id="home" class="hero">
             <div class="section-content">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <h1>Diganta Bhattacharya</h1>
-                        <p class="subtitle">Statistical Modeling | Neural Networks | Data Science</p>
+                        <div class="glitch-container">
+                            <h1 class="glitch" data-text="Diganta Bhattacharya">Diganta Bhattacharya</h1>
+                        </div>
+                        <p class="subtitle">Statistical Modeller | Full Stack Developer </p>
                         <div class="social-links">
-                            <a href="mailto:officialbhattacharya@gmail.com"><i class="fas fa-envelope"></i></a>
-                            <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank"><i class="fab fa-linkedin"></i></a>
-                            <a href="tel:+918388954577"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:officialbhattacharya@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            <a href="tel:+918388954577" class="social-icon"><i class="fas fa-phone"></i></a>
                         </div>
                     </div>
                     <div class="profile-sketch">
@@ -106,12 +58,16 @@
                         </svg>
                     </div>
                 </div>
+                <div class="scroll-indicator">
+                    <span>Scroll Down</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
         </section>
 
         <section id="about" class="about">
             <div class="section-content">
-                <h2>About</h2>
+                <h2 class="section-title">About</h2>
                 <div class="about-content">
                     <div class="about-text">
                         <p>Statistics graduate from the Indian Statistical Institute with expertise in Statistical Modeling, Neural Networks, and Data Science. Currently working as an Associate at Morgan Stanley, FID (Mumbai).</p>
@@ -121,14 +77,49 @@
                             <span>Kolkata, West Bengal, India</span>
                         </div>
                     </div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">5+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">20+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">10+</div>
+                            <div class="stat-label">Technologies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="blog">
+            <div class="container">
+                <h2 class="section-title">Blog Posts</h2>
+                <div class="blog-grid">
+                    <article class="blog-post">
+                        <img src="assets/regression-polygon.jpg" alt="Regression Line in Regular Polygons" class="blog-image">
+                        <div class="blog-content">
+                            <h3 class="blog-title">Regression Lines in Regular Polygons: A Statistical Curiosity</h3>
+                            <p class="blog-excerpt">Exploring an intriguing statistical problem that emerged during my B.Stat comprehensive viva preparation: how does the regression line behave when we rotate a regular polygon while keeping its centroid fixed?</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">March 15, 2024</span>
+                                <a href="blog/regression-lines-regular-polygons.html" class="blog-link">Read More</a>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
 
         <section id="experience" class="experience">
             <div class="container">
-                <h2>Experience</h2>
-                <div class="experience-item">
+                <h2 class="section-title">Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
                     <h3>Associate - FID, Morgan Stanley</h3>
                     <p class="duration">2022 - Present</p>
                     <p class="location">Mumbai</p>
@@ -139,7 +130,9 @@
                         <li>Collaborating with cross-functional teams to deliver data-driven solutions</li>
                     </ul>
                 </div>
-                <div class="experience-item">
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
                     <h3>Summer Associate - FID, Morgan Stanley</h3>
                     <p class="duration">May 2021 - July 2021</p>
                     <p class="location">Mumbai</p>
@@ -150,7 +143,9 @@
                         <li>Secured a Pre-Placement Offer for the Associate Position</li>
                     </ul>
                 </div>
-                <div class="experience-item">
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
                     <h3>R C Bose Summer Internship - Microsoft Research India</h3>
                     <p class="duration">May 2019 - July 2019, May 2020 - July 2020</p>
                     <p class="location">Bangalore</p>
@@ -159,13 +154,15 @@
                         <li>Prepared algorithms for solved cases</li>
                         <li>Studied and proposed an alternative proof for Fermat's Theorem</li>
                     </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="projects" class="projects">
             <div class="container">
-                <h2>Projects</h2>
+                <h2 class="section-title">Projects</h2>
                 <div class="project-grid">
                     <div class="project-card featured">
                         <div class="project-header">
@@ -190,17 +187,75 @@
                             </div>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <h3>Voter Model Simulations</h3>
-                        <p>Studying Basic Voter Model and its asymptotic behavior with simulations</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="paper-presentations" class="paper-presentations">
+            <div class="container">
+                <h2 class="section-title">Paper Presentations</h2>
+                <div class="paper-grid">
+                    <div class="paper-item">
+                        <div class="paper-content">
+                            <h3>Voter Model Simulations</h3>
+                            <p>Studying Basic Voter Model and its asymptotic behavior with simulations</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">R</span>
+                                <span class="tech-tag">Statistics</span>
+                                <span class="tech-tag">Simulation</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project-card">
-                        <h3>Salinity Prediction</h3>
-                        <p>Predicting salinity levels using statistical models on CALCOFI data</p>
+                    <div class="paper-item">
+                        <div class="paper-content">
+                            <h3>Salinity Prediction</h3>
+                            <p>Predicting salinity levels using statistical models on CALCOFI data</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">R</span>
+                                <span class="tech-tag">Statistical Modeling</span>
+                                <span class="tech-tag">Data Analysis</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project-card">
-                        <h3>Data Obfuscation</h3>
-                        <p>Implementation and improvement of data obfuscation models in R</p>
+                    <div class="paper-item">
+                        <div class="paper-content">
+                            <h3>Data Obfuscation</h3>
+                            <p>Implementation and improvement of data obfuscation models in R</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">R</span>
+                                <span class="tech-tag">Data Privacy</span>
+                                <span class="tech-tag">Statistical Methods</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="manga" class="manga">
+            <div class="container">
+                <h2 class="section-title">Manga in Progress</h2>
+                <div class="manga-grid">
+                    <div class="manga-item">
+                        <img src="assets/manga1.jpg" alt="Manga Artwork 1" class="manga-image">
+                        <div class="manga-overlay">
+                            <h3>Manga Artwork 1</h3>
+                            <p>Work in Progress</p>
+                        </div>
+                    </div>
+                    <div class="manga-item">
+                        <img src="assets/manga2.jpg" alt="Manga Artwork 2" class="manga-image">
+                        <div class="manga-overlay">
+                            <h3>Manga Artwork 2</h3>
+                            <p>Work in Progress</p>
+                        </div>
+                    </div>
+                    <div class="manga-item">
+                        <img src="assets/manga3.jpg" alt="Manga Artwork 3" class="manga-image">
+                        <div class="manga-overlay">
+                            <h3>Manga Artwork 3</h3>
+                            <p>Work in Progress</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -208,7 +263,7 @@
 
         <section id="skills" class="skills">
             <div class="container">
-                <h2>Skills</h2>
+                <h2 class="section-title">Skills</h2>
                 <div class="skills-grid">
                     <div class="skill-category">
                         <h3>Programming Languages</h3>
@@ -251,7 +306,7 @@
 
         <section id="contact" class="contact">
             <div class="container">
-                <h2>Contact</h2>
+                <h2 class="section-title">Contact</h2>
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -266,6 +321,21 @@
                         <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank">LinkedIn Profile</a>
                     </div>
                 </div>
+                <div class="contact-form">
+                    <h3>Get in Touch</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
             </div>
         </section>
     </div>
@@ -276,94 +346,75 @@
         </div>
     </footer>
 
+    <div id="manga-modal" class="manga-modal">
+        <div class="manga-modal-content">
+            <span class="manga-modal-close">&times;</span>
+            <img id="manga-modal-image" src="" alt="Enlarged Manga">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <!-- Inline script for manga modal functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            let isScrolling = false;
-
-            // Update active section based on scroll position
-            function updateActiveSection() {
-                const scrollPosition = window.scrollY;
-                
-                sections.forEach((section, index) => {
-                    const sectionTop = section.offsetTop - 100;
-                    const sectionBottom = sectionTop + section.offsetHeight;
+            console.log('Manga modal script loaded');
+            
+            // Get modal elements
+            const mangaModal = document.getElementById('manga-modal');
+            const mangaModalImage = document.getElementById('manga-modal-image');
+            const mangaModalClose = document.querySelector('.manga-modal-close');
+            const mangaItems = document.querySelectorAll('.manga-item');
+            
+            console.log('Manga modal:', mangaModal);
+            console.log('Manga modal image:', mangaModalImage);
+            console.log('Manga modal close:', mangaModalClose);
+            console.log('Manga items:', mangaItems.length);
+            
+            // Add click event to manga items
+            mangaItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                        navLinks.forEach(link => link.classList.remove('active'));
-                        navLinks[index].classList.add('active');
+                    const imgSrc = this.querySelector('.manga-image').getAttribute('src');
+                    console.log('Opening modal with image:', imgSrc);
+                    
+                    mangaModalImage.setAttribute('src', imgSrc);
+                    mangaModal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Add click event to close button
+            if (mangaModalClose) {
+                mangaModalClose.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Closing modal');
+                    mangaModal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+            
+            // Add click event to modal background
+            if (mangaModal) {
+                mangaModal.addEventListener('click', function(e) {
+                    if (e.target === mangaModal) {
+                        console.log('Closing modal (clicked outside)');
+                        mangaModal.classList.remove('show');
+                        document.body.style.overflow = 'auto';
                     }
                 });
             }
-
-            // Smooth scroll to section when clicking nav links
-            navLinks.forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    const targetPosition = targetSection.offsetTop - 60;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // Handle scroll events with debounce
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                if (scrollTimeout) {
-                    clearTimeout(scrollTimeout);
-                }
-                
-                scrollTimeout = setTimeout(() => {
-                    if (!isScrolling) {
-                        updateActiveSection();
-                    }
-                }, 50);
-            });
-
-            // Initialize active section
-            updateActiveSection();
-
-            // Handle keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (!isScrolling) {
-                    const currentIndex = Array.from(sections).findIndex(section => {
-                        const rect = section.getBoundingClientRect();
-                        return rect.top <= 100 && rect.bottom > 100;
-                    });
-
-                    if (e.key === 'ArrowDown' && currentIndex < sections.length - 1) {
-                        isScrolling = true;
-                        const nextSection = sections[currentIndex + 1];
-                        const targetPosition = nextSection.offsetTop - 60;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, 1000);
-                    } else if (e.key === 'ArrowUp' && currentIndex > 0) {
-                        isScrolling = true;
-                        const prevSection = sections[currentIndex - 1];
-                        const targetPosition = prevSection.offsetTop - 60;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, 1000);
-                    }
+            
+            // Add keyboard event for Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mangaModal && mangaModal.classList.contains('show')) {
+                    console.log('Closing modal (Escape key)');
+                    mangaModal.classList.remove('show');
+                    document.body.style.overflow = 'auto';
                 }
             });
         });
