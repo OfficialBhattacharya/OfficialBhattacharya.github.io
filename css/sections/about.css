@@ -30,6 +30,9 @@
     border: 1px solid rgba(0, 247, 255, 0.2);
     position: relative;
     overflow: hidden;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    line-height: 1.6;
+    margin-bottom: 2rem;
 }
 
 .about-text::before {
@@ -84,4 +87,26 @@
 .stat-label {
     font-size: 0.9rem;
     color: var(--text-color);
+}
+
+.about-bullets {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-bullets > li {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.no-bullets {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.no-bullets li {
+    margin: 0.3rem 0;
+    color: var(--text-secondary);
 } 
