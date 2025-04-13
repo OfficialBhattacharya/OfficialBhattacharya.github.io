@@ -21,6 +21,7 @@
     transition: transform 0.3s ease;
     aspect-ratio: 3/4;
     cursor: pointer;
+    min-height: 300px;
 }
 
 .manga-item:hover {
@@ -32,6 +33,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    cursor: pointer;
 }
 
 .manga-overlay {
@@ -63,8 +65,8 @@
     opacity: 0.8;
 }
 
-/* Manga Modal Styles */
-.manga-modal {
+/* Simple Manga Modal Styles */
+.manga-image-modal {
     display: none;
     position: fixed;
     z-index: 9999;
@@ -74,67 +76,55 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     overflow: auto;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.manga-modal.show {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
 }
 
 .manga-modal-content {
-    position: relative;
-    max-width: 90%;
-    max-height: 90vh;
+    max-width: 95%;
+    max-height: 95vh;
     margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.manga-modal-content img {
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 5px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
 }
 
 .manga-modal-close {
     position: absolute;
-    top: -40px;
-    right: 0;
-    color: white;
-    font-size: 30px;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     z-index: 10000;
 }
 
 .manga-modal-close:hover {
-    color: var(--secondary-color);
-    transform: scale(1.2);
+    color: #bbb;
 }
 
 @media (max-width: 1200px) {
     .manga-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .manga-item {
+        min-height: 250px;
     }
 }
 
 @media (max-width: 768px) {
     .manga-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
     }
-
+    
     .manga-item {
-        max-width: 500px;
-        margin: 0 auto;
+        min-height: 200px;
+        aspect-ratio: 16/9;
     }
 } 

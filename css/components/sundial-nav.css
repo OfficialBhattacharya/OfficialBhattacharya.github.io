@@ -1,72 +1,96 @@
 .sundial-nav {
     position: fixed;
-    bottom: 2rem;
+    bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
-    height: 150px;
+    width: 95%;
+    max-width: 1200px;
+    height: 60px;
     z-index: 1000;
-}
-
-.sundial-base {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 150px;
-    background: rgba(var(--primary-rgb), 0.1);
-    border-top-left-radius: 150px;
-    border-top-right-radius: 150px;
+    background: rgba(var(--primary-rgb), 0.2);
     backdrop-filter: blur(10px);
-}
-
-.sundial-marker {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    height: 140px;
-    background: var(--accent-color);
-    transform-origin: bottom center;
-    transition: transform 0.5s ease;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .sundial-sections {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     height: 100%;
+    padding: 0 15px;
 }
 
 .sundial-section {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform-origin: bottom center;
-    cursor: pointer;
-    padding: 1rem;
+    position: relative;
+    text-align: center;
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 15px;
+    transform: none !important;
+    font-size: 13px;
+}
+
+.sundial-section span {
+    display: block;
+    white-space: nowrap;
+    transform: none !important;
+    letter-spacing: 0.5px;
 }
 
 .sundial-section:hover {
+    background-color: rgba(var(--primary-rgb), 0.3);
     color: var(--accent-color);
 }
 
+.sundial-section.active {
+    background-color: rgba(var(--accent-color-rgb), 0.2);
+    color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.3);
+}
+
+.sundial-section::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.sundial-section:hover::after,
+.sundial-section.active::after {
+    width: 60%;
+}
+
 .sundial-subsections {
-    position: fixed;
-    bottom: calc(100% + 1rem);
+    position: absolute;
+    bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    white-space: nowrap;
+    background: rgba(var(--primary-rgb), 0.1);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem;
+    border-radius: 12px;
+    z-index: 1001;
+    margin-bottom: 10px;
 }
 
 .sundial-section.active .sundial-subsections {
@@ -75,14 +99,14 @@
 }
 
 .sundial-subsection {
-    padding: 0.5rem 1rem;
-    background: rgba(var(--primary-rgb), 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    padding: 6px 15px;
     color: var(--text-color);
     text-decoration: none;
     font-size: 0.9rem;
     transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
+    text-align: center;
+    transform: none !important;
 }
 
 .sundial-subsection:hover {
@@ -104,6 +128,7 @@ section {
     scroll-snap-align: start;
     overflow-y: auto;
     padding: 2rem;
+    padding-bottom: 80px;
 }
 
 /* Hide scrollbar but keep functionality */
@@ -114,4 +139,27 @@ section::-webkit-scrollbar {
 section {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .sundial-nav {
+        width: 98%;
+    }
+    
+    .sundial-section {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sundial-sections {
+        padding: 0 10px;
+    }
+    
+    .sundial-section {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
 } 
