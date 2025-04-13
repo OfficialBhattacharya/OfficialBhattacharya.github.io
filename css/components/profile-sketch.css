@@ -4,6 +4,7 @@
     height: 300px;
     margin: 0 auto 2rem;
     transition: var(--transition);
+    overflow: visible;
 }
 
 .profile-sketch img {
@@ -27,33 +28,85 @@
     stroke: var(--secondary-color);
     stroke-width: 2;
     fill: none;
+    overflow: visible;
+    filter: drop-shadow(0 0 3px var(--secondary-color));
 }
 
 .sketch-svg .face-shape {
     fill: none;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: drawLine 2s ease forwards;
+    animation: drawLine 3s ease forwards;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
 }
 
 .sketch-svg .hair {
     fill: none;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: drawLine 2s ease forwards 0.3s;
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: drawLine 4s ease forwards 0.5s;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.sketch-svg .hair-detail {
+    fill: none;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 2s ease forwards 1s;
+    stroke-width: 1.2;
+    stroke-linecap: round;
 }
 
 .sketch-svg .glasses {
     fill: none;
-    stroke-dasharray: 300;
-    stroke-dashoffset: 300;
-    animation: drawLine 1s ease forwards 0.6s;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawLine 1.5s ease forwards 2.5s;
+    stroke-linecap: square;
+    stroke-width: 2;
+}
+
+.sketch-svg .glasses-reflection {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 1.2s;
+    stroke-width: 1;
+    opacity: 0.7;
 }
 
 .sketch-svg .eye {
     fill: var(--secondary-color);
     opacity: 0;
-    animation: fadeIn 0.5s ease forwards 1.5s;
+    animation: fadeIn 0.5s ease forwards 3s, blink 4s infinite 4s;
+    transform-origin: center;
+}
+
+.sketch-svg .eye-detail {
+    fill: none;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: drawLine 0.3s ease forwards 1.6s;
+    stroke-width: 1.2;
+}
+
+.sketch-svg .eye-highlight {
+    fill: white;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 3.2s;
+}
+
+.sketch-svg .eyebrow {
+    fill: none;
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+    animation: drawLine 0.8s ease forwards 1.1s;
+    stroke-width: 2.5;
+    stroke-linecap: round;
 }
 
 .sketch-svg .nose {
@@ -61,6 +114,8 @@
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     animation: drawLine 0.5s ease forwards 1.2s;
+    stroke-linecap: round;
+    stroke-width: 1.5;
 }
 
 .sketch-svg .mouth {
@@ -68,6 +123,7 @@
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     animation: drawLine 0.5s ease forwards 1.3s;
+    stroke-linecap: round;
 }
 
 .sketch-svg .neck, .sketch-svg .jacket {
@@ -75,6 +131,50 @@
     stroke-dasharray: 500;
     stroke-dashoffset: 500;
     animation: drawLine 1s ease forwards 1.8s;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sketch-svg .collar {
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawLine 0.8s ease forwards 2s;
+    stroke-width: 1.5;
+}
+
+.sketch-svg .jacket-detail {
+    fill: none;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1s ease forwards 2.2s;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+}
+
+.sketch-svg .hand {
+    fill: none;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1s ease forwards 2.4s;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sketch-svg .fingers {
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawLine 0.8s ease forwards 2.6s;
+    stroke-linecap: round;
+}
+
+.sketch-svg .accessory {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 2.8s;
+    stroke-width: 1.5;
 }
 
 .profile-sketch:hover .sketch-svg {
@@ -82,5 +182,124 @@
 }
 
 .profile-sketch:hover .eye {
-    animation: blink 1s infinite;
+    animation: blink 3s infinite;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0%, 95%, 100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+    97% {
+        transform: scaleY(0.1);
+        opacity: 0.8;
+    }
+}
+
+/* Sketch animation delay sequence */
+.sketch-svg .hair-strand-1 {
+    animation-delay: 0.4s;
+}
+
+.sketch-svg .hair-strand-2 {
+    animation-delay: 0.5s;
+}
+
+.sketch-svg .hair-strand-3 {
+    animation-delay: 0.6s;
+}
+
+.sketch-svg .hair-strand-4 {
+    animation-delay: 0.7s;
+}
+
+.sketch-svg .cat {
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2s ease forwards 3.5s;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.sketch-svg .cat-ear-left,
+.sketch-svg .cat-ear-right {
+    fill: none;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.5s ease forwards 0.4s;
+    stroke-width: 1.5;
+}
+
+.sketch-svg .cat-eye {
+    fill: var(--secondary-color);
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 4s, catBlink 2s infinite 4.5s;
+}
+
+.sketch-svg .cat-tail {
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawLine 1s ease forwards 0.8s;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+@keyframes catBlink {
+    0%, 92%, 100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+    94% {
+        transform: scaleY(0.1);
+        opacity: 0.8;
+    }
+}
+
+@media (prefers-reduced-motion) {
+    .sketch-svg .face-shape,
+    .sketch-svg .hair,
+    .sketch-svg .glasses,
+    .sketch-svg .eye,
+    .sketch-svg .nose,
+    .sketch-svg .mouth,
+    .sketch-svg .neck,
+    .sketch-svg .jacket,
+    .sketch-svg .hair-detail,
+    .sketch-svg .glasses-reflection,
+    .sketch-svg .eye-detail,
+    .sketch-svg .eye-highlight,
+    .sketch-svg .eyebrow,
+    .sketch-svg .collar,
+    .sketch-svg .jacket-detail,
+    .sketch-svg .hand,
+    .sketch-svg .fingers,
+    .sketch-svg .accessory,
+    .sketch-svg .hair-strand-1,
+    .sketch-svg .hair-strand-2,
+    .sketch-svg .hair-strand-3,
+    .sketch-svg .hair-strand-4,
+    .sketch-svg .cat,
+    .sketch-svg .cat-ear-left,
+    .sketch-svg .cat-ear-right,
+    .sketch-svg .cat-eye,
+    .sketch-svg .cat-tail {
+        animation: none;
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
 } 

@@ -25,33 +25,86 @@
                         </div>
                     </div>
                     <div class="profile-sketch">
-                        <svg class="sketch-svg" viewBox="0 0 400 400">
-                            <!-- Face shape -->
-                            <path class="face-shape" d="M200 100 C260 100, 300 150, 300 200 C300 250, 260 300, 200 320 C140 300, 100 250, 100 200 C100 150, 140 100, 200 100"/>
+                        <svg class="sketch-svg" viewBox="0 0 500 400">
+                            <!-- Square cat face on the right -->
+                            <g transform="translate(400, 200) scale(0.8)">
+                                <!-- Cat face - square shape -->
+                                <rect class="cat" x="-40" y="-40" width="80" height="80" rx="10"/>
+                                <!-- Cat ears -->
+                                <path class="cat-ear-left" d="M-30 -40 L-40 -60 L-15 -40 Z"/>
+                                <path class="cat-ear-right" d="M30 -40 L40 -60 L15 -40 Z"/>
+                                <!-- Cat eyes -->
+                                <circle class="cat-eye" cx="-15" cy="-15" r="5"/>
+                                <circle class="cat-eye" cx="15" cy="-15" r="5"/>
+                                <!-- Cat mouth -->
+                                <path class="cat" d="M-10 10 L0 15 L10 10" stroke-linecap="round"/>
+                                <!-- Cat whiskers -->
+                                <path class="cat" d="M-30 5 L-45 0" stroke-width="1"/>
+                                <path class="cat" d="M-30 10 L-45 10" stroke-width="1"/>
+                                <path class="cat" d="M30 5 L45 0" stroke-width="1"/>
+                                <path class="cat" d="M30 10 L45 10" stroke-width="1"/>
+                            </g>
+
+                            <!-- Face shape - rectangular -->
+                            <path class="face-shape" d="M120 120 L240 120 L260 140 L260 280 L240 300 L120 300 L100 280 L100 140 Z"/>
                             
-                            <!-- Hair -->
-                            <path class="hair" d="M200 80 C260 80, 320 120, 320 180 C320 220, 300 260, 260 280 C240 290, 220 295, 200 295 C180 295, 160 290, 140 280 C100 260, 80 220, 80 180 C80 120, 140 80, 200 80"/>
+                            <!-- DBZ-style spiky hair with more side volume -->
+                            <path class="hair" d="M80 180 L40 160 L50 120 L80 80 L120 50 
+                            L160 20 L180 10 L200 20 L240 30 L280 50 L320 80 L350 120 L360 160 L320 180
+                            M80 80 L100 60 L130 40 L160 30 L180 40 L200 30 L220 40 L250 30 L280 40 L310 60 L320 80
+                            M50 120 L70 90 L90 70 L120 60 L150 50 L180 40 L210 50 L240 60 L270 50 L300 70 L330 100
+                            M40 160 L60 130 L80 110 L100 120 L130 110 L160 120 L180 110 L200 120 L230 110 L260 120 L290 110 L320 130 L350 160
                             
-                            <!-- Glasses -->
-                            <path class="glasses" d="M140 180 L260 180" stroke-width="2"/>
-                            <rect class="glasses" x="150" y="170" width="40" height="30" rx="5"/>
-                            <rect class="glasses" x="210" y="170" width="40" height="30" rx="5"/>
+                            <!-- Side hair volume -->
+                            M80 180 L60 170 L40 150 L30 120 L40 90 L60 70
+                            M320 180 L340 170 L360 150 L370 120 L360 90 L340 70"/>
                             
-                            <!-- Eyes -->
-                            <circle class="eye" cx="170" cy="185" r="5"/>
-                            <circle class="eye" cx="230" cy="185" r="5"/>
+                            <!-- Hair spikes and details with side details -->
+                            <path class="hair-detail hair-strand-1" d="M120 40 L140 20 L160 40"/>
+                            <path class="hair-detail hair-strand-2" d="M160 30 L180 10 L200 30"/>
+                            <path class="hair-detail hair-strand-3" d="M200 40 L220 20 L240 40"/>
+                            <path class="hair-detail hair-strand-4" d="M100 90 L120 70 L140 90"/>
+                            <path class="hair-detail" d="M140 80 L160 60 L180 80"/>
+                            <path class="hair-detail" d="M180 70 L200 50 L220 70"/>
+                            <path class="hair-detail" d="M220 80 L240 60 L260 80"/>
                             
-                            <!-- Nose -->
-                            <path class="nose" d="M200 190 L205 210 L195 210 Z"/>
+                            <!-- Side hair details -->
+                            <path class="hair-detail" d="M50 150 L30 130 L40 110"/>
+                            <path class="hair-detail" d="M350 150 L370 130 L360 110"/>
+                            <path class="hair-detail" d="M60 120 L40 100 L50 80"/>
+                            <path class="hair-detail" d="M340 120 L360 100 L350 80"/>
                             
-                            <!-- Mouth -->
-                            <path class="mouth" d="M180 230 Q200 240 220 230"/>
+                            <!-- Glasses - adjusted x coordinates -->
+                            <circle class="glasses" cx="140" cy="180" r="30"/>
+                            <circle class="glasses" cx="220" cy="180" r="30"/>
+                            <path class="glasses" d="M170 180 L190 180"/>
+                            <path class="glasses" d="M110 180 L80 170"/>
+                            <path class="glasses" d="M250 180 L280 170"/>
                             
-                            <!-- Neck -->
-                            <path class="neck" d="M180 320 L180 350 L220 350 L220 320"/>
+                            <!-- Eyes - adjusted x coordinates -->
+                            <circle class="eye" cx="140" cy="180" r="5"/>
+                            <circle class="eye" cx="220" cy="180" r="5"/>
+                            <circle class="eye-highlight" cx="143" cy="177" r="2"/>
+                            <circle class="eye-highlight" cx="223" cy="177" r="2"/>
                             
-                            <!-- Jacket -->
-                            <path class="jacket" d="M150 350 L100 400 L300 400 L250 350"/>
+                            <!-- Nose - adjusted x coordinates -->
+                            <path class="nose" d="M175 200 L185 200 L180 210"/>
+                            
+                            <!-- Mouth - adjusted x coordinates -->
+                            <path class="mouth" d="M150 240 C180 260, 210 240, 210 240"/>
+                            
+                            <!-- Neck - adjusted x coordinates -->
+                            <path class="neck" d="M140 300 L220 300 L220 340 L140 340 Z"/>
+                            
+                            <!-- Jacket - adjusted x coordinates -->
+                            <path class="jacket" d="M100 340 L260 340 L280 400 L80 400 Z"/>
+                            <path class="collar" d="M140 340 L180 360 L220 340"/>
+                            
+                            <!-- Hands - adjusted x coordinates -->
+                            <path class="hand" d="M80 360 C60 340, 70 320, 100 340"/>
+                            <path class="fingers" d="M70 330 L65 325"/>
+                            <path class="fingers" d="M75 328 L70 320"/>
+                            <path class="fingers" d="M80 326 L78 318"/>
                         </svg>
                     </div>
                 </div>
@@ -91,18 +144,59 @@
         <section id="blog" class="blog">
             <div class="container">
                 <h2 class="section-title">Blog Posts</h2>
-                <div class="blog-grid">
-                    <article class="blog-post">
-                        <img src="assets/regression-polygon.jpg" alt="Regression Line in Regular Polygons" class="blog-image">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Regression Lines in Regular Polygons: A Statistical Curiosity</h3>
-                            <p class="blog-excerpt">Exploring an intriguing statistical problem that emerged during my B.Stat comprehensive viva preparation: how does the regression line behave when we rotate a regular polygon while keeping its centroid fixed?</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">March 15, 2024</span>
-                                <a href="blog/regression-lines-regular-polygons.html" class="blog-link">Read More</a>
+                <div class="blog-container">
+                    <button class="blog-scroll-btn prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="blog-scroll-btn next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="blog-grid">
+                        <article class="blog-post">
+                            <img src="assets/Blog4.jpg" alt="Option-Adjusted Spread" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">Calculating Spreads using bootstrap techniques</h3>
+                                <p class="blog-excerpt">A comprehensive guide to calculating Option-Adjusted Spreads (OAS) for Mortgage-Backed Securities using bootstrap techniques and Monte Carlo simulation.</p>
+                                <div class="blog-meta">
+                                    <span class="blog-date">April 13, 2025</span>
+                                    <a href="blog/option-adjusted-spread.html" class="blog-link">Read More</a>
+                                </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                        <article class="blog-post">
+                            <img src="assets/Blog3.png" alt="Mean-Reverting Process" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">Using Mean-Reverting Process to Estimate Volatility and Drift</h3>
+                                <p class="blog-excerpt">A detailed exploration of using the Ornstein-Uhlenbeck process to estimate volatility and drift in mean-reverting time series, with applications in financial modeling.</p>
+                                <div class="blog-meta">
+                                    <span class="blog-date">April 7, 2025</span>
+                                    <a href="blog/mean-reverting-process.html" class="blog-link">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="blog-post">
+                            <img src="assets/Blog2.png" alt="Repeat Sales Transaction Index" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">Repeat-Sales Transaction Index for Custom Indexes: Example of Home Prices</h3>
+                                <p class="blog-excerpt">A detailed exploration of creating a repeat sales transaction index, like the Case-Shiller Index, for tracking property price changes over time.</p>
+                                <div class="blog-meta">
+                                    <span class="blog-date">April 1, 2025</span>
+                                    <a href="blog/repeat-sales-transaction-index.html" class="blog-link">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="blog-post">
+                            <img src="assets/regression-polygon.jpg" alt="Regression Line in Regular Polygons" class="blog-image">
+                            <div class="blog-content">
+                                <h3 class="blog-title">Regression Lines in Regular Polygons: A Statistical Curiosity</h3>
+                                <p class="blog-excerpt">Exploring an intriguing statistical problem that emerged during my B.Stat comprehensive viva preparation: how does the regression line behave when we rotate a regular polygon while keeping its centroid fixed?</p>
+                                <div class="blog-meta">
+                                    <span class="blog-date">March 15, 2025</span>
+                                    <a href="blog/regression-lines-regular-polygons.html" class="blog-link">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
@@ -324,6 +418,133 @@
                 </div>
             </div>
         </section>
+
+        <section id="games" class="games">
+            <div class="games-container">
+                <div class="game-card">
+                    <h3>Ultimate Tic-Tac-Toe</h3>
+                    <p class="game-description">A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
+                    <div class="ultimate-tic-tac-toe">
+                        <div class="game-status">Your turn! Click any cell to start</div>
+                        <div class="ultimate-board">
+                            <!-- 9 main boards -->
+                            <div class="main-board" data-board="0">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="1">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="2">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="3">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="4">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="5">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="6">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="7">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                            <div class="main-board" data-board="8">
+                                <div class="cell" data-cell="0"></div>
+                                <div class="cell" data-cell="1"></div>
+                                <div class="cell" data-cell="2"></div>
+                                <div class="cell" data-cell="3"></div>
+                                <div class="cell" data-cell="4"></div>
+                                <div class="cell" data-cell="5"></div>
+                                <div class="cell" data-cell="6"></div>
+                                <div class="cell" data-cell="7"></div>
+                                <div class="cell" data-cell="8"></div>
+                            </div>
+                        </div>
+                        <button class="restart-button">Restart Game</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <h3>Reverse Pacman</h3>
+                    <p class="game-description">In this twist on the classic game, you are the hunter! Chase and eat the ghosts before time runs out.</p>
+                    <div class="game-preview">
+                        <div class="preview-image">
+                            <i class="fas fa-ghost"></i>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <a href="games/reverse-pacman/index.html" class="play-button">Play Game</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <footer>
@@ -385,6 +606,13 @@
                 <div class="sundial-subsections">
                     <a href="#technical" class="sundial-subsection">Technical</a>
                     <a href="#soft-skills" class="sundial-subsection">Soft Skills</a>
+                </div>
+            </a>
+            <a href="#games" class="sundial-section">
+                <span>Games</span>
+                <div class="sundial-subsections">
+                    <a href="#tic-tac-toe" class="sundial-subsection">Tic-tac-toe</a>
+                    <a href="#reverse-pacman" class="sundial-subsection">Reverse Pacman</a>
                 </div>
             </a>
         </div>
