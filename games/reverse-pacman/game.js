@@ -314,24 +314,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Add keyboard controls
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function(event) {
         if (!gameState.gameActive) return;
         
-        switch(e.key.toLowerCase()) {
+        switch(event.key.toLowerCase()) {
             case 'w':
-            case 'arrowup':
                 movePlayer('up');
                 break;
             case 's':
-            case 'arrowdown':
                 movePlayer('down');
                 break;
             case 'a':
-            case 'arrowleft':
                 movePlayer('left');
                 break;
             case 'd':
-            case 'arrowright':
                 movePlayer('right');
                 break;
         }
