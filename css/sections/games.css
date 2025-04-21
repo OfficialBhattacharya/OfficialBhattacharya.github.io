@@ -85,6 +85,7 @@
     margin-bottom: 1.5rem;
     text-align: center;
     font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 247, 255, 0.3);
 }
 
 .ultimate-board {
@@ -93,36 +94,36 @@
     gap: 15px;
     margin: 0 auto 2rem;
     max-width: 600px;
-    background: var(--bg-color);
+    background: #1a1a1a;
     padding: 15px;
     border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 247, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.2);
 }
 
 .main-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 5px;
-    background: var(--bg-secondary);
+    background: #2a2a2a;
     padding: 8px;
     border-radius: 8px;
-    border: 1px solid rgba(0, 247, 255, 0.2);
+    border: 2px solid rgba(0, 247, 255, 0.3);
 }
 
 .main-board.active {
     border-color: var(--accent-color);
-    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 247, 255, 0.4);
 }
 
 .cell {
     aspect-ratio: 1;
-    background: var(--bg-color);
-    border: none;
+    background: #333;
+    border: 1px solid rgba(0, 247, 255, 0.2);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: var(--text-primary);
+    color: #fff;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
@@ -131,21 +132,25 @@
 }
 
 .cell:hover:not(:disabled) {
-    background: rgba(0, 247, 255, 0.1);
+    background: #444;
+    border-color: var(--accent-color);
     transform: scale(1.05);
 }
 
 .cell.x {
     color: #00ff88;
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
 }
 
 .cell.o {
     color: #ff3366;
+    text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
 }
 
 .cell:disabled {
     cursor: not-allowed;
-    opacity: 0.8;
+    opacity: 0.7;
+    background: #2a2a2a;
 }
 
 .restart-button {
