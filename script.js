@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateScrollButtons();
 
     initTicTacToe();
+    initCyberpunkNameAnimation();
 });
 
 // Handle manga image modal
@@ -505,4 +506,333 @@ function initTicTacToe() {
 
     // Initialize game status
     gameStatus.textContent = "Your turn! Click any cell to start";
+}
+
+function initCyberpunkNameAnimation() {
+    const cyberpunkName = document.getElementById('cyberpunkName');
+    if (!cyberpunkName) return;
+    
+    // Setup reduced motion toggle
+    setupReducedMotionToggle();
+    
+    // Create binary rain effect
+    createBinaryRain();
+    
+    // Initialize particles
+    initParticles();
+    
+    // Anime.js timeline for the animation sequence
+    const timeline = anime.timeline({
+        easing: 'easeOutExpo',
+        loop: false
+    });
+    
+    // Split text into characters for animation
+    const nameText = cyberpunkName.textContent;
+    cyberpunkName.innerHTML = '';
+    
+    // Create spans for each character
+    [...nameText].forEach(char => {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = char;
+        charSpan.style.opacity = '0';
+        charSpan.style.display = 'inline-block';
+        charSpan.style.transform = 'translateY(20px) scale(0)';
+        cyberpunkName.appendChild(charSpan);
+    });
+    
+    const charElements = cyberpunkName.querySelectorAll('span');
+    
+    // Stage 1: Boot-Up (Letters assemble)
+    timeline.add({
+        targets: charElements,
+        opacity: [0, 1],
+        translateY: [20, 0],
+        scale: [0, 1],
+        duration: 800,
+        delay: anime.stagger(50),
+        easing: 'easeOutExpo'
+    })
+    
+    // Stage 2: Glitch Surge
+    .add({
+        targets: cyberpunkName,
+        opacity: [1, 0.8, 1],
+        filter: [
+            'blur(0px) hue-rotate(0deg)', 
+            'blur(2px) hue-rotate(90deg)',
+            'blur(0px) hue-rotate(0deg)'
+        ],
+        duration: 300,
+        update: function(anim) {
+            if (anim.progress > 20 && anim.progress < 80) {
+                // Random glitch during animation
+                if (Math.random() > 0.7) {
+                    const glitchX = Math.random() * 10 - 5;
+                    cyberpunkName.style.transform = `translateX(${glitchX}px)`;
+                    
+                    // RGB split effect
+                    const rgbSplitAmount = Math.random() * 5;
+                    cyberpunkName.style.textShadow = `
+                        ${rgbSplitAmount}px 0 #ff00ff, 
+                        -${rgbSplitAmount}px 0 #00f7ff
+                    `;
+                } else {
+                    cyberpunkName.style.transform = 'translateX(0)';
+                    cyberpunkName.style.textShadow = 'none';
+                }
+            }
+        }
+    })
+    
+    // Stage 3: Hologram Stabilization
+    .add({
+        targets: cyberpunkName,
+        filter: [
+            'blur(1px) brightness(1.2)', 
+            'blur(0px) brightness(1)'
+        ],
+        translateZ: [-5, 0],
+        duration: 500,
+        complete: function() {
+            // Clear any glitch effects
+            cyberpunkName.style.transform = 'translateX(0)';
+            cyberpunkName.style.textShadow = '0 0 15px rgba(0, 247, 255, 0.5)';
+        }
+    })
+    
+    // Stage 4: Idle State
+    .add({
+        targets: cyberpunkName,
+        translateY: ['0px', '-5px', '0px'],
+        rotateX: [0, 2, 0],
+        rotateY: [0, -2, 0],
+        duration: 3000,
+        easing: 'easeInOutSine',
+        loop: true,
+        direction: 'alternate'
+    });
+    
+    // Add hover effect
+    cyberpunkName.addEventListener('mouseenter', function() {
+        anime({
+            targets: cyberpunkName,
+            filter: ['blur(0px)', 'blur(1px)', 'blur(0px)'],
+            textShadow: ['0 0 15px rgba(0, 247, 255, 0.5)', '0 0 25px rgba(0, 247, 255, 0.8)', '0 0 15px rgba(0, 247, 255, 0.5)'],
+            scale: [1, 1.05, 1],
+            duration: 300,
+            easing: 'easeInOutQuad'
+        });
+        
+        // Trigger particle explosion
+        createParticleExplosion();
+    });
+    
+    // Add click effect
+    cyberpunkName.addEventListener('click', function() {
+        // System overload effect
+        anime({
+            targets: cyberpunkName,
+            filter: [
+                'blur(0px) contrast(100%)', 
+                'blur(3px) contrast(200%)',
+                'blur(0px) contrast(100%)'
+            ],
+            scale: [1, 0.95, 1.05, 1],
+            duration: 600,
+            easing: 'easeInOutQuad',
+            update: function(anim) {
+                if (anim.progress > 10 && anim.progress < 70) {
+                    // Extreme glitch during "system overload"
+                    if (anim.progress % 10 < 5) {
+                        const glitchX = (Math.random() - 0.5) * 20;
+                        const glitchY = (Math.random() - 0.5) * 10;
+                        cyberpunkName.style.transform = `translate(${glitchX}px, ${glitchY}px)`;
+                        
+                        // Random RGB shift
+                        const colorA = Math.random() > 0.5 ? '#ff00ff' : '#00f7ff';
+                        const colorB = colorA === '#ff00ff' ? '#00f7ff' : '#ff00ff';
+                        cyberpunkName.style.textShadow = `
+                            ${Math.random() * 8 - 4}px 0 ${colorA}, 
+                            ${Math.random() * 8 - 4}px 0 ${colorB}
+                        `;
+                    }
+                } else if (anim.progress > 70) {
+                    // Reset
+                    cyberpunkName.style.transform = 'translateX(0)';
+                    cyberpunkName.style.textShadow = '0 0 15px rgba(0, 247, 255, 0.5)';
+                }
+            }
+        });
+        
+        // Create more particles
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => createParticleExplosion(), i * 100);
+        }
+    });
+}
+
+function setupReducedMotionToggle() {
+    const reducedMotionToggle = document.getElementById('reducedMotionToggle');
+    
+    if (!reducedMotionToggle) return;
+    
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Set initial state based on user preference or local storage
+    const savedPreference = localStorage.getItem('reducedMotion');
+    const shouldReduceMotion = savedPreference !== null 
+        ? savedPreference === 'true' 
+        : prefersReducedMotion;
+    
+    // Apply initial state
+    if (shouldReduceMotion) {
+        document.body.classList.add('reduced-motion');
+        reducedMotionToggle.classList.add('active');
+        reducedMotionToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        localStorage.setItem('reducedMotion', 'true');
+    } else {
+        document.body.classList.remove('reduced-motion');
+        reducedMotionToggle.classList.remove('active');
+        reducedMotionToggle.innerHTML = '<i class="fas fa-eye"></i>';
+        localStorage.setItem('reducedMotion', 'false');
+    }
+    
+    // Add click event listener
+    reducedMotionToggle.addEventListener('click', function() {
+        const isReducedMotion = document.body.classList.contains('reduced-motion');
+        
+        if (isReducedMotion) {
+            // Enable animations
+            document.body.classList.remove('reduced-motion');
+            reducedMotionToggle.classList.remove('active');
+            reducedMotionToggle.innerHTML = '<i class="fas fa-eye"></i>';
+            localStorage.setItem('reducedMotion', 'false');
+        } else {
+            // Reduce animations
+            document.body.classList.add('reduced-motion');
+            reducedMotionToggle.classList.add('active');
+            reducedMotionToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            localStorage.setItem('reducedMotion', 'true');
+        }
+    });
+    
+    // Listen for system preference changes
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+        if (e.matches) {
+            document.body.classList.add('reduced-motion');
+            reducedMotionToggle.classList.add('active');
+            reducedMotionToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            // Only automatically turn animations back on if the user hasn't explicitly set a preference
+            if (localStorage.getItem('reducedMotion') === null) {
+                document.body.classList.remove('reduced-motion');
+                reducedMotionToggle.classList.remove('active');
+                reducedMotionToggle.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+    });
+}
+
+function createBinaryRain() {
+    const binaryRain = document.querySelector('.binary-rain');
+    if (!binaryRain) return;
+    
+    const width = binaryRain.offsetWidth;
+    const height = binaryRain.offsetHeight;
+    
+    // Create binary digits
+    for (let i = 0; i < 50; i++) {
+        const digit = document.createElement('div');
+        digit.className = 'binary-digit';
+        digit.textContent = Math.random() > 0.5 ? '1' : '0';
+        
+        // Random position
+        const left = Math.random() * width;
+        const top = Math.random() * height;
+        digit.style.left = `${left}px`;
+        digit.style.top = `${top}px`;
+        
+        // Random speed
+        const duration = 3 + Math.random() * 5;
+        digit.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        const delay = Math.random() * 5;
+        digit.style.animationDelay = `${delay}s`;
+        
+        binaryRain.appendChild(digit);
+    }
+}
+
+function initParticles() {
+    const particlesContainer = document.getElementById('particles');
+    if (!particlesContainer) return;
+    
+    // Create initial particles
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.position = 'absolute';
+        particle.style.width = `${2 + Math.random() * 4}px`;
+        particle.style.height = particle.style.width;
+        particle.style.backgroundColor = Math.random() > 0.5 ? '#00f7ff' : '#ff00ff';
+        particle.style.borderRadius = '50%';
+        particle.style.opacity = '0';
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+function createParticleExplosion() {
+    const particlesContainer = document.getElementById('particles');
+    if (!particlesContainer) return;
+    
+    const particles = [];
+    const cyberpunkName = document.getElementById('cyberpunkName');
+    const rect = cyberpunkName.getBoundingClientRect();
+    const containerRect = particlesContainer.getBoundingClientRect();
+    
+    // Create particle origin point relative to container
+    const originX = (rect.left + rect.width / 2) - containerRect.left;
+    const originY = (rect.top + rect.height / 2) - containerRect.top;
+    
+    // Create 20 particles
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'explosion-particle';
+        particle.style.position = 'absolute';
+        particle.style.width = `${2 + Math.random() * 4}px`;
+        particle.style.height = particle.style.width;
+        particle.style.backgroundColor = Math.random() > 0.5 ? '#00f7ff' : '#ff00ff';
+        particle.style.borderRadius = '50%';
+        particle.style.boxShadow = `0 0 6px ${particle.style.backgroundColor}`;
+        
+        // Set position at origin
+        particle.style.left = `${originX}px`;
+        particle.style.top = `${originY}px`;
+        
+        particlesContainer.appendChild(particle);
+        particles.push(particle);
+    }
+    
+    // Animate particles
+    anime({
+        targets: particles,
+        translateX: () => anime.random(-100, 100),
+        translateY: () => anime.random(-100, 100),
+        opacity: [1, 0],
+        scale: [1, 0],
+        easing: 'easeOutExpo',
+        duration: () => anime.random(600, 1000),
+        complete: function() {
+            // Remove particles after animation
+            particles.forEach(p => p.remove());
+        }
+    });
 } 

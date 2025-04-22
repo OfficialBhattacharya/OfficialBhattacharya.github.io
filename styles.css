@@ -343,4 +343,250 @@ html {
 @keyframes modalFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* Cyberpunk Name Animation */
+.cyberpunk-name-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 120px;
+  margin-bottom: 20px;
+  perspective: 1000px;
+}
+
+.cyberpunk-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #00f7ff 30%, #ff00ff 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+  opacity: 0;
+  transform: translateZ(0);
+  will-change: transform, opacity, filter;
+}
+
+.cyberpunk-name::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ff00ff 30%, #00f7ff 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(-5px) translateY(5px);
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.cyberpunk-name-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* CRT Scanlines Overlay */
+.crt::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 2px,
+    transparent 3px,
+    transparent 5px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Binary Rain Effect */
+.binary-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.binary-digit {
+  position: absolute;
+  color: #00f7ff;
+  font-family: monospace;
+  font-size: 12px;
+  text-shadow: 0 0 5px #00f7ff;
+  animation: rain-fall linear infinite;
+}
+
+@keyframes rain-fall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(500%);
+    opacity: 0;
+  }
+}
+
+/* Particles Container */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Glitch Animation */
+@keyframes glitch-anim {
+  0% {
+    transform: translateX(0);
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    transform: translateX(-5px);
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    transform: translateX(5px);
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    transform: translateX(-5px);
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    transform: translateX(0);
+    filter: hue-rotate(360deg);
+  }
+  100% {
+    transform: translateX(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Glitch Keyframes for Color Split */
+@keyframes glitch-rgb-split {
+  0% {
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00f7ff;
+    filter: blur(0);
+  }
+  25% {
+    text-shadow: -2px 0 #ff00ff, 2px 0 #00f7ff;
+    filter: blur(1px);
+  }
+  50% {
+    text-shadow: 2px 0 #00f7ff, -2px 0 #ff00ff;
+    filter: blur(0);
+  }
+  75% {
+    text-shadow: -2px 0 #00f7ff, 2px 0 #ff00ff;
+    filter: blur(1px);
+  }
+  100% {
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00f7ff;
+    filter: blur(0);
+  }
+}
+
+/* Float Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate3d(1, 2, 0, 0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate3d(1, 2, 0, 5deg);
+  }
+  100% {
+    transform: translateY(0) rotate3d(1, 2, 0, 0deg);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .binary-rain, .cyberpunk-name::before, .crt::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .cyberpunk-name {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    background: linear-gradient(45deg, #00f7ff 30%, #ff00ff 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Reduced Motion Toggle Button */
+.reduced-motion-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00f7ff;
+  color: #00f7ff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+}
+
+.reduced-motion-toggle:hover {
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+}
+
+.reduced-motion-toggle.active {
+  border-color: #ff00ff;
+  color: #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+/* Reduced motion class that we'll add programmatically */
+.reduced-motion .cyberpunk-name-container .binary-rain,
+.reduced-motion .cyberpunk-name-container .cyberpunk-name::before,
+.reduced-motion .cyberpunk-name-container .crt::after {
+  animation: none !important;
+  transition: none !important;
+  opacity: 0.1;
+}
+
+.reduced-motion .cyberpunk-name-container .cyberpunk-name {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: 0 0 5px rgba(0, 247, 255, 0.3) !important;
 } 
