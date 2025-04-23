@@ -1,0 +1,256 @@
+/* Global CSS Variables */
+:root {
+    --primary-rgb: 64, 64, 64;
+    --accent-rgb: 0, 122, 204;
+    --bg-rgb: 18, 18, 18;
+    --text-rgb: 255, 255, 255;
+    
+    --primary-color: rgb(var(--primary-rgb));
+    --accent-color: rgb(var(--accent-rgb));
+    --bg-color: rgb(var(--bg-rgb));
+    --text-color: rgb(var(--text-rgb));
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --hover-color: #233554;
+    --neon-glow: 0 0 10px var(--secondary-color);
+    --accent-glow: 0 0 10px var(--accent-color);
+    --cyberpunk-gradient: linear-gradient(45deg, #00f7ff, #ff00ff);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --grid-lines: 1px solid rgba(0, 247, 255, 0.1);
+    
+    /* Font families */
+    --header-font: 'Orbitron', sans-serif;
+    --body-font: 'Rajdhani', sans-serif;
+    
+    /* Font sizes */
+    --header-size-large: 3.5rem;
+    --header-size-medium: 2.5rem;
+    --header-size-small: 1.8rem;
+    --text-size-large: 1.2rem;
+    --text-size-medium: 1rem;
+    --text-size-small: 0.85rem;
+    
+    /* Spacing */
+    --section-padding: 4rem 2rem;
+    --card-padding: 1.5rem;
+    --container-width: 90%;
+}
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set default font styles */
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--body-font);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: 
+        linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(0, 255, 157, 0.05)" stroke-width="0.5"/></svg>');
+    background-size: 50px 50px;
+    position: relative;
+}
+
+/* Add scanline effect overlay */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.025) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 1000;
+    opacity: 0.5;
+}
+
+.container {
+    max-width: 1200px;
+    width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+#main-content {
+    min-height: 100vh;
+}
+
+/* Section styles */
+section {
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--section-padding);
+    position: relative;
+    overflow-x: hidden;
+}
+
+.section-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Section titles */
+.section-title {
+    text-align: center;
+    font-size: var(--header-size-medium);
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+    font-family: var(--header-font);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: 0 0 10px var(--secondary-color);
+    letter-spacing: 0.1em;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--cyberpunk-gradient);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Footer */
+footer {
+    background-color: rgba(10, 10, 10, 0.8);
+    color: var(--text-color);
+    padding: 1rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    :root {
+        --container-width: 95%;
+    }
+}
+
+@media (max-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+    
+    :root {
+        --header-size-large: 3rem;
+        --header-size-medium: 2.2rem;
+        --header-size-small: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 13px;
+    }
+    
+    .section-content {
+        padding: 1.5rem;
+    }
+    
+    :root {
+        --header-size-large: 2.5rem;
+        --section-padding: 3rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 12px;
+    }
+    
+    :root {
+        --header-size-large: 2.2rem;
+        --header-size-medium: 1.8rem;
+        --header-size-small: 1.4rem;
+        --section-padding: 2rem 0.75rem;
+    }
+}
+
+/* Common components */
+.tech-tag {
+    background-color: rgba(0, 255, 157, 0.1);
+    color: var(--secondary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: var(--text-size-small);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    transition: var(--transition);
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.tech-tag:hover {
+    background-color: rgba(0, 255, 157, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+/* Animation utilities */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-left.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-right.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Font definitions */
+@font-face {
+    font-family: 'Cyberpunk';
+    src: url('../assets/fonts/cyberpunk.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+} 

@@ -1,0 +1,403 @@
+/**
+ * Home page styles
+ */
+
+/* Hero section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
+}
+
+.hero-text {
+    padding: 2rem;
+}
+
+.subtitle {
+    font-size: var(--text-size-large);
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    font-family: var(--body-font);
+    letter-spacing: 0.05em;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 157, 0.1);
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+    color: var(--secondary-color);
+    background-color: rgba(0, 255, 157, 0.2);
+}
+
+.social-icon:hover::before {
+    opacity: 1;
+}
+
+/* Profile sketch */
+.profile-sketch {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.sketch-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+/* SVG styling */
+.face-shape {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.5));
+}
+
+.hair {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 157, 0.5));
+}
+
+.hair-detail {
+    fill: none;
+    stroke: rgba(0, 255, 157, 0.7);
+    stroke-width: 1;
+    stroke-linejoin: round;
+}
+
+.glasses {
+    fill: none;
+    stroke: rgba(0, 255, 157, 0.8);
+    stroke-width: 1.5;
+}
+
+.eye {
+    fill: var(--secondary-color);
+}
+
+.eye-highlight {
+    fill: white;
+}
+
+.nose, .mouth {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.neck {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 1.5;
+}
+
+.jacket, .collar {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+}
+
+.hand, .fingers {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.cat {
+    fill: none;
+    stroke: rgba(0, 255, 157, 0.8);
+    stroke-width: 1.5;
+}
+
+.cat-eye {
+    fill: var(--secondary-color);
+}
+
+.cat-ear-left, .cat-ear-right {
+    fill: none;
+    stroke: rgba(0, 255, 157, 0.8);
+    stroke-width: 1.5;
+}
+
+/* Animation classes for SVG elements */
+.hair-strand-1 {
+    animation: hairWave 4s ease-in-out infinite;
+}
+
+.hair-strand-2 {
+    animation: hairWave 4.5s ease-in-out infinite 0.2s;
+}
+
+.hair-strand-3 {
+    animation: hairWave 5s ease-in-out infinite 0.4s;
+}
+
+.hair-strand-4 {
+    animation: hairWave 4.2s ease-in-out infinite 0.6s;
+}
+
+@keyframes hairWave {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+/* Cyberpunk Name Animation */
+.cyberpunk-name-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 120px;
+  margin-bottom: 20px;
+  perspective: 1000px;
+}
+
+.cyberpunk-name {
+  font-family: var(--header-font);
+  font-size: var(--header-size-large);
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--secondary-color) 30%, var(--accent-color) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+  opacity: 0;
+  transform: translateZ(0);
+  will-change: transform, opacity, filter;
+  letter-spacing: 0.05em;
+  animation: fadeIn 1s forwards 0.5s, glitch-rgb-split 0.4s infinite alternate 3s;
+}
+
+.cyberpunk-name::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--accent-color) 30%, var(--secondary-color) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(-5px) translateY(5px);
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.cyberpunk-name-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* CRT Scanlines Overlay */
+.crt::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 2px,
+    transparent 3px,
+    transparent 5px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Binary Rain Effect */
+.binary-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.binary-digit {
+  position: absolute;
+  color: var(--secondary-color);
+  font-family: monospace;
+  font-size: 12px;
+  text-shadow: 0 0 5px var(--secondary-color);
+  animation: rain-fall linear infinite;
+}
+
+@keyframes rain-fall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(500%);
+    opacity: 0;
+  }
+}
+
+/* Particles Container */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glitch Animation */
+@keyframes glitch-anim {
+  0% {
+    transform: translateX(0);
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    transform: translateX(-5px);
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    transform: translateX(5px);
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    transform: translateX(-5px);
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    transform: translateX(0);
+    filter: hue-rotate(360deg);
+  }
+  100% {
+    transform: translateX(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Glitch Keyframes for Color Split */
+@keyframes glitch-rgb-split {
+  0% {
+    text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+  }
+  25% {
+    text-shadow: -2px 0 var(--accent-color), 2px 0 var(--secondary-color);
+  }
+  50% {
+    text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+  }
+  75% {
+    text-shadow: -2px 0 var(--accent-color), 2px 0 var(--secondary-color);
+  }
+  100% {
+    text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .hero .row {
+    flex-direction: column-reverse;
+  }
+  
+  .profile-sketch {
+    margin-bottom: 2rem;
+  }
+  
+  .cyberpunk-name {
+    font-size: 2.5rem;
+  }
+  
+  .cyberpunk-name-container {
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cyberpunk-name {
+    font-size: 2rem;
+  }
+  
+  .cyberpunk-name-container {
+    height: 80px;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .social-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+} 

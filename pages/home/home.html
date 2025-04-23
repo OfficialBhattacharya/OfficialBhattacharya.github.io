@@ -1,0 +1,107 @@
+<section id="home" class="hero">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-text">
+                    <div class="cyberpunk-name-container">
+                        <h1 class="cyberpunk-name" id="cyberpunkName" data-text="Diganta Bhattacharya">Diganta Bhattacharya</h1>
+                        <div class="cyberpunk-name-overlay crt"></div>
+                        <div class="binary-rain"></div>
+                        <div class="particles-container" id="particles"></div>
+                    </div>
+                    <p class="subtitle">Statistical Modeller | Full Stack Developer </p>
+                    <div class="social-links">
+                        <a href="mailto:officialbhattacharya@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="tel:+918388954577" class="social-icon"><i class="fas fa-phone"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="profile-sketch">
+                    <svg class="sketch-svg" viewBox="0 0 500 400">
+                        <!-- Square cat face on the right -->
+                        <g transform="translate(400, 200) scale(0.8)">
+                            <!-- Cat face - square shape -->
+                            <rect class="cat" x="-40" y="-40" width="80" height="80" rx="10"/>
+                            <!-- Cat ears -->
+                            <path class="cat-ear-left" d="M-30 -40 L-40 -60 L-15 -40 Z"/>
+                            <path class="cat-ear-right" d="M30 -40 L40 -60 L15 -40 Z"/>
+                            <!-- Cat eyes -->
+                            <circle class="cat-eye" cx="-15" cy="-15" r="5"/>
+                            <circle class="cat-eye" cx="15" cy="-15" r="5"/>
+                            <!-- Cat mouth -->
+                            <path class="cat" d="M-10 10 L0 15 L10 10" stroke-linecap="round"/>
+                            <!-- Cat whiskers -->
+                            <path class="cat" d="M-30 5 L-45 0" stroke-width="1"/>
+                            <path class="cat" d="M-30 10 L-45 10" stroke-width="1"/>
+                            <path class="cat" d="M30 5 L45 0" stroke-width="1"/>
+                            <path class="cat" d="M30 10 L45 10" stroke-width="1"/>
+                        </g>
+
+                        <!-- Face shape - rectangular -->
+                        <path class="face-shape" d="M120 120 L240 120 L260 140 L260 280 L240 300 L120 300 L100 280 L100 140 Z"/>
+                        
+                        <!-- DBZ-style spiky hair with more side volume -->
+                        <path class="hair" d="M80 180 L40 160 L50 120 L80 80 L120 50 
+                        L160 20 L180 10 L200 20 L240 30 L280 50 L320 80 L350 120 L360 160 L320 180
+                        M80 80 L100 60 L130 40 L160 30 L180 40 L200 30 L220 40 L250 30 L280 40 L310 60 L320 80
+                        M50 120 L70 90 L90 70 L120 60 L150 50 L180 40 L210 50 L240 60 L270 50 L300 70 L330 100
+                        M40 160 L60 130 L80 110 L100 120 L130 110 L160 120 L180 110 L200 120 L230 110 L260 120 L290 110 L320 130 L350 160
+                        
+                        <!-- Side hair volume -->
+                        M80 180 L60 170 L40 150 L30 120 L40 90 L60 70
+                        M320 180 L340 170 L360 150 L370 120 L360 90 L340 70"/>
+                        
+                        <!-- Hair spikes and details with side details -->
+                        <path class="hair-detail hair-strand-1" d="M120 40 L140 20 L160 40"/>
+                        <path class="hair-detail hair-strand-2" d="M160 30 L180 10 L200 30"/>
+                        <path class="hair-detail hair-strand-3" d="M200 40 L220 20 L240 40"/>
+                        <path class="hair-detail hair-strand-4" d="M100 90 L120 70 L140 90"/>
+                        <path class="hair-detail" d="M140 80 L160 60 L180 80"/>
+                        <path class="hair-detail" d="M180 70 L200 50 L220 70"/>
+                        <path class="hair-detail" d="M220 80 L240 60 L260 80"/>
+                        
+                        <!-- Side hair details -->
+                        <path class="hair-detail" d="M50 150 L30 130 L40 110"/>
+                        <path class="hair-detail" d="M350 150 L370 130 L360 110"/>
+                        <path class="hair-detail" d="M60 120 L40 100 L50 80"/>
+                        <path class="hair-detail" d="M340 120 L360 100 L350 80"/>
+                        
+                        <!-- Glasses - adjusted x coordinates -->
+                        <circle class="glasses" cx="140" cy="180" r="30"/>
+                        <circle class="glasses" cx="220" cy="180" r="30"/>
+                        <path class="glasses" d="M170 180 L190 180"/>
+                        <path class="glasses" d="M110 180 L80 170"/>
+                        <path class="glasses" d="M250 180 L280 170"/>
+                        
+                        <!-- Eyes - adjusted x coordinates -->
+                        <circle class="eye" cx="140" cy="180" r="5"/>
+                        <circle class="eye" cx="220" cy="180" r="5"/>
+                        <circle class="eye-highlight" cx="143" cy="177" r="2"/>
+                        <circle class="eye-highlight" cx="223" cy="177" r="2"/>
+                        
+                        <!-- Nose - adjusted x coordinates -->
+                        <path class="nose" d="M175 200 L185 200 L180 210"/>
+                        
+                        <!-- Mouth - adjusted x coordinates -->
+                        <path class="mouth" d="M150 240 C180 260, 210 240, 210 240"/>
+                        
+                        <!-- Neck - adjusted x coordinates -->
+                        <path class="neck" d="M140 300 L220 300 L220 340 L140 340 Z"/>
+                        
+                        <!-- Jacket - adjusted x coordinates -->
+                        <path class="jacket" d="M100 340 L260 340 L280 400 L80 400 Z"/>
+                        <path class="collar" d="M140 340 L180 360 L220 340"/>
+                        
+                        <!-- Hands - adjusted x coordinates -->
+                        <path class="hand" d="M80 360 C60 340, 70 320, 100 340"/>
+                        <path class="fingers" d="M70 330 L65 325"/>
+                        <path class="fingers" d="M75 328 L70 320"/>
+                        <path class="fingers" d="M80 326 L78 318"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
