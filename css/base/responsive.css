@@ -11,9 +11,17 @@
     .section-title {
         font-size: 2rem;
     }
+    
+    .sundial-nav {
+        width: 98%;
+    }
 }
 
 @media (max-width: 992px) {
+    body {
+        font-size: 0.95rem;
+    }
+    
     .hero-content h1 {
         font-size: 2.5rem;
     }
@@ -40,33 +48,42 @@
         width: 100%;
         justify-content: center;
     }
+    
+    .sundial-sections {
+        justify-content: space-around;
+    }
+    
+    .sundial-section {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .nav-dots {
-        right: 10px;
-    }
-    
-    .nav-dot {
-        width: 8px;
-        height: 8px;
+    body {
+        font-size: 0.9rem;
     }
     
     section {
-        padding: 3rem 0;
+        padding: 3rem 1rem;
     }
     
-    .hero-content h1 {
-        font-size: 2rem;
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
     
-    .subtitle {
-        font-size: 1rem;
+    .hero-text {
+        order: 2;
+        width: 100%;
     }
     
     .profile-sketch {
+        order: 1;
         width: 250px;
         height: 250px;
+        margin-bottom: 2rem;
     }
     
     .timeline::before {
@@ -117,9 +134,51 @@
     .screenshot-item img {
         height: 200px;
     }
+    
+    .blog-grid {
+        padding: 0.5rem;
+    }
+    
+    .blog-post {
+        flex: 0 0 calc(100% - 1rem);
+        min-width: 250px;
+    }
+    
+    .sundial-nav {
+        height: auto;
+        padding: 0.5rem 0;
+        bottom: 0;
+        border-radius: 15px 15px 0 0;
+    }
+    
+    .sundial-sections {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .sundial-section {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .sundial-subsections {
+        bottom: auto;
+        top: 0;
+        transform: translateY(-100%) translateX(-50%);
+    }
 }
 
 @media (max-width: 576px) {
+    body {
+        font-size: 0.85rem;
+    }
+    
+    .section-content {
+        padding: 1rem;
+    }
+    
     .hero-content h1 {
         font-size: 1.8rem;
     }
@@ -177,5 +236,34 @@
     
     .screenshot-item img {
         height: 150px;
+    }
+    
+    .project-card {
+        padding: 1rem;
+    }
+    
+    .blog-post {
+        margin-bottom: 1.5rem;
+    }
+    
+    .blog-content {
+        padding: 1rem;
+    }
+    
+    .blog-title {
+        font-size: 1.3rem;
+    }
+    
+    .sundial-nav {
+        max-width: 100%;
+        border-radius: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+    }
+    
+    .sundial-section {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.7rem;
     }
 } 

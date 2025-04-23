@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Diganta Bhattacharya</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
@@ -20,9 +20,6 @@
                             <div class="cyberpunk-name-overlay crt"></div>
                             <div class="binary-rain"></div>
                             <div class="particles-container" id="particles"></div>
-                            <button id="reducedMotionToggle" class="reduced-motion-toggle" aria-label="Toggle reduced motion effects">
-                                <i class="fas fa-eye"></i>
-                            </button>
                         </div>
                         <p class="subtitle">Statistical Modeller | Full Stack Developer </p>
                         <div class="social-links">
@@ -167,15 +164,15 @@
         </section>
 
         <section id="blog" class="blog">
-            <div class="container">
+            <div class="section-content">
                 <h2 class="section-title">Blog Posts</h2>
                 <div class="blog-container">
-                    <button class="blog-scroll-btn prev">
+                    <div class="carousel-arrow left blog-scroll-btn prev">
                         <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="blog-scroll-btn next">
+                    </div>
+                    <div class="carousel-arrow right blog-scroll-btn next">
                         <i class="fas fa-chevron-right"></i>
-                    </button>
+                    </div>
                     <div class="blog-grid">
                         <article class="blog-post">
                             <img src="assets/Blog4.jpg" alt="Option-Adjusted Spread" class="blog-image">
@@ -227,7 +224,7 @@
         </section>
 
         <section id="experience" class="experience">
-            <div class="container">
+            <div class="section-content">
                 <h2 class="section-title">Experience</h2>
                 <div class="timeline">
                     <div class="timeline-item">
@@ -270,7 +267,7 @@
         </section>
 
         <section id="projects" class="projects">
-            <div class="container">
+            <div class="section-content">
                 <h2 class="section-title">Projects</h2>
                 <div class="project-grid">
                     <div class="project-card featured">
@@ -326,7 +323,7 @@
         </section>
 
         <section id="paper-presentations" class="paper-presentations">
-            <div class="container">
+            <div class="section-content">
                 <h2 class="section-title">Paper Presentations</h2>
                 <div class="paper-grid">
                     <div class="paper-item">
@@ -367,7 +364,7 @@
         </section>
 
         <section id="manga" class="manga">
-            <div class="container">
+            <div class="section-content">
                 <h2 class="section-title">Manga in Progress</h2>
                 <div class="manga-grid">
                     <div class="manga-item">
@@ -402,7 +399,7 @@
         </div>
 
         <section id="skills" class="skills">
-            <div class="container">
+            <div class="section-content">
                 <h2 class="section-title">Skills</h2>
                 <div class="skills-grid">
                     <div class="skill-category">
@@ -455,127 +452,130 @@
         </section>
 
         <section id="games" class="games">
-            <div class="games-container">
-                <div class="game-card">
-                    <h3>Ultimate Tic-Tac-Toe</h3>
-                    <p class="game-description">A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
-                    <div class="ultimate-tic-tac-toe">
-                        <div class="game-status">Your turn! Click any cell to start</div>
-                        <div class="ultimate-board">
-                            <!-- 9 main boards -->
-                            <div class="main-board" data-board="0">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
+            <div class="section-content">
+                <h2 class="section-title">Games</h2>
+                <div class="games-container">
+                    <div class="game-card">
+                        <h3>Ultimate Tic-Tac-Toe</h3>
+                        <p class="game-description">A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
+                        <div class="ultimate-tic-tac-toe">
+                            <div class="game-status">Your turn! Click any cell to start</div>
+                            <div class="ultimate-board">
+                                <!-- 9 main boards -->
+                                <div class="main-board" data-board="0">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="1">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="2">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="3">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="4">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="5">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="6">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="7">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
+                                <div class="main-board" data-board="8">
+                                    <div class="cell" data-cell="0"></div>
+                                    <div class="cell" data-cell="1"></div>
+                                    <div class="cell" data-cell="2"></div>
+                                    <div class="cell" data-cell="3"></div>
+                                    <div class="cell" data-cell="4"></div>
+                                    <div class="cell" data-cell="5"></div>
+                                    <div class="cell" data-cell="6"></div>
+                                    <div class="cell" data-cell="7"></div>
+                                    <div class="cell" data-cell="8"></div>
+                                </div>
                             </div>
-                            <div class="main-board" data-board="1">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="2">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="3">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="4">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="5">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="6">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="7">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
-                            <div class="main-board" data-board="8">
-                                <div class="cell" data-cell="0"></div>
-                                <div class="cell" data-cell="1"></div>
-                                <div class="cell" data-cell="2"></div>
-                                <div class="cell" data-cell="3"></div>
-                                <div class="cell" data-cell="4"></div>
-                                <div class="cell" data-cell="5"></div>
-                                <div class="cell" data-cell="6"></div>
-                                <div class="cell" data-cell="7"></div>
-                                <div class="cell" data-cell="8"></div>
-                            </div>
+                            <button class="restart-button">Restart Game</button>
                         </div>
-                        <button class="restart-button">Restart Game</button>
                     </div>
-                </div>
-                
-                <div class="game-card">
-                    <h3>Reverse Pacman</h3>
-                    <p class="game-description">In this twist on the classic game, you are the hunter! Chase and eat the ghosts before time runs out.</p>
-                    <div class="game-preview">
-                        <div class="preview-image">
-                            <i class="fas fa-ghost"></i>
-                            <i class="fas fa-user"></i>
+                    
+                    <div class="game-card">
+                        <h3>Reverse Pacman</h3>
+                        <p class="game-description">In this twist on the classic game, you are the hunter! Chase and eat the ghosts before time runs out.</p>
+                        <div class="game-preview">
+                            <div class="preview-image">
+                                <i class="fas fa-ghost"></i>
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <a href="games/reverse-pacman/index.html" class="play-button">Play Game</a>
                         </div>
-                        <a href="games/reverse-pacman/index.html" class="play-button">Play Game</a>
                     </div>
                 </div>
             </div>

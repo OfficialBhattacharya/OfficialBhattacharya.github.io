@@ -58,55 +58,11 @@ document.querySelectorAll('.timeline-item, .experience-item, .project-card').for
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize components
     initSundialNavigation();
+    initBlogCarousel();
     initMangaModal();
     initAnimations();
-    
-    // Add smooth scrolling to all links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Blog scroll functionality
-    const blogGrid = document.querySelector('.blog-grid');
-    const prevBtn = document.querySelector('.blog-scroll-btn.prev');
-    const nextBtn = document.querySelector('.blog-scroll-btn.next');
-    const postWidth = document.querySelector('.blog-post').offsetWidth + 32; // Width + gap
-
-    function updateScrollButtons() {
-        prevBtn.style.display = blogGrid.scrollLeft <= 0 ? 'none' : 'block';
-        nextBtn.style.display = 
-            blogGrid.scrollLeft >= blogGrid.scrollWidth - blogGrid.clientWidth - 10 
-            ? 'none' : 'block';
-    }
-
-    prevBtn.addEventListener('click', () => {
-        blogGrid.scrollBy({
-            left: -postWidth,
-            behavior: 'smooth'
-        });
-    });
-
-    nextBtn.addEventListener('click', () => {
-        blogGrid.scrollBy({
-            left: postWidth,
-            behavior: 'smooth'
-        });
-    });
-
-    blogGrid.addEventListener('scroll', updateScrollButtons);
-    window.addEventListener('resize', updateScrollButtons);
-    updateScrollButtons();
-
-    initTicTacToe();
     initCyberpunkNameAnimation();
+    initTicTacToe();
 });
 
 // Handle manga image modal
@@ -190,9 +146,57 @@ function initAnimations() {
 
 // Handle sundial navigation
 function initSundialNavigation() {
+    const sundialNav = document.querySelector('.sundial-nav');
     const sections = document.querySelectorAll('.sundial-section');
     const mainContainer = document.querySelector('.main-container');
     const contentSections = document.querySelectorAll('section[id]');
+    
+    // Add navigation arrows to sundial nav
+    if (sundialNav) {
+        const navArrows = document.createElement('div');
+        navArrows.className = 'sundial-nav-arrows';
+        
+        const leftArrow = document.createElement('div');
+        leftArrow.className = 'sundial-arrow left';
+        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        
+        const rightArrow = document.createElement('div');
+        rightArrow.className = 'sundial-arrow right';
+        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        
+        navArrows.appendChild(leftArrow);
+        navArrows.appendChild(rightArrow);
+        sundialNav.appendChild(navArrows);
+        
+        const sectionsContainer = sundialNav.querySelector('.sundial-sections');
+        
+        // Add scroll functionality
+        leftArrow.addEventListener('click', () => {
+            sectionsContainer.scrollBy({ left: -200, behavior: 'smooth' });
+        });
+        
+        rightArrow.addEventListener('click', () => {
+            sectionsContainer.scrollBy({ left: 200, behavior: 'smooth' });
+        });
+        
+        // Update arrow visibility
+        function updateArrows() {
+            const isAtStart = sectionsContainer.scrollLeft === 0;
+            const isAtEnd = sectionsContainer.scrollLeft + sectionsContainer.offsetWidth >= sectionsContainer.scrollWidth - 10;
+            
+            leftArrow.style.opacity = isAtStart ? '0' : '0.8';
+            leftArrow.style.pointerEvents = isAtStart ? 'none' : 'auto';
+            
+            rightArrow.style.opacity = isAtEnd ? '0' : '0.8';
+            rightArrow.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        }
+        
+        sectionsContainer.addEventListener('scroll', updateArrows);
+        window.addEventListener('resize', updateArrows);
+        
+        // Initial update
+        setTimeout(updateArrows, 100);
+    }
 
     // Update active section based on scroll position
     function updateActiveSection() {
@@ -512,9 +516,6 @@ function initCyberpunkNameAnimation() {
     const cyberpunkName = document.getElementById('cyberpunkName');
     if (!cyberpunkName) return;
     
-    // Setup reduced motion toggle
-    setupReducedMotionToggle();
-    
     // Create binary rain effect
     createBinaryRain();
     
@@ -672,69 +673,6 @@ function initCyberpunkNameAnimation() {
     });
 }
 
-function setupReducedMotionToggle() {
-    const reducedMotionToggle = document.getElementById('reducedMotionToggle');
-    
-    if (!reducedMotionToggle) return;
-    
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    // Set initial state based on user preference or local storage
-    const savedPreference = localStorage.getItem('reducedMotion');
-    const shouldReduceMotion = savedPreference !== null 
-        ? savedPreference === 'true' 
-        : prefersReducedMotion;
-    
-    // Apply initial state
-    if (shouldReduceMotion) {
-        document.body.classList.add('reduced-motion');
-        reducedMotionToggle.classList.add('active');
-        reducedMotionToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
-        localStorage.setItem('reducedMotion', 'true');
-    } else {
-        document.body.classList.remove('reduced-motion');
-        reducedMotionToggle.classList.remove('active');
-        reducedMotionToggle.innerHTML = '<i class="fas fa-eye"></i>';
-        localStorage.setItem('reducedMotion', 'false');
-    }
-    
-    // Add click event listener
-    reducedMotionToggle.addEventListener('click', function() {
-        const isReducedMotion = document.body.classList.contains('reduced-motion');
-        
-        if (isReducedMotion) {
-            // Enable animations
-            document.body.classList.remove('reduced-motion');
-            reducedMotionToggle.classList.remove('active');
-            reducedMotionToggle.innerHTML = '<i class="fas fa-eye"></i>';
-            localStorage.setItem('reducedMotion', 'false');
-        } else {
-            // Reduce animations
-            document.body.classList.add('reduced-motion');
-            reducedMotionToggle.classList.add('active');
-            reducedMotionToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
-            localStorage.setItem('reducedMotion', 'true');
-        }
-    });
-    
-    // Listen for system preference changes
-    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
-        if (e.matches) {
-            document.body.classList.add('reduced-motion');
-            reducedMotionToggle.classList.add('active');
-            reducedMotionToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
-        } else {
-            // Only automatically turn animations back on if the user hasn't explicitly set a preference
-            if (localStorage.getItem('reducedMotion') === null) {
-                document.body.classList.remove('reduced-motion');
-                reducedMotionToggle.classList.remove('active');
-                reducedMotionToggle.innerHTML = '<i class="fas fa-eye"></i>';
-            }
-        }
-    });
-}
-
 function createBinaryRain() {
     const binaryRain = document.querySelector('.binary-rain');
     if (!binaryRain) return;
@@ -835,4 +773,41 @@ function createParticleExplosion() {
             particles.forEach(p => p.remove());
         }
     });
+}
+
+// Handle blog carousel navigation
+function initBlogCarousel() {
+    const blogGrid = document.querySelector('.blog-grid');
+    const nextBtn = document.querySelector('.blog-scroll-btn.next');
+    const prevBtn = document.querySelector('.blog-scroll-btn.prev');
+    
+    if (!blogGrid || !nextBtn || !prevBtn) return;
+    
+    nextBtn.addEventListener('click', () => {
+        const scrollAmount = blogGrid.offsetWidth * 0.8;
+        blogGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+    
+    prevBtn.addEventListener('click', () => {
+        const scrollAmount = blogGrid.offsetWidth * 0.8;
+        blogGrid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    
+    // Update scroll buttons visibility
+    function updateScrollButtons() {
+        const isAtStart = blogGrid.scrollLeft <= 10;
+        const isAtEnd = blogGrid.scrollLeft + blogGrid.offsetWidth >= blogGrid.scrollWidth - 10;
+        
+        prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+        prevBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
+        
+        nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+        nextBtn.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+    }
+    
+    blogGrid.addEventListener('scroll', updateScrollButtons);
+    window.addEventListener('resize', updateScrollButtons);
+    
+    // Initial update
+    updateScrollButtons();
 } 
