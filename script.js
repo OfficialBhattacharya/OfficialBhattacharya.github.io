@@ -250,6 +250,56 @@ function initAnimations() {
     }
 }
 
+// Add loader control functions at the top level
+function showLoader(sectionName) {
+    const loader = document.querySelector('.cyberpunk-loader');
+    const progress = loader.querySelector('.loader-progress');
+    const text = loader.querySelector('.loader-text');
+    const mainContainer = document.querySelector('.main-container');
+    
+    // Hide main content
+    mainContainer.classList.add('loading');
+    
+    // Reset progress
+    progress.style.width = '0%';
+    
+    // Update text
+    text.textContent = `LOADING ${sectionName.toUpperCase()} SECTION`;
+    
+    // Show loader
+    loader.classList.add('active');
+    
+    // Animate progress over 2 seconds
+    progress.style.transition = 'width 2s ease';
+    setTimeout(() => {
+        progress.style.width = '100%';
+    }, 50);
+}
+
+function hideLoader() {
+    return new Promise(resolve => {
+        const loader = document.querySelector('.cyberpunk-loader');
+        const progress = loader.querySelector('.loader-progress');
+        const mainContainer = document.querySelector('.main-container');
+        
+        // Ensure minimum 2 second load time
+        setTimeout(() => {
+            // Show main content
+            mainContainer.classList.remove('loading');
+            
+            // Fade out loader
+            loader.classList.remove('active');
+            
+            // Reset progress after animation
+            setTimeout(() => {
+                progress.style.transition = 'width 0.3s ease';
+                progress.style.width = '0%';
+                resolve();
+            }, 300);
+        }, 2000);
+    });
+}
+
 // Handle sundial navigation
 function initSundialNavigation() {
     const sundialNav = document.querySelector('.sundial-nav');
@@ -350,83 +400,139 @@ function initSundialNavigation() {
     // Call this immediately to set the correct navigation
     updateNavigationHighlight();
 
-    // Update active section based on scroll position
-    function updateActiveSection() {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const mainContainerRect = mainContainer.getBoundingClientRect();
-
-        // Find the section that is most visible in the viewport
-        let mostVisibleSection = null;
-        let maxVisibleArea = 0;
-
-        contentSections.forEach((section) => {
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top;
-            const sectionBottom = rect.bottom;
-            
-            // Calculate how much of the section is visible in the viewport
-            const visibleTop = Math.max(sectionTop, 0);
-            const visibleBottom = Math.min(sectionBottom, windowHeight);
-            
-            if (visibleBottom > visibleTop) {
-                const visibleArea = visibleBottom - visibleTop;
-                
-                if (visibleArea > maxVisibleArea) {
-                    maxVisibleArea = visibleArea;
-                    mostVisibleSection = section;
-                }
-            }
-        });
-
-        // Update active section in navigation
-        if (mostVisibleSection) {
-            // Remove active class from all nav items
-            sections.forEach(navItem => navItem.classList.remove('active'));
-            
-            // Add active class to corresponding nav item
-            const correspondingNavItem = document.querySelector(`.sundial-section[href="#${mostVisibleSection.id}"]`);
-            if (correspondingNavItem) {
-                correspondingNavItem.classList.add('active');
-            }
-        }
-    }
-
-    // Handle scroll with throttling
-    let isScrolling;
-    window.addEventListener('scroll', function() {
-        window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(updateActiveSection, 100);
-    });
-
-    // Initial check for active section
-    updateActiveSection();
-
-    // Update active section when window is resized
-    window.addEventListener('resize', updateActiveSection);
-
-    // Handle section clicks
+    // Handle section clicks with improved scroll behavior and loading animation
     sections.forEach(section => {
-        section.addEventListener('click', function(e) {
+        section.addEventListener('click', async function(e) {
             e.preventDefault();
             
-            // Remove active class from all sections
-            sections.forEach(s => s.classList.remove('active'));
-            
-            // Add active class to clicked section
-            this.classList.add('active');
-
-            // Get the target section and scroll to it
+            // Get section name for loader
             const targetId = this.getAttribute('href').substring(1);
+            const sectionName = targetId.charAt(0).toUpperCase() + targetId.slice(1);
+            
+            // Store the clicked section for reference
+            const clickedSection = this;
+            
+            // Show loader with correct section name
+            showLoader(sectionName);
+            
+            // Remove active class from all sections
+            sections.forEach(s => {
+                s.classList.remove('active');
+                s.classList.remove('section-highlight');
+            });
+            
+            // Get the target section and scroll to it
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
+                // Calculate offset considering any fixed headers
                 const offset = targetSection.offsetTop;
+                
+                // Wait for minimum load time and animations
+                await hideLoader();
+                
+                // Add active class to clicked section after loading
+                clickedSection.classList.add('active');
+                clickedSection.classList.add('section-highlight');
+                
+                // Scroll to section
                 window.scrollTo({
                     top: offset,
                     behavior: 'smooth'
                 });
             }
         });
+    });
+
+    // Update the updateActiveSection function to handle loading states
+    function updateActiveSection() {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const viewportCenter = scrollPosition + (windowHeight / 2);
+
+        // Find the section that is currently most relevant
+        let currentSection = null;
+        let minDistance = Infinity;
+
+        contentSections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = scrollPosition + rect.top;
+            const sectionMiddle = sectionTop + (rect.height / 2);
+            
+            const distance = Math.abs(viewportCenter - sectionMiddle);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                currentSection = section;
+            }
+        });
+
+        if (currentSection) {
+            const previousActive = document.querySelector('.sundial-section.active');
+            const newActive = document.querySelector(`.sundial-section[href="#${currentSection.id}"]`);
+            
+            // Only update if we're changing sections and not during a loading state
+            if (previousActive && newActive && previousActive !== newActive) {
+                const loader = document.querySelector('.cyberpunk-loader');
+                // Only proceed if loader is not active
+                if (!loader.classList.contains('active')) {
+                    // Remove active class from all nav items
+                    sections.forEach(navItem => {
+                        navItem.classList.remove('active');
+                        navItem.classList.remove('section-highlight');
+                    });
+                    
+                    // Add active class to corresponding nav item
+                    if (newActive) {
+                        newActive.classList.add('active');
+                        newActive.classList.add('section-highlight');
+                    }
+                }
+            }
+        }
+    }
+
+    // Handle scroll with debouncing and immediate update
+    let scrollTimeout;
+    let lastScrollTime = 0;
+    const scrollThrottle = 50; // Minimum time between updates in ms
+
+    window.addEventListener('scroll', function() {
+        // Don't update during loading
+        const loader = document.querySelector('.cyberpunk-loader');
+        if (loader.classList.contains('active')) return;
+
+        const now = Date.now();
+        
+        // Clear any pending timeout
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+
+        // If enough time has passed since last update, update immediately
+        if (now - lastScrollTime >= scrollThrottle) {
+            updateActiveSection();
+            lastScrollTime = now;
+        } else {
+            // Otherwise, set a timeout for a deferred update
+            scrollTimeout = setTimeout(function() {
+                updateActiveSection();
+                lastScrollTime = Date.now();
+            }, scrollThrottle);
+        }
+    });
+
+    // Initial check for active section with a slight delay to ensure proper layout
+    setTimeout(updateActiveSection, 100);
+
+    // Update active section when window is resized with debouncing
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(function() {
+            updateActiveSection();
+        }, 150);
     });
 
     // Listen for URL changes and update navigation
