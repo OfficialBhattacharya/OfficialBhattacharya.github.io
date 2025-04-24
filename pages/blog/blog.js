@@ -1,15 +1,87 @@
 // Blog section initialization
 document.addEventListener('DOMContentLoaded', function() {
-    initBlogAnimations();
+    console.log("DOM loaded, initializing blog functionality");
+    initViewModes();
+    initNeonChrono();
+    initSynthwaveCarousel();
+    initTopicMatrix();
 });
 
-// Initialize blog animations
-function initBlogAnimations() {
-    // Add animation classes to blog posts
-    document.querySelectorAll('.blog-post-newspaper').forEach((post, index) => {
-        post.style.animationDelay = `${index * 0.1}s`;
-        post.classList.add('fade-in');
+// Initialize view modes
+function initViewModes() {
+    console.log("Initializing view modes");
+    const viewButtons = document.querySelectorAll('.view-mode-button');
+    const blogViews = document.querySelectorAll('.blog-view');
+
+    // Set initial state
+    const activeView = localStorage.getItem('blogViewMode') || 'chrono';
+    setActiveView(activeView);
+
+    // Add click handlers
+    viewButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const viewMode = button.getAttribute('data-view');
+            console.log("Switching to view mode:", viewMode);
+            setActiveView(viewMode);
+            localStorage.setItem('blogViewMode', viewMode);
+        });
     });
+
+    function setActiveView(viewMode) {
+        console.log("Setting active view:", viewMode);
+        // Update buttons
+        viewButtons.forEach(btn => {
+            if (btn.getAttribute('data-view') === viewMode) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Update views
+        blogViews.forEach(view => {
+            if (view.classList.contains(viewMode)) {
+                view.classList.add('active');
+            } else {
+                view.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Initialize Neon Chrono Scroller
+function initNeonChrono() {
+    const leftArrow = document.querySelector('.blog-view.chrono .nav-arrow.left');
+    const rightArrow = document.querySelector('.blog-view.chrono .nav-arrow.right');
+    
+    if (leftArrow && rightArrow) {
+        // We'll implement this functionality later
+        console.log("Chronological navigation arrows initialized");
+    }
+}
+
+// Initialize Synthwave Carousel
+function initSynthwaveCarousel() {
+    const carousel = document.querySelector('.blog-view.synthwave');
+    if (carousel) {
+        console.log("Synthwave carousel initialized");
+    }
+}
+
+// Initialize Topic Matrix
+function initTopicMatrix() {
+    const topicToggles = document.querySelectorAll('.blog-view.matrix .topic-toggle .binary-toggle');
+    if (topicToggles.length > 0) {
+        console.log("Topic matrix initialized");
+        
+        topicToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('off');
+                const category = toggle.parentElement.querySelector('span').textContent.toLowerCase();
+                console.log("Toggling category:", category);
+            });
+        });
+    }
 }
 
 // Blog Carousel Functionality
@@ -450,4 +522,192 @@ function initMobileParallax() {
             });
         });
     }
-} 
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // View Mode Switching
+    const viewButtons = document.querySelectorAll('.view-mode-button');
+    const views = document.querySelectorAll('.blog-view');
+
+    // Initialize view mode
+    function initializeViewMode() {
+        // Hide all views except the active one
+        views.forEach(view => {
+            view.style.display = 'none';
+            view.style.opacity = '0';
+        });
+
+        // Show the default view (chrono)
+        const defaultView = document.querySelector('.blog-view.chrono');
+        if (defaultView) {
+            defaultView.style.display = 'block';
+            setTimeout(() => {
+                defaultView.style.opacity = '1';
+            }, 100);
+        }
+    }
+
+    // View Mode Switching
+    viewButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetView = button.dataset.view;
+            
+            // Remove active class from all buttons
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // Hide all views with transition
+            views.forEach(view => {
+                view.style.opacity = '0';
+                setTimeout(() => {
+                    view.style.display = 'none';
+                }, 500);
+            });
+
+            // Show target view with transition
+            const targetViewElement = document.querySelector(`.blog-view.${targetView}`);
+            if (targetViewElement) {
+                setTimeout(() => {
+                    targetViewElement.style.display = 'block';
+                    setTimeout(() => {
+                        targetViewElement.style.opacity = '1';
+                    }, 50);
+                }, 500);
+            }
+        });
+    });
+
+    // Neon Chrono-Scroller Logic
+    const chronoScroller = document.querySelector('.blog-view.chrono');
+    const posts = Array.from(document.querySelectorAll('.blog-post'));
+    let currentPostIndex = 0;
+
+    function updateChronoPost(direction) {
+        const oldPost = posts[currentPostIndex];
+        currentPostIndex = (currentPostIndex + direction + posts.length) % posts.length;
+        const newPost = posts[currentPostIndex];
+
+        // Animate out current post
+        anime({
+            targets: oldPost,
+            opacity: [1, 0],
+            translateX: direction > 0 ? [0, '-100%'] : [0, '100%'],
+            duration: 500,
+            easing: 'easeInOutQuad'
+        });
+
+        // Animate in new post
+        anime({
+            targets: newPost,
+            opacity: [0, 1],
+            translateX: [direction > 0 ? '100%' : '-100%', 0],
+            duration: 500,
+            easing: 'easeInOutQuad'
+        });
+    }
+
+    // Navigation arrows
+    document.querySelector('.nav-arrow.left')?.addEventListener('click', () => {
+        updateChronoPost(-1);
+    });
+
+    document.querySelector('.nav-arrow.right')?.addEventListener('click', () => {
+        updateChronoPost(1);
+    });
+
+    // Grid Synthwave Carousel Logic
+    const carousel = document.querySelector('.blog-view.synthwave');
+    if (carousel) {
+        let isScrolling = false;
+        let startX;
+        let scrollLeft;
+
+        carousel.addEventListener('mousedown', (e) => {
+            isScrolling = true;
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isScrolling) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        carousel.addEventListener('mouseup', () => {
+            isScrolling = false;
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            isScrolling = false;
+        });
+
+        // Add scanline effect
+        const terminalCards = carousel.querySelectorAll('.terminal-card');
+        terminalCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const scanlines = card.querySelector('.scanlines');
+                if (scanlines) {
+                    anime({
+                        targets: scanlines,
+                        opacity: [0, 0.2],
+                        duration: 300,
+                        easing: 'linear'
+                    });
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const scanlines = card.querySelector('.scanlines');
+                if (scanlines) {
+                    anime({
+                        targets: scanlines,
+                        opacity: 0,
+                        duration: 300,
+                        easing: 'linear'
+                    });
+                }
+            });
+        });
+    }
+
+    // Neural Topic Matrix Logic
+    const topicToggles = document.querySelectorAll('.binary-toggle');
+    const matrixPosts = {
+        finance: document.querySelectorAll('.finance-post'),
+        random: document.querySelectorAll('.random-post')
+    };
+
+    topicToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('off');
+            
+            const category = toggle.parentElement.querySelector('span').textContent.toLowerCase();
+            const posts = matrixPosts[category];
+            
+            anime({
+                targets: posts,
+                opacity: toggle.classList.contains('off') ? [1, 0] : [0, 1],
+                scale: toggle.classList.contains('off') ? [1, 0.8] : [0.8, 1],
+                duration: 400,
+                easing: 'easeInOutQuad'
+            });
+        });
+    });
+
+    // Initialize the view mode on page load
+    initializeViewMode();
+
+    // Mobile touch support using Hammer.js
+    if (typeof Hammer !== 'undefined') {
+        const hammer = new Hammer(document.querySelector('.blog'));
+        
+        hammer.on('swipeleft swiperight', (e) => {
+            if (document.querySelector('.blog-view.chrono.active')) {
+                updateChronoPost(e.type === 'swipeleft' ? 1 : -1);
+            }
+        });
+    }
+}); 

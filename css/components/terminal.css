@@ -19,6 +19,8 @@
     justify-content: space-between;
     align-items: center;
     margin: -20px -20px 15px -20px;
+    position: relative;
+    z-index: 10;
 }
 
 .terminal-title {
@@ -164,15 +166,28 @@
     text-shadow: 0 0 5px rgba(255, 0, 102, 0.5);
 }
 
+/* Terminal window styling for about page */
+.terminal-window {
+    position: relative;
+    z-index: 2;
+}
+
+.terminal-window .terminal-header {
+    position: relative;
+    z-index: 10;
+}
+
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
     .terminal-container {
         margin: 10px 0;
         font-size: 12px;
+        padding: 15px;
     }
 
     .terminal-header {
         padding: 3px 8px;
+        margin: -15px -15px 10px -15px;
     }
 
     .terminal-title {
@@ -213,16 +228,28 @@
     .terminal-output {
         margin: 3px 0 10px 0;
     }
+
+    /* Fix for terminal windows on mobile */
+    .terminal-window {
+        margin-top: 10px;
+    }
+    
+    .terminal-window .terminal-header {
+        margin: 0;
+        border-radius: 5px 5px 0 0;
+    }
 }
 
 @media screen and (max-width: 380px) {
     .terminal-container {
         margin: 5px 0;
         font-size: 11px;
+        padding: 10px;
     }
 
     .terminal-header {
         padding: 2px 6px;
+        margin: -10px -10px 8px -10px;
     }
 
     .terminal-title {
@@ -261,5 +288,15 @@
 
     .terminal-output {
         margin: 2px 0 8px 0;
+    }
+
+    /* Fix for terminal windows on small mobile */
+    .terminal-window {
+        margin-top: 5px;
+    }
+    
+    .terminal-window .terminal-header {
+        margin: 0;
+        border-radius: 5px 5px 0 0;
     }
 } 

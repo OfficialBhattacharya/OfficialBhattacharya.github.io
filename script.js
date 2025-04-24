@@ -1237,53 +1237,46 @@ function initGamesIframe() {
 
 // Initialize blog modes functionality
 function initBlogModes() {
-    const viewModeToggle = document.querySelector('.view-mode-toggle');
-    const bodyElement = document.body;
+    const blogContainer = document.querySelector('.blog-container');
+    const viewButtons = document.querySelectorAll('.view-mode-button');
     
-    // Set default mode (Neon Chronicle/newspaper)
-    if (localStorage.getItem('blogViewMode') === 'card') {
-        bodyElement.classList.add('card-mode');
-    }
+    if (!blogContainer || !viewButtons.length) return;
+
+    // Set initial view mode from localStorage or default to grid
+    const savedMode = localStorage.getItem('blogViewMode') || 'grid';
+    blogContainer.className = `blog-container blog-${savedMode}-view`;
+    updateActiveButton(savedMode);
     
-    // Toggle between modes
-    if (viewModeToggle) {
-        viewModeToggle.addEventListener('click', function() {
-            bodyElement.classList.toggle('card-mode');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const mode = button.dataset.view;
+            const currentMode = blogContainer.className.includes('grid-view') ? 'grid' : 'list';
             
-            // Store preference in localStorage
-            if (bodyElement.classList.contains('card-mode')) {
-                localStorage.setItem('blogViewMode', 'card');
-                // Add transition effect
-                addModeTransitionEffect('newspaper-to-card');
-            } else {
-                localStorage.setItem('blogViewMode', 'newspaper');
-                // Add transition effect
-                addModeTransitionEffect('card-to-newspaper');
-            }
+            // Don't do anything if clicking the current mode
+            if (mode === currentMode) return;
+            
+            // Remove old view class and add new one
+            blogContainer.classList.remove(`blog-${currentMode}-view`);
+            blogContainer.classList.add(`blog-${mode}-view`);
+            
+            // Store the preference
+            localStorage.setItem('blogViewMode', mode);
+            
+            // Update active button state
+            updateActiveButton(mode);
         });
-    }
+    });
 }
 
-// Add transition effect when switching between modes
-function addModeTransitionEffect(transitionType) {
-    const transitionElement = document.createElement('div');
-    transitionElement.className = 'mode-transition';
-    
-    if (transitionType === 'newspaper-to-card') {
-        transitionElement.style.background = 'radial-gradient(circle, rgba(255, 0, 60, 0.2) 0%, rgba(10, 10, 10, 0) 70%)';
-    } else {
-        transitionElement.style.background = 'radial-gradient(circle, rgba(0, 255, 157, 0.2) 0%, rgba(10, 10, 10, 0) 70%)';
-    }
-    
-    document.body.appendChild(transitionElement);
-    
-    // Animate and remove
-    setTimeout(() => {
-        transitionElement.style.opacity = '0';
-        setTimeout(() => {
-            transitionElement.remove();
-        }, 500);
-    }, 500);
+function updateActiveButton(mode) {
+    const buttons = document.querySelectorAll('.view-mode-button');
+    buttons.forEach(button => {
+        if (button.dataset.view === mode) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
 }
 
 // Initialize the card deck behavior

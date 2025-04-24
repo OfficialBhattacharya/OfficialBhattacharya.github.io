@@ -66,6 +66,7 @@
     
     section {
         padding: 3rem 1rem;
+        padding-top: 4rem;
     }
     
     .hero-content {
@@ -97,6 +98,31 @@
     
     .timeline-item::before {
         left: -20px;
+    }
+    
+    /* Add specific styles for about section */
+    #about {
+        padding-top: 4rem;
+    }
+    
+    #about .section-content {
+        padding-top: 1rem;
+    }
+    
+    #about .terminal-container {
+        margin-top: 0;
+    }
+    
+    /* Fix for all sections with terminal components */
+    section .terminal-container,
+    section .terminal-window {
+        margin-top: 10px;
+    }
+    
+    section .terminal-container .terminal-header,
+    section .terminal-window .terminal-header {
+        margin: 0;
+        border-radius: 5px 5px 0 0;
     }
     
     .about-stats {
@@ -173,6 +199,11 @@
 @media (max-width: 576px) {
     body {
         font-size: 0.85rem;
+    }
+    
+    section {
+        padding: 2rem 0.5rem;
+        padding-top: 3rem;
     }
     
     .section-content {
@@ -265,5 +296,11 @@
     .sundial-section {
         padding: 0.3rem 0.5rem;
         font-size: 0.7rem;
+    }
+    
+    /* Fix for all sections with terminal components on small screens */
+    section .terminal-container,
+    section .terminal-window {
+        margin-top: 5px;
     }
 } 

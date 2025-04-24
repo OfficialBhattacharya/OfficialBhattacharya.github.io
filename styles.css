@@ -941,4 +941,108 @@ footer {
     .blog-grid-newspaper {
         grid-gap: 1rem;
     }
+}
+
+/* Blog View Mode Styles */
+.blog-container {
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Grid View */
+.blog-grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.blog-grid-view .blog-card {
+    background: rgba(10, 10, 10, 0.7);
+    border: 1px solid var(--cyan);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-grid-view .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+}
+
+.blog-grid-view .blog-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-grid-view .blog-title {
+    font-family: var(--header-font);
+    font-size: 1.2rem;
+    color: var(--cyan);
+    margin-bottom: 1rem;
+    text-shadow: var(--cyan-glow);
+}
+
+.blog-grid-view .blog-excerpt {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    flex: 1;
+}
+
+.blog-grid-view .blog-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 255, 157, 0.2);
+}
+
+/* About Section Styles */
+#about {
+    position: relative;
+    padding-top: 5rem;
+}
+
+#about .section-content {
+    position: relative;
+    z-index: 1;
+}
+
+#about .terminal-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Global Terminal Styles */
+.terminal-container, .terminal-window {
+    position: relative;
+    z-index: 2;
+}
+
+.terminal-container .terminal-header, 
+.terminal-window .terminal-header {
+    position: relative;
+    z-index: 10;
+}
+
+/* Fix for all sections with terminal components */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+section .section-content {
+    position: relative;
+    z-index: 1;
 } 
