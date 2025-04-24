@@ -56,35 +56,19 @@ document.querySelectorAll('.timeline-item, .experience-item, .project-card').for
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize components
-    initSundialNavigation();
-    initBlogCarousel();
-    initMangaModal();
-    initAnimations();
+    // Initialize cyberpunk name animation directly
     initCyberpunkNameAnimation();
+    createBinaryRain();
+    initParticles();
+    
+    // Initialize navigation and other elements
+    initSundialNavigation();
     initTicTacToe();
-    initAboutIframe();
-    initHomeIframe();
     
-    // Initialize new iframes
-    initBlogIframe();
-    initExperienceIframe();
-    initProjectsIframe();
-    initMangaIframe();
-    initSkillsIframe();
-    initGamesIframe();
-    
-    // Set home section as active by default
-    document.querySelectorAll('.sundial-section').forEach(section => {
-        section.classList.remove('active');
+    // Observe sections for animations
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
     });
-    const homeSection = document.querySelector('.sundial-section[href="#home"]');
-    if (homeSection) {
-        homeSection.classList.add('active');
-    }
-
-    // Initialize blog component
-    initBlogComponent();
 });
 
 // Initialize and handle the home iframe
@@ -203,44 +187,26 @@ function resizeIframe(iframe) {
 function initMangaModal() {
     const mangaImages = document.querySelectorAll('.manga-image');
     const modal = document.querySelector('.manga-image-modal');
-    
-    // If no modal in parent document, no need to continue
     if (!modal) return;
-    
+
     const modalImg = document.querySelector('.manga-modal-content');
     const closeBtn = document.querySelector('.manga-modal-close');
 
-    // Open modal when an image is clicked
     mangaImages.forEach(img => {
-        img.addEventListener('click', function() {
+        img.onclick = function() {
+            modal.style.display = "flex";
             modalImg.src = this.src;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        });
+        }
     });
 
-    // Close modal via close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
     }
 
-    // Close modal when clicking outside the image
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
-    });
-
-    // Close modal when pressing Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            closeModal();
-        }
-    });
-
-    function closeModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
     }
 }
 
@@ -338,9 +304,56 @@ function initSundialNavigation() {
         setTimeout(updateArrows, 100);
     }
 
+    // Check URL to determine current page
+    function getCurrentPageFromUrl() {
+        const path = window.location.pathname;
+        const hash = window.location.hash;
+        
+        // If there's a hash in the URL, use it for navigation
+        if (hash) {
+            return hash.substring(1); // Remove the # character
+        }
+        
+        // Check if we're on a specific page based on the path
+        if (path.includes('/blog/')) {
+            return 'blog';
+        } else if (path.includes('/projects/')) {
+            return 'projects';
+        } else if (path.includes('/skills/')) {
+            return 'skills';
+        } else if (path.includes('/experience/')) {
+            return 'experience';
+        } else if (path.includes('/about/')) {
+            return 'about';
+        } else if (path.includes('/games/')) {
+            return 'games';
+        }
+        
+        // Default to home if no specific page is detected
+        return 'home';
+    }
+    
+    // Update navigation based on current page
+    function updateNavigationHighlight() {
+        const currentPage = getCurrentPageFromUrl();
+        
+        // Remove active class from all nav items
+        sections.forEach(navItem => navItem.classList.remove('active'));
+        
+        // Add active class to current nav item
+        const activeNavItem = document.querySelector(`.sundial-section[href="#${currentPage}"]`);
+        if (activeNavItem) {
+            activeNavItem.classList.add('active');
+        }
+    }
+    
+    // Call this immediately to set the correct navigation
+    updateNavigationHighlight();
+
     // Update active section based on scroll position
     function updateActiveSection() {
         const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
         const mainContainerRect = mainContainer.getBoundingClientRect();
 
         // Find the section that is most visible in the viewport
@@ -349,10 +362,12 @@ function initSundialNavigation() {
 
         contentSections.forEach((section) => {
             const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top;
+            const sectionBottom = rect.bottom;
             
             // Calculate how much of the section is visible in the viewport
-            const visibleTop = Math.max(rect.top, 0);
-            const visibleBottom = Math.min(rect.bottom, window.innerHeight);
+            const visibleTop = Math.max(sectionTop, 0);
+            const visibleBottom = Math.min(sectionBottom, windowHeight);
             
             if (visibleBottom > visibleTop) {
                 const visibleArea = visibleBottom - visibleTop;
@@ -377,11 +392,11 @@ function initSundialNavigation() {
         }
     }
 
-    // Handle scroll
+    // Handle scroll with throttling
     let isScrolling;
     window.addEventListener('scroll', function() {
         window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(updateActiveSection, 66);
+        isScrolling = setTimeout(updateActiveSection, 100);
     });
 
     // Initial check for active section
@@ -405,11 +420,18 @@ function initSundialNavigation() {
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+                const offset = targetSection.offsetTop;
+                window.scrollTo({
+                    top: offset,
+                    behavior: 'smooth'
+                });
             }
         });
     });
 
+    // Listen for URL changes and update navigation
+    window.addEventListener('hashchange', updateNavigationHighlight);
+    
     // Handle subsection clicks
     const subsections = document.querySelectorAll('.sundial-subsection');
     subsections.forEach(subsection => {
@@ -1380,4 +1402,38 @@ function initBlogComponent() {
     initCardDeck();
     initMobileSwipe();
     initMobileParallax();
+}
+
+// Simple smooth scrolling function
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Initialize element animations
+function initElementAnimations() {
+    // Observe elements with animation classes
+    const elementObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                elementObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements with animation classes
+    document.querySelectorAll('.fade-in, .slide-in, .scale-in, .timeline-item, .project-card').forEach(el => {
+        elementObserver.observe(el);
+    });
 } 

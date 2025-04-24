@@ -6,14 +6,12 @@
 class Router {
     constructor() {
         this.routes = {
-            '': 'home',
             '#home': 'home',
             '#about': 'about',
             '#blog': 'blog',
             '#experience': 'experience',
             '#projects': 'projects',
             '#paper-presentations': 'paper-presentations',
-            '#manga': 'manga',
             '#skills': 'skills',
             '#games': 'games'
         };
@@ -119,7 +117,22 @@ class Router {
         
         // Add active class to current nav item
         const activeNavItem = document.querySelector(`.sundial-section[href="#${page}"]`);
-        if (activeNavItem) activeNavItem.classList.add('active');
+        if (activeNavItem) {
+            activeNavItem.classList.add('active');
+        } else {
+            // If we're on a specific page that doesn't match exactly (like a blog post)
+            // Try to match the general section
+            if (page.startsWith('blog-')) {
+                const blogNavItem = document.querySelector('.sundial-section[href="#blog"]');
+                if (blogNavItem) blogNavItem.classList.add('active');
+            } else if (page.startsWith('project-')) {
+                const projectsNavItem = document.querySelector('.sundial-section[href="#projects"]');
+                if (projectsNavItem) projectsNavItem.classList.add('active');
+            } else if (page.startsWith('game-')) {
+                const gamesNavItem = document.querySelector('.sundial-section[href="#games"]');
+                if (gamesNavItem) gamesNavItem.classList.add('active');
+            }
+        }
     }
     
     showLoading() {

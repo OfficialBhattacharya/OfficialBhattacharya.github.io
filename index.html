@@ -210,18 +210,21 @@
             <div class="section-content">
                 <h2 class="section-title">Blog Posts</h2>
                 <div class="blog-container">
-                    <!-- View Mode Toggle -->
-                    <div class="view-mode-toggle">
-                        <div class="toggle-slider"></div>
-                        <span class="toggle-label neon">NEON</span>
-                        <span class="toggle-label deck">DECK</span>
-                    </div>
-
-                    <!-- Newspaper Mode (Neon Chronicle) -->
                     <div class="blog-grid-newspaper">
                         <article class="blog-post-newspaper">
                             <div class="scanlines"></div>
-                            <img src="assets/Blog4.jpg" alt="Option-Adjusted Spread" class="blog-image-newspaper">
+                            <div class="blog-content-newspaper">
+                                <h3 class="blog-title-newspaper">Simulate future short-term interest rates: Example of Vasicek model</h3>
+                                <p class="blog-excerpt-newspaper">A comprehensive guide to simulating future short-term interest rates using the Vasicek model, a widely used mean-reverting stochastic process.</p>
+                                <div class="blog-meta-newspaper">
+                                    <span class="blog-date-newspaper">April 20, 2025</span>
+                                    <a href="blog/vasicek-model.html" class="blog-link-newspaper">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <article class="blog-post-newspaper">
+                            <div class="scanlines"></div>
                             <div class="blog-content-newspaper">
                                 <h3 class="blog-title-newspaper">Calculating Spreads using bootstrap techniques</h3>
                                 <p class="blog-excerpt-newspaper">A comprehensive guide to calculating Option-Adjusted Spreads (OAS) for Mortgage-Backed Securities using bootstrap techniques and Monte Carlo simulation.</p>
@@ -234,7 +237,6 @@
                         
                         <article class="blog-post-newspaper">
                             <div class="scanlines"></div>
-                            <img src="assets/Blog3.png" alt="Mean-Reverting Process" class="blog-image-newspaper">
                             <div class="blog-content-newspaper">
                                 <h3 class="blog-title-newspaper">Using Mean-Reverting Process to Estimate Volatility and Drift</h3>
                                 <p class="blog-excerpt-newspaper">A detailed exploration of using the Ornstein-Uhlenbeck process to estimate volatility and drift in mean-reverting time series, with applications in financial modeling.</p>
@@ -247,7 +249,6 @@
                         
                         <article class="blog-post-newspaper">
                             <div class="scanlines"></div>
-                            <img src="assets/Blog2.png" alt="Repeat Sales Transaction Index" class="blog-image-newspaper">
                             <div class="blog-content-newspaper">
                                 <h3 class="blog-title-newspaper">Repeat-Sales Transaction Index for Custom Indexes: Example of Home Prices</h3>
                                 <p class="blog-excerpt-newspaper">A detailed exploration of creating a repeat sales transaction index, like the Case-Shiller Index, for tracking property price changes over time.</p>
@@ -260,7 +261,18 @@
                         
                         <article class="blog-post-newspaper">
                             <div class="scanlines"></div>
-                            <img src="assets/regression-polygon.jpg" alt="Regression Line in Regular Polygons" class="blog-image-newspaper">
+                            <div class="blog-content-newspaper">
+                                <h3 class="blog-title-newspaper">Forecast future interest rates and discount cash flows: Example of Heath-Jarrow-Morton (HJM) framework</h3>
+                                <p class="blog-excerpt-newspaper">A comprehensive guide to using the Heath-Jarrow-Morton framework to model the evolution of the entire yield curve and forecast future interest rates.</p>
+                                <div class="blog-meta-newspaper">
+                                    <span class="blog-date-newspaper">March 22, 2025</span>
+                                    <a href="blog/heath-jarrow-morton.html" class="blog-link-newspaper">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <article class="blog-post-newspaper">
+                            <div class="scanlines"></div>
                             <div class="blog-content-newspaper">
                                 <h3 class="blog-title-newspaper">Regression Lines in Regular Polygons: A Statistical Curiosity</h3>
                                 <p class="blog-excerpt-newspaper">Exploring an intriguing statistical problem that emerged during my B.Stat comprehensive viva preparation: how does the regression line behave when we rotate a regular polygon while keeping its centroid fixed?</p>
@@ -270,180 +282,6 @@
                                 </div>
                             </div>
                         </article>
-                    </div>
-                    
-                    <!-- Card Mode (Data Deck) -->
-                    <div class="blog-grid-deck">
-                        <!-- Card 1 -->
-                        <div class="data-card">
-                            <div class="flip-card-container">
-                                <div class="card-inner">
-                                    <div class="card-front">
-                                        <img src="assets/Blog4.jpg" alt="Option-Adjusted Spread" class="blog-image-deck">
-                                        <div class="blog-content-deck">
-                                            <h3 class="blog-title-deck">Calculating Spreads using bootstrap techniques</h3>
-                                            <p class="blog-excerpt-deck">A comprehensive guide to calculating Option-Adjusted Spreads (OAS) for Mortgage-Backed Securities using bootstrap techniques and Monte Carlo simulation.</p>
-                                            <div class="blog-meta-deck">
-                                                <span class="blog-date-deck">April 13, 2025</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-back">
-                                        <h3 class="blog-title-deck">Calculating Spreads</h3>
-                                        <div class="blog-stats">
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">TYPE</span>
-                                                <span class="blog-stats-value">TUTORIAL</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CATEGORY</span>
-                                                <span class="blog-stats-value">FINANCE</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">READ_TIME</span>
-                                                <span class="blog-stats-value">15 MIN</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CODE_LEVEL</span>
-                                                <span class="blog-stats-value">ADVANCED</span>
-                                            </div>
-                                        </div>
-                                        <a href="blog/option-adjusted-spread.html" class="blog-link-deck">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 2 -->
-                        <div class="data-card">
-                            <div class="flip-card-container">
-                                <div class="card-inner">
-                                    <div class="card-front">
-                                        <img src="assets/Blog3.png" alt="Mean-Reverting Process" class="blog-image-deck">
-                                        <div class="blog-content-deck">
-                                            <h3 class="blog-title-deck">Using Mean-Reverting Process to Estimate Volatility and Drift</h3>
-                                            <p class="blog-excerpt-deck">A detailed exploration of using the Ornstein-Uhlenbeck process to estimate volatility and drift in mean-reverting time series, with applications in financial modeling.</p>
-                                            <div class="blog-meta-deck">
-                                                <span class="blog-date-deck">April 7, 2025</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-back">
-                                        <h3 class="blog-title-deck">Mean-Reverting Process</h3>
-                                        <div class="blog-stats">
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">TYPE</span>
-                                                <span class="blog-stats-value">THEORY</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CATEGORY</span>
-                                                <span class="blog-stats-value">STATISTICS</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">READ_TIME</span>
-                                                <span class="blog-stats-value">18 MIN</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CODE_LEVEL</span>
-                                                <span class="blog-stats-value">INTERMEDIATE</span>
-                                            </div>
-                                        </div>
-                                        <a href="blog/mean-reverting-process.html" class="blog-link-deck">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 3 -->
-                        <div class="data-card">
-                            <div class="flip-card-container">
-                                <div class="card-inner">
-                                    <div class="card-front">
-                                        <img src="assets/Blog2.png" alt="Repeat Sales Transaction Index" class="blog-image-deck">
-                                        <div class="blog-content-deck">
-                                            <h3 class="blog-title-deck">Repeat-Sales Transaction Index for Custom Indexes</h3>
-                                            <p class="blog-excerpt-deck">A detailed exploration of creating a repeat sales transaction index, like the Case-Shiller Index, for tracking property price changes over time.</p>
-                                            <div class="blog-meta-deck">
-                                                <span class="blog-date-deck">April 1, 2025</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-back">
-                                        <h3 class="blog-title-deck">Repeat-Sales Index</h3>
-                                        <div class="blog-stats">
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">TYPE</span>
-                                                <span class="blog-stats-value">CASE STUDY</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CATEGORY</span>
-                                                <span class="blog-stats-value">REAL ESTATE</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">READ_TIME</span>
-                                                <span class="blog-stats-value">12 MIN</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CODE_LEVEL</span>
-                                                <span class="blog-stats-value">INTERMEDIATE</span>
-                                            </div>
-                                        </div>
-                                        <a href="blog/repeat-sales-transaction-index.html" class="blog-link-deck">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 4 -->
-                        <div class="data-card">
-                            <div class="flip-card-container">
-                                <div class="card-inner">
-                                    <div class="card-front">
-                                        <img src="assets/regression-polygon.jpg" alt="Regression Line in Regular Polygons" class="blog-image-deck">
-                                        <div class="blog-content-deck">
-                                            <h3 class="blog-title-deck">Regression Lines in Regular Polygons</h3>
-                                            <p class="blog-excerpt-deck">Exploring an intriguing statistical problem that emerged during my B.Stat comprehensive viva preparation: how does the regression line behave when we rotate a regular polygon?</p>
-                                            <div class="blog-meta-deck">
-                                                <span class="blog-date-deck">March 15, 2025</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-back">
-                                        <h3 class="blog-title-deck">Polygon Regression</h3>
-                                        <div class="blog-stats">
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">TYPE</span>
-                                                <span class="blog-stats-value">MATH CURIOSITY</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CATEGORY</span>
-                                                <span class="blog-stats-value">STATISTICS</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">READ_TIME</span>
-                                                <span class="blog-stats-value">10 MIN</span>
-                                            </div>
-                                            <div class="blog-stats-row">
-                                                <span class="blog-stats-label">CODE_LEVEL</span>
-                                                <span class="blog-stats-value">BASIC</span>
-                                            </div>
-                                        </div>
-                                        <a href="blog/regression-lines-regular-polygons.html" class="blog-link-deck">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile swipe indicator -->
-                        <div class="swipe-indicator">
-                            <span>SWIPE FOR MORE</span>
-                            <div class="swipe-dots">
-                                <div class="swipe-dot active"></div>
-                                <div class="swipe-dot"></div>
-                                <div class="swipe-dot"></div>
-                                <div class="swipe-dot"></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -547,41 +385,6 @@
                 </div>
             </div>
         </section>
-
-        <section id="manga" class="manga">
-            <div class="section-content">
-                <h2 class="section-title">Manga in Progress</h2>
-                <div class="manga-grid">
-                    <div class="manga-item">
-                        <img src="assets/manga1.jpg" alt="Manga Artwork 1" class="manga-image">
-                        <div class="manga-overlay">
-                            <h3>Manga Artwork 1</h3>
-                            <p>Work in Progress</p>
-                        </div>
-                    </div>
-                    <div class="manga-item">
-                        <img src="assets/manga2.jpg" alt="Manga Artwork 2" class="manga-image">
-                        <div class="manga-overlay">
-                            <h3>Manga Artwork 2</h3>
-                            <p>Work in Progress</p>
-                        </div>
-                    </div>
-                    <div class="manga-item">
-                        <img src="assets/manga3.jpg" alt="Manga Artwork 3" class="manga-image">
-                        <div class="manga-overlay">
-                            <h3>Manga Artwork 3</h3>
-                            <p>Work in Progress</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Manga Image Modal -->
-        <div class="manga-image-modal">
-            <span class="manga-modal-close">&times;</span>
-            <img class="manga-modal-content" src="" alt="Enlarged Manga Image">
-        </div>
 
         <section id="skills" class="skills">
             <div class="section-content">
@@ -763,7 +566,7 @@
 
     <nav class="sundial-nav">
         <div class="sundial-sections">
-            <a href="#home" class="sundial-section active">
+            <a href="#home" class="sundial-section">
                 <span>Home</span>
             </a>
             <a href="#about" class="sundial-section">
@@ -792,13 +595,6 @@
                 <div class="sundial-subsections">
                     <a href="#tradedash" class="sundial-subsection">TradeDash</a>
                     <a href="#other-projects" class="sundial-subsection">Other Projects</a>
-                </div>
-            </a>
-            <a href="#manga" class="sundial-section">
-                <span>Manga</span>
-                <div class="sundial-subsections">
-                    <a href="#artwork" class="sundial-subsection">Artwork</a>
-                    <a href="#progress" class="sundial-subsection">Progress</a>
                 </div>
             </a>
             <a href="#skills" class="sundial-section">

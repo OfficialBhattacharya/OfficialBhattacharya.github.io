@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulate future short-term interest rates: Example of Vasicek model - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Simulate future short-term interest rates: Example of Vasicek model</h1>
+        <div class="blog-meta">
+            <span class="blog-date">April 20, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>The <strong>Vasicek model</strong> is a widely used stochastic process for modeling short-term interest rates. It is a mean-reverting model defined by the following stochastic differential equation (SDE):</p>
+            
+            <div class="math">
+                \[ dr_t = \kappa (\theta - r_t) dt + \sigma dW_t \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(r_t\): Short-term interest rate at time \(t\)</li>
+                <li>\(\kappa\): Speed of mean reversion</li>
+                <li>\(\theta\): Long-term mean interest rate</li>
+                <li>\(\sigma\): Volatility of the interest rate</li>
+                <li>\(W_t\): Wiener process (standard Brownian motion)</li>
+            </ul>
+
+            <p>Below is a step-by-step guide to simulating future short-term interest rates using the Vasicek model with mathematical rigor:</p>
+
+            <h2>Step 1: Discretize the Vasicek SDE</h2>
+            <p><strong>Euler-Maruyama Discretization</strong>: For a small time step \(\Delta t\), the discretized form of the Vasicek SDE is:</p>
+            
+            <div class="math">
+                \[ r_{t+1} = r_t + \kappa (\theta - r_t) \Delta t + \sigma \sqrt{\Delta t} \, \epsilon_t \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(\epsilon_t \sim N(0, 1)\): Standard normal random variable</li>
+                <li>\(\Delta t\): Time step (e.g., daily, monthly)</li>
+            </ul>
+
+            <h2>Step 2: Initialize Parameters</h2>
+            <ol>
+                <li><strong>Set Parameters</strong>: Choose values for \(\kappa\), \(\theta\), and \(\sigma\) based on historical data or calibration</li>
+                <li><strong>Initial Rate</strong>: Set the initial short-term interest rate \(r_0\)</li>
+            </ol>
+
+            <h2>Step 3: Simulate Interest Rate Paths</h2>
+            <ol>
+                <li><strong>Generate Random Shocks</strong>: For each time step \(t\), generate a standard normal random variable \(\epsilon_t\)</li>
+                <li><strong>Update Interest Rate</strong>: Use the discretized equation to compute the interest rate at the next time step:
+                    <div class="math">
+                        \[ r_{t+1} = r_t + \kappa (\theta - r_t) \Delta t + \sigma \sqrt{\Delta t} \, \epsilon_t \]
+                    </div>
+                </li>
+                <li><strong>Repeat</strong>: Iterate the process for \(T\) time steps to simulate a single path of the interest rate</li>
+            </ol>
+
+            <h2>Step 4: Simulate Multiple Paths</h2>
+            <ol>
+                <li><strong>Monte Carlo Simulation</strong>: Repeat Step 3 for \(N\) independent paths to generate a distribution of possible future interest rates</li>
+                <li><strong>Store Paths</strong>: Save the simulated interest rates \(r_{i,t}\) for each path \(i\) and time step \(t\)</li>
+            </ol>
+
+            <h2>Step 5: Validate the Simulation</h2>
+            <ol>
+                <li><strong>Check Mean Reversion</strong>: Ensure the simulated paths exhibit mean-reverting behavior</li>
+                <li><strong>Compare Statistics</strong>: Verify that the mean, variance, and autocorrelation of the simulated paths match the theoretical properties of the Vasicek model</li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li>Discretized Vasicek SDE:
+                    <div class="math">
+                        \[ r_{t+1} = r_t + \kappa (\theta - r_t) \Delta t + \sigma \sqrt{\Delta t} \, \epsilon_t \]
+                    </div>
+                </li>
+                <li>Simulate \(N\) paths of interest rates:
+                    <ul>
+                        <li>For each path \(i\) and time step \(t\), compute:
+                            <div class="math">
+                                \[ r_{i,t+1} = r_{i,t} + \kappa (\theta - r_{i,t}) \Delta t + \sigma \sqrt{\Delta t} \, \epsilon_{i,t} \]
+                            </div>
+                        </li>
+                        <li>Repeat for \(T\) time steps</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 6: Implementation</h2>
+            <ol>
+                <li><strong>Algorithm</strong>:
+                    <ul>
+                        <li>Initialize \(r_0\), \(\kappa\), \(\theta\), \(\sigma\), \(\Delta t\), \(T\), and \(N\)</li>
+                        <li>For each path \(i = 1, 2, \dots, N\):
+                            <ul>
+                                <li>For each time step \(t = 0, 1, \dots, T-1\):
+                                    <ul>
+                                        <li>Generate \(\epsilon_{i,t} \sim N(0, 1)\)</li>
+                                        <li>Update \(r_{i,t+1}\) using the discretized equation</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>Return the matrix of simulated rates \(r_{i,t}\)</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 

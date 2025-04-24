@@ -1,3 +1,17 @@
+// Blog section initialization
+document.addEventListener('DOMContentLoaded', function() {
+    initBlogAnimations();
+});
+
+// Initialize blog animations
+function initBlogAnimations() {
+    // Add animation classes to blog posts
+    document.querySelectorAll('.blog-post-newspaper').forEach((post, index) => {
+        post.style.animationDelay = `${index * 0.1}s`;
+        post.classList.add('fade-in');
+    });
+}
+
 // Blog Carousel Functionality
 document.addEventListener('DOMContentLoaded', function() {
     initBlogCarousel();

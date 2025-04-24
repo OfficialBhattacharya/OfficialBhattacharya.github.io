@@ -124,7 +124,7 @@ function initElementAnimations() {
     });
 
     // Add animation classes to elements
-    document.querySelectorAll('.timeline-item, .project-card, .paper-item, .manga-item, .skill-category, .game-card').forEach(item => {
+    document.querySelectorAll('.timeline-item, .project-card, .paper-item, .skill-category, .game-card').forEach(item => {
         item.classList.add('fade-in');
     });
 }
