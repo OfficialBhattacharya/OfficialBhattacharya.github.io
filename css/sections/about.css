@@ -1,6 +1,7 @@
 .about {
     background-color: var(--bg-color);
     position: relative;
+    padding-top: 4rem;
 }
 
 .about::before {
@@ -19,6 +20,7 @@
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    padding-top: 2rem;
 }
 
 #about-frame {
@@ -132,15 +134,16 @@
     color: var(--cyber-green, #00ff9d);
     text-shadow: 0 0 15px rgba(0, 255, 157, 0.7);
     position: relative;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
     text-align: center;
+    font-size: 2.5rem;
 }
 
 .about .section-title::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
     width: 100px;
@@ -148,9 +151,26 @@
     background: linear-gradient(90deg, transparent, var(--cyber-green, #00ff9d), transparent);
 }
 
+.section-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
-    .about-content {
+    .about {
+        padding-top: 3rem;
+    }
+
+    .about .section-title {
+        font-size: 2rem;
+        padding: 1.5rem 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-content {
         padding: 1rem;
     }
 
@@ -158,34 +178,43 @@
         width: 100%;
         margin: 0;
         font-size: 14px;
+        padding: 10px;
     }
 
     .terminal-content {
         padding: 0.5rem;
+        font-size: 12px;
     }
 
     .terminal-output {
         word-wrap: break-word;
         white-space: pre-wrap;
+        font-size: 12px;
     }
 
     .terminal-output ul {
-        padding-left: 1rem;
+        padding-left: 0.5rem;
     }
 
     .terminal-output li {
         margin-bottom: 0.5rem;
+        font-size: 12px;
+        line-height: 1.4;
     }
 
     .system-info {
-        font-size: 12px;
+        font-size: 11px;
         word-break: break-word;
+        margin-left: 0;
+        padding: 0.5rem;
     }
 
     .cyber-cat {
-        font-size: 10px;
+        font-size: 8px;
         line-height: 1.2;
         white-space: pre;
+        padding-right: 0;
+        margin: 5px 0;
     }
 
     .about-stats {
@@ -197,28 +226,85 @@
     }
 
     .terminal-title {
-        font-size: 14px;
+        font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
     .terminal-buttons {
-        min-width: 60px;
+        min-width: 50px;
+    }
+
+    .terminal-button {
+        width: 8px;
+        height: 8px;
+        margin-left: 4px;
+    }
+
+    .terminal-header {
+        padding: 3px 8px;
+        margin: -10px -10px 10px -10px;
+    }
+
+    .terminal-prompt::before {
+        font-size: 12px;
+    }
+
+    .terminal-command {
+        font-size: 12px;
     }
 }
 
 /* Additional fixes for very small screens */
 @media screen and (max-width: 380px) {
-    .terminal-content {
-        font-size: 12px;
+    .about {
+        padding-top: 2rem;
     }
 
-    .system-info {
+    .about .section-title {
+        font-size: 1.75rem;
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+    }
+
+    .terminal-container {
+        padding: 8px;
+    }
+
+    .terminal-content {
+        font-size: 11px;
+        padding: 0.3rem;
+    }
+
+    .terminal-output {
         font-size: 11px;
     }
 
+    .terminal-output li {
+        font-size: 11px;
+    }
+
+    .system-info {
+        font-size: 10px;
+    }
+
     .cyber-cat {
-        font-size: 8px;
+        font-size: 7px;
+    }
+
+    .terminal-title {
+        font-size: 11px;
+    }
+
+    .terminal-button {
+        width: 6px;
+        height: 6px;
+        margin-left: 3px;
+    }
+
+    .terminal-header {
+        padding: 2px 6px;
+        margin: -8px -8px 8px -8px;
     }
 } 

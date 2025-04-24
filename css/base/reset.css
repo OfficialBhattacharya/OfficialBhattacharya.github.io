@@ -9,6 +9,19 @@ html {
     overflow-x: hidden;
 }
 
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: auto;
+        height: 100%;
+        overflow: auto;
+    }
+
+    body {
+        height: 100%;
+        overflow: auto;
+    }
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -33,7 +46,14 @@ body {
     margin-top: 0;
     display: block;
     overflow-x: hidden;
-    scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        height: auto;
+        overflow-y: auto;
+        scroll-snap-type: none;
+    }
 }
 
 section {
@@ -45,4 +65,13 @@ section {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    section {
+        scroll-snap-align: none;
+        min-height: auto;
+        height: auto;
+        overflow-y: visible;
+    }
 } 

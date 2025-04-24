@@ -216,7 +216,13 @@ section {
         height: auto;
         padding: 0.5rem 0;
         border-radius: 15px 15px 0 0;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        transform: none;
+        position: fixed;
         z-index: 1001;
+        background: rgba(0, 0, 0, 0.9);
     }
     
     .sundial-sections {
@@ -224,41 +230,54 @@ section {
         justify-content: center;
         gap: 0.5rem;
         padding: 0 0.5rem;
-        max-height: 150px;
+        max-height: 120px;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        scroll-snap-type: none;
     }
     
     .sundial-section {
         padding: 5px 10px;
         font-size: 0.75rem;
         margin: 0.25rem;
+        flex: 0 0 auto;
     }
     
-    .sundial-section .sundial-subsections {
-        position: fixed;
-        bottom: 65px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
-        max-width: 300px;
+    .sundial-section:active {
+        transform: scale(0.95);
+    }
+    
+    .sundial-subsections {
+        display: none;
     }
     
     .sundial-arrow {
         display: none;
+    }
+
+    /* Ensure content doesn't get hidden behind the navbar */
+    body {
+        padding-bottom: 70px;
+    }
+
+    section {
+        padding-bottom: calc(5rem + 70px);
     }
 }
 
 @media (max-width: 576px) {
     .sundial-nav {
         border-radius: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        transform: none;
     }
     
     .sundial-sections {
-        max-height: 120px;
+        max-height: 100px;
+        padding: 0 0.3rem;
+    }
+    
+    .sundial-section {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        margin: 0.2rem;
     }
 } 

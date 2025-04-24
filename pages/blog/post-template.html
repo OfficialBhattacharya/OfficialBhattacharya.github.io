@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>${POST_TITLE} - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../blog/post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <article class="post-container">
+            <header class="post-header">
+                <h1 class="post-title">${POST_TITLE}</h1>
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        ${POST_DATE}
+                    </span>
+                    <span class="post-author">
+                        <i class="fas fa-user"></i>
+                        Diganta Bhattacharya
+                    </span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <!-- Introduction -->
+                <p>${POST_INTRODUCTION}</p>
+
+                <!-- Main Content -->
+                <h2>${SECTION_TITLE}</h2>
+                <p>${SECTION_CONTENT}</p>
+
+                <!-- Math Block Example -->
+                <div class="math-block">
+                    \[
+                    ${MATH_EQUATION}
+                    \]
+                </div>
+
+                <!-- Code Block Example -->
+                <pre><code>${CODE_EXAMPLE}</code></pre>
+
+                <!-- Image Example -->
+                <img src="${IMAGE_PATH}" alt="${IMAGE_ALT}" class="post-image">
+
+                <!-- Navigation -->
+                <nav class="post-navigation">
+                    <a href="${PREV_POST_URL}" class="nav-link prev">
+                        <i class="fas fa-chevron-left"></i>
+                        Previous Post
+                    </a>
+                    <a href="${NEXT_POST_URL}" class="nav-link next">
+                        Next Post
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Initialize MathJax
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+        // Cyberpunk Animation Effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate title on page load
+            anime({
+                targets: '.post-title',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 800,
+                easing: 'easeOutExpo'
+            });
+
+            // Animate math blocks on scroll
+            const mathBlocks = document.querySelectorAll('.math-block');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            });
+
+            mathBlocks.forEach(block => {
+                block.style.opacity = '0';
+                block.style.transform = 'translateX(-20px)';
+                block.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(block);
+            });
+
+            // Add hover effect to code blocks
+            const codeBlocks = document.querySelectorAll('pre');
+            codeBlocks.forEach(block => {
+                block.addEventListener('mouseenter', () => {
+                    anime({
+                        targets: block,
+                        scale: 1.01,
+                        boxShadow: '0 0 20px rgba(0, 255, 157, 0.2)',
+                        duration: 300,
+                        easing: 'easeOutExpo'
+                    });
+                });
+
+                block.addEventListener('mouseleave', () => {
+                    anime({
+                        targets: block,
+                        scale: 1,
+                        boxShadow: '0 0 0 rgba(0, 255, 157, 0)',
+                        duration: 300,
+                        easing: 'easeOutExpo'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

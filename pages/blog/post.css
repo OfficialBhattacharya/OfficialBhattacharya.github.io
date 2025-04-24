@@ -1,0 +1,323 @@
+/* Cyberpunk Blog Post Styles */
+:root {
+    --cyber-green: #00ff9d;
+    --cyber-pink: #ff003c;
+    --cyber-blue: #00f0ff;
+    --bg-dark: #000000;
+    --bg-darker: #000000;
+    --text-color: #ffffff;
+    --code-bg: rgba(0, 255, 157, 0.1);
+    --grid-lines: 1px solid rgba(0, 255, 157, 0.1);
+}
+
+body {
+    background-color: var(--bg-darker);
+    color: var(--text-color);
+}
+
+/* Post Container */
+.post-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    background-color: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 157, 0.1);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* Grid Background */
+.post-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(0, 255, 157, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 157, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Glowing Background Effect */
+.post-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, 
+        rgba(0, 255, 157, 0.1) 0%, 
+        rgba(0, 240, 255, 0.05) 25%, 
+        transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Post Header */
+.post-header {
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.post-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    color: var(--cyber-green);
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.post-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyber-green), transparent);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.post-date, .post-author {
+    color: var(--cyber-blue);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post-date i, .post-author i {
+    color: var(--cyber-green);
+}
+
+/* Post Content */
+.post-content {
+    position: relative;
+    z-index: 1;
+    color: var(--text-color);
+    font-family: 'Rajdhani', sans-serif;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    border-left: 3px solid var(--cyber-green);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.05);
+}
+
+.post-content h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyber-green);
+    font-size: 1.8rem;
+    margin: 2.5rem 0 1.5rem;
+    text-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
+}
+
+.post-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyber-blue);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* Math Equations */
+.math-block {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    margin: 2rem 0;
+    overflow-x: auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+}
+
+.math-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyber-green), transparent);
+}
+
+.math-block .MathJax {
+    color: #ffffff !important;
+}
+
+/* Code Blocks */
+pre {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1.5rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+}
+
+pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--cyber-green), transparent);
+}
+
+code {
+    font-family: 'Fira Code', monospace;
+    color: var(--cyber-green);
+}
+
+/* Images */
+.post-image {
+    width: 100%;
+    border-radius: 5px;
+    margin: 2rem 0;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.post-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+}
+
+/* Navigation */
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: var(--grid-lines);
+}
+
+.nav-link {
+    color: var(--cyber-green);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+}
+
+.nav-link:hover {
+    color: var(--cyber-blue);
+    transform: translateX(5px);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+}
+
+.nav-link.prev {
+    transform-origin: left;
+}
+
+.nav-link.next {
+    transform-origin: right;
+}
+
+.nav-link.prev:hover {
+    transform: translateX(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .post-container {
+        padding: 3rem 1.5rem;
+    }
+
+    .post-title {
+        font-size: 2rem;
+    }
+
+    .post-content {
+        font-size: 1rem;
+    }
+
+    .post-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .post-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .math-block {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .post-container {
+        padding: 2rem 1rem;
+    }
+
+    .post-title {
+        font-size: 1.75rem;
+    }
+
+    .post-meta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .post-content h2 {
+        font-size: 1.4rem;
+    }
+
+    .post-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .math-block {
+        padding: 1rem;
+    }
+}
+
+/* MathJax Styling */
+.MathJax {
+    color: #ffffff !important;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.MathJax_SVG * {
+    color: #ffffff !important;
+}
+
+/* Selection Color */
+::selection {
+    background: rgba(0, 255, 157, 0.3);
+    color: #ffffff;
+} 

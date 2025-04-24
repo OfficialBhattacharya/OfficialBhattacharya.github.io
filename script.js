@@ -4,13 +4,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            // Check if it's a mobile device
+            if (window.innerWidth <= 768) {
+                // On mobile, just scroll to the section without smooth behavior
+                target.scrollIntoView({
+                    behavior: 'auto',
+                    block: 'start'
+                });
+            } else {
+                // On desktop, use smooth scrolling
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         }
     });
 });
+
+// Disable automatic scroll snapping on mobile
+function handleMobileScroll() {
+    if (window.innerWidth <= 768) {
+        document.body.style.overscrollBehavior = 'auto';
+        document.documentElement.style.scrollBehavior = 'auto';
+    } else {
+        document.body.style.overscrollBehavior = 'contain';
+        document.documentElement.style.scrollBehavior = 'smooth';
+    }
+}
+
+// Add resize listener to handle mobile/desktop transitions
+window.addEventListener('resize', handleMobileScroll);
+// Initial call
+handleMobileScroll();
 
 // Navbar scroll effect
 const navbar = document.querySelector('.navbar');
