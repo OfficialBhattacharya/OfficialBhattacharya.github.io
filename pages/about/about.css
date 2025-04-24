@@ -67,7 +67,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
 }
 
 /* CRT screen effect */
@@ -98,7 +97,6 @@
     border-bottom: 1px solid rgba(0, 255, 157, 0.2);
     position: relative;
     z-index: 2;
-    margin: 0;
 }
 
 .terminal-buttons {
@@ -500,23 +498,20 @@
         padding: 1rem;
         height: auto;
         min-height: 100vh;
-        padding-top: 4rem;
     }
 
     .terminal-grid {
         height: auto;
         gap: 10px;
-        margin-top: 0;
     }
 
     .cat-terminal {
-        display: none;
+        display: none; /* Hide cat terminal on mobile */
     }
 
     .info-terminal {
         height: auto;
         min-height: 60vh;
-        margin-top: 0;
     }
 
     .stats-container {
@@ -540,12 +535,10 @@
 @media (max-width: 576px) {
     .about-container {
         padding: 0.5rem;
-        padding-top: 3rem;
     }
     
     .terminal-grid {
         height: calc(60vh - 1rem);
-        margin-top: 0;
     }
     
     .stats-container {
@@ -563,6 +556,5 @@
     
     .info-terminal {
         height: calc(80vh - 220px);
-        margin-top: 0;
     }
 } 

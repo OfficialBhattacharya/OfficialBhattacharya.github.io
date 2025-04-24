@@ -1006,43 +1006,4 @@ footer {
     margin-top: auto;
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 255, 157, 0.2);
-}
-
-/* About Section Styles */
-#about {
-    position: relative;
-    padding-top: 5rem;
-}
-
-#about .section-content {
-    position: relative;
-    z-index: 1;
-}
-
-#about .terminal-container {
-    position: relative;
-    z-index: 2;
-}
-
-/* Global Terminal Styles */
-.terminal-container, .terminal-window {
-    position: relative;
-    z-index: 2;
-}
-
-.terminal-container .terminal-header, 
-.terminal-window .terminal-header {
-    position: relative;
-    z-index: 10;
-}
-
-/* Fix for all sections with terminal components */
-section {
-    position: relative;
-    overflow: hidden;
-}
-
-section .section-content {
-    position: relative;
-    z-index: 1;
 } 
