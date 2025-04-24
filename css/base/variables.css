@@ -2,7 +2,7 @@
     --primary-color: #ffffff;
     --secondary-color: #00ff9d;
     --accent-color: #ff003c;
-    --text-color: #e6e6e6;
+    --text-color: #ffffff;
     --bg-color: #0a0a0a;
     --card-bg: rgba(17, 25, 40, 0.8);
     --hover-color: #233554;
@@ -14,7 +14,7 @@
     
     /* Font families */
     --header-font: 'Orbitron', sans-serif;
-    --body-font: 'Rajdhani', 'Roboto', sans-serif;
+    --body-font: 'Rajdhani', 'Roboto', monospace, sans-serif;
     
     /* Sizes in relative units */
     --section-padding: 4rem 0;

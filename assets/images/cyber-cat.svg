@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cyber cat with glowing effects and circuit patterns -->
+  <defs>
+    <!-- Glow filter for cyberpunk effect -->
+    <filter id="cyber-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#00ff9d" flood-opacity="0.7" result="glow-color"/>
+      <feComposite in="glow-color" in2="blur" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Pulse animation for circuits -->
+    <linearGradient id="circuit-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ff9d" stop-opacity="0.2">
+        <animate attributeName="stop-opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#00ffff" stop-opacity="0.8">
+        <animate attributeName="stop-opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#00ff9d" stop-opacity="0.2">
+        <animate attributeName="stop-opacity" values="0.2;0.6;0.2" dur="3s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Cat head base shape -->
+  <rect class="cat-head" x="100" y="80" width="100" height="100" rx="15" 
+        fill="#121212" stroke="#2a2a2a" stroke-width="2"/>
+  
+  <!-- Cat ears -->
+  <path class="cat-ear-left" d="M100 100 L80 60 L110 85 Z" 
+        fill="#121212" stroke="#2a2a2a" stroke-width="2"/>
+  <path class="cat-ear-right" d="M200 100 L220 60 L190 85 Z" 
+        fill="#121212" stroke="#2a2a2a" stroke-width="2"/>
+  
+  <!-- Cyber circuit patterns -->
+  <path class="circuit-pattern" d="M90 130 L110 130 L120 140 L140 140 L150 150 L170 150 L180 140 L210 140" 
+        fill="none" stroke="url(#circuit-gradient)" stroke-width="1.5" stroke-linecap="round"/>
+  <path class="circuit-pattern" d="M110 170 L130 170 L140 160 L160 160 L170 170 L190 170 L200 180" 
+        fill="none" stroke="url(#circuit-gradient)" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Cat eyes with glow -->
+  <g class="cat-eyes">
+    <circle class="cat-eye-left" cx="130" cy="110" r="10" fill="#000" stroke="#333" stroke-width="1">
+      <circle class="cat-pupil-left" cx="133" cy="107" r="6" fill="#00ff9d" filter="url(#cyber-glow)"/>
+    </circle>
+    <circle class="cat-eye-right" cx="170" cy="110" r="10" fill="#000" stroke="#333" stroke-width="1">
+      <circle class="cat-pupil-right" cx="173" cy="107" r="6" fill="#00ff9d" filter="url(#cyber-glow)"/>
+    </circle>
+  </g>
+  
+  <!-- Circuit tail with animation path -->
+  <path class="circuit-tail" d="M150 180 C150 200, 160 220, 180 230 C200 240, 220 250, 230 270" 
+        fill="none" stroke="#00ff9d" stroke-width="2" stroke-dasharray="5,3" filter="url(#cyber-glow)">
+    <animate attributeName="stroke-dashoffset" from="8" to="0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Data points along the circuit -->
+  <circle class="data-point" cx="180" cy="230" r="3" fill="#00ffff" filter="url(#cyber-glow)">
+    <animate attributeName="r" values="2;4;2" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="data-point" cx="210" cy="250" r="2" fill="#00ffff" filter="url(#cyber-glow)">
+    <animate attributeName="r" values="1;3;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="data-point" cx="230" cy="270" r="3" fill="#00ffff" filter="url(#cyber-glow)">
+    <animate attributeName="r" values="2;4;2" dur="1s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Whiskers with circuit-like patterns -->
+  <g class="whiskers">
+    <path d="M90 130 L50 120" stroke="#333" stroke-width="1"/>
+    <path d="M90 140 L45 140" stroke="#333" stroke-width="1"/>
+    <path d="M90 150 L50 160" stroke="#333" stroke-width="1"/>
+    
+    <path d="M210 130 L250 120" stroke="#333" stroke-width="1"/>
+    <path d="M210 140 L255 140" stroke="#333" stroke-width="1"/>
+    <path d="M210 150 L250 160" stroke="#333" stroke-width="1"/>
+  </g>
+  
+  <!-- Hexagonal matrix background elements -->
+  <g class="hex-grid" opacity="0.3">
+    <path d="M60 200 L70 210 L60 220 L50 210 Z" stroke="#00ff9d" fill="none"/>
+    <path d="M240 200 L250 210 L240 220 L230 210 Z" stroke="#00ff9d" fill="none"/>
+    <path d="M100 50 L110 60 L100 70 L90 60 Z" stroke="#00ff9d" fill="none"/>
+    <path d="M200 50 L210 60 L200 70 L190 60 Z" stroke="#00ff9d" fill="none"/>
+  </g>
+  
+  <!-- Binary code background elements -->
+  <text x="60" y="40" fill="#00ff9d" font-family="monospace" font-size="8" opacity="0.4">10110</text>
+  <text x="200" y="40" fill="#00ff9d" font-family="monospace" font-size="8" opacity="0.4">01101</text>
+  <text x="40" y="240" fill="#00ff9d" font-family="monospace" font-size="8" opacity="0.4">01001</text>
+  <text x="220" y="240" fill="#00ff9d" font-family="monospace" font-size="8" opacity="0.4">10010</text>
+</svg> 

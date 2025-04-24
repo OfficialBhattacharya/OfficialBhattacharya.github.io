@@ -63,12 +63,150 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
     initCyberpunkNameAnimation();
     initTicTacToe();
+    initAboutIframe();
+    initHomeIframe();
+    
+    // Initialize new iframes
+    initBlogIframe();
+    initExperienceIframe();
+    initProjectsIframe();
+    initMangaIframe();
+    initSkillsIframe();
+    initGamesIframe();
+    
+    // Set home section as active by default
+    document.querySelectorAll('.sundial-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    const homeSection = document.querySelector('.sundial-section[href="#home"]');
+    if (homeSection) {
+        homeSection.classList.add('active');
+    }
+
+    // Initialize blog component
+    initBlogComponent();
 });
+
+// Initialize and handle the home iframe
+function initHomeIframe() {
+    const homeFrame = document.getElementById('home-frame');
+    if (homeFrame) {
+        // Adjust iframe height when content loads
+        homeFrame.onload = function() {
+            resizeHomeIframe(homeFrame);
+            
+            // Make sure animations in the iframe are properly triggered
+            try {
+                const iframeWindow = homeFrame.contentWindow;
+                if (iframeWindow.initCyberpunkNameAnimation) {
+                    iframeWindow.initCyberpunkNameAnimation();
+                }
+                if (iframeWindow.createBinaryRain) {
+                    iframeWindow.createBinaryRain();
+                }
+                if (iframeWindow.initParticles) {
+                    iframeWindow.initParticles();
+                }
+            } catch (error) {
+                console.log("Could not initialize animations in home iframe", error);
+            }
+        };
+        
+        // Resize iframe on window resize
+        window.addEventListener('resize', function() {
+            resizeHomeIframe(homeFrame);
+        });
+    }
+}
+
+// Resize home iframe
+function resizeHomeIframe(iframe) {
+    try {
+        // Set the iframe height to match the viewport height
+        iframe.style.height = `${window.innerHeight}px`;
+    } catch (error) {
+        console.log("Could not adjust home iframe height automatically");
+    }
+}
+
+// Initialize and handle the about iframe
+function initAboutIframe() {
+    const aboutFrame = document.getElementById('about-frame');
+    if (aboutFrame) {
+        // Adjust iframe height when content loads
+        aboutFrame.onload = function() {
+            resizeIframe(aboutFrame);
+            
+            // Add CRT flicker effect to the terminal occasionally
+            try {
+                const iframeDoc = aboutFrame.contentWindow.document;
+                const terminalWindow = iframeDoc.querySelector('.terminal-window');
+                
+                if (terminalWindow) {
+                    setInterval(() => {
+                        // Random chance to trigger a flicker
+                        if (Math.random() < 0.1) {
+                            terminalWindow.classList.add('crt-flicker');
+                            setTimeout(() => {
+                                terminalWindow.classList.remove('crt-flicker');
+                            }, 150);
+                        }
+                    }, 4000);
+                }
+                
+                // Add glow effect to stat boxes on hover
+                const statBoxes = iframeDoc.querySelectorAll('.stat-box');
+                if (statBoxes.length > 0) {
+                    statBoxes.forEach(box => {
+                        box.addEventListener('mouseover', () => {
+                            const statValue = box.querySelector('.stat-value');
+                            if (statValue) {
+                                statValue.style.textShadow = '0 0 20px var(--cyber-green), 0 0 30px var(--cyber-green)';
+                            }
+                        });
+                        
+                        box.addEventListener('mouseout', () => {
+                            const statValue = box.querySelector('.stat-value');
+                            if (statValue) {
+                                statValue.style.textShadow = '0 0 10px rgba(0, 255, 157, 0.5)';
+                            }
+                        });
+                    });
+                }
+            } catch (error) {
+                console.log("Could not initialize terminal effects in about iframe", error);
+            }
+        };
+        
+        // Resize iframe on window resize
+        window.addEventListener('resize', function() {
+            resizeIframe(aboutFrame);
+        });
+    }
+}
+
+// Resize iframe to fit content
+function resizeIframe(iframe) {
+    try {
+        // Try to get the content height
+        const contentHeight = iframe.contentWindow.document.body.scrollHeight;
+        // Set the iframe height
+        iframe.style.height = (contentHeight + 30) + 'px';
+    } catch (error) {
+        // If any error (like cross-origin), set a default height
+        console.log("Could not adjust iframe height automatically. Setting default height.");
+        iframe.style.height = '500px';
+    }
+}
 
 // Handle manga image modal
 function initMangaModal() {
     const mangaImages = document.querySelectorAll('.manga-image');
     const modal = document.querySelector('.manga-image-modal');
+    
+    // If no modal in parent document, no need to continue
+    if (!modal) return;
+    
     const modalImg = document.querySelector('.manga-modal-content');
     const closeBtn = document.querySelector('.manga-modal-close');
 
@@ -82,7 +220,9 @@ function initMangaModal() {
     });
 
     // Close modal via close button
-    closeBtn.addEventListener('click', closeModal);
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
 
     // Close modal when clicking outside the image
     modal.addEventListener('click', function(e) {
@@ -200,27 +340,55 @@ function initSundialNavigation() {
 
     // Update active section based on scroll position
     function updateActiveSection() {
-        const scrollPosition = mainContainer.scrollLeft;
-        const containerWidth = mainContainer.clientWidth;
+        const scrollPosition = window.scrollY;
+        const mainContainerRect = mainContainer.getBoundingClientRect();
+
+        // Find the section that is most visible in the viewport
+        let mostVisibleSection = null;
+        let maxVisibleArea = 0;
 
         contentSections.forEach((section) => {
-            const sectionLeft = section.offsetLeft;
-            const sectionWidth = section.offsetWidth;
-
-            // Check if section is in view
-            if (sectionLeft <= scrollPosition + (containerWidth / 2) &&
-                sectionLeft + sectionWidth > scrollPosition + (containerWidth / 2)) {
-                // Remove active class from all nav items
-                sections.forEach(navItem => navItem.classList.remove('active'));
+            const rect = section.getBoundingClientRect();
+            
+            // Calculate how much of the section is visible in the viewport
+            const visibleTop = Math.max(rect.top, 0);
+            const visibleBottom = Math.min(rect.bottom, window.innerHeight);
+            
+            if (visibleBottom > visibleTop) {
+                const visibleArea = visibleBottom - visibleTop;
                 
-                // Add active class to corresponding nav item
-                const correspondingNavItem = document.querySelector(`.sundial-section[href="#${section.id}"]`);
-                if (correspondingNavItem) {
-                    correspondingNavItem.classList.add('active');
+                if (visibleArea > maxVisibleArea) {
+                    maxVisibleArea = visibleArea;
+                    mostVisibleSection = section;
                 }
             }
         });
+
+        // Update active section in navigation
+        if (mostVisibleSection) {
+            // Remove active class from all nav items
+            sections.forEach(navItem => navItem.classList.remove('active'));
+            
+            // Add active class to corresponding nav item
+            const correspondingNavItem = document.querySelector(`.sundial-section[href="#${mostVisibleSection.id}"]`);
+            if (correspondingNavItem) {
+                correspondingNavItem.classList.add('active');
+            }
+        }
     }
+
+    // Handle scroll
+    let isScrolling;
+    window.addEventListener('scroll', function() {
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(updateActiveSection, 66);
+    });
+
+    // Initial check for active section
+    updateActiveSection();
+
+    // Update active section when window is resized
+    window.addEventListener('resize', updateActiveSection);
 
     // Handle section clicks
     sections.forEach(section => {
@@ -273,19 +441,6 @@ function initSundialNavigation() {
             }
         });
     });
-
-    // Handle scroll
-    let isScrolling;
-    mainContainer.addEventListener('scroll', function() {
-        window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(updateActiveSection, 66);
-    });
-
-    // Initial check for active section
-    updateActiveSection();
-
-    // Update active section when window is resized
-    window.addEventListener('resize', updateActiveSection);
 }
 
 // Ultimate Tic-Tac-Toe game logic
@@ -777,12 +932,20 @@ function createParticleExplosion() {
 
 // Handle blog carousel navigation
 function initBlogCarousel() {
+    // Support direct DOM access for backward compatibility
     const blogGrid = document.querySelector('.blog-grid');
     const nextBtn = document.querySelector('.blog-scroll-btn.next');
     const prevBtn = document.querySelector('.blog-scroll-btn.prev');
     
-    if (!blogGrid || !nextBtn || !prevBtn) return;
+    if (blogGrid && nextBtn && prevBtn) {
+        setupBlogCarousel(blogGrid, nextBtn, prevBtn);
+    }
     
+    // Otherwise, it's in an iframe and handled there
+}
+
+// Setup function for blog carousel
+function setupBlogCarousel(blogGrid, nextBtn, prevBtn) {
     nextBtn.addEventListener('click', () => {
         const scrollAmount = blogGrid.offsetWidth * 0.8;
         blogGrid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
@@ -810,4 +973,411 @@ function initBlogCarousel() {
     
     // Initial update
     updateScrollButtons();
+}
+
+// Initialize and handle the blog iframe
+function initBlogIframe() {
+    const blogFrame = document.getElementById('blog-frame');
+    if (blogFrame) {
+        blogFrame.onload = function() {
+            resizeIframe(blogFrame);
+        };
+        
+        window.addEventListener('resize', function() {
+            resizeIframe(blogFrame);
+        });
+    }
+}
+
+// Initialize and handle the experience iframe
+function initExperienceIframe() {
+    const experienceFrame = document.getElementById('experience-frame');
+    if (experienceFrame) {
+        experienceFrame.onload = function() {
+            resizeIframe(experienceFrame);
+        };
+        
+        window.addEventListener('resize', function() {
+            resizeIframe(experienceFrame);
+        });
+    }
+}
+
+// Initialize and handle the projects iframe
+function initProjectsIframe() {
+    const projectsFrame = document.getElementById('projects-frame');
+    if (projectsFrame) {
+        projectsFrame.onload = function() {
+            resizeIframe(projectsFrame);
+        };
+        
+        window.addEventListener('resize', function() {
+            resizeIframe(projectsFrame);
+        });
+    }
+}
+
+// Initialize and handle the manga iframe
+function initMangaIframe() {
+    const mangaFrame = document.getElementById('manga-frame');
+    if (mangaFrame) {
+        mangaFrame.onload = function() {
+            resizeIframe(mangaFrame);
+            
+            // Ensure manga modal works properly through the iframe
+            try {
+                const iframeWindow = mangaFrame.contentWindow;
+                if (iframeWindow.document.querySelector('.manga-image-modal')) {
+                    // The modal is inside the iframe, no need to initialize it in the parent
+                    mangaImagesInIframe = true;
+                }
+            } catch (error) {
+                console.log("Could not access manga iframe content", error);
+            }
+        };
+        
+        window.addEventListener('resize', function() {
+            resizeIframe(mangaFrame);
+        });
+    }
+}
+
+// Initialize and handle the skills iframe
+function initSkillsIframe() {
+    const skillsFrame = document.getElementById('skills-frame');
+    if (skillsFrame) {
+        skillsFrame.onload = function() {
+            resizeIframe(skillsFrame);
+        };
+        
+        window.addEventListener('resize', function() {
+            resizeIframe(skillsFrame);
+        });
+    }
+}
+
+// Initialize and handle the games iframe
+function initGamesIframe() {
+    const gamesFrame = document.getElementById('games-frame');
+    if (gamesFrame) {
+        gamesFrame.onload = function() {
+            resizeIframe(gamesFrame);
+            
+            // Ensure the tic-tac-toe game works properly in the iframe
+            try {
+                const iframeWindow = gamesFrame.contentWindow;
+                if (iframeWindow.document.querySelector('.ultimate-tic-tac-toe')) {
+                    // The game is inside the iframe, no need to initialize it in the parent
+                    ticTacToeInIframe = true;
+                }
+            } catch (error) {
+                console.log("Could not access games iframe content", error);
+            }
+        };
+        
+        window.addEventListener('resize', function() {
+            resizeIframe(gamesFrame);
+        });
+    }
+}
+
+// Initialize blog modes functionality
+function initBlogModes() {
+    const viewModeToggle = document.querySelector('.view-mode-toggle');
+    const bodyElement = document.body;
+    
+    // Set default mode (Neon Chronicle/newspaper)
+    if (localStorage.getItem('blogViewMode') === 'card') {
+        bodyElement.classList.add('card-mode');
+    }
+    
+    // Toggle between modes
+    if (viewModeToggle) {
+        viewModeToggle.addEventListener('click', function() {
+            bodyElement.classList.toggle('card-mode');
+            
+            // Store preference in localStorage
+            if (bodyElement.classList.contains('card-mode')) {
+                localStorage.setItem('blogViewMode', 'card');
+                // Add transition effect
+                addModeTransitionEffect('newspaper-to-card');
+            } else {
+                localStorage.setItem('blogViewMode', 'newspaper');
+                // Add transition effect
+                addModeTransitionEffect('card-to-newspaper');
+            }
+        });
+    }
+}
+
+// Add transition effect when switching between modes
+function addModeTransitionEffect(transitionType) {
+    const transitionElement = document.createElement('div');
+    transitionElement.className = 'mode-transition';
+    
+    if (transitionType === 'newspaper-to-card') {
+        transitionElement.style.background = 'radial-gradient(circle, rgba(255, 0, 60, 0.2) 0%, rgba(10, 10, 10, 0) 70%)';
+    } else {
+        transitionElement.style.background = 'radial-gradient(circle, rgba(0, 255, 157, 0.2) 0%, rgba(10, 10, 10, 0) 70%)';
+    }
+    
+    document.body.appendChild(transitionElement);
+    
+    // Animate and remove
+    setTimeout(() => {
+        transitionElement.style.opacity = '0';
+        setTimeout(() => {
+            transitionElement.remove();
+        }, 500);
+    }, 500);
+}
+
+// Initialize the card deck behavior
+function initCardDeck() {
+    const dataCards = document.querySelectorAll('.data-card');
+    
+    if (dataCards.length === 0) return;
+    
+    // Card flip functionality
+    dataCards.forEach(card => {
+        // Double-click to flip cards
+        card.addEventListener('dblclick', function() {
+            this.classList.toggle('card-flipped');
+        });
+        
+        // Card hover animation on desktop
+        if (window.innerWidth > 768) {
+            card.addEventListener('mouseenter', function() {
+                // Lift up stats and add glow
+                const stats = this.querySelector('.blog-stats');
+                if (stats) {
+                    stats.style.transform = 'translateY(-5px)';
+                    stats.style.boxShadow = '0 5px 15px rgba(255, 0, 60, 0.2)';
+                }
+                
+                // Show floating tech stats
+                const date = this.querySelector('.blog-date-deck');
+                if (date) {
+                    // Convert date to hex code for cyberpunk effect
+                    const dateText = date.textContent;
+                    const hexDate = convertDateToHex(dateText);
+                    date.setAttribute('data-original', dateText);
+                    date.textContent = hexDate;
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                // Reset stats
+                const stats = this.querySelector('.blog-stats');
+                if (stats) {
+                    stats.style.transform = '';
+                    stats.style.boxShadow = '';
+                }
+                
+                // Reset date
+                const date = this.querySelector('.blog-date-deck');
+                if (date && date.hasAttribute('data-original')) {
+                    date.textContent = date.getAttribute('data-original');
+                }
+            });
+        }
+    });
+    
+    // Fan-out animation on load for desktop
+    if (window.innerWidth > 768) {
+        setTimeout(() => {
+            document.querySelectorAll('.data-card').forEach((card, index) => {
+                // Start with all cards stacked
+                card.style.transform = 'rotateY(0) translateZ(0) translateX(0)';
+                card.style.opacity = '0';
+                
+                // Fan out with staggered delay
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    switch (index) {
+                        case 0:
+                            card.style.transform = 'rotateY(-15deg) translateZ(10px) translateX(-160px)';
+                            break;
+                        case 1:
+                            card.style.transform = 'rotateY(-5deg) translateZ(20px) translateX(-80px)';
+                            break;
+                        case 2:
+                            card.style.transform = 'rotateY(0deg) translateZ(30px) translateX(0)';
+                            card.style.zIndex = '3';
+                            break;
+                        case 3:
+                            card.style.transform = 'rotateY(5deg) translateZ(20px) translateX(80px)';
+                            break;
+                        default:
+                            card.style.transform = 'rotateY(15deg) translateZ(10px) translateX(160px)';
+                    }
+                }, index * 100);
+            });
+        }, 500);
+    }
+}
+
+// Convert date to a hexadecimal cyberpunk format
+function convertDateToHex(dateString) {
+    let hexString = '';
+    
+    // Simple conversion for demo purposes
+    const dateParts = dateString.split(' ');
+    if (dateParts.length >= 2) {
+        const dayNum = parseInt(dateParts[1].replace(',', ''));
+        const monthMap = {
+            'January': '01', 'February': '02', 'March': '03', 'April': '04',
+            'May': '05', 'June': '06', 'July': '07', 'August': '08',
+            'September': '09', 'October': '10', 'November': '11', 'December': '12'
+        };
+        
+        const month = monthMap[dateParts[0]] || '00';
+        const year = dateParts[2] || '0000';
+        
+        // Create hex-like string
+        const dayHex = dayNum.toString(16).padStart(2, '0').toUpperCase();
+        hexString = `0x${dayHex}${month}${year.slice(2)}`;
+    } else {
+        hexString = '0x00000000';
+    }
+    
+    return hexString;
+}
+
+// Initialize mobile swipe functionality for card deck
+function initMobileSwipe() {
+    if (window.innerWidth <= 768) {
+        const cards = Array.from(document.querySelectorAll('.data-card'));
+        if (cards.length === 0) return;
+        
+        let currentCardIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        // Create/update swipe dots
+        const swipeIndicator = document.querySelector('.swipe-indicator');
+        if (swipeIndicator) {
+            const swipeDots = swipeIndicator.querySelector('.swipe-dots');
+            if (swipeDots) {
+                // Clear existing dots
+                swipeDots.innerHTML = '';
+                
+                // Create dots
+                cards.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'swipe-dot';
+                    if (index === 0) dot.classList.add('active');
+                    swipeDots.appendChild(dot);
+                });
+            }
+        }
+        
+        // Show first card, hide others
+        cards.forEach((card, index) => {
+            if (index === 0) {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) translateX(0)';
+                card.style.pointerEvents = 'auto';
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(0) translateX(100px)';
+                card.style.pointerEvents = 'none';
+            }
+            
+            // Double tap to flip
+            let lastTap = 0;
+            card.addEventListener('touchend', function() {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 500 && tapLength > 0) {
+                    this.classList.toggle('card-flipped');
+                }
+                lastTap = currentTime;
+            });
+        });
+        
+        // Basic swipe detection
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left
+                if (currentCardIndex < cards.length - 1) {
+                    // Hide current card
+                    cards[currentCardIndex].style.opacity = '0';
+                    cards[currentCardIndex].style.transform = 'translateY(0) translateX(-100px)';
+                    cards[currentCardIndex].style.pointerEvents = 'none';
+                    
+                    // Show next card
+                    currentCardIndex++;
+                    cards[currentCardIndex].style.opacity = '1';
+                    cards[currentCardIndex].style.transform = 'translateY(0) translateX(0)';
+                    cards[currentCardIndex].style.pointerEvents = 'auto';
+                    
+                    // Update dots
+                    updateSwipeDots(currentCardIndex);
+                }
+            } else if (touchEndX > touchStartX + 50) {
+                // Swipe right
+                if (currentCardIndex > 0) {
+                    // Hide current card
+                    cards[currentCardIndex].style.opacity = '0';
+                    cards[currentCardIndex].style.transform = 'translateY(0) translateX(100px)';
+                    cards[currentCardIndex].style.pointerEvents = 'none';
+                    
+                    // Show previous card
+                    currentCardIndex--;
+                    cards[currentCardIndex].style.opacity = '1';
+                    cards[currentCardIndex].style.transform = 'translateY(0) translateX(0)';
+                    cards[currentCardIndex].style.pointerEvents = 'auto';
+                    
+                    // Update dots
+                    updateSwipeDots(currentCardIndex);
+                }
+            }
+        }
+        
+        function updateSwipeDots(currentIndex) {
+            const dots = document.querySelectorAll('.swipe-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+    }
+}
+
+// Add parallax effect for newspaper mode on mobile
+function initMobileParallax() {
+    if (window.innerWidth <= 768) {
+        const blogPosts = document.querySelectorAll('.blog-post-newspaper');
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            
+            blogPosts.forEach((post, index) => {
+                const speed = 0.05 + (index % 3) * 0.02;
+                const yPos = scrollPosition * speed;
+                post.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    }
+}
+
+// Initialize blog component with all features
+function initBlogComponent() {
+    initBlogModes();
+    initCardDeck();
+    initMobileSwipe();
+    initMobileParallax();
 } 

@@ -8,6 +8,7 @@
     background-color: rgba(10, 25, 47, 0.95);
     z-index: 1000;
     overflow-y: auto;
+    overscroll-behavior: contain;
     backdrop-filter: blur(10px);
 }
 
@@ -17,6 +18,9 @@
     padding: 2rem;
     width: 90%;
     max-width: 1400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-radius: 8px;
     position: relative;
     border: 1px solid rgba(0, 247, 255, 0.2);

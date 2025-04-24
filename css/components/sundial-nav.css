@@ -178,6 +178,7 @@
 .main-container {
     display: flex;
     overflow-x: hidden;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     height: 100vh;
 }
@@ -189,6 +190,7 @@ section {
     overflow-y: auto;
     padding: 2rem;
     padding-bottom: 80px;
+    overscroll-behavior: contain;
 }
 
 /* Hide scrollbar but keep functionality */
@@ -214,6 +216,7 @@ section {
         height: auto;
         padding: 0.5rem 0;
         border-radius: 15px 15px 0 0;
+        z-index: 1001;
     }
     
     .sundial-sections {
@@ -221,12 +224,24 @@ section {
         justify-content: center;
         gap: 0.5rem;
         padding: 0 0.5rem;
+        max-height: 150px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .sundial-section {
         padding: 5px 10px;
         font-size: 0.75rem;
         margin: 0.25rem;
+    }
+    
+    .sundial-section .sundial-subsections {
+        position: fixed;
+        bottom: 65px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 300px;
     }
     
     .sundial-arrow {
@@ -241,5 +256,9 @@ section {
         left: 0;
         width: 100%;
         transform: none;
+    }
+    
+    .sundial-sections {
+        max-height: 120px;
     }
 } 
