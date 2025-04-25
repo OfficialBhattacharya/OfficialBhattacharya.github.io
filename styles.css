@@ -150,8 +150,22 @@ section {
 
 #home {
     height: 100vh;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .section-content {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #home-container {

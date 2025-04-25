@@ -18,6 +18,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     block: 'start'
                 });
             }
+            
+            // Reset the vertical scroll position of the section
+            if (target.tagName === 'SECTION') {
+                setTimeout(() => {
+                    target.scrollTop = 0;
+                }, 100);
+            }
         }
     });
 });
@@ -82,6 +89,9 @@ document.querySelectorAll('.timeline-item, .experience-item, .project-card').for
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Add CSS fixes for hero section
+    injectHeroSectionFixStyles();
+    
     // Initialize cyberpunk name animation directly
     initCyberpunkNameAnimation();
     createBinaryRain();
@@ -94,12 +104,97 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize tech stack interactivity
     initTechStackInteractivity();
     
+    // Ensure home section is properly displayed on first load
+    ensureHomeDisplay();
+    
     // Observe sections for animations
     document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
+        // Reset all sections' scroll position initially
+        section.scrollTop = 0;
     });
 
     initGameNavigation();
+
+    // Function to reset scroll positions in sections when switching
+    function resetSectionScrollPositions() {
+        document.querySelectorAll('section').forEach(section => {
+            section.scrollTop = 0;
+            
+            // Also reset scroll position for any iframes within sections
+            const iframes = section.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                try {
+                    // Try to access iframe content and reset scroll
+                    if (iframe.contentWindow && iframe.contentWindow.document && iframe.contentWindow.document.body) {
+                        iframe.contentWindow.document.body.scrollTop = 0;
+                        iframe.contentWindow.document.documentElement.scrollTop = 0;
+                    }
+                } catch (e) {
+                    // Silently fail for cross-origin iframes
+                    console.log("Could not reset iframe scroll position");
+                }
+            });
+        });
+    }
+
+    // Call once on load
+    resetSectionScrollPositions();
+
+    // Reset on section change
+    window.addEventListener('hashchange', resetSectionScrollPositions);
+    
+    // Make sure scroll behavior is corrected after all content loads
+    window.addEventListener('load', resetSectionScrollPositions);
+    
+    // Also ensure home display after all content loads
+    window.addEventListener('load', ensureHomeDisplay);
+    
+    // Add event listener for any iframe loads to ensure scroll is reset
+    document.querySelectorAll('iframe').forEach(iframe => {
+        iframe.addEventListener('load', function() {
+            try {
+                this.contentWindow.document.body.scrollTop = 0;
+                this.contentWindow.document.documentElement.scrollTop = 0;
+            } catch (e) {
+                // Silently fail for cross-origin iframes
+                console.log("Could not reset iframe scroll position");
+            }
+        });
+    });
+    
+    // Fix initial section visibility based on URL hash
+    const initialHash = window.location.hash.substring(1);
+    if (initialHash) {
+        const targetSection = document.getElementById(initialHash);
+        if (targetSection) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = section === targetSection ? 'flex' : 'none';
+            });
+            targetSection.scrollTop = 0;
+        }
+    } else {
+        // If no hash is present, ensure home section is displayed correctly
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = section === homeSection ? 'flex' : 'none';
+            });
+            homeSection.scrollTop = 0;
+            
+            // Explicitly set flex styles to ensure proper display
+            homeSection.style.height = '100vh';
+            homeSection.style.flexDirection = 'column';
+            homeSection.style.justifyContent = 'center';
+            homeSection.style.alignItems = 'center';
+            
+            // Add active class to home navigation item
+            const homeNavItem = document.querySelector('.sundial-section[href="#home"]');
+            if (homeNavItem) {
+                homeNavItem.classList.add('active');
+            }
+        }
+    }
 });
 
 // Initialize and handle the home iframe
@@ -284,50 +379,63 @@ function initAnimations() {
 // Add loader control functions at the top level
 function showLoader(sectionName) {
     const loader = document.querySelector('.cyberpunk-loader');
+    if (!loader) return; // Guard against missing loader element
+    
     const progress = loader.querySelector('.loader-progress');
     const text = loader.querySelector('.loader-text');
     const mainContainer = document.querySelector('.main-container');
     
     // Hide main content
-    mainContainer.classList.add('loading');
+    if (mainContainer) {
+        mainContainer.classList.add('loading');
+    }
     
     // Reset progress
-    progress.style.width = '0%';
+    if (progress) {
+        progress.style.width = '0%';
+        // Animate progress over 1 second (faster loading)
+        progress.style.transition = 'width 1s ease';
+        setTimeout(() => {
+            progress.style.width = '100%';
+        }, 50);
+    }
     
     // Update text
-    text.textContent = `LOADING ${sectionName.toUpperCase()} SECTION`;
+    if (text) {
+        text.textContent = `LOADING ${sectionName.toUpperCase()} SECTION`;
+    }
     
     // Show loader
     loader.classList.add('active');
-    
-    // Animate progress over 2 seconds
-    progress.style.transition = 'width 2s ease';
-    setTimeout(() => {
-        progress.style.width = '100%';
-    }, 50);
 }
 
 function hideLoader() {
     return new Promise(resolve => {
         const loader = document.querySelector('.cyberpunk-loader');
+        if (!loader) {
+            resolve();
+            return;
+        }
+        
         const progress = loader.querySelector('.loader-progress');
         const mainContainer = document.querySelector('.main-container');
         
-        // Ensure minimum 2 second load time
-        setTimeout(() => {
-            // Show main content
+        // Show main content
+        if (mainContainer) {
             mainContainer.classList.remove('loading');
-            
-            // Fade out loader
-            loader.classList.remove('active');
-            
-            // Reset progress after animation
-            setTimeout(() => {
+        }
+        
+        // Fade out loader
+        loader.classList.remove('active');
+        
+        // Reset progress after animation
+        setTimeout(() => {
+            if (progress) {
                 progress.style.transition = 'width 0.3s ease';
                 progress.style.width = '0%';
-                resolve();
-            }, 300);
-        }, 2000);
+            }
+            resolve();
+        }, 300);
     });
 }
 
@@ -433,43 +541,52 @@ function initSundialNavigation() {
 
     // Handle section clicks with improved scroll behavior and loading animation
     sections.forEach(section => {
-        section.addEventListener('click', async function(e) {
+        section.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Get section name for loader
-            const targetId = this.getAttribute('href').substring(1);
-            const sectionName = targetId.charAt(0).toUpperCase() + targetId.slice(1);
-            
-            // Store the clicked section for reference
-            const clickedSection = this;
-            
-            // Show loader with correct section name
-            showLoader(sectionName);
-            
             // Remove active class from all sections
-            sections.forEach(s => {
-                s.classList.remove('active');
-                s.classList.remove('section-highlight');
-            });
+            sections.forEach(s => s.classList.remove('active'));
             
-            // Get the target section and scroll to it
+            // Add active class to clicked section
+            this.classList.add('active');
+            
+            // Get target section ID
+            const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
+            
             if (targetSection) {
-                // Calculate offset considering any fixed headers
-                const offset = targetSection.offsetTop;
+                // Show loading animation - convert ID to proper section name for display
+                const sectionName = targetId.charAt(0).toUpperCase() + targetId.slice(1);
+                showLoader(sectionName);
                 
-                // Wait for minimum load time and animations
-                await hideLoader();
+                // Reset vertical scroll in target section
+                targetSection.scrollTop = 0;
                 
-                // Add active class to clicked section after loading
-                clickedSection.classList.add('active');
-                clickedSection.classList.add('section-highlight');
-                
-                // Scroll to section
-                window.scrollTo({
-                    top: offset,
-                    behavior: 'smooth'
+                // Simplified navigation - show the target section and hide others
+                document.querySelectorAll('section').forEach(section => {
+                    if (section === targetSection) {
+                        section.style.display = 'flex';
+                    } else {
+                        section.style.display = 'none';
+                    }
                 });
+                
+                // Additional check for games section
+                if (targetId === 'games') {
+                    try {
+                        initGameNavigation();
+                    } catch (err) {
+                        console.error("Error initializing game navigation:", err);
+                    }
+                }
+                
+                // Hide loader after a short delay
+                setTimeout(() => {
+                    hideLoader();
+                }, 1000);
+                
+                // Update URL hash to reflect current section
+                window.location.hash = targetId;
             }
         });
     });
@@ -627,8 +744,17 @@ function initTicTacToe() {
         const boardIndex = parseInt(mainBoard.dataset.board);
         const cellIndex = parseInt(cell.dataset.cell);
 
-        // Check if move is valid
-        if (!isValidMove(boardIndex, cellIndex)) return;
+        // Check if game is over
+        if (!gameActive) return;
+        
+        // Check if cell is already played
+        if (gameState[boardIndex][cellIndex] !== '') return;
+        
+        // Check if board is already won or full
+        if (boardStates[boardIndex] !== null) return;
+
+        // Check if move is valid based on next board rule
+        if (nextBoard !== null && boardIndex !== nextBoard) return;
 
         // Player's turn
         if (isPlayerTurn) {
@@ -677,17 +803,54 @@ function initTicTacToe() {
     }
 
     function computerMove() {
-        if (!gameActive) return;
-
-        // Find best move
-        const move = findBestMove();
-        if (move) {
-            makeMove(move.board, move.cell, 'O');
+        if (gameActive && !isPlayerTurn) {
+            // If nextBoard is null or the designated board is full/won, any board is valid
+            let validBoards = [];
+            if (nextBoard === null || boardStates[nextBoard] !== null) {
+                for (let i = 0; i < 9; i++) {
+                    if (boardStates[i] === null) {
+                        validBoards.push(i);
+                    }
+                }
+            } else {
+                validBoards = [nextBoard];
+            }
+            
+            if (validBoards.length === 0) {
+                // This shouldn't happen due to game end checks, but just in case
+                gameActive = false;
+                gameStatus.textContent = "Game over - Draw!";
+                return;
+            }
+            
+            // Choose a random valid board
+            const randomBoardIndex = validBoards[Math.floor(Math.random() * validBoards.length)];
+            
+            // Find empty cells in the chosen board
+            const emptyCells = [];
+            for (let i = 0; i < 9; i++) {
+                if (gameState[randomBoardIndex][i] === '') {
+                    emptyCells.push(i);
+                }
+            }
+            
+            if (emptyCells.length === 0) {
+                // Try another board (this is a failsafe, should be prevented by validBoards logic)
+                computerMove();
+                return;
+            }
+            
+            // Choose a random empty cell
+            const randomCellIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            
+            // Make the move
+            makeMove(randomBoardIndex, randomCellIndex, 'O');
             
             if (checkGameEnd()) return;
-
+            
+            // Switch back to player's turn
             isPlayerTurn = true;
-            gameStatus.textContent = "Your turn!";
+            gameStatus.textContent = "Your turn";
         }
     }
 
@@ -2353,4 +2516,78 @@ function createTechStackParticles(card) {
             document.body.removeChild(particle);
         }, (duration + delay) * 1000);
     }
-} 
+}
+
+// Function to ensure home section is properly displayed on first load
+function ensureHomeDisplay() {
+    // If no hash in URL, make sure home section is displayed correctly
+    if (!window.location.hash) {
+        const homeSection = document.getElementById('home');
+        const sundialSections = document.querySelectorAll('section');
+        
+        if (homeSection) {
+            // Hide all sections except home
+            sundialSections.forEach(section => {
+                if (section.id === 'home') {
+                    section.style.display = 'flex';
+                    section.style.height = '100vh';
+                    section.style.flexDirection = 'column';
+                    section.style.justifyContent = 'center';
+                    section.style.alignItems = 'center';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Set active class on home navigation
+            document.querySelectorAll('.sundial-section').forEach(navItem => {
+                if (navItem.getAttribute('href') === '#home') {
+                    navItem.classList.add('active');
+                } else {
+                    navItem.classList.remove('active');
+                }
+            });
+            
+            // Ensure content is visible
+            const heroContent = homeSection.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.opacity = '1';
+                heroContent.style.visibility = 'visible';
+            }
+        }
+    }
+}
+
+// Function to inject CSS fixes for the hero section
+function injectHeroSectionFixStyles() {
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+        #home {
+            height: 100vh !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        
+        #home .section-content {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+        
+        .hero-content {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+            max-width: 1200px !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    `;
+    document.head.appendChild(styleEl);
+}
+  

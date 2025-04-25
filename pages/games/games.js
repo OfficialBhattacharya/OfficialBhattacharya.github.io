@@ -35,10 +35,19 @@ function initTicTacToe() {
         const boardIndex = parseInt(cell.parentNode.getAttribute('data-board'));
         const cellIndex = parseInt(cell.getAttribute('data-cell'));
         
-        // Check if the move is valid
-        if (!isValidMove(boardIndex, cellIndex)) return;
-        
-        // Make the move
+        // If game is already over or cell is already played, do nothing
+        if (!gameActive || gameState.boardStates[boardIndex][cellIndex] !== '') {
+            return;
+        }
+
+        // Check if the move is valid based on previous move
+        if (nextBoard !== null && nextBoard !== boardIndex) {
+            // If a specific board is active and player clicked on a different board
+            gameStatus.textContent = "Invalid move! You must play on the highlighted board.";
+            return;
+        }
+
+        // Play the move
         makeMove(boardIndex, cellIndex, currentPlayer);
         
         // Check for game end

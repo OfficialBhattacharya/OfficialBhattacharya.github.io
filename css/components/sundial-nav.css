@@ -177,20 +177,26 @@
 /* Main content layout */
 .main-container {
     display: flex;
+    flex-direction: row;
     overflow-x: hidden;
     overflow-y: hidden;
-    scroll-snap-type: x mandatory;
+    width: 100%;
     height: 100vh;
+    position: relative;
 }
 
 section {
-    min-width: 100vw;
+    min-width: 100%;
+    width: 100vw;
     height: 100vh;
-    scroll-snap-align: start;
+    flex-shrink: 0;
     overflow-y: auto;
     padding: 2rem;
     padding-bottom: 80px;
     overscroll-behavior: contain;
+    scroll-behavior: auto; /* Prevent automatic smooth scrolling */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Hide scrollbar but keep functionality */

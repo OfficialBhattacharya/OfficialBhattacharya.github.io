@@ -43,6 +43,14 @@
     justify-content: center;
     gap: 3rem;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    z-index: 10;
 }
 
 .hero-text {
