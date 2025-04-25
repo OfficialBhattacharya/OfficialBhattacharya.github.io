@@ -188,12 +188,25 @@
 }
 
 @media (max-width: 768px) {
+    .skills {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
     .tech-stack-grid {
         grid-template-columns: 1fr;
+        padding-bottom: 2rem; /* Add padding at the bottom for better scrolling */
     }
     
     .tech-stack-card {
         padding: 1.5rem 1rem;
+    }
+    
+    /* Ensure content doesn't get cut off */
+    .section-content {
+        overflow-y: visible;
+        height: auto;
+        min-height: 100%;
     }
 }
 

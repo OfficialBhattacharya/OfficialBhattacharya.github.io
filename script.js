@@ -2478,4 +2478,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Ensure mobile scrolling works properly, especially for skills section
+document.addEventListener('DOMContentLoaded', function() {
+    // Fix scrolling issues on mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        const sections = document.querySelectorAll('section');
+        const skillsSection = document.getElementById('skills');
+        
+        // Ensure skills section scrolls properly
+        if (skillsSection) {
+            skillsSection.style.overflowY = 'auto';
+            skillsSection.style.webkitOverflowScrolling = 'touch';
+            
+            // Add touch event listeners to improve scrolling
+            skillsSection.addEventListener('touchstart', function(e) {
+                // Prevent scroll blocking
+                e.stopPropagation();
+            }, { passive: true });
+        }
+        
+        // Ensure all sections can scroll
+        sections.forEach(section => {
+            section.style.overflowY = 'auto';
+            section.style.webkitOverflowScrolling = 'touch';
+        });
+    }
+});
     

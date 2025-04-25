@@ -720,7 +720,7 @@ footer {
   .main-container {
     min-height: 100vh;
     height: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
   }
   
   section {
@@ -728,6 +728,8 @@ footer {
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    height: auto;
+    min-height: 100vh;
   }
 }
 
