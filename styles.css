@@ -59,6 +59,7 @@
     --section-padding: 6rem 0;
     --card-padding: 2rem;
     --container-width: 90%;
+    --container-max-width: 1200px;
 }
 
 /* Base styles */
@@ -74,6 +75,7 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
+    height: 100%;
 }
 
 body {
@@ -84,13 +86,13 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
-    overflow-y: hidden;
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
     background-image: 
         linear-gradient(rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.95)),
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(0, 255, 157, 0.05)" stroke-width="0.5"/></svg>');
     background-size: 50px 50px;
     position: relative;
+    height: 100%;
 }
 
 /* Terminal-like text rendering */
@@ -119,7 +121,7 @@ body::after {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     width: var(--container-width);
     margin: 0 auto;
     padding: 0 1rem;
@@ -130,7 +132,6 @@ body::after {
     height: 100vh;
     width: 100%;
     overflow-x: hidden;
-    overflow-y: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -149,23 +150,57 @@ section {
 }
 
 #home {
-    height: 100vh;
     min-height: 100vh;
-    position: relative;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100vh;
+    overflow: hidden;
 }
 
-#home .section-content {
-    padding: 0;
-    height: 100%;
+#home .hero-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+#home .hero-text {
+    flex: 1;
+    padding: 1rem;
+    z-index: 10;
+}
+
+#home .profile-sketch {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 2rem;
+}
+
+@media (max-width: 768px) {
+    #home .hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    #home .hero-text {
+        order: 2;
+        width: 100%;
+        padding: 1rem 0;
+    }
+    
+    #home .profile-sketch {
+        order: 1;
+        margin-left: 0;
+        margin-bottom: 2rem;
+    }
 }
 
 #home-container {
@@ -1925,4 +1960,48 @@ footer {
         padding: 8px 16px;
         font-size: 14px;
     }
+}
+
+/* MacBook specific classes added via JavaScript */
+.macbook-screen {
+    /* General MacBook optimizations */
+    --container-max-width: 1150px;
+}
+
+.macbook-13 {
+    /* Optimization for 13-14" MacBook Pro */
+    font-size: 15px; /* Slightly smaller base font for better fit */
+}
+
+.macbook-13 .sundial-nav {
+    width: 90%;
+    max-width: 1100px;
+    bottom: 1.5rem;
+}
+
+.macbook-13 .container {
+    max-width: 1000px;
+}
+
+.macbook-13 .section-content {
+    padding: 2rem 1.5rem;
+}
+
+.macbook-13 .profile-sketch {
+    width: 320px;
+    height: 320px;
+}
+
+.macbook-16 {
+    /* Optimization for 16" MacBook Pro */
+    --container-max-width: 1300px;
+}
+
+.macbook-16 .sundial-nav {
+    width: 85%;
+    max-width: 1250px;
+}
+
+.macbook-16 .section-content {
+    padding: 2.5rem;
 } 

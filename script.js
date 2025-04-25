@@ -29,6 +29,52 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Fixed function for ensuring home page layout is correct
+function fixHomePageLayout() {
+    const homeSection = document.getElementById('home');
+    if (homeSection) {
+        // Make sure home section takes full height and is centered
+        homeSection.style.height = '100vh';
+        homeSection.style.display = 'flex';
+        homeSection.style.flexDirection = 'column';
+        homeSection.style.justifyContent = 'center';
+        
+        // Fix hero content alignment
+        const heroContent = homeSection.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style.display = 'flex';
+            heroContent.style.alignItems = 'center';
+            heroContent.style.justifyContent = 'space-between';
+            
+            // Ensure text and profile are properly sized
+            const heroText = heroContent.querySelector('.hero-text');
+            const profileSketch = heroContent.querySelector('.profile-sketch');
+            
+            if (heroText) {
+                heroText.style.flex = '1';
+                heroText.style.padding = '1rem';
+            }
+            
+            if (profileSketch) {
+                profileSketch.style.display = 'flex';
+                profileSketch.style.justifyContent = 'center';
+                profileSketch.style.alignItems = 'center';
+            }
+        }
+        
+        // Initialize cyberpunk effects
+        if (typeof initCyberpunkNameAnimation === 'function') {
+            initCyberpunkNameAnimation();
+        }
+        if (typeof createBinaryRain === 'function') {
+            createBinaryRain();
+        }
+        if (typeof initParticles === 'function') {
+            initParticles();
+        }
+    }
+}
+
 // Disable automatic scroll snapping on mobile
 function handleMobileScroll() {
     if (window.innerWidth <= 768) {
@@ -89,9 +135,6 @@ document.querySelectorAll('.timeline-item, .experience-item, .project-card').for
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Add CSS fixes for hero section
-    injectHeroSectionFixStyles();
-    
     // Initialize cyberpunk name animation directly
     initCyberpunkNameAnimation();
     createBinaryRain();
@@ -103,9 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize tech stack interactivity
     initTechStackInteractivity();
-    
-    // Ensure home section is properly displayed on first load
-    ensureHomeDisplay();
     
     // Observe sections for animations
     document.querySelectorAll('section').forEach(section => {
@@ -147,9 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Make sure scroll behavior is corrected after all content loads
     window.addEventListener('load', resetSectionScrollPositions);
     
-    // Also ensure home display after all content loads
-    window.addEventListener('load', ensureHomeDisplay);
-    
     // Add event listener for any iframe loads to ensure scroll is reset
     document.querySelectorAll('iframe').forEach(iframe => {
         iframe.addEventListener('load', function() {
@@ -169,32 +206,41 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetSection = document.getElementById(initialHash);
         if (targetSection) {
             document.querySelectorAll('section').forEach(section => {
-                section.style.display = section === targetSection ? 'flex' : 'none';
+                section.style.display = section === targetSection ? 'block' : 'none';
             });
             targetSection.scrollTop = 0;
         }
     } else {
         // If no hash is present, ensure home section is displayed correctly
-        const homeSection = document.getElementById('home');
-        if (homeSection) {
-            document.querySelectorAll('section').forEach(section => {
-                section.style.display = section === homeSection ? 'flex' : 'none';
-            });
-            homeSection.scrollTop = 0;
-            
-            // Explicitly set flex styles to ensure proper display
-            homeSection.style.height = '100vh';
-            homeSection.style.flexDirection = 'column';
-            homeSection.style.justifyContent = 'center';
-            homeSection.style.alignItems = 'center';
-            
-            // Add active class to home navigation item
-            const homeNavItem = document.querySelector('.sundial-section[href="#home"]');
-            if (homeNavItem) {
-                homeNavItem.classList.add('active');
-            }
-        }
+        fixHomePageLayout();
     }
+
+    // Add MacBook optimization
+    optimizeForMacBook();
+    
+    // Apply home page layout fix with a slight delay to ensure all elements are loaded
+    setTimeout(fixHomePageLayout, 100);
+});
+
+// Call fixHomePageLayout on window load as well to catch any late-loaded elements
+window.addEventListener('load', function() {
+    fixHomePageLayout();
+});
+
+// Recheck on window resize
+window.addEventListener('resize', function() {
+    optimizeForMacBook();
+    // Also fix home layout when resizing to ensure it stays responsive
+    if (!window.location.hash || window.location.hash === '#home') {
+        fixHomePageLayout();
+    }
+});
+
+// Also ensure the hero layout is fixed when clicking the home navigation link
+document.querySelectorAll('a[href="#home"]').forEach(link => {
+    link.addEventListener('click', function() {
+        setTimeout(fixHomePageLayout, 100);
+    });
 });
 
 // Initialize and handle the home iframe
@@ -442,281 +488,134 @@ function hideLoader() {
 // Handle sundial navigation
 function initSundialNavigation() {
     const sundialNav = document.querySelector('.sundial-nav');
-    const sections = document.querySelectorAll('.sundial-section');
-    const mainContainer = document.querySelector('.main-container');
-    const contentSections = document.querySelectorAll('section[id]');
-    
+    if (!sundialNav) return;
+
+    const sections = document.querySelectorAll('section');
+    const navLinks = sundialNav.querySelectorAll('.sundial-section');
+    const leftArrow = sundialNav.querySelector('.sundial-arrow.left');
+    const rightArrow = sundialNav.querySelector('.sundial-arrow.right');
+    const sectionsContainer = sundialNav.querySelector('.sundial-sections');
+
+    // Add click event to navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetSectionId = this.getAttribute('href').substring(1);
+            
+            // Show loader while section loads
+            showLoader(targetSectionId);
+            
+            // Apply section-specific initialization
+            if (targetSectionId === 'home') {
+                // Ensure home section is properly laid out
+                setTimeout(fixHomePageLayout, 50);
+            }
+            
+            // Update URL hash
+            window.location.hash = targetSectionId;
+            
+            // Update navigation state
+            updateNavigationHighlight();
+            
+            // Hide loader after a brief delay
+            setTimeout(hideLoader, 500);
+        });
+    });
+
     // Add navigation arrows to sundial nav
-    if (sundialNav) {
+    if (leftArrow && rightArrow) {
         const navArrows = document.createElement('div');
         navArrows.className = 'sundial-nav-arrows';
-        
-        const leftArrow = document.createElement('div');
-        leftArrow.className = 'sundial-arrow left';
-        leftArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        
-        const rightArrow = document.createElement('div');
-        rightArrow.className = 'sundial-arrow right';
-        rightArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        
         navArrows.appendChild(leftArrow);
         navArrows.appendChild(rightArrow);
         sundialNav.appendChild(navArrows);
         
-        const sectionsContainer = sundialNav.querySelector('.sundial-sections');
-        
         // Add scroll functionality
         leftArrow.addEventListener('click', () => {
-            sectionsContainer.scrollBy({ left: -200, behavior: 'smooth' });
+            sectionsContainer.scrollBy({ left: -100, behavior: 'smooth' });
         });
         
         rightArrow.addEventListener('click', () => {
-            sectionsContainer.scrollBy({ left: 200, behavior: 'smooth' });
+            sectionsContainer.scrollBy({ left: 100, behavior: 'smooth' });
         });
         
-        // Update arrow visibility
-        function updateArrows() {
-            const isAtStart = sectionsContainer.scrollLeft === 0;
-            const isAtEnd = sectionsContainer.scrollLeft + sectionsContainer.offsetWidth >= sectionsContainer.scrollWidth - 10;
-            
-            leftArrow.style.opacity = isAtStart ? '0' : '0.8';
-            leftArrow.style.pointerEvents = isAtStart ? 'none' : 'auto';
-            
-            rightArrow.style.opacity = isAtEnd ? '0' : '0.8';
-            rightArrow.style.pointerEvents = isAtEnd ? 'none' : 'auto';
-        }
-        
+        // Add scroll event listener to update arrows
         sectionsContainer.addEventListener('scroll', updateArrows);
+        
+        // Update arrows on resize
         window.addEventListener('resize', updateArrows);
         
         // Initial update
         setTimeout(updateArrows, 100);
     }
-
-    // Check URL to determine current page
-    function getCurrentPageFromUrl() {
-        const path = window.location.pathname;
-        const hash = window.location.hash;
+    
+    function updateArrows() {
+        if (!sectionsContainer) return;
         
-        // If there's a hash in the URL, use it for navigation
-        if (hash) {
-            return hash.substring(1); // Remove the # character
+        const scrollLeft = sectionsContainer.scrollLeft;
+        const maxScrollLeft = sectionsContainer.scrollWidth - sectionsContainer.clientWidth;
+        
+        // Show/hide arrows based on scroll position
+        if (leftArrow) {
+            leftArrow.style.opacity = scrollLeft > 10 ? '1' : '0';
         }
         
-        // Check if we're on a specific page based on the path
-        if (path.includes('/blog/')) {
-            return 'blog';
-        } else if (path.includes('/projects/')) {
-            return 'projects';
-        } else if (path.includes('/skills/')) {
-            return 'skills';
-        } else if (path.includes('/experience/')) {
-            return 'experience';
-        } else if (path.includes('/about/')) {
-            return 'about';
-        } else if (path.includes('/games/')) {
-            return 'games';
+        if (rightArrow) {
+            rightArrow.style.opacity = scrollLeft < maxScrollLeft - 10 ? '1' : '0';
         }
-        
-        // Default to home if no specific page is detected
-        return 'home';
     }
     
-    // Update navigation based on current page
+    function getCurrentPageFromUrl() {
+        const hash = window.location.hash.substring(1);
+        return hash || 'home';
+    }
+    
     function updateNavigationHighlight() {
         const currentPage = getCurrentPageFromUrl();
         
-        // Remove active class from all nav items
-        sections.forEach(navItem => navItem.classList.remove('active'));
-        
-        // Add active class to current nav item
-        const activeNavItem = document.querySelector(`.sundial-section[href="#${currentPage}"]`);
-        if (activeNavItem) {
-            activeNavItem.classList.add('active');
-        }
-    }
-    
-    // Call this immediately to set the correct navigation
-    updateNavigationHighlight();
-
-    // Handle section clicks with improved scroll behavior and loading animation
-    sections.forEach(section => {
-        section.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all sections
-            sections.forEach(s => s.classList.remove('active'));
-            
-            // Add active class to clicked section
-            this.classList.add('active');
-            
-            // Get target section ID
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                // Show loading animation - convert ID to proper section name for display
-                const sectionName = targetId.charAt(0).toUpperCase() + targetId.slice(1);
-                showLoader(sectionName);
-                
-                // Reset vertical scroll in target section
-                targetSection.scrollTop = 0;
-                
-                // Simplified navigation - show the target section and hide others
-                document.querySelectorAll('section').forEach(section => {
-                    if (section === targetSection) {
-                        section.style.display = 'flex';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-                
-                // Additional check for games section
-                if (targetId === 'games') {
-                    try {
-                        initGameNavigation();
-                    } catch (err) {
-                        console.error("Error initializing game navigation:", err);
-                    }
-                }
-                
-                // Hide loader after a short delay
-                setTimeout(() => {
-                    hideLoader();
-                }, 1000);
-                
-                // Update URL hash to reflect current section
-                window.location.hash = targetId;
+        // Remove active class from all links
+        navLinks.forEach(link => {
+            const linkTarget = link.getAttribute('href').substring(1);
+            if (linkTarget === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
         });
-    });
-
-    // Update the updateActiveSection function to handle loading states
+    }
+    
+    // Function to update active section based on hash
     function updateActiveSection() {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const viewportCenter = scrollPosition + (windowHeight / 2);
-
-        // Find the section that is currently most relevant
-        let currentSection = null;
-        let minDistance = Infinity;
-
-        contentSections.forEach((section) => {
-            const rect = section.getBoundingClientRect();
-            const sectionTop = scrollPosition + rect.top;
-            const sectionMiddle = sectionTop + (rect.height / 2);
-            
-            const distance = Math.abs(viewportCenter - sectionMiddle);
-            
-            if (distance < minDistance) {
-                minDistance = distance;
-                currentSection = section;
-            }
-        });
-
-        if (currentSection) {
-            const previousActive = document.querySelector('.sundial-section.active');
-            const newActive = document.querySelector(`.sundial-section[href="#${currentSection.id}"]`);
-            
-            // Only update if we're changing sections and not during a loading state
-            if (previousActive && newActive && previousActive !== newActive) {
-                const loader = document.querySelector('.cyberpunk-loader');
-                // Only proceed if loader is not active
-                if (!loader.classList.contains('active')) {
-                    // Remove active class from all nav items
-                    sections.forEach(navItem => {
-                        navItem.classList.remove('active');
-                        navItem.classList.remove('section-highlight');
-                    });
+        const hash = window.location.hash.substring(1) || 'home';
+        const activeSection = document.getElementById(hash);
+        
+        if (activeSection) {
+            // Hide all sections except the active one
+            sections.forEach(section => {
+                if (section === activeSection) {
+                    section.style.display = section.id === 'home' ? 'flex' : 'block';
+                    section.scrollTop = 0;
                     
-                    // Add active class to corresponding nav item
-                    if (newActive) {
-                        newActive.classList.add('active');
-                        newActive.classList.add('section-highlight');
+                    // Special handling for home section
+                    if (section.id === 'home') {
+                        fixHomePageLayout();
                     }
+                } else {
+                    section.style.display = 'none';
                 }
-            }
+            });
+            
+            // Update navigation highlight
+            updateNavigationHighlight();
         }
     }
-
-    // Handle scroll with debouncing and immediate update
-    let scrollTimeout;
-    let lastScrollTime = 0;
-    const scrollThrottle = 50; // Minimum time between updates in ms
-
-    window.addEventListener('scroll', function() {
-        // Don't update during loading
-        const loader = document.querySelector('.cyberpunk-loader');
-        if (loader.classList.contains('active')) return;
-
-        const now = Date.now();
-        
-        // Clear any pending timeout
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-
-        // If enough time has passed since last update, update immediately
-        if (now - lastScrollTime >= scrollThrottle) {
-            updateActiveSection();
-            lastScrollTime = now;
-        } else {
-            // Otherwise, set a timeout for a deferred update
-            scrollTimeout = setTimeout(function() {
-                updateActiveSection();
-                lastScrollTime = Date.now();
-            }, scrollThrottle);
-        }
-    });
-
-    // Initial check for active section with a slight delay to ensure proper layout
-    setTimeout(updateActiveSection, 100);
-
-    // Update active section when window is resized with debouncing
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        resizeTimeout = setTimeout(function() {
-            updateActiveSection();
-        }, 150);
-    });
-
-    // Listen for URL changes and update navigation
-    window.addEventListener('hashchange', updateNavigationHighlight);
     
-    // Handle subsection clicks
-    const subsections = document.querySelectorAll('.sundial-subsection');
-    subsections.forEach(subsection => {
-        subsection.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const parentSection = targetElement.closest('section');
-                if (parentSection) {
-                    const sundialSection = document.querySelector(`[href="#${parentSection.id}"]`);
-                    if (sundialSection) {
-                        // Remove active class from all sections
-                        sections.forEach(s => s.classList.remove('active'));
-                        
-                        // Add active class to parent section
-                        sundialSection.classList.add('active');
-                        
-                        // Scroll to the parent section first, then to the subsection
-                        parentSection.scrollIntoView({ behavior: 'smooth', inline: 'start' });
-                        setTimeout(() => {
-                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 500);
-                    }
-                }
-            }
-        });
-    });
+    // Handle section clicks with improved scroll behavior and loading animation
+    window.addEventListener('hashchange', updateActiveSection);
+    
+    // Initial update based on current URL
+    updateActiveSection();
+    updateNavigationHighlight();
 }
 
 // Ultimate Tic-Tac-Toe game logic
@@ -2518,76 +2417,45 @@ function createTechStackParticles(card) {
     }
 }
 
-// Function to ensure home section is properly displayed on first load
-function ensureHomeDisplay() {
-    // If no hash in URL, make sure home section is displayed correctly
-    if (!window.location.hash) {
-        const homeSection = document.getElementById('home');
-        const sundialSections = document.querySelectorAll('section');
+// MacBook screen size detection and optimization
+function optimizeForMacBook() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const pixelRatio = window.devicePixelRatio || 1;
+    
+    // Common MacBook screen resolutions
+    const isMacBook = (
+        // MacBook Pro 13" and 14" at various scalings
+        (width >= 1280 && width <= 1440 && height >= 800 && height <= 900) || 
+        (width >= 1440 && width <= 1600 && height >= 900 && height <= 1000) ||
+        // MacBook Pro 16" at various scalings
+        (width >= 1536 && width <= 1792 && height >= 960 && height <= 1120) ||
+        // For high pixel density displays using scaled resolution
+        (pixelRatio > 1 && width >= 1280 && width <= 1792)
+    );
+    
+    if (isMacBook) {
+        document.documentElement.classList.add('macbook-screen');
         
-        if (homeSection) {
-            // Hide all sections except home
-            sundialSections.forEach(section => {
-                if (section.id === 'home') {
-                    section.style.display = 'flex';
-                    section.style.height = '100vh';
-                    section.style.flexDirection = 'column';
-                    section.style.justifyContent = 'center';
-                    section.style.alignItems = 'center';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-            
-            // Set active class on home navigation
-            document.querySelectorAll('.sundial-section').forEach(navItem => {
-                if (navItem.getAttribute('href') === '#home') {
-                    navItem.classList.add('active');
-                } else {
-                    navItem.classList.remove('active');
-                }
-            });
-            
-            // Ensure content is visible
-            const heroContent = homeSection.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.style.opacity = '1';
-                heroContent.style.visibility = 'visible';
-            }
+        // Apply specific optimizations based on screen width
+        if (width >= 1280 && width <= 1440) {
+            document.documentElement.classList.add('macbook-13');
+        } else if (width >= 1441 && width <= 1600) {
+            document.documentElement.classList.add('macbook-16');
         }
     }
 }
 
-// Function to inject CSS fixes for the hero section
-function injectHeroSectionFixStyles() {
-    const styleEl = document.createElement('style');
-    styleEl.textContent = `
-        #home {
-            height: 100vh !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            align-items: center !important;
-        }
-        
-        #home .section-content {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            height: 100% !important;
-            width: 100% !important;
-        }
-        
-        .hero-content {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            width: 100% !important;
-            max-width: 1200px !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-    `;
-    document.head.appendChild(styleEl);
-}
-  
+// Run on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing initialization code ...
+    
+    // Add MacBook optimization
+    optimizeForMacBook();
+});
+
+// Recheck on window resize
+window.addEventListener('resize', function() {
+    optimizeForMacBook();
+});
+    

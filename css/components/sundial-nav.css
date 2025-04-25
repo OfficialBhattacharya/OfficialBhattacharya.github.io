@@ -209,6 +209,48 @@ section {
     scrollbar-width: none;
 }
 
+/* MacBook-specific optimizations */
+@media (min-width: 1280px) and (max-width: 1440px) {
+    .sundial-nav {
+        width: 85%;
+        max-width: 1100px;
+        height: 60px;
+        bottom: 1.5rem;
+    }
+    
+    .sundial-sections {
+        justify-content: space-around;
+        padding: 0 20px;
+    }
+    
+    .sundial-section {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .sundial-subsection {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+    }
+    
+    .sundial-subsections {
+        margin-bottom: 12px;
+        padding: 0.75rem;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1600px) {
+    .sundial-nav {
+        width: 80%;
+        max-width: 1250px;
+        bottom: 1.5rem;
+    }
+    
+    .sundial-sections {
+        justify-content: space-around;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .sundial-section {
