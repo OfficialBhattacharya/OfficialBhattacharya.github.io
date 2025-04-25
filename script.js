@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
     });
+
+    initGameNavigation();
 });
 
 // Initialize and handle the home iframe
@@ -1561,4 +1563,677 @@ function initElementAnimations() {
     document.querySelectorAll('.fade-in, .slide-in, .scale-in, .timeline-item, .project-card').forEach(el => {
         elementObserver.observe(el);
     });
-} 
+}
+
+// Wordle Game Logic
+class WordleGame {
+    constructor() {
+        this.board = document.querySelector('.wordle-board');
+        this.keyboard = document.querySelector('.wordle-keyboard');
+        this.status = document.querySelector('.wordle-status');
+        this.restartButton = document.querySelector('.wordle-restart-button');
+        
+        this.wordLength = 8; // Length of expressions like "12+34=46"
+        this.maxAttempts = 6;
+        this.currentRow = 0;
+        this.currentCell = 0;
+        this.gameOver = false;
+        
+        if (!this.board || !this.status || !this.keyboard || !this.restartButton) {
+            console.error('Required Math Wordle elements not found');
+            return;
+        }
+        
+        this.initializeGame();
+        this.setupEventListeners();
+    }
+
+    generateExpressions() {
+        // Instead of generating a list, we'll generate a single random expression
+        const operators = ['+', '-', '×', '÷'];
+        let expression;
+        let isValid = false;
+
+        while (!isValid) {
+            try {
+                // Generate 2-3 numbers between 1-9
+                const numCount = Math.random() < 0.5 ? 2 : 3;
+                let numbers = [];
+                let ops = [];
+
+                // Generate first number (1-9)
+                numbers.push(Math.floor(Math.random() * 9) + 1);
+
+                // Generate subsequent numbers and operators
+                for (let i = 1; i < numCount; i++) {
+                    // Choose operator
+                    const op = operators[Math.floor(Math.random() * operators.length)];
+                    ops.push(op);
+                    
+                    // Generate number (1-9)
+                    const num = Math.floor(Math.random() * 9) + 1;
+                    numbers.push(num);
+                }
+
+                // Build expression string
+                expression = numbers[0].toString();
+                for (let i = 0; i < ops.length; i++) {
+                    expression += ops[i] + numbers[i + 1].toString();
+                }
+
+                // Calculate result
+                let evalExpr = expression.replace(/×/g, '*').replace(/÷/g, '/');
+                const result = eval(evalExpr);
+
+                // Validate result
+                if (Number.isInteger(result) && result > 0 && result <= 99) {
+                    // Check for division (must result in whole number)
+                    if (expression.includes('÷')) {
+                        const parts = expression.split('÷');
+                        if (parts.some(part => {
+                            const num = parseInt(part);
+                            return !Number.isInteger(num);
+                        })) {
+                            continue;
+                        }
+                    }
+                    
+                    expression += '=' + result;
+                    isValid = true;
+                }
+            } catch (e) {
+                // If any error occurs, try again
+                continue;
+            }
+        }
+
+        // Set the current word directly instead of maintaining a list
+        this.currentWord = expression;
+    }
+    
+    initializeGame() {
+        this.generateExpressions(); // This now sets this.currentWord directly
+        this.currentRow = 0;
+        this.currentCell = 0;
+        this.gameOver = false;
+        this.status.textContent = 'Enter a calculation (e.g., "1+3+8=12" or "2×3+4=10")';
+        this.clearBoard();
+        this.clearKeyboard();
+        console.log('Game initialized with calculation:', this.currentWord);
+    }
+    
+    setupEventListeners() {
+        // Physical keyboard input
+        document.addEventListener('keydown', (e) => {
+            e.preventDefault(); // Prevent default to avoid double input
+            this.handleKeyPress(e);
+        });
+
+        // On-screen keyboard input
+        this.keyboard.addEventListener('click', (e) => {
+            const key = e.target;
+            if (!key.classList.contains('key')) return;
+            
+            let keyValue;
+            if (key.classList.contains('enter')) {
+                keyValue = 'Enter';
+            } else if (key.classList.contains('backspace')) {
+                keyValue = 'Backspace';
+            } else {
+                keyValue = key.textContent;
+            }
+            
+            this.handleKeyPress({ key: keyValue, preventDefault: () => {} });
+        });
+
+        // Restart button
+        this.restartButton.addEventListener('click', () => this.initializeGame());
+    }
+    
+    handleKeyPress(e) {
+        if (this.gameOver) return;
+        
+        const key = e.key.toUpperCase();
+        console.log('Key pressed:', key); // For debugging
+        
+        if (key === 'ENTER') {
+            this.submitGuess();
+        } else if (key === 'BACKSPACE') {
+            this.deleteLetter();
+        } else if (this.isValidInput(key)) {
+            this.addLetter(key);
+        }
+    }
+
+    isValidInput(key) {
+        // Allow numbers, operators, and equals sign
+        return /^[0-9]$/.test(key) || // Numbers
+               ['+', '-', '×', '÷', '='].includes(key); // Operators
+    }
+    
+    isValidExpression(expr) {
+        try {
+            // Split into calculation and result
+            const parts = expr.split('=');
+            if (parts.length !== 2) return false;
+
+            const [calculation, resultStr] = parts;
+            const expectedResult = parseInt(resultStr);
+
+            // Replace × and ÷ with * and / for evaluation
+            let evalExpr = calculation
+                .replace(/×/g, '*')
+                .replace(/÷/g, '/');
+
+            // Validate format: only contains numbers and valid operators
+            if (!/^[0-9+\-×÷]+$/.test(calculation)) {
+                return false;
+            }
+
+            // Check for invalid operator sequences
+            if (/[+\-×÷]{2,}/.test(calculation)) {
+                return false;
+            }
+
+            // Check if expression starts or ends with an operator
+            if (/^[+\-×÷]/.test(calculation) || /[+\-×÷]$/.test(calculation)) {
+                return false;
+            }
+
+            // Evaluate the expression
+            const result = eval(evalExpr);
+
+            // Check if result is a valid number and matches expected result
+            if (isNaN(result) || !isFinite(result)) {
+                return false;
+            }
+
+            // Check if result is an integer and within bounds
+            if (!Number.isInteger(result) || result < 1 || result > 99) {
+                return false;
+            }
+
+            return result === expectedResult;
+        } catch (e) {
+            return false;
+        }
+    }
+    
+    addLetter(letter) {
+        if (this.currentCell >= this.wordLength) return;
+        
+        const row = this.board.children[this.currentRow];
+        if (!row) return;
+        
+        const cell = row.children[this.currentCell];
+        if (!cell) return;
+        
+        // Prevent multiple operators in a row
+        const currentGuess = this.getCurrentGuess();
+        const lastChar = currentGuess[currentGuess.length - 1];
+        if (['+', '-', '×', '÷'].includes(lastChar) && ['+', '-', '×', '÷'].includes(letter)) {
+            return;
+        }
+        
+        cell.textContent = letter;
+        cell.classList.add('filled');
+        this.currentCell++;
+    }
+    
+    deleteLetter() {
+        if (this.currentCell <= 0) return;
+        
+        this.currentCell--;
+        const row = this.board.children[this.currentRow];
+        if (!row) return;
+        
+        const cell = row.children[this.currentCell];
+        if (!cell) return;
+        
+        cell.textContent = '';
+        cell.classList.remove('filled');
+        
+        console.log('Letter deleted at cell:', this.currentCell); // For debugging
+    }
+    
+    submitGuess() {
+        const guess = this.getCurrentGuess();
+        
+        // Check if the expression is complete (has an equals sign)
+        if (!guess.includes('=')) {
+            this.shakeRow();
+            this.status.textContent = 'Complete the calculation with an equals sign!';
+            return;
+        }
+        
+        // Validate the mathematical expression
+        if (!this.isValidExpression(guess)) {
+            this.shakeRow();
+            this.status.textContent = 'Invalid calculation! Must be a valid equation.';
+            return;
+        }
+        
+        this.evaluateGuess(guess);
+        
+        if (guess === this.currentWord) {
+            this.gameWon();
+        } else if (this.currentRow === this.maxAttempts - 1) {
+            this.gameLost();
+        } else {
+            this.currentRow++;
+            this.currentCell = 0;
+            this.status.textContent = 'Keep guessing! Enter another calculation.';
+        }
+    }
+    
+    evaluateGuess(guess) {
+        const row = this.board.children[this.currentRow];
+        const letterCount = {};
+        
+        // Count characters in the target expression
+        for (let char of this.currentWord) {
+            letterCount[char] = (letterCount[char] || 0) + 1;
+        }
+        
+        // First pass: Mark correct positions
+        for (let i = 0; i < this.wordLength; i++) {
+            const cell = row.children[i];
+            const char = guess[i];
+            
+            if (char === this.currentWord[i]) {
+                cell.classList.add('correct');
+                letterCount[char]--;
+                this.updateKeyboard(char, 'correct');
+            }
+        }
+        
+        // Second pass: Mark present characters
+        for (let i = 0; i < this.wordLength; i++) {
+            const cell = row.children[i];
+            const char = guess[i];
+            
+            if (!cell.classList.contains('correct') && letterCount[char] > 0) {
+                cell.classList.add('present');
+                letterCount[char]--;
+                this.updateKeyboard(char, 'present');
+            } else if (!cell.classList.contains('correct')) {
+                cell.classList.add('absent');
+                this.updateKeyboard(char, 'absent');
+            }
+        }
+        
+        // Add flip animation
+        for (let cell of row.children) {
+            cell.classList.add('flip');
+        }
+    }
+    
+    updateKeyboard(letter, status) {
+        const key = Array.from(this.keyboard.getElementsByClassName('key'))
+            .find(k => k.textContent === letter);
+            
+        if (key) {
+            if (status === 'correct' || 
+                (status === 'present' && !key.classList.contains('correct')) ||
+                (status === 'absent' && !key.classList.contains('correct') && !key.classList.contains('present'))) {
+                key.classList.add(status);
+            }
+        }
+    }
+    
+    gameWon() {
+        this.gameOver = true;
+        this.status.textContent = 'Congratulations! You won!';
+        setTimeout(() => {
+            this.status.textContent = `The calculation was: ${this.currentWord}`;
+        }, 2000);
+    }
+    
+    gameLost() {
+        this.gameOver = true;
+        this.status.textContent = `Game Over! The calculation was: ${this.currentWord}`;
+    }
+    
+    shakeRow() {
+        const row = this.board.children[this.currentRow];
+        row.classList.add('shake');
+        setTimeout(() => row.classList.remove('shake'), 500);
+    }
+    
+    clearBoard() {
+        for (let row of this.board.children) {
+            for (let cell of row.children) {
+                cell.textContent = '';
+                cell.className = 'wordle-cell';
+            }
+        }
+    }
+    
+    clearKeyboard() {
+        for (let key of this.keyboard.getElementsByClassName('key')) {
+            key.className = 'key' + (key.classList.contains('enter') ? ' enter' : '') + 
+                          (key.classList.contains('backspace') ? ' backspace' : '');
+        }
+    }
+
+    getCurrentGuess() {
+        const row = this.board.children[this.currentRow];
+        return Array.from(row.children)
+            .map(cell => cell.textContent)
+            .join('');
+    }
+}
+
+// Initialize Wordle game when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize game navigation first
+    initGameNavigation();
+    
+    // Initialize Wordle with a slight delay to ensure DOM is ready
+    setTimeout(() => {
+        const wordleGame = new WordleGame();
+        // Store the game instance on window for debugging
+        window.wordleGame = wordleGame;
+    }, 100);
+});
+
+// Initialize game navigation
+function initGameNavigation() {
+    const prevButton = document.querySelector('.game-nav-button.prev');
+    const nextButton = document.querySelector('.game-nav-button.next');
+    const gameCards = document.querySelectorAll('.game-card');
+    let currentGameIndex = 0;
+
+    // Initially hide prev button since we're at the first game
+    prevButton.disabled = true;
+
+    function updateGameVisibility() {
+        gameCards.forEach((card, index) => {
+            card.classList.remove('active');
+            if (index === currentGameIndex) {
+                card.classList.add('active');
+            }
+        });
+
+        // Update button states
+        prevButton.disabled = currentGameIndex === 0;
+        nextButton.disabled = currentGameIndex === gameCards.length - 1;
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentGameIndex > 0) {
+            currentGameIndex--;
+            updateGameVisibility();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentGameIndex < gameCards.length - 1) {
+            currentGameIndex++;
+            updateGameVisibility();
+        }
+    });
+}
+
+// Subtraction Game Logic
+class SubtractionGame {
+    constructor() {
+        this.totalSticks = 13;
+        this.maxTake = 3;
+        this.gameContainer = document.querySelector('.subtraction-game');
+        this.sticksContainer = this.gameContainer.querySelector('.sticks-container');
+        this.gameStatus = this.gameContainer.querySelector('.game-status');
+        this.sticksCount = this.gameContainer.querySelector('.sticks-count');
+        this.takeButtons = this.gameContainer.querySelectorAll('.take-button');
+        this.restartButton = this.gameContainer.querySelector('.restart-button');
+        
+        this.initializeGame();
+    }
+
+    initializeGame() {
+        this.totalSticks = 13;
+        this.updateDisplay();
+        this.setupEventListeners();
+        this.gameStatus.textContent = "Your turn! Choose 1-3 sticks to remove.";
+        this.enableButtons();
+    }
+
+    updateDisplay() {
+        // Clear existing sticks
+        this.sticksContainer.innerHTML = '';
+        
+        // Add current sticks
+        for (let i = 0; i < this.totalSticks; i++) {
+            const stick = document.createElement('div');
+            stick.className = 'stick';
+            this.sticksContainer.appendChild(stick);
+        }
+        
+        this.sticksCount.textContent = this.totalSticks;
+    }
+
+    setupEventListeners() {
+        this.takeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sticksToTake = parseInt(button.dataset.sticks);
+                this.playerMove(sticksToTake);
+            });
+        });
+
+        this.restartButton.addEventListener('click', () => {
+            this.initializeGame();
+        });
+    }
+
+    playerMove(sticksToTake) {
+        if (sticksToTake > this.totalSticks) return;
+        
+        this.totalSticks -= sticksToTake;
+        this.updateDisplay();
+        
+        if (this.totalSticks === 0) {
+            this.gameStatus.textContent = "Congratulations! You win!";
+            this.disableButtons();
+            return;
+        }
+        
+        this.gameStatus.textContent = "Computer is thinking...";
+        this.disableButtons();
+        
+        setTimeout(() => {
+            this.computerMove();
+        }, 1000);
+    }
+
+    computerMove() {
+        // Winning strategy: Make the number of sticks equal to 4k+1 (where k is some non-negative integer)
+        let computerTake;
+        const remainder = this.totalSticks % 4;
+        
+        if (remainder === 0) {
+            computerTake = 3;
+        } else if (remainder === 3) {
+            computerTake = 2;
+        } else if (remainder === 2) {
+            computerTake = 1;
+        } else { // remainder === 1
+            // If we can't force a winning position, take 1 stick
+            computerTake = 1;
+        }
+        
+        // Ensure we don't take more sticks than available
+        computerTake = Math.min(computerTake, this.totalSticks);
+        
+        this.totalSticks -= computerTake;
+        this.updateDisplay();
+        
+        if (this.totalSticks === 0) {
+            this.gameStatus.textContent = "Computer wins! Try again!";
+            this.disableButtons();
+            return;
+        }
+        
+        this.gameStatus.textContent = `Computer took ${computerTake} stick${computerTake > 1 ? 's' : ''}. Your turn!`;
+        this.enableButtons();
+    }
+
+    enableButtons() {
+        this.takeButtons.forEach(button => {
+            const sticksToTake = parseInt(button.dataset.sticks);
+            button.disabled = sticksToTake > this.totalSticks;
+        });
+    }
+
+    disableButtons() {
+        this.takeButtons.forEach(button => {
+            button.disabled = true;
+        });
+    }
+}
+
+// Initialize games when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing game initializations ...
+    
+    // Initialize Subtraction Game
+    const subtractionGame = new SubtractionGame();
+});
+
+// Hi-Low Predictions Game Logic
+class HiLowGame {
+    constructor() {
+        this.deck = [];
+        this.currentCard = null;
+        this.nextCard = null;
+        this.gameStarted = false;
+        
+        // DOM Elements
+        this.currentCardElement = document.querySelector('.current-card');
+        this.predictionButtons = document.querySelector('.prediction-buttons');
+        this.higherButton = document.querySelector('.predict-button.higher');
+        this.lowerButton = document.querySelector('.predict-button.lower');
+        this.beginButton = document.querySelector('.begin-game-button');
+        
+        // Initialize event listeners
+        this.initializeEventListeners();
+        this.initializeDeck();
+        
+        // Initially hide prediction buttons and disable them
+        this.hidePredictionButtons();
+        this.disablePredictionButtons();
+    }
+
+    initializeEventListeners() {
+        this.beginButton.addEventListener('click', () => this.startGame());
+        this.higherButton.addEventListener('click', () => this.makeGuess('higher'));
+        this.lowerButton.addEventListener('click', () => this.makeGuess('lower'));
+    }
+
+    initializeDeck() {
+        // Create a deck of cards (1-13, each appearing 4 times for different suits)
+        for (let i = 1; i <= 13; i++) {
+            for (let j = 0; j < 4; j++) {
+                this.deck.push(i);
+            }
+        }
+    }
+
+    shuffleDeck() {
+        for (let i = this.deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+        }
+    }
+
+    startGame() {
+        this.shuffleDeck();
+        this.gameStarted = true;
+        this.currentCard = this.deck.pop();
+        this.nextCard = this.deck.pop();
+        this.updateCurrentCardDisplay();
+        this.beginButton.style.display = 'none';
+        this.showPredictionButtons();
+        this.enablePredictionButtons();
+    }
+
+    showPredictionButtons() {
+        this.predictionButtons.classList.add('visible');
+    }
+
+    hidePredictionButtons() {
+        this.predictionButtons.classList.remove('visible');
+    }
+
+    updateCurrentCardDisplay() {
+        if (this.currentCard === null) {
+            this.currentCardElement.innerHTML = '';
+            return;
+        }
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'playing-card';
+        cardDiv.innerHTML = this.getCardDisplay(this.currentCard);
+        this.currentCardElement.innerHTML = '';
+        this.currentCardElement.appendChild(cardDiv);
+    }
+
+    getCardDisplay(value) {
+        const cardValues = {
+            1: 'A',
+            11: 'J',
+            12: 'Q',
+            13: 'K'
+        };
+        return `${cardValues[value] || value}<span class="spades">♠</span>`;
+    }
+
+    enablePredictionButtons() {
+        this.higherButton.disabled = false;
+        this.lowerButton.disabled = false;
+    }
+
+    disablePredictionButtons() {
+        this.higherButton.disabled = true;
+        this.lowerButton.disabled = true;
+    }
+
+    makeGuess(prediction) {
+        const isCorrect = prediction === 'higher' ? 
+            this.nextCard > this.currentCard :
+            this.nextCard < this.currentCard;
+
+        this.disablePredictionButtons();
+        
+        setTimeout(() => {
+            if (isCorrect) {
+                this.currentCard = this.nextCard;
+                this.nextCard = this.deck.pop();
+                this.updateCurrentCardDisplay();
+                if (this.deck.length > 0) {
+                    this.enablePredictionButtons();
+                } else {
+                    alert('Congratulations! You\'ve completed the deck!');
+                    this.resetGame();
+                }
+            } else {
+                alert('Wrong guess! Game Over!');
+                this.resetGame();
+            }
+        }, 500);
+    }
+
+    resetGame() {
+        this.gameStarted = false;
+        this.currentCard = null;
+        this.nextCard = null;
+        this.currentCardElement.innerHTML = '';
+        this.beginButton.style.display = 'block';
+        this.hidePredictionButtons();
+        this.disablePredictionButtons();
+        this.initializeDeck();
+    }
+}
+
+// Initialize the Hi-Low game when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const hiLowGame = new HiLowGame();
+}); 

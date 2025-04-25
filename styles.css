@@ -1006,4 +1006,903 @@ footer {
     margin-top: auto;
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 255, 157, 0.2);
+}
+
+/* Wordle Game Styles */
+.wordle-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: var(--cyberpunk-bg);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.wordle-status {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyberpunk-text);
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px var(--cyberpunk-glow);
+}
+
+.wordle-board {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.wordle-row {
+    display: flex;
+    gap: 5px;
+}
+
+.wordle-cell {
+    width: 45px;
+    height: 45px;
+    border: 2px solid var(--cyberpunk-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: none;
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--cyberpunk-text);
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.wordle-cell.operator {
+    font-size: 1.8em;
+    color: var(--cyan);
+}
+
+.wordle-cell.equals {
+    color: var(--cyan);
+}
+
+.wordle-cell.correct {
+    background: #00ff00;
+    border-color: #00ff00;
+    color: #000;
+}
+
+.wordle-cell.present {
+    background: #ffff00;
+    border-color: #ffff00;
+    color: #000;
+}
+
+.wordle-cell.absent {
+    background: #ff0000;
+    border-color: #ff0000;
+    color: #fff;
+}
+
+.wordle-keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+    user-select: none;
+}
+
+.keyboard-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.key {
+    min-width: 40px;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    background: var(--cyberpunk-button);
+    color: var(--cyberpunk-text);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+
+.key.operator {
+    background: var(--cyan);
+    color: var(--dark);
+    font-size: 1.4em;
+}
+
+.key:hover {
+    background: var(--cyberpunk-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+}
+
+.key:active {
+    transform: translateY(1px);
+}
+
+.key.enter, .key.backspace {
+    min-width: 70px;
+    font-size: 0.9em;
+}
+
+.wordle-cell.filled {
+    border-color: var(--cyberpunk-text);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+.wordle-restart-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: var(--cyberpunk-button);
+    color: var(--cyberpunk-text);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.wordle-restart-button:hover {
+    background: var(--cyberpunk-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--cyberpunk-glow);
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+}
+
+.flip {
+    animation: flip 0.6s ease-in-out;
+}
+
+@keyframes flip {
+    0% { transform: rotateX(0); }
+    100% { transform: rotateX(360deg); }
+}
+
+/* Mobile responsiveness for Wordle */
+@media (max-width: 768px) {
+    .wordle-cell {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2em;
+    }
+
+    .wordle-cell.operator {
+        font-size: 1.4em;
+    }
+
+    .key {
+        min-width: 30px;
+        height: 40px;
+        font-size: 1em;
+    }
+
+    .key.enter, .key.backspace {
+        min-width: 50px;
+        font-size: 0.8em;
+    }
+}
+
+/* Games Navigation Styles */
+.games-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    position: relative;
+}
+
+.games-container {
+    flex: 1;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-card {
+    display: none;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.game-card.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.game-nav-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--cyberpunk-button);
+    color: var(--cyberpunk-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+
+.game-nav-button:hover {
+    background: var(--cyberpunk-button-hover);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+}
+
+.game-nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: scale(1);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .games-navigation {
+        gap: 10px;
+    }
+
+    .game-nav-button {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+    }
+}
+
+/* Update existing game card styles */
+.game-card {
+    background: var(--cyberpunk-bg);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.game-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyberpunk-text);
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px var(--cyberpunk-glow);
+}
+
+.game-card .game-description {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--cyberpunk-text);
+    opacity: 0.8;
+}
+
+.wordle-board-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.color-legend {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #666;
+    max-width: 250px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.legend-color.correct {
+    background-color: #6aaa64;
+}
+
+.legend-color.present {
+    background-color: #c9b458;
+}
+
+.legend-color.absent {
+    background-color: #787c7e;
+}
+
+.legend-text {
+    line-height: 1.2;
+}
+
+/* Cyberpunk Nim Game Styles */
+.subtraction-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: linear-gradient(45deg, #000428, #004e92);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+/* Add cyberpunk grid background */
+.subtraction-game::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 20px 20px,
+        linear-gradient(0deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 20px 20px;
+    pointer-events: none;
+}
+
+/* Add scanlines effect */
+.subtraction-game::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 2;
+}
+
+.sticks-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    min-height: 120px;
+    position: relative;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+}
+
+.stick {
+    width: 8px;
+    height: 80px;
+    background: linear-gradient(to bottom, #00ffff, #00ff87);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.stick::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+    border-radius: 4px;
+}
+
+.stick:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.game-controls {
+    display: flex;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.take-button {
+    padding: 12px 25px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #00ffff;
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.take-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #00ff87);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+}
+
+.take-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.take-button:hover:not(:disabled)::before {
+    opacity: 0.3;
+}
+
+.take-button:disabled {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 255, 255, 0.2);
+    color: rgba(0, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1em;
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.game-status {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    color: #00ffff;
+    text-align: center;
+    min-height: 2em;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.subtraction-game .restart-button {
+    padding: 12px 30px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #00ffff;
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.subtraction-game .restart-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #00ff87);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+}
+
+.subtraction-game .restart-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.subtraction-game .restart-button:hover::before {
+    opacity: 0.3;
+}
+
+/* Stick removal animation */
+@keyframes removeStick {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-20px) rotate(45deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-40px) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+.stick.removing {
+    animation: removeStick 0.5s ease forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .subtraction-game {
+        padding: 20px;
+    }
+
+    .sticks-container {
+        padding: 20px;
+        gap: 10px;
+    }
+
+    .stick {
+        width: 6px;
+        height: 60px;
+    }
+
+    .take-button {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    .game-info {
+        font-size: 1em;
+    }
+
+    .game-status {
+        font-size: 1.1em;
+    }
+
+    .subtraction-game .restart-button {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Card Game Cyberpunk Styles */
+.card-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: linear-gradient(45deg, #000428, #004e92);
+    border-radius: 15px;
+    color: white;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add cyberpunk grid background */
+.card-game::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 20px 20px,
+        linear-gradient(0deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 20px 20px;
+    pointer-events: none;
+}
+
+.card-display {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.ten-row {
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.face-cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.playing-card {
+    width: 70px;
+    height: 100px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: #00ffff;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.playing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    border-color: rgba(0, 255, 255, 0.8);
+}
+
+.playing-card .spades {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.game-play-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 30px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.current-card-stack {
+    position: relative;
+    width: 80px;
+    height: 120px;
+}
+
+.current-card {
+    width: 80px;
+    height: 120px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.card-shadow {
+    width: 80px;
+    height: 120px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: -1;
+    filter: blur(2px);
+}
+
+.prediction-buttons {
+    display: none;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.prediction-buttons.visible {
+    display: flex;
+}
+
+.predict-button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.6);
+    color: #00ffff;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.predict-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #00ff00);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+}
+
+.predict-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.predict-button:hover::before {
+    opacity: 0.3;
+}
+
+.begin-game-button {
+    padding: 12px 30px;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #00ffff;
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.begin-game-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #00ff00);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+}
+
+.begin-game-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.begin-game-button:hover::before {
+    opacity: 0.3;
+}
+
+/* Hide empty card display */
+.current-card:empty {
+    display: none;
+}
+
+/* Add scanlines effect */
+.card-game::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-row {
+        gap: 5px;
+    }
+    
+    .playing-card {
+        width: 50px;
+        height: 70px;
+        font-size: 20px;
+    }
+    
+    .playing-card .spades {
+        font-size: 14px;
+    }
+    
+    .current-card,
+    .card-shadow {
+        width: 60px;
+        height: 90px;
+    }
+    
+    .predict-button,
+    .begin-game-button {
+        padding: 8px 20px;
+        font-size: 16px;
+    }
 } 
