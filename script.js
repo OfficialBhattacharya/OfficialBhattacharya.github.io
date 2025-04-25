@@ -91,6 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initSundialNavigation();
     initTicTacToe();
     
+    // Initialize tech stack interactivity
+    initTechStackInteractivity();
+    
     // Observe sections for animations
     document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
@@ -2236,4 +2239,118 @@ class HiLowGame {
 // Initialize the Hi-Low game when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     const hiLowGame = new HiLowGame();
-}); 
+});
+
+// Initialize interactive effects for the technical stack section
+function initTechStackInteractivity() {
+    const techCards = document.querySelectorAll('.tech-stack-card');
+    
+    techCards.forEach(card => {
+        // Create skill highlight effect
+        const techItems = card.querySelector('.tech-stack-items');
+        if (techItems) {
+            const skills = techItems.textContent.split('|');
+            const newContent = skills.map(skill => {
+                return `<span class="tech-skill">${skill.trim()}</span>`;
+            }).join(' | ');
+            techItems.innerHTML = newContent;
+            
+            // Add hover effect to individual skills
+            const techSkills = card.querySelectorAll('.tech-skill');
+            techSkills.forEach(skill => {
+                skill.addEventListener('mouseover', () => {
+                    skill.style.color = '#00ff9d';
+                    skill.style.textShadow = '0 0 10px rgba(0, 255, 157, 0.8)';
+                });
+                
+                skill.addEventListener('mouseout', () => {
+                    skill.style.color = '';
+                    skill.style.textShadow = '';
+                });
+            });
+        }
+        
+        // Add particle effect on hover
+        card.addEventListener('mouseenter', () => {
+            createTechStackParticles(card);
+        });
+        
+        // Add glow pulse to icon on hover
+        const icon = card.querySelector('.tech-stack-icon');
+        if (icon) {
+            card.addEventListener('mouseover', () => {
+                icon.classList.add('glowing');
+            });
+            
+            card.addEventListener('mouseout', () => {
+                icon.classList.remove('glowing');
+            });
+        }
+    });
+}
+
+// Create tech stack particle effects
+function createTechStackParticles(card) {
+    // Get card dimensions and position
+    const rect = card.getBoundingClientRect();
+    const offsetX = rect.left;
+    const offsetY = rect.top;
+    
+    // Create particles
+    for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('tech-particle');
+        
+        // Random position around the card border
+        let x, y;
+        const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+        
+        switch (side) {
+            case 0: // top
+                x = offsetX + Math.random() * rect.width;
+                y = offsetY;
+                break;
+            case 1: // right
+                x = offsetX + rect.width;
+                y = offsetY + Math.random() * rect.height;
+                break;
+            case 2: // bottom
+                x = offsetX + Math.random() * rect.width;
+                y = offsetY + rect.height;
+                break;
+            case 3: // left
+                x = offsetX;
+                y = offsetY + Math.random() * rect.height;
+                break;
+        }
+        
+        // Apply position and styling
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        
+        // Random color (cyan or magenta)
+        const colors = ['#00ff9d', '#00f7ff', '#ff00ff'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.backgroundColor = randomColor;
+        particle.style.boxShadow = `0 0 10px ${randomColor}`;
+        
+        // Random size
+        const size = 2 + Math.random() * 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Apply random animation duration and delay
+        const duration = 0.8 + Math.random() * 1.2;
+        const delay = Math.random() * 0.2;
+        
+        particle.style.animation = `float ${duration}s ease-out ${delay}s`;
+        
+        // Add to document
+        document.body.appendChild(particle);
+        
+        // Remove after animation completes
+        setTimeout(() => {
+            document.body.removeChild(particle);
+        }, (duration + delay) * 1000);
+    }
+} 
