@@ -2458,4 +2458,24 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('resize', function() {
     optimizeForMacBook();
 });
+
+// Resume button hover effects
+document.addEventListener('DOMContentLoaded', function() {
+    const resumeButton = document.querySelector('.resume-button');
+    if (resumeButton) {
+        resumeButton.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+            this.style.boxShadow = '0 0 20px rgba(0, 255, 255, 0.5)';
+            this.style.background = 'rgba(0, 0, 0, 0.8)';
+            this.style.color = '#ffffff';
+        });
+        
+        resumeButton.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.3)';
+            this.style.background = 'rgba(0, 0, 0, 0.7)';
+            this.style.color = '#00ff9d';
+        });
+    }
+});
     
