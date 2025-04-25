@@ -2004,4 +2004,85 @@ footer {
 
 .macbook-16 .section-content {
     padding: 2.5rem;
+}
+
+/* Resume Button Styles */
+.resume-button-container {
+    margin-top: 20px;
+}
+
+.resume-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #0affed, #00a4ff);
+    color: #000;
+    border: 2px solid #2fe7ff;
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.resume-button:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(45deg, #0affed, #00a4ff, #0affed, #00a4ff);
+    z-index: -1;
+    background-size: 400%;
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.resume-button:hover:before {
+    opacity: 1;
+}
+
+.resume-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+}
+
+.resume-button-text {
+    margin-right: 10px;
+}
+
+.resume-button i {
+    font-size: 1.2em;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+/* Media Queries for Resume Button */
+@media (max-width: 768px) {
+    .resume-button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .resume-button-container {
+        margin-top: 15px;
+    }
+    
+    .resume-button {
+        padding: 7px 14px;
+        font-size: 0.8em;
+    }
 } 
