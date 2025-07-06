@@ -319,19 +319,84 @@ document.addEventListener('DOMContentLoaded', function() {
         
         switch(event.key.toLowerCase()) {
             case 'w':
+            case 'arrowup':
                 movePlayer('up');
                 break;
             case 's':
+            case 'arrowdown':
                 movePlayer('down');
                 break;
             case 'a':
+            case 'arrowleft':
                 movePlayer('left');
                 break;
             case 'd':
+            case 'arrowright':
                 movePlayer('right');
                 break;
         }
     });
+
+    // Add mobile control buttons
+    const controlButtons = document.querySelectorAll('.control-btn');
+    controlButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const direction = this.dataset.direction;
+            movePlayer(direction);
+        });
+        
+        // Add visual feedback for touch
+        button.addEventListener('touchstart', function() {
+            this.classList.add('active');
+        });
+        
+        button.addEventListener('touchend', function() {
+            this.classList.remove('active');
+        });
+    });
+
+    // Add swipe detection
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    gameBoard.addEventListener('touchstart', function(event) {
+        touchStartX = event.changedTouches[0].screenX;
+        touchStartY = event.changedTouches[0].screenY;
+    });
+
+    gameBoard.addEventListener('touchend', function(event) {
+        touchEndX = event.changedTouches[0].screenX;
+        touchEndY = event.changedTouches[0].screenY;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const minSwipeDistance = 50;
+
+        if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
+            return; // Not a swipe
+        }
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Horizontal swipe
+            if (deltaX > 0) {
+                movePlayer('right');
+            } else {
+                movePlayer('left');
+            }
+        } else {
+            // Vertical swipe
+            if (deltaY > 0) {
+                movePlayer('down');
+            } else {
+                movePlayer('up');
+            }
+        }
+    }
     
     // Initialize game with medium difficulty
     startGame('medium');

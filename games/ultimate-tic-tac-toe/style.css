@@ -96,6 +96,141 @@
     color: var(--text-secondary);
 }
 
+/* Game Status */
+.game-status {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Ultimate Board Container */
+.ultimate-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    background-color: var(--bg-color);
+    padding: 8px;
+    border-radius: 10px;
+    max-width: 600px;
+    aspect-ratio: 1;
+    margin-bottom: 2rem;
+}
+
+/* Individual 3x3 Boards */
+.main-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    background-color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.main-board.active {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+    background-color: rgba(0, 255, 157, 0.1);
+}
+
+.main-board.x-won {
+    background-color: rgba(76, 175, 80, 0.2);
+    border-color: #4CAF50;
+}
+
+.main-board.o-won {
+    background-color: rgba(244, 67, 54, 0.2);
+    border-color: #F44336;
+}
+
+/* Individual Cells */
+.cell {
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    position: relative;
+}
+
+.cell:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.cell.x {
+    color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.cell.o {
+    color: #F44336;
+    background-color: rgba(244, 67, 54, 0.1);
+}
+
+.cell.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Restart Button */
+.restart-button {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.restart-button:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 157, 0.3);
+}
+
+/* Animations */
+@keyframes cellFill {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.cell.x::before,
+.cell.o::before {
+    animation: cellFill 0.3s ease;
+}
+
+/* Board win highlight animation */
+@keyframes boardWin {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.main-board.x-won,
+.main-board.o-won {
+    animation: boardWin 0.5s ease;
+}
+
 @media (max-width: 768px) {
     .game-content {
         padding: 1rem;
@@ -111,5 +246,36 @@
     
     .game-header h1 {
         font-size: 1.5rem;
+    }
+    
+    .ultimate-board {
+        max-width: 90vw;
+        max-height: 90vw;
+    }
+    
+    .cell {
+        font-size: 1.2rem;
+        min-height: 35px;
+    }
+    
+    .game-status {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ultimate-board {
+        gap: 4px;
+        padding: 4px;
+    }
+    
+    .main-board {
+        gap: 1px;
+        padding: 2px;
+    }
+    
+    .cell {
+        font-size: 1rem;
+        min-height: 30px;
     }
 } 
