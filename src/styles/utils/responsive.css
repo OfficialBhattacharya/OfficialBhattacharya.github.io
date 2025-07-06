@@ -1,0 +1,191 @@
+/* Responsive Utilities */
+
+/* Container utilities */
+.container {
+    max-width: var(--container-max-width);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* Layout utilities */
+.main-container {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Section utilities */
+section {
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--section-padding);
+    position: relative;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+    :root {
+        --container-max-width: 95%;
+        --container-padding: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --section-padding: 3rem 0;
+        --container-padding: 1rem;
+    }
+    
+    section {
+        min-height: auto;
+        padding: var(--spacing-2xl) 0;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 2rem 0;
+        --container-padding: 0.75rem;
+    }
+    
+    .main-container {
+        min-height: auto;
+        overflow-y: auto;
+    }
+    
+    section {
+        min-height: auto;
+        padding: var(--spacing-xl) 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ensure content doesn't get hidden behind navbar */
+    body {
+        padding-bottom: 70px;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --section-padding: 1.5rem 0;
+        --container-padding: 0.5rem;
+    }
+    
+    section {
+        padding: var(--spacing-lg) 0;
+    }
+}
+
+@media (max-width: 400px) {
+    :root {
+        --container-padding: 0.25rem;
+    }
+    
+    section {
+        padding: var(--spacing-md) 0;
+    }
+}
+
+/* Visibility utilities */
+.hidden {
+    display: none !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Display utilities */
+.flex {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+/* Spacing utilities */
+.m-0 { margin: 0; }
+.mt-0 { margin-top: 0; }
+.mr-0 { margin-right: 0; }
+.mb-0 { margin-bottom: 0; }
+.ml-0 { margin-left: 0; }
+
+.p-0 { padding: 0; }
+.pt-0 { padding-top: 0; }
+.pr-0 { padding-right: 0; }
+.pb-0 { padding-bottom: 0; }
+.pl-0 { padding-left: 0; }
+
+/* Responsive text alignment */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+@media (max-width: 768px) {
+    .text-center-mobile { text-align: center; }
+    .text-left-mobile { text-align: left; }
+}
+
+/* Responsive display utilities */
+@media (max-width: 768px) {
+    .hidden-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .hidden-desktop {
+        display: none !important;
+    }
+}
+
+/* Responsive flex utilities */
+@media (max-width: 768px) {
+    .flex-col-mobile {
+        flex-direction: column;
+    }
+    
+    .flex-row-mobile {
+        flex-direction: row;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .sundial-nav {
+        display: none !important;
+    }
+}

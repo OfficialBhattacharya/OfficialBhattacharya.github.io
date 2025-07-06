@@ -2,38 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Diganta Bhattacharya</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="css/components/loader.css">
-    <link rel="stylesheet" href="css/components/cyber2048.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diganta Bhattacharya - Portfolio</title>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="src/styles/main.css">
+    
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
-    <div class="main-container">
+    <!-- Navigation -->
+    <nav class="sundial-nav">
+        <div class="sundial-sections">
+            <a href="#home" class="sundial-section active">
+                <span>Home</span>
+            </a>
+            <a href="#about" class="sundial-section">
+                <span>About</span>
+            </a>
+            <a href="#experience" class="sundial-section">
+                <span>Experience</span>
+            </a>
+            <a href="#projects" class="sundial-section">
+                <span>Projects</span>
+            </a>
+            <a href="#skills" class="sundial-section">
+                <span>Skills</span>
+            </a>
+            <a href="#blog" class="sundial-section">
+                <span>Blog</span>
+            </a>
+            <a href="#games" class="sundial-section">
+                <span>Games</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container" id="main-content">
+        <!-- Home Section -->
         <section id="home" class="hero">
-            <div class="section-content">
+            <div class="binary-rain"></div>
+            <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
                         <div class="cyberpunk-name-container">
                             <h1 class="cyberpunk-name" id="cyberpunkName" data-text="Diganta Bhattacharya">Diganta Bhattacharya</h1>
                             <div class="cyberpunk-name-overlay crt"></div>
-                            <div class="binary-rain"></div>
                             <div class="particles-container" id="particles"></div>
                         </div>
-                        <p class="subtitle">Statistical Modeller | Full Stack Developer </p>
-                        <div class="social-links">
-                            <a href="mailto:officialbhattacharya@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-                            <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                            <a href="tel:+918388954577" class="social-icon"><i class="fas fa-phone"></i></a>
+                        <div class="hero-subtitle-row">
+                            <div class="subtitle-col">
+                                <span class="text-content">Statistical Modeller</span>
+                            </div>
+                            <div class="subtitle-col">
+                                <span class="text-content">FullStack Developer</span>
+                            </div>
                         </div>
-                        <div class="resume-button-container" style="margin-top: 20px;">
-                            <a href="assets/Resume_PostISI.pdf" target="_blank" class="resume-button" style="display: inline-flex; align-items: center; padding: 10px 25px; background: rgba(0, 0, 0, 0.7); color: #00ff9d; border: 1px solid #00ff9d; border-radius: 2px; font-family: 'Orbitron', sans-serif; font-weight: 600; text-transform: uppercase; text-decoration: none; letter-spacing: 2px; box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);">
-                                <span class="resume-button-text" style="margin-right: 10px;">VIEW RESUME</span>
-                                <i class="fas fa-file-pdf" style="font-size: 1.2em;"></i>
-                            </a>
+                        <div class="hero-social-icons-grid">
+                            <div class="social-col">
+                                <a href="mailto:officialbhattacharya@gmail.com" class="social-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                                <span class="social-label">Email</span>
+                            </div>
+                            <div class="social-col">
+                                <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135" target="_blank" class="social-icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <span class="social-label">LinkedIn</span>
+                            </div>
+                            <div class="social-col">
+                                <a href="tel:+918388954577" class="social-icon">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <span class="social-label">Call</span>
+                            </div>
+                            <div class="social-col">
+                                <a href="https://www.kaggle.com/digantabhattacharya" target="_blank" class="social-icon">
+                                    <i class="fab fa-kaggle"></i>
+                                </a>
+                                <span class="social-label">Kaggle</span>
+                            </div>
+                        </div>
+                        <div class="hero-resume-row">
+                            <div class="resume-button-container">
+                                <a href="src/assets/Resume_PostISI.pdf" target="_blank" class="resume-button">
+                                    <i class="fas fa-download"></i>
+                                    View Resume
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="profile-sketch">
@@ -123,180 +186,90 @@
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="about">
-            <div class="section-content">
-                <h2 class="section-title">About Me</h2>
-                <div class="terminal-container">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <div class="terminal-button close"></div>
-                            <div class="terminal-button minimize"></div>
-                            <div class="terminal-button maximize"></div>
-                        </div>
-                        <div class="terminal-title">diganta@linux:~</div>
-                    </div>
-                    <div class="terminal-content">
-                        <p class="terminal-prompt">
-                            <span class="terminal-command">whoami</span>
-                        </p>
-                        <div class="terminal-output">diganta@linux</div>
-                        
-                        <p class="terminal-prompt">
-                            <span class="terminal-command">cat education.txt</span>
-                        </p>
-                        <div class="terminal-output">
-                            <ul>
-                                <li>Education: Masters and Bachelors in Statistics from the Indian Statistical Institute</li>
-                                <li> > Major: Probability</li>
-                                <li> > Minor: Financial Mathematics</li>
-                            </ul>
-                        </div>
-                        
-                        <p class="terminal-prompt">
-                            <span class="terminal-command">cat skills.txt</span>
-                        </p>
-                        <div class="terminal-output">
-                            <ul>
-                                <li>Skills: Experienced in</li>
-                                <li> > Developing predictive models</li>
-                                <li> > Analyzing financial data</li>
-                                <li> > Implementing data-driven solutions</li>
-                            </ul>
-                        </div>
-                        
-                        <p class="terminal-prompt">
-                            <span class="terminal-command">cat current_role.txt</span>
-                        </p>
-                        <div class="terminal-output">
-                            <ul>
-                                <li>Current Role: Full Stack Developer @ ResiDash, Morgan Stanley FID (Mumbai)</li>
-                                <li>Location: Mumbai, Maharashtra, India</li>
-                                <li>diganta@linux:~$</li>
-                            </ul>
-                        </div>
-                        
-                        <p class="terminal-prompt">
-                            <span class="terminal-command">cat system_info.txt</span>
-                        </p>
-                        <div class="terminal-output">
-                            <div class="cyber-cat">
-                                ,_     _
-                                |\\_,-~/
-                                / _  _ |    ,--.
-                               (  @  @ )   / ,-'
-                                \  _T_/-._( (
-                                /         `. \
-                               |         _  \ |
-                                \ \ ,  /      |
-                                 || |-_\__   /
-                                ((_/`(____,-'
+            <div class="container">
+                <h2 class="section-title">About</h2>
+                <div class="about-content">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <div class="term-btn term-close"></div>
+                                <div class="term-btn term-minimize"></div>
+                                <div class="term-btn term-maximize"></div>
                             </div>
-                            <div class="system-info">
-                                Secondary: 92.5% (WBSSE)<br>
-                                Higher Secondary: 94.6% (CBSE)<br>
-                                Bachelors: 71%<br>
-                                Masters: 80%<br>
-                                Olympiads: RMO 2014, RMO 2015, RMO 2016<br>
-                                Scholarships: KVPY(SA) 2017<br>
-                                Competitions: Asia Simon Marias Top Quartile 2018, 27th Pair 2019<br>
-                                Certifications: FRM (Lvl 1) (2024)<br>
-                                MBTI: INTJ<br>
+                            <div class="terminal-title">diganta@linux:~$ neofetch</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-content">
+                                <div class="term-user-info">
+                                    <div class="term-username">diganta@linux</div>
+                                    <div class="term-separator">--------------</div>
+                                    <div class="system-info">
+                                        <div>OS: Ubuntu 20.04 LTS x86_64</div>
+                                        <div>Kernel: 5.4.0-24-generic</div>
+                                        <div>Shell: bash 5.0.16</div>
+                                        <div>CPU: Intel i3-4150 (4) @ 3.50GHz</div>
+                                        <div>Memory: 1905MiB / 7639MiB</div>
+                                    </div>
+                                </div>
+                                <ul class="term-data-list">
+                                    <li>
+                                        <span class="term-label">Education:</span>
+                                        <span class="term-value">Masters and Bachelors in Statistics from the Indian Statistical Institute</span>
+                                        <ul class="term-sub-items">
+                                            <li><span class="term-marker">></span> Major: Probability</li>
+                                            <li><span class="term-marker">></span> Minor: Financial Mathematics</li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
+                                        <span class="term-label">Skills:</span>
+                                        <span class="term-value">Experienced in</span>
+                                        <ul class="term-sub-items">
+                                            <li><span class="term-marker">></span> Developing predictive models</li>
+                                            <li><span class="term-marker">></span> Analyzing financial data</li>
+                                            <li><span class="term-marker">></span> Implementing data-driven solutions</li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
+                                        <span class="term-label">Current Role:</span>
+                                        <span class="term-value">Full Stack Developer @ ResiDash, Morgan Stanley, FID (Mumbai)</span>
+                                    </li>
+                                    
+                                    <li class="location-info">
+                                        <span class="term-label">Location:</span>
+                                        <span class="term-value"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</span>
+                                    </li>
+
+                                    <li class="terminal-line">
+                                        <span class="prompt">diganta@linux:~$</span>
+                                        <span class="command blink-cursor">_</span>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>             
-                        <p class="terminal-prompt">
-                            <span class="terminal-command">_<span class="terminal-cursor"></span></span>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="blog" class="blog">
-            <div class="section-content">
-                <h2 class="section-title">Blog Posts</h2>
-                <div class="blog-container blog-grid-view">
-                    <article class="blog-card">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Simulate future short-term interest rates: Example of Vasicek model</h3>
-                            <p class="blog-excerpt">A comprehensive guide to simulating future short-term interest rates using the Vasicek model, a widely used mean-reverting stochastic process.</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">April 20, 2025</span>
-                                <a href="blog/vasicek-model.html" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Calculating Spreads using bootstrap techniques</h3>
-                            <p class="blog-excerpt">A comprehensive guide to calculating Option-Adjusted Spreads (OAS) for Mortgage-Backed Securities using bootstrap techniques and Monte Carlo simulation.</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">April 13, 2025</span>
-                                <a href="blog/option-adjusted-spread.html" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Using Mean-Reverting Process to Estimate Volatility and Drift</h3>
-                            <p class="blog-excerpt">A detailed exploration of using the Ornstein-Uhlenbeck process to estimate volatility and drift in mean-reverting time series, with applications in financial modeling.</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">April 7, 2025</span>
-                                <a href="blog/mean-reverting-process.html" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Repeat-Sales Transaction Index for Custom Indexes: Example of Home Prices</h3>
-                            <p class="blog-excerpt">A detailed exploration of creating a repeat sales transaction index, like the Case-Shiller Index, for tracking property price changes over time.</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">April 1, 2025</span>
-                                <a href="blog/repeat-sales-transaction-index.html" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Heath-Jarrow-Morton (HJM) Framework</h3>
-                            <p class="blog-excerpt">A comprehensive guide to using the Heath-Jarrow-Morton framework to model the evolution of the entire yield curve and discount cash flows.</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">March 22, 2025</span>
-                                <a href="blog/heath-jarrow-morton.html" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-content">
-                            <h3 class="blog-title">Regression Lines in Regular Polygons: A Statistical Curiosity</h3>
-                            <p class="blog-excerpt">Exploring an intriguing statistical problem that emerged during my B.Stat comprehensive viva preparation: how does the regression line behave when we rotate a regular polygon while keeping its centroid fixed?</p>
-                            <div class="blog-meta">
-                                <span class="blog-date">March 15, 2025</span>
-                                <a href="blog/regression-lines-regular-polygons.html" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
+        <!-- Experience Section -->
         <section id="experience" class="experience">
-            <div class="section-content">
+            <div class="container">
                 <h2 class="section-title">Experience</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-                        <div class="role">Quantitative Strategist</div>
+                        <div class="role">Sr. Quant Strategist</div>
                         <div class="company">Morgan Stanley, FID</div>
                         <div class="period">2022 - Present</div>
                         <div class="location">Mumbai</div>
                         <ul class="responsibilities">
-                            <li>Strategic Analytics in Fixed Income Division</li>
-                            <li>Quantitative modeling & financial analysis</li>
-                            <li>Market data analysis & predictive modeling</li>
+                            <li>Leading strategic analytics for residential mortgage portfolios worth billions</li>
+                            <li>Developed USA Home Price Index Analytics with 10% MSE reduction</li>
+                            <li>Built automated systems processing 25M+ property transactions</li>
+                            <li>Implemented ML models improving AUC by 0.12-0.17 vs legacy systems</li>
                         </ul>
                     </div>
 
@@ -306,627 +279,338 @@
                         <div class="period">May - July 2021</div>
                         <div class="location">Mumbai</div>
                         <ul class="responsibilities">
-                            <li>ANN Model for House Price Prediction</li>
-                            <li>Hedonic & Spatial Pricing Models</li>
-                            <li>R-KDB framework implementation</li>
+                            <li>Implemented ANN Model for American Home Price Prediction</li>
+                            <li>Developed Hedonic & Geo-Spatial Pricing Models</li>
+                            <li>Built comprehensive R-kdb+ framework for model deployment</li>
+                            <li>Performed advanced data processing and matrix manipulation</li>
                         </ul>
                     </div>
 
                     <div class="timeline-item">
                         <div class="role">Research Intern</div>
-                        <div class="company">Microsoft Research</div>
+                        <div class="company">Microsoft Research India</div>
                         <div class="period">May 2019 - July 2020</div>
-                        <div class="location">Bangalore</div>
+                        <div class="location">Kolkata</div>
                         <ul class="responsibilities">
-                            <li>Hidden Subgroup Problem research</li>
-                            <li>Algorithm development for solved cases</li>
-                            <li>Alternative proof for Fermat's Theorem</li>
+                            <li>Developed O(n²) algorithm for Hidden-Subgroup Problem</li>
+                            <li>Built Zero-Knowledge Authentication proof prototype</li>
+                            <li>Conducted advanced cryptology and quantum computing research</li>
+                            <li>Created alternative proof for Fermat's Theorem</li>
                         </ul>
                     </div>
                 </div>
+                
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-value">4+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-value">25M+</div>
+                        <div class="stat-label">Records Processed</div>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <div class="stat-value">20+</div>
+                        <div class="stat-label">ML Models Deployed</div>
+                    </div>
+                </div>
+
+                <!-- View Full Experience Button -->
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="experience/experience.html" class="resume-button" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                        <i class="fas fa-eye"></i>
+                        View Full Experience & Projects
+                    </a>
+                </div>
             </div>
         </section>
 
+        <!-- Projects Section -->
         <section id="projects" class="projects">
-            <div class="section-content">
+            <div class="container">
                 <h2 class="section-title">Projects</h2>
-                <div class="project-grid">
-                    <div class="project-card featured">
-                        <div class="project-header">
-                            <h3>TradeDash</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/OfficialBhattacharya/TradeDash" target="_blank" class="github-link">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
+                <div class="projects-grid">
+                    <div class="project-card" onclick="window.open('projects/tradedash/tradedash.html', '_blank')">
+                        <div class="project-icon">
+                            <i class="fas fa-chart-line" style="font-size: 2rem; color: #00ff88;"></i>
                         </div>
-                        <div class="project-content">
-                            <div class="project-info">
-                                <p class="project-description">A comprehensive trading dashboard for real-time market analysis and portfolio management.</p>
-                                <div class="tech-stack">
-                                    <span class="tech-tag">React</span>
-                                    <span class="tech-tag">Node.js</span>
-                                    <span class="tech-tag">MongoDB</span>
-                                    <span class="tech-tag">WebSocket</span>
-                                    <span class="tech-tag">Chart.js</span>
-                                </div>
-                            </div>
-                            <div class="project-images-grid">
-                                <div class="project-image-item">
-                                    <img src="assets/tradedash-strategy.JPG" alt="Strategy Analysis">
-                                    <p>Strategy Analysis</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/tradedash-pnl.JPG" alt="P&L Analysis">
-                                    <p>P&L Analysis</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/tradedash-similar.JPG" alt="Similar Stocks">
-                                    <p>Similar Stocks</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/tradedash-scanner.JPG" alt="Market Scanner">
-                                    <p>Market Scanner</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/tradedash-recommendations.JPG" alt="Trading Recommendations">
-                                    <p>AI Recommendations</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/tradedash-charts.JPG" alt="Technical Charts">
-                                    <p>Technical Charts</p>
-                                </div>
-                            </div>
+                        <h3>TradeDash</h3>
+                        <p class="project-description">A comprehensive trading dashboard for real-time market analysis and portfolio management.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">WebSocket</span>
+                            <span class="tech-tag">Chart.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/OfficialBhattacharya/TradeDash" target="_blank" class="github-link" onclick="event.stopPropagation()">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <div class="view-button">
+                            <i class="fas fa-eye"></i>
+                            <span>View Project</span>
                         </div>
                     </div>
-
-                    <div class="project-card featured">
-                        <div class="project-header">
-                            <h3>Wall-ET</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/OfficialBhattacharya/Wall-ET" target="_blank" class="github-link">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
+                    
+                    <div class="project-card" onclick="window.open('projects/wall-et/wall-et.html', '_blank')">
+                        <div class="project-icon">
+                            <i class="fas fa-wallet" style="font-size: 2rem; color: #ffa500;"></i>
                         </div>
-                        <div class="project-content">
-                            <div class="project-info">
-                                <p class="project-description">A modern, interactive financial dashboard built with Plotly Dash for tracking your stock portfolio, mutual funds, loans, credit cards, and other investments.</p>
-                                <div class="tech-stack">
-                                    <span class="tech-tag">Python</span>
-                                    <span class="tech-tag">Plotly Dash</span>
-                                    <span class="tech-tag">Pandas</span>
-                                    <span class="tech-tag">yfinance</span>
-                                    <span class="tech-tag">Bootstrap</span>
-                                </div>
-                            </div>
-                            <div class="project-images-grid">
-                                <div class="project-image-item">
-                                    <img src="assets/Wallet_1.JPG" alt="Portfolio Overview">
-                                    <p>Portfolio Overview</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/Wallet_2.JPG" alt="Asset Allocation">
-                                    <p>Asset Allocation</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/Wallet_3.JPG" alt="Stock Performance">
-                                    <p>Stock Performance</p>
-                                </div>
-                                <div class="project-image-item">
-                                    <img src="assets/Wallet_4.JPG" alt="Financial Summary">
-                                    <p>Financial Summary</p>
-                                </div>
-                            </div>
+                        <h3>Wall_ET</h3>
+                        <p class="project-description">A modern, interactive financial dashboard built with Plotly Dash for tracking your stock portfolio, mutual funds, loans, and investments.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Plotly Dash</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">yfinance</span>
+                            <span class="tech-tag">Financial Analytics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/OfficialBhattacharya/Wall-ET" target="_blank" class="github-link" onclick="event.stopPropagation()">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <div class="view-button">
+                            <i class="fas fa-eye"></i>
+                            <span>View Project</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Skills Section -->
         <section id="skills" class="skills">
-            <div class="section-content">
-                <h2 class="section-title">Technical Stack</h2>
+            <div class="container">
+                <h2 class="section-title">Skills</h2>
                 <div class="tech-stack-grid">
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3>Machine Learning & AI</h3>
-                        <div class="tech-stack-items">
-                            Deep Learning | LLMs | Transformers | FastText | TensorFlow | Keras | PyTorch | Scikit-Learn | XGBoost | CatBoost | Logistic Regression | HDBSCAN | KMeans | KNN
-                        </div>
-                    </div>
-
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Data Science & Analytics</h3>
-                        <div class="tech-stack-items">
-                            Python | R | SQL | Pandas | NumPy | Scipy | Seaborn | Matplotlib | Plotly | StatsModels | SPSS
-                        </div>
-                    </div>
-
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <h3>MLOps & Deployment</h3>
-                        <div class="tech-stack-items">
-                            AWS (S3, Lambda, EC2, SageMaker) | Docker | Kubernetes | GitHub Actions | Evidently.AI | FastAPI | ClickHouse
-                        </div>
-                    </div>
-
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h3>Big Data & Databases</h3>
-                        <div class="tech-stack-items">
-                            AWS (Athena, DynamoDB) | PostgreSQL | MySQL | Redshift | ClickHouse
-                        </div>
-                    </div>
-
                     <div class="tech-stack-card">
                         <div class="tech-stack-icon">
                             <i class="fas fa-code"></i>
                         </div>
-                        <h3>Software Development & DevOps</h3>
+                        <h3>Programming Languages</h3>
                         <div class="tech-stack-items">
-                            Git | Docker | Postman | AWS CloudWatch | Sentry | DataDog | Grafana | Terraform | REST APIs
+                            Python • Q/kdb+ • JavaScript • React • Node.js • WebSocket • Chart.js • R • SQL • Matlab • C • C++
                         </div>
                     </div>
-
+                    
                     <div class="tech-stack-card">
                         <div class="tech-stack-icon">
-                            <i class="fas fa-font"></i>
+                            <i class="fas fa-tools"></i>
                         </div>
-                        <h3>NLP & Text Processing</h3>
+                        <h3>Tools & Technologies</h3>
                         <div class="tech-stack-items">
-                            FastText | Transformers | NLTK | SpaCy | AutoRegex | Named Entity Recognition (NER) | LLM Fine-Tuning
+                            Jenkins • GitHub • Docker • AWS • Cursor • PySpark • RShiny • LATEX • MS Office • Plotly Dash • Desmos
+                        </div>
+                    </div>
+                    
+                    <div class="tech-stack-card">
+                        <div class="tech-stack-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Areas of Expertise</h3>
+                        <div class="tech-stack-items">
+                            Statistical Modeling • Neural Networks • Mean Field Games • Convex Optimization • Signal Processing • Machine Learning • Number Theory
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Blog Section -->
+        <section id="blog" class="blog">
+            <div class="container">
+                <h2 class="section-title">Blog</h2>
+                <div class="blog-topics-grid">
+                    <!-- Finance in Banks Topic Card -->
+                    <div class="blog-topic-card finance-card">
+                        <div class="topic-header">
+                            <div class="topic-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h3 class="topic-title">Finance in Banks</h3>
+                            <p class="topic-description">Advanced financial modeling and quantitative analysis techniques used in banking and finance</p>
+                        </div>
+                        <div class="topic-content">
+                            <div class="topic-articles">
+                                <article class="topic-article" onclick="window.open('blog/vasicek-model.html', '_blank')">
+                                    <div class="article-header">
+                                        <h4 class="article-title">Simulate future short-term interest rates: Example of Vasicek model</h4>
+                                        <span class="article-date">April 20, 2025</span>
+                                    </div>
+                                    <p class="article-excerpt">A comprehensive guide to simulating future short-term interest rates using the Vasicek model, a widely used mean-reverting stochastic process.</p>
+                                    <div class="article-link">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Read More</span>
+                                    </div>
+                                </article>
+
+                                <article class="topic-article" onclick="window.open('blog/option-adjusted-spread.html', '_blank')">
+                                    <div class="article-header">
+                                        <h4 class="article-title">Calculating Spreads using bootstrap techniques</h4>
+                                        <span class="article-date">April 13, 2025</span>
+                                    </div>
+                                    <p class="article-excerpt">Example of Option Adjusted Spread for MBS using bootstrap techniques in finance.</p>
+                                    <div class="article-link">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Read More</span>
+                                    </div>
+                                </article>
+
+                                <article class="topic-article" onclick="window.open('blog/mean-reverting-process.html', '_blank')">
+                                    <div class="article-header">
+                                        <h4 class="article-title">Using Mean-Reverting Process to Estimate Volatility</h4>
+                                        <span class="article-date">April 7, 2025</span>
+                                    </div>
+                                    <p class="article-excerpt">Example of Ornstein-Uhlenbeck process for estimating volatility and drift in time series.</p>
+                                    <div class="article-link">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Read More</span>
+                                    </div>
+                                </article>
+
+                                <article class="topic-article" onclick="window.open('blog/repeat-sales-transaction-index.html', '_blank')">
+                                    <div class="article-header">
+                                        <h4 class="article-title">Repeat-Sales Transaction Index for Custom Indexes</h4>
+                                        <span class="article-date">April 1, 2025</span>
+                                    </div>
+                                    <p class="article-excerpt">Example of Home Prices using repeat sales transaction methodology.</p>
+                                    <div class="article-link">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Read More</span>
+                                    </div>
+                                </article>
+
+                                <article class="topic-article" onclick="window.open('blog/heath-jarrow-morton.html', '_blank')">
+                                    <div class="article-header">
+                                        <h4 class="article-title">Forecast future interest rates and discount cash flows</h4>
+                                        <span class="article-date">March 22, 2025</span>
+                                    </div>
+                                    <p class="article-excerpt">Example of Heath-Jarrow-Morton (HJM) framework for interest rate modeling.</p>
+                                    <div class="article-link">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Read More</span>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Not So Usual Statistics Topic Card -->
+                    <div class="blog-topic-card statistics-card">
+                        <div class="topic-header">
+                            <div class="topic-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="topic-title">Not So Usual Statistics</h3>
+                            <p class="topic-description">Exploring unconventional statistical concepts and mathematical curiosities</p>
+                        </div>
+                        <div class="topic-content">
+                            <div class="topic-articles">
+                                <article class="topic-article featured-article" onclick="window.open('blog/regression-lines-regular-polygons.html', '_blank')">
+                                    <div class="article-header">
+                                        <h4 class="article-title">Regression Lines in Regular Polygons</h4>
+                                        <span class="article-date">March 15, 2025</span>
+                                    </div>
+                                    <p class="article-excerpt">A statistical curiosity exploring the behavior of regression lines in geometric patterns. This fascinating intersection of geometry and statistics reveals unexpected patterns in data visualization.</p>
+                                    <div class="article-link">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Read More</span>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
         <section id="games" class="games">
-            <div class="section-content">
+            <div class="container">
                 <h2 class="section-title">Games</h2>
-                <div class="games-navigation">
-                    <button class="game-nav-button prev">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="games-container">
-                        <div class="game-card active">
-                            <h3>Ultimate Tic-Tac-Toe</h3>
-                            <p class="game-description">A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
-                            <div class="ultimate-tic-tac-toe">
-                                <div class="game-status">Your turn! Click any cell to start</div>
-                                <div class="ultimate-board">
-                                    <!-- 9 main boards -->
-                                    <div class="main-board" data-board="0">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="1">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="2">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="3">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="4">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="5">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="6">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="7">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                    <div class="main-board" data-board="8">
-                                        <div class="cell" data-cell="0"></div>
-                                        <div class="cell" data-cell="1"></div>
-                                        <div class="cell" data-cell="2"></div>
-                                        <div class="cell" data-cell="3"></div>
-                                        <div class="cell" data-cell="4"></div>
-                                        <div class="cell" data-cell="5"></div>
-                                        <div class="cell" data-cell="6"></div>
-                                        <div class="cell" data-cell="7"></div>
-                                        <div class="cell" data-cell="8"></div>
-                                    </div>
-                                </div>
-                                <button class="restart-button">Restart Game</button>
-                            </div>
+                <div class="games-grid">
+                    <div class="game-card" onclick="window.open('games/ultimate-tic-tac-toe/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-th" style="font-size: 2rem; color: #00ff88;"></i>
                         </div>
-                        <div class="game-card">
-                            <h3>Math Wordle</h3>
-                            <p class="game-description">Find the hidden calculation in 6 tries. Each guess must be a valid calculation. The color of the tiles will show how close your guess was to the solution. The calculation must equal the result shown!</p>
-                            <div class="wordle-game">
-                                <div class="wordle-status">Guess the calculation!</div>
-                                <div class="wordle-board-container">
-                                    <div class="wordle-board">
-                                        <!-- 6 rows of 8 cells each for math expressions like "12+34=46" -->
-                                        <div class="wordle-row">
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                        </div>
-                                        <div class="wordle-row">
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                        </div>
-                                        <div class="wordle-row">
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                        </div>
-                                        <div class="wordle-row">
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                        </div>
-                                        <div class="wordle-row">
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                        </div>
-                                        <div class="wordle-row">
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                            <div class="wordle-cell"></div>
-                                        </div>
-                                    </div>
-                                    <div class="color-legend">
-                                        <div class="legend-item">
-                                            <span class="legend-color correct"></span>
-                                            <span class="legend-text">Correct digit/operator in correct position</span>
-                                        </div>
-                                        <div class="legend-item">
-                                            <span class="legend-color present"></span>
-                                            <span class="legend-text">Correct digit/operator in wrong position</span>
-                                        </div>
-                                        <div class="legend-item">
-                                            <span class="legend-color absent"></span>
-                                            <span class="legend-text">Digit/operator not in the solution</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wordle-keyboard">
-                                    <div class="keyboard-row">
-                                        <button class="key">1</button>
-                                        <button class="key">2</button>
-                                        <button class="key">3</button>
-                                        <button class="key">4</button>
-                                        <button class="key">5</button>
-                                        <button class="key">6</button>
-                                        <button class="key">7</button>
-                                        <button class="key">8</button>
-                                        <button class="key">9</button>
-                                        <button class="key">0</button>
-                                    </div>
-                                    <div class="keyboard-row">
-                                        <button class="key">+</button>
-                                        <button class="key">-</button>
-                                        <button class="key">×</button>
-                                        <button class="key">÷</button>
-                                        <button class="key">=</button>
-                                    </div>
-                                    <div class="keyboard-row">
-                                        <button class="key enter">Enter</button>
-                                        <button class="key backspace">Backspace</button>
-                                    </div>
-                                </div>
-                                <button class="wordle-restart-button">New Game</button>
-                            </div>
-                        </div>
-                        <div class="game-card">
-                            <h3>Game of Nim</h3>
-                            <p class="game-description">A strategic game where you play against the computer. Remove 1-3 sticks per turn. The player who takes the last stick wins!</p>
-                            <div class="subtraction-game">
-                                <div class="game-status">Your turn! Choose 1-3 sticks to remove.</div>
-                                <div class="sticks-container">
-                                    <!-- Sticks will be dynamically generated here -->
-                                </div>
-                                <div class="game-controls">
-                                    <button class="take-button" data-sticks="1">Take 1</button>
-                                    <button class="take-button" data-sticks="2">Take 2</button>
-                                    <button class="take-button" data-sticks="3">Take 3</button>
-                                </div>
-                                <div class="game-info">
-                                    <div class="sticks-left">Number of sticks: <span class="sticks-count">13</span></div>
-                                    <div class="max-take">Most you can take: <span class="max-take-count">3</span></div>
-                                </div>
-                                <button class="restart-button">New Game</button>
-                            </div>
-                        </div>
-                        <div class="game-card">
-                            <h3>Its All in the Cards</h3>
-                            <p class="game-description">This game is about predicting whether the next playing card to be turned over will have a higher or lower value than the previous card. Before you begin, familiarize yourself with the card values: Ace (1) through King (13).</p>
-                            <div class="card-game">
-                                <div class="card-display">
-                                    <!-- First row of cards (A-9) -->
-                                    <div class="card-row">
-                                        <div class="playing-card" data-value="1">A<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="2">2<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="3">3<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="4">4<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="5">5<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="6">6<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="7">7<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="8">8<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="9">9<span class="spades">♠</span></div>
-                                    </div>
-                                    <!-- Ten card in its own row -->
-                                    <div class="card-row ten-row">
-                                        <div class="playing-card" data-value="10">10<span class="spades">♠</span></div>
-                                    </div>
-                                    <!-- Face cards row -->
-                                    <div class="face-cards">
-                                        <div class="playing-card" data-value="11">J<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="12">Q<span class="spades">♠</span></div>
-                                        <div class="playing-card" data-value="13">K<span class="spades">♠</span></div>
-                                    </div>
-                                </div>
-                                <div class="game-play-area">
-                                    <div class="current-card-stack">
-                                        <div class="current-card"></div>
-                                        <div class="card-shadow"></div>
-                                    </div>
-                                    <div class="prediction-buttons">
-                                        <button class="predict-button higher">Higher</button>
-                                        <button class="predict-button lower">Lower</button>
-                                    </div>
-                                </div>
-                                <button class="begin-game-button">Begin the game</button>
-                            </div>
-                        </div>
-                        <div class="game-card">
-                            <h3>Cyber 2048</h3>
-                            <p class="game-description">Merge tiles, build up to 2048 and beyond in this cyberpunk-themed version of the classic game. Use arrow keys or swipe to combine matching numbers.</p>
-                            <div class="cyber-2048-game" id="cyber2048Game">
-                                <div class="game-header">
-                                    <div class="scores-container">
-                                        <div class="score-box">
-                                            <span class="score-label">SCORE</span>
-                                            <span class="score-value">0</span>
-                                        </div>
-                                        <div class="score-box">
-                                            <span class="score-label">BEST</span>
-                                            <span class="best-value">0</span>
-                                        </div>
-                                    </div>
-                                    <div class="game-info">
-                                        <span class="info-text">Join tiles to reach <strong>2048</strong></span>
-                                    </div>
-                                </div>
-                                <div class="game-container">
-                                    <div class="game-message">
-                                        <p></p>
-                                        <div class="lower">
-                                            <button class="retry-button">Try Again</button>
-                                        </div>
-                                    </div>
-                                    <div class="grid-container">
-                                        <div class="grid-background">
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                            <div class="grid-cell"></div>
-                                        </div>
-                                        <div class="grid-tiles">
-                                            <!-- Tiles will be dynamically generated here -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="game-controls">
-                                    <div class="control-hints">
-                                        <span class="hint-text">Use keyboard arrows or swipe to move tiles</span>
-                                    </div>
-                                    <div class="game-buttons">
-                                        <button class="new-game-button">New Game</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <h3>Ultimate Tic-Tac-Toe</h3>
+                        <p class="game-description">A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>Play Game</span>
                         </div>
                     </div>
-                    <button class="game-nav-button next">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    
+                    <div class="game-card" onclick="window.open('games/reverse-pacman/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-ghost" style="font-size: 2rem; color: #ff6b6b;"></i>
+                        </div>
+                        <h3>Reverse Pacman</h3>
+                        <p class="game-description">Play as the ghosts and try to catch Pacman! A fun twist on the classic arcade game.</p>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>Play Game</span>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card" onclick="window.open('games/math-wordle/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-calculator" style="font-size: 2rem; color: #ffa500;"></i>
+                        </div>
+                        <h3>Math Wordle</h3>
+                        <p class="game-description">Find the hidden calculation in 6 tries. Each guess must be a valid calculation. The color of the tiles will show how close your guess was to the solution!</p>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>Play Game</span>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card" onclick="window.open('games/game-of-nim/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-minus" style="font-size: 2rem; color: #8B4513;"></i>
+                        </div>
+                        <h3>Game of Nim</h3>
+                        <p class="game-description">A strategic game where you play against the computer. Remove 1-3 sticks per turn. The player who takes the last stick wins!</p>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>Play Game</span>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card" onclick="window.open('games/cards-game/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-heart" style="font-size: 2rem; color: #ff1493;"></i>
+                        </div>
+                        <h3>Its All in the Cards</h3>
+                        <p class="game-description">Predict whether the next playing card will have a higher or lower value than the previous card. Test your luck and strategy!</p>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>Play Game</span>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card" onclick="window.open('games/cyber-2048/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-cube" style="font-size: 2rem; color: #00ffff;"></i>
+                        </div>
+                        <h3>Cyber 2048</h3>
+                        <p class="game-description">Merge tiles, build up to 2048 and beyond in this cyberpunk-themed version of the classic game. Use arrow keys or swipe to combine matching numbers.</p>
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                            <span>Play Game</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Diganta Bhattacharya</p>
-        </div>
-    </footer>
-
-    <!-- Add Cyberpunk Loading Bar -->
-    <div class="cyberpunk-loader">
-        <div class="loader-container">
-            <div class="loader-bar">
-                <div class="loader-progress"></div>
-            </div>
-            <div class="loader-glitch"></div>
-            <div class="loader-text">LOADING SECTION</div>
-        </div>
-    </div>
-
-    <nav class="sundial-nav">
-        <div class="sundial-sections">
-            <a href="#home" class="sundial-section">
-                <span>Home</span>
-            </a>
-            <a href="#about" class="sundial-section">
-                <span>About</span>
-                <div class="sundial-subsections">
-                    <a href="#profile" class="sundial-subsection">Profile</a>
-                    <a href="#background" class="sundial-subsection">Background</a>
-                </div>
-            </a>
-            <a href="#blog" class="sundial-section">
-                <span>Blog Posts</span>
-                <div class="sundial-subsections">
-                    <a href="#latest" class="sundial-subsection">Latest Posts</a>
-                    <a href="#categories" class="sundial-subsection">Categories</a>
-                </div>
-            </a>
-            <a href="#experience" class="sundial-section">
-                <span>Experience</span>
-                <div class="sundial-subsections">
-                    <a href="#morgan-stanley" class="sundial-subsection">Morgan Stanley</a>
-                    <a href="#microsoft" class="sundial-subsection">Microsoft Research</a>
-                </div>
-            </a>
-            <a href="#projects" class="sundial-section">
-                <span>Projects</span>
-                <div class="sundial-subsections">
-                    <a href="#tradedash" class="sundial-subsection">TradeDash</a>
-                    <a href="#other-projects" class="sundial-subsection">Other Projects</a>
-                </div>
-            </a>
-            <a href="#skills" class="sundial-section">
-                <span>Skills</span>
-                <div class="sundial-subsections">
-                    <a href="#technical" class="sundial-subsection">Technical</a>
-                    <a href="#soft-skills" class="sundial-subsection">Soft Skills</a>
-                </div>
-            </a>
-            <a href="#games" class="sundial-section">
-                <span>Games</span>
-                <div class="sundial-subsections">
-                    <a href="#tic-tac-toe" class="sundial-subsection">Tic-tac-toe</a>
-                </div>
-            </a>
-        </div>
-    </nav>
-
-    <script src="script.js"></script>
-    <script src="js/cyber2048.js"></script>
+    <!-- Scripts -->
+    <script src="src/scripts/main.js"></script>
 </body>
-</html> 
+</html>

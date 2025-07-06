@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber 2048 - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-page">
+        <header class="game-header">
+            <a href="../../index.html#games" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </a>
+            <h1>Cyber 2048</h1>
+        </header>
+        
+        <main class="game-content">
+            <div class="game-container">
+                <p class="game-description">Merge tiles, build up to 2048 and beyond in this cyberpunk-themed version of the classic game. Use arrow keys or swipe to combine matching numbers.</p>
+                <div class="cyber-2048-game" id="cyber2048Game">
+                    <div class="cyber-game-header">
+                        <div class="scores-container">
+                            <div class="score-box">
+                                <span class="score-label">SCORE</span>
+                                <span class="score-value">0</span>
+                            </div>
+                            <div class="score-box">
+                                <span class="score-label">BEST</span>
+                                <span class="best-value">0</span>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <span class="info-text">Join tiles to reach <strong>2048</strong></span>
+                        </div>
+                    </div>
+                    <div class="game-container-inner">
+                        <div class="game-message">
+                            <p></p>
+                            <div class="lower">
+                                <button class="retry-button">Try Again</button>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-background">
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                                <div class="grid-cell"></div>
+                            </div>
+                            <div class="grid-tiles">
+                                <!-- Tiles will be dynamically generated here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-controls">
+                        <div class="control-hints">
+                            <span class="hint-text">Use keyboard arrows or swipe to move tiles</span>
+                        </div>
+                        <div class="game-buttons">
+                            <button class="new-game-button">New Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <p>&copy; 2024 Diganta Bhattacharya</p>
+        </footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

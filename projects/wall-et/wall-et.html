@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall_ET - Crypto Wallet | Diganta Bhattacharya</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../src/styles/main.css">
+    
+    <style>
+        /* Project Page Specific Styles */
+        .project-hero {
+            background: linear-gradient(135deg, rgba(255, 165, 0, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 20%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .project-title {
+            font-family: var(--header-font);
+            font-size: var(--font-size-5xl);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+        }
+        
+        .project-subtitle {
+            font-size: var(--font-size-xl);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: var(--spacing-2xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .project-nav {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+        
+        .back-button {
+            background: var(--card-bg);
+            color: var(--primary-color);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 165, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .project-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .project-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+        
+        .section-title {
+            font-family: var(--header-font);
+            font-size: var(--font-size-3xl);
+            color: #ffa500;
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #ffa500, #ff6b6b);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffa500;
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: var(--font-size-3xl);
+            color: #ffa500;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .feature-title {
+            font-family: var(--header-font);
+            font-size: var(--font-size-xl);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .feature-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .screenshot-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        .screenshot-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffa500;
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.3);
+        }
+        
+        .screenshot-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .screenshot-card:hover .screenshot-image {
+            transform: scale(1.05);
+        }
+        
+        .screenshot-info {
+            padding: var(--spacing-lg);
+        }
+        
+        .screenshot-title {
+            font-family: var(--header-font);
+            font-size: var(--font-size-lg);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .screenshot-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+        }
+        
+        .tech-stack-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-2xl);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            backdrop-filter: blur(10px);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .tech-category {
+            text-align: center;
+        }
+        
+        .tech-category-title {
+            font-family: var(--header-font);
+            font-size: var(--font-size-lg);
+            color: #ffa500;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+        
+        .tech-tag {
+            background-color: rgba(255, 165, 0, 0.1);
+            color: #ffa500;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 20px;
+            font-size: var(--font-size-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+        }
+        
+        .tech-tag:hover {
+            transform: translateY(-2px);
+            background-color: rgba(255, 165, 0, 0.2);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            background: #ffa500;
+            color: var(--bg-color);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: var(--header-font);
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .project-link:hover {
+            background: rgba(255, 165, 0, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+        }
+        
+        .project-link.secondary {
+            background: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+        }
+        
+        .project-link.secondary:hover {
+            background: rgba(255, 165, 0, 0.1);
+            border-color: #ffa500;
+        }
+        
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: var(--font-size-3xl);
+            }
+            
+            .project-subtitle {
+                font-size: var(--font-size-lg);
+            }
+            
+            .project-nav {
+                position: static;
+                padding: var(--spacing-md);
+            }
+            
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="project-nav">
+        <a href="../../index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Portfolio</span>
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <div class="project-content">
+            <h1 class="project-title">Wall_ET</h1>
+            <p class="project-subtitle">A modern, interactive financial dashboard built with Plotly Dash for tracking your stock portfolio, mutual funds, loans, credit cards, and other investments.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="project-content">
+        <!-- Overview Section -->
+        <section class="project-section">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Portfolio Overview</h3>
+                    <p class="feature-description">Comprehensive net worth trajectory tracking, asset allocation visualization, and current portfolio status monitoring.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <h3 class="feature-title">Stock Portfolio</h3>
+                    <p class="feature-description">Interactive datatable with sorting and filtering capabilities, performance tracking, and price comparison analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <h3 class="feature-title">Mutual Funds</h3>
+                    <p class="feature-description">Fund performance tracking, NAV history monitoring, and comprehensive investment analysis tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="feature-title">Financial Management</h3>
+                    <p class="feature-description">Track loans, credit cards, savings accounts, and other investments with detailed analytics and management tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="feature-title">Market Data</h3>
+                    <p class="feature-description">Real-time market trends analysis, stock performance metrics, and comprehensive financial data visualization.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="feature-title">Investment Analysis</h3>
+                    <p class="feature-description">Advanced analytics for alternative investments, performance metrics, and detailed financial calculations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshots Section -->
+        <section class="project-section">
+            <h2 class="section-title">Application Screenshots</h2>
+            <div class="screenshots-grid">
+                <div class="screenshot-card">
+                    <img src="../../src/assets/Wallet_1.JPG" alt="Wall_ET Dashboard" class="screenshot-image">
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Financial Dashboard</h3>
+                        <p class="screenshot-description">Interactive Plotly Dash interface showing comprehensive portfolio overview with net worth trajectory and asset allocation.</p>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="../../src/assets/Wallet_2.JPG" alt="Wall_ET Portfolio" class="screenshot-image">
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Stock Portfolio Tracker</h3>
+                        <p class="screenshot-description">Interactive datatable with sorting and filtering capabilities for tracking stock performance and price comparisons.</p>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="../../src/assets/Wallet_3.JPG" alt="Wall_ET Analytics" class="screenshot-image">
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Investment Analytics</h3>
+                        <p class="screenshot-description">Comprehensive analysis tools for mutual funds, loans, credit cards, and other financial investments.</p>
+                    </div>
+                </div>
+                <div class="screenshot-card">
+                    <img src="../../src/assets/Wallet_4.JPG" alt="Wall_ET Market Data" class="screenshot-image">
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Market Data Visualization</h3>
+                        <p class="screenshot-description">Real-time market trends and analysis with advanced visualization using Plotly for financial data insights.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="project-section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-stack-section">
+                <div class="tech-stack-grid">
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Core Framework</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Plotly Dash</span>
+                            <span class="tech-tag">Dash Bootstrap</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Data Analysis</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">NumPy</span>
+                            <span class="tech-tag">Plotly</span>
+                            <span class="tech-tag">yfinance</span>
+                            <span class="tech-tag">Excel Integration</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Financial Data</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Stock Market APIs</span>
+                            <span class="tech-tag">Mutual Fund Data</span>
+                            <span class="tech-tag">Portfolio Analytics</span>
+                            <span class="tech-tag">Real-time Data</span>
+                            <span class="tech-tag">Financial Metrics</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Visualization</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Interactive Charts</span>
+                            <span class="tech-tag">Data Tables</span>
+                            <span class="tech-tag">Responsive Design</span>
+                            <span class="tech-tag">Dashboard Components</span>
+                            <span class="tech-tag">Real-time Updates</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Links -->
+        <section class="project-section">
+            <h2 class="section-title">Project Links</h2>
+            <div class="project-links">
+                <a href="https://github.com/OfficialBhattacharya/Wall-ET" target="_blank" class="project-link">
+                    <i class="fab fa-github"></i>
+                    <span>View Code</span>
+                </a>
+                <a href="../../index.html#projects" class="project-link secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Projects</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.project-hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

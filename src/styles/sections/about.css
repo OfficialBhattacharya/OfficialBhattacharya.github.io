@@ -1,0 +1,116 @@
+/* About Section */
+.about {
+    background-color: var(--bg-color);
+    position: relative;
+    min-height: 100vh;
+    padding: var(--section-padding);
+    display: flex;
+    align-items: center;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(135deg, rgba(0, 247, 255, 0.03) 0%, rgba(0, 255, 157, 0.03) 100%),
+        repeating-linear-gradient(rgba(0, 255, 157, 0.02) 0px, rgba(0, 255, 157, 0) 2px, transparent 2px, transparent 4px);
+    pointer-events: none;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    width: 100%;
+}
+
+/* Section title */
+.section-title {
+    text-align: center;
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-3xl);
+    color: var(--primary-color);
+    font-family: var(--header-font);
+    position: relative;
+    text-shadow: 0 0 10px var(--secondary-color);
+    letter-spacing: 0.1em;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--cyberpunk-gradient);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Container utility */
+.container {
+    max-width: var(--container-max-width);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* Resume Button */
+.resume-button-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.resume-button {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-family: var(--header-font);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid var(--accent-color);
+}
+
+.resume-button:hover {
+    background: transparent;
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 247, 255, 0.3);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .about {
+        padding: var(--spacing-2xl) 0;
+        min-height: auto;
+    }
+    
+    .about-content {
+        gap: var(--spacing-xl);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--spacing-2xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+}

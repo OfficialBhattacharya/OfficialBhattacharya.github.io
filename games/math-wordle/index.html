@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Wordle - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-page">
+        <header class="game-header">
+            <a href="../../index.html#games" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </a>
+            <h1>Math Wordle</h1>
+        </header>
+        
+        <main class="game-content">
+            <div class="game-container">
+                <p class="game-description">Find the hidden calculation in 6 tries. Each guess must be a valid calculation. The color of the tiles will show how close your guess was to the solution. The calculation must equal the result shown!</p>
+                <div class="wordle-game">
+                    <div class="wordle-status">Guess the calculation!</div>
+                    <div class="wordle-board-container">
+                        <div class="wordle-board">
+                            <!-- 6 rows of 8 cells each for math expressions like "12+34=46" -->
+                            <div class="wordle-row">
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                            </div>
+                            <div class="wordle-row">
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                            </div>
+                            <div class="wordle-row">
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                            </div>
+                            <div class="wordle-row">
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                            </div>
+                            <div class="wordle-row">
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                            </div>
+                            <div class="wordle-row">
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                                <div class="wordle-cell"></div>
+                            </div>
+                        </div>
+                        <div class="color-legend">
+                            <div class="legend-item">
+                                <span class="legend-color correct"></span>
+                                <span class="legend-text">Correct digit/operator in correct position</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color present"></span>
+                                <span class="legend-text">Correct digit/operator in wrong position</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color absent"></span>
+                                <span class="legend-text">Digit/operator not in the solution</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wordle-keyboard">
+                        <div class="keyboard-row">
+                            <button class="key">1</button>
+                            <button class="key">2</button>
+                            <button class="key">3</button>
+                            <button class="key">4</button>
+                            <button class="key">5</button>
+                            <button class="key">6</button>
+                            <button class="key">7</button>
+                            <button class="key">8</button>
+                            <button class="key">9</button>
+                            <button class="key">0</button>
+                        </div>
+                        <div class="keyboard-row">
+                            <button class="key">+</button>
+                            <button class="key">-</button>
+                            <button class="key">×</button>
+                            <button class="key">÷</button>
+                            <button class="key">=</button>
+                        </div>
+                        <div class="keyboard-row">
+                            <button class="key enter">Enter</button>
+                            <button class="key backspace">Backspace</button>
+                        </div>
+                    </div>
+                    <button class="wordle-restart-button">New Game</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <p>&copy; 2024 Diganta Bhattacharya</p>
+        </footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

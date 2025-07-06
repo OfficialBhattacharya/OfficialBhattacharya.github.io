@@ -1,0 +1,299 @@
+/* Game of Nim Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #2D1B69 0%, #8B4513 50%, #2D1B69 100%);
+    color: #8B4513;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Game page structure */
+.game-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(45, 27, 105, 0.95);
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.3);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.back-link {
+    color: #8B4513;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #CD853F;
+    transform: translateX(-5px);
+}
+
+.game-header h1 {
+    color: #8B4513;
+    font-size: 1.8rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(139, 69, 19, 0.5);
+}
+
+.game-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 60px;
+}
+
+.game-footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(45, 27, 105, 0.8);
+    border-top: 1px solid rgba(139, 69, 19, 0.3);
+    color: #CD853F;
+    font-size: 0.9rem;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #8B4513;
+    text-shadow: 0 0 20px #8B4513;
+    font-weight: 700;
+}
+
+.game-description {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #b0b0b0;
+    line-height: 1.5;
+}
+
+.subtraction-game {
+    background: rgba(16, 16, 30, 0.8);
+    border: 2px solid #8B4513;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(139, 69, 19, 0.3);
+}
+
+.game-status {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #8B4513;
+    font-weight: 600;
+    min-height: 30px;
+}
+
+.sticks-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid #333;
+    min-height: 80px;
+    align-items: center;
+}
+
+.stick {
+    width: 4px;
+    height: 40px;
+    background: linear-gradient(to bottom, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+    border-radius: 2px;
+    margin: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stick.taken {
+    opacity: 0.3;
+    transform: scale(0.8);
+    background: #444;
+}
+
+.stick:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.5);
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.take-button {
+    background: linear-gradient(45deg, #8B4513, #CD853F);
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    font-family: 'Orbitron', monospace;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    min-width: 100px;
+}
+
+.take-button:hover {
+    background: linear-gradient(45deg, #CD853F, #8B4513);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+}
+
+.take-button:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.sticks-left, .max-take {
+    font-size: 1.1rem;
+    color: #b0b0b0;
+}
+
+.sticks-count, .max-take-count {
+    color: #8B4513;
+    font-weight: 600;
+}
+
+.restart-button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-family: 'Orbitron', monospace;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.restart-button:hover {
+    background: linear-gradient(45deg, #ff8e8e, #ffb3b3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.game-over {
+    color: #ff6b6b;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px #ff6b6b;
+}
+
+.game-won {
+    color: #8B4513;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px #8B4513;
+}
+
+.computer-turn {
+    color: #ffa500;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes takeStick {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.8) rotate(180deg); opacity: 0.5; }
+    100% { transform: scale(0.6); opacity: 0.3; }
+}
+
+.stick.taking {
+    animation: takeStick 0.5s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .game-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .take-button {
+        width: 200px;
+        margin-bottom: 10px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stick {
+        width: 3px;
+        height: 30px;
+    }
+    
+    .sticks-container {
+        min-height: 60px;
+    }
+    
+    .take-button {
+        width: 150px;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+} 

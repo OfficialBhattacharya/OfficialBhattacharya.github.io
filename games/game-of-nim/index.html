@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Nim - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-page">
+        <header class="game-header">
+            <a href="../../index.html#games" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </a>
+            <h1>Game of Nim</h1>
+        </header>
+        
+        <main class="game-content">
+            <div class="game-container">
+                <p class="game-description">A strategic game where you play against the computer. Remove 1-3 sticks per turn. The player who takes the last stick wins!</p>
+                <div class="subtraction-game">
+                    <div class="game-status">Your turn! Choose 1-3 sticks to remove.</div>
+                    <div class="sticks-container">
+                        <!-- Sticks will be dynamically generated here -->
+                    </div>
+                    <div class="game-controls">
+                        <button class="take-button" data-sticks="1">Take 1</button>
+                        <button class="take-button" data-sticks="2">Take 2</button>
+                        <button class="take-button" data-sticks="3">Take 3</button>
+                    </div>
+                    <div class="game-info">
+                        <div class="sticks-left">Number of sticks: <span class="sticks-count">13</span></div>
+                        <div class="max-take">Most you can take: <span class="max-take-count">3</span></div>
+                    </div>
+                    <button class="restart-button">New Game</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <p>&copy; 2024 Diganta Bhattacharya</p>
+        </footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

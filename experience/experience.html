@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience - Diganta Bhattacharya</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../src/styles/main.css">
+    <style>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--body-font);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .experience-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header Section */
+        .experience-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .experience-title {
+            font-family: var(--header-font);
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .experience-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Professional Summary */
+        .professional-summary {
+            background: rgba(var(--primary-rgb), 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .professional-summary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), #00f7ff, var(--accent-color));
+        }
+
+        .summary-title {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .summary-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .summary-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+        }
+
+        .stat-number {
+            font-family: var(--header-font);
+            font-size: 2rem;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Experience Timeline */
+        .experience-timeline {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-title {
+            font-family: var(--header-font);
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .timeline-item {
+            background: rgba(var(--primary-rgb), 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(var(--accent-rgb), 0.4);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent-color), #00f7ff);
+            border-radius: 2px;
+        }
+
+        .job-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .job-title {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .job-location {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .job-period {
+            font-size: 1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            background: rgba(var(--accent-rgb), 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .job-description {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .projects-section {
+            margin-top: 1.5rem;
+        }
+
+        .projects-title {
+            font-family: var(--header-font);
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(var(--accent-rgb), 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.2);
+            border-color: rgba(var(--accent-rgb), 0.4);
+        }
+
+        .project-name {
+            font-family: var(--header-font);
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .project-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-details li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .project-details li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 0.8rem;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Technical Skills Matrix */
+        .skills-matrix {
+            background: rgba(var(--primary-rgb), 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+        }
+
+        .skills-title {
+            font-family: var(--header-font);
+            font-size: 2rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+        }
+
+        .skill-category-title {
+            font-family: var(--header-font);
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(var(--accent-rgb), 0.1);
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: rgba(var(--accent-rgb), 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 10px rgba(0, 255, 157, 0.3);
+        }
+
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(var(--accent-rgb), 0.1);
+            color: var(--accent-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(var(--accent-rgb), 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .experience-container {
+                padding: 1rem;
+            }
+
+            .experience-title {
+                font-size: 2.5rem;
+            }
+
+            .summary-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .summary-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .job-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-to-main {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Binary rain effect */
+        .binary-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            overflow: hidden;
+        }
+
+        .binary-rain::before {
+            content: "01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101";
+            position: absolute;
+            top: -100px;
+            left: 0;
+            right: 0;
+            color: var(--accent-color);
+            font-family: var(--mono-font);
+            font-size: 0.8rem;
+            line-height: 1.2;
+            animation: rain 20s linear infinite;
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-100vh);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="binary-rain"></div>
+    
+    <div class="back-to-main">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Main
+        </a>
+    </div>
+
+    <div class="experience-container">
+        <!-- Header -->
+        <div class="experience-header">
+            <h1 class="experience-title">Experience</h1>
+            <p class="experience-subtitle">
+                Senior Quantitative Strategist with 4+ years of experience in financial modeling, 
+                machine learning, and full-stack development. Specializing in residential mortgage analytics, 
+                predictive modeling, and large-scale data processing systems.
+            </p>
+        </div>
+
+        <!-- Professional Summary -->
+        <div class="professional-summary">
+            <h2 class="summary-title">Professional Summary</h2>
+            <div class="summary-content">
+                <div class="summary-text">
+                    <p>
+                        <strong>Masters in Statistics</strong> from the Indian Statistical Institute with specialization in 
+                        <span class="highlight">Probability Theory</span> and <span class="highlight">Financial Mathematics</span>. 
+                        Currently leading strategic analytics initiatives at Morgan Stanley's Fixed Income Division, 
+                        developing cutting-edge predictive models for residential mortgage portfolios worth billions of dollars.
+                    </p>
+                    <p>
+                        Expert in <span class="highlight">quantitative modeling</span>, <span class="highlight">machine learning</span>, 
+                        and <span class="highlight">full-stack development</span> with proven track record of delivering 
+                        high-impact solutions that enhance forecasting accuracy by 10-15% and reduce processing time by 80-90%.
+                    </p>
+                </div>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">4+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25M+</span>
+                        <span class="stat-label">Records Processed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">ML Models Deployed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Technologies Mastered</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience Timeline -->
+        <div class="experience-timeline">
+            <div class="timeline-header">
+                <h2 class="timeline-title">Professional Journey</h2>
+            </div>
+            
+            <div class="timeline-container">
+                <!-- Current Role -->
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Senior Quantitative Strategist</h3>
+                            <h4 class="job-company">Morgan Stanley, Fixed Income Division</h4>
+                            <p class="job-location">Mumbai, India</p>
+                        </div>
+                        <div class="job-period">July 2022 - Present</div>
+                    </div>
+                    <p class="job-description">
+                        Leading strategic analytics initiatives for residential mortgage portfolios, developing sophisticated 
+                        predictive models and analytics platforms that serve multiple trading desks and drive critical 
+                        business decisions.
+                    </p>
+                    
+                    <div class="projects-section">
+                        <h4 class="projects-title">Key Projects & Achievements</h4>
+                        <div class="project-grid">
+                            <div class="project-card">
+                                <h5 class="project-name">USA Home Price Index Analytics & MSA Ranker</h5>
+                                <ul class="project-details">
+                                    <li>Built comprehensive tracker for <span class="highlight">USA Housing Market</span> using Plotly Dash</li>
+                                    <li>Integrated <span class="highlight">5+ vendor data sources</span> with kdb+ and web-scraped FRED data</li>
+                                    <li>Developed <span class="highlight">Metro-area Ranking System</span> using ARIMA/XGBoost hybrid models</li>
+                                    <li>Achieved <span class="highlight">~10% reduction in MSE</span> for 12-month HPA forecasts</li>
+                                    <li>Deployed <span class="highlight">Voting Regression</span> on 8 hyperparameter-tuned models</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="project-card">
+                                <h5 class="project-name">In-House Repeat Sales Transaction Index</h5>
+                                <ul class="project-details">
+                                    <li>Automated <span class="highlight">Monthly Index Builder</span> for 25+ million property transactions</li>
+                                    <li>Implemented <span class="highlight">Case-Shiller methodology</span> with custom optimizations</li>
+                                    <li>Reduced processing time from <span class="highlight">6+ hours to ~50 minutes</span></li>
+                                    <li>Enabled <span class="highlight">2-months earlier</span> pre-fetch estimates for actual HPI</li>
+                                    <li>Added custom index creation with <span class="highlight">hierarchical clustering</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="project-card">
+                                <h5 class="project-name">Transition Models for PD, LGD, EAD</h5>
+                                <ul class="project-details">
+                                    <li>Developed <span class="highlight">exhaustive feature selection</span> using multi-threading</li>
+                                    <li>Processed <span class="highlight">60+ million loan records</span> with parallel chunk processing</li>
+                                    <li>Reduced feature selection time by <span class="highlight">4-5 hours</span></li>
+                                    <li>Implemented <span class="highlight">Survival Analysis</span> for Non-QM portfolios</li>
+                                    <li>Improved AUC by <span class="highlight">0.12-0.17</span> vs legacy models</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="project-card">
+                                <h5 class="project-name">Hedge Optimizer & Scenario Analysis</h5>
+                                <ul class="project-details">
+                                    <li>Built <span class="highlight">Hedge Tool</span> with Python and kdb+ integration</li>
+                                    <li>Parsed data from <span class="highlight">INTEX</span> and multiple internal sources</li>
+                                    <li>Developed <span class="highlight">PyQt desktop app</span> for scenario analysis</li>
+                                    <li>Enabled <span class="highlight">custom scenario</span> creation capabilities</li>
+                                    <li>Optimized hedging strategies for selected portfolios</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="project-card">
+                                <h5 class="project-name">ResiDash & GLendA Development</h5>
+                                <ul class="project-details">
+                                    <li>Led development of <span class="highlight">Plotly-Dash</span> internal analytics website</li>
+                                    <li>Built <span class="highlight">React-based</span> Global Lending App (GLendA)</li>
+                                    <li>Implemented <span class="highlight">widget-based architecture</span> for private side</li>
+                                    <li>Maintained both <span class="highlight">public and private</span> side applications</li>
+                                    <li>Served multiple trading desks with complex analytics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summer Associate -->
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Summer Associate</h3>
+                            <h4 class="job-company">Morgan Stanley, Fixed Income Division</h4>
+                            <p class="job-location">Mumbai, India</p>
+                        </div>
+                        <div class="job-period">May - July 2021</div>
+                    </div>
+                    <p class="job-description">
+                        Developed advanced machine learning models for American home price prediction, 
+                        implementing comprehensive data processing pipelines and creating robust R-kdb+ frameworks 
+                        for model deployment.
+                    </p>
+                    
+                    <div class="projects-section">
+                        <h4 class="projects-title">Key Projects & Achievements</h4>
+                        <div class="project-grid">
+                            <div class="project-card">
+                                <h5 class="project-name">ANN Model for House Price Prediction</h5>
+                                <ul class="project-details">
+                                    <li>Implemented <span class="highlight">Artificial Neural Network</span> in R and Python</li>
+                                    <li>Performed comprehensive <span class="highlight">data collection and cleaning</span></li>
+                                    <li>Executed <span class="highlight">matrix manipulation</span> in kdb+</li>
+                                    <li>Documented model architecture and implementation details</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="project-card">
+                                <h5 class="project-name">Hedonic & Spatial Pricing Models</h5>
+                                <ul class="project-details">
+                                    <li>Implemented <span class="highlight">Hedonic Pricing Model</span> in R</li>
+                                    <li>Developed <span class="highlight">Geo-Spatial Pricing Model</span> with custom distance metrics</li>
+                                    <li>Created comparative analysis with original ANN model</li>
+                                    <li>Built <span class="highlight">R-kdb+ framework</span> for model deployment</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Research Intern -->
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <div>
+                            <h3 class="job-title">Research Intern</h3>
+                            <h4 class="job-company">Microsoft Research India / R.C. Bose Centre for Cryptology</h4>
+                            <p class="job-location">Bangalore, India</p>
+                        </div>
+                        <div class="job-period">May 2019 - July 2020</div>
+                    </div>
+                    <p class="job-description">
+                        Conducted advanced research in cryptology and quantum computing, developing novel algorithms 
+                        for the Hidden-Subgroup Problem and implementing Zero-Knowledge Authentication protocols.
+                    </p>
+                    
+                    <div class="projects-section">
+                        <h4 class="projects-title">Research Contributions</h4>
+                        <div class="project-grid">
+                            <div class="project-card">
+                                <h5 class="project-name">Hidden-Subgroup Problem Research</h5>
+                                <ul class="project-details">
+                                    <li>Created <span class="highlight">O(n²) algorithm</span> for solved cases</li>
+                                    <li>Developed novel approach to <span class="highlight">quantum computing</span> problems</li>
+                                    <li>Implemented efficient solutions for specific subgroup structures</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="project-card">
+                                <h5 class="project-name">Zero-Knowledge Authentication</h5>
+                                <ul class="project-details">
+                                    <li>Built <span class="highlight">proof-of-concept prototype</span></li>
+                                    <li>Implemented <span class="highlight">cryptographic protocols</span></li>
+                                    <li>Developed <span class="highlight">alternative proof</span> for Fermat's Theorem</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Skills Matrix -->
+        <div class="skills-matrix">
+            <h2 class="skills-title">Technical Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Programming Languages</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Q/kdb+</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">C</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Machine Learning & AI</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Deep Learning</span>
+                        <span class="skill-tag">Neural Networks</span>
+                        <span class="skill-tag">XGBoost</span>
+                        <span class="skill-tag">CatBoost</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">Keras</span>
+                        <span class="skill-tag">Optuna</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Data & Analytics</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Plotly Dash</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">SciPy</span>
+                        <span class="skill-tag">Survival Analysis</span>
+                        <span class="skill-tag">Time Series</span>
+                        <span class="skill-tag">Statistical Modeling</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Infrastructure & Tools</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">PyQt</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Financial Mathematics</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Risk Management</span>
+                        <span class="skill-tag">Derivatives Pricing</span>
+                        <span class="skill-tag">Portfolio Optimization</span>
+                        <span class="skill-tag">Monte Carlo</span>
+                        <span class="skill-tag">Stochastic Calculus</span>
+                        <span class="skill-tag">Fixed Income</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Specialized Domains</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Mortgage Analytics</span>
+                        <span class="skill-tag">Real Estate Modeling</span>
+                        <span class="skill-tag">Cryptology</span>
+                        <span class="skill-tag">Quantum Computing</span>
+                        <span class="skill-tag">Signal Processing</span>
+                        <span class="skill-tag">Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

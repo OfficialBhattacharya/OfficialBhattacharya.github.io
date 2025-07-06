@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Its All in the Cards - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-page">
+        <header class="game-header">
+            <a href="../../index.html#games" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </a>
+            <h1>Its All in the Cards</h1>
+        </header>
+        
+        <main class="game-content">
+            <div class="game-container">
+                <p class="game-description">This game is about predicting whether the next playing card to be turned over will have a higher or lower value than the previous card. Before you begin, familiarize yourself with the card values: Ace (1) through King (13).</p>
+                <div class="card-game">
+                    <div class="card-display">
+                        <!-- First row of cards (A-9) -->
+                        <div class="card-row">
+                            <div class="playing-card" data-value="1">A<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="2">2<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="3">3<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="4">4<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="5">5<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="6">6<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="7">7<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="8">8<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="9">9<span class="spades">♠</span></div>
+                        </div>
+                        <!-- Ten card in its own row -->
+                        <div class="card-row ten-row">
+                            <div class="playing-card" data-value="10">10<span class="spades">♠</span></div>
+                        </div>
+                        <!-- Face cards row -->
+                        <div class="face-cards">
+                            <div class="playing-card" data-value="11">J<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="12">Q<span class="spades">♠</span></div>
+                            <div class="playing-card" data-value="13">K<span class="spades">♠</span></div>
+                        </div>
+                    </div>
+                    <div class="game-play-area">
+                        <div class="current-card-stack">
+                            <div class="current-card"></div>
+                            <div class="card-shadow"></div>
+                        </div>
+                        <div class="prediction-buttons">
+                            <button class="predict-button higher">Higher</button>
+                            <button class="predict-button lower">Lower</button>
+                        </div>
+                    </div>
+                    <div class="game-stats">
+                        <div class="score">Score: <span class="score-value">0</span></div>
+                        <div class="streak">Streak: <span class="streak-value">0</span></div>
+                    </div>
+                    <button class="begin-game-button">Begin the game</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <p>&copy; 2024 Diganta Bhattacharya</p>
+        </footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

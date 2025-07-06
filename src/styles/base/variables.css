@@ -1,0 +1,88 @@
+:root {
+    /* Colors */
+    --primary-rgb: 255, 255, 255;
+    --accent-rgb: 0, 255, 157;
+    --bg-rgb: 18, 18, 18;
+    --text-rgb: 255, 255, 255;
+    
+    --primary-color: rgb(var(--primary-rgb));
+    --accent-color: rgb(var(--accent-rgb));
+    --bg-color: rgb(var(--bg-rgb));
+    --text-color: rgb(var(--text-rgb));
+    --secondary-color: #00ff9d;
+    --tertiary-color: #ff003c;
+    
+    /* Backgrounds */
+    --card-bg: rgba(17, 25, 40, 0.8);
+    --terminal-bg: rgba(16, 16, 16, 0.95);
+    --hover-color: #233554;
+    
+    /* Effects */
+    --neon-glow: 0 0 10px var(--secondary-color);
+    --accent-glow: 0 0 10px var(--accent-color);
+    --cyberpunk-gradient: linear-gradient(45deg, #00f7ff, #ff00ff);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --grid-lines: 1px solid rgba(0, 255, 157, 0.1);
+    
+    /* Typography */
+    --header-font: 'Orbitron', sans-serif;
+    --body-font: 'Rajdhani', sans-serif;
+    --mono-font: 'Courier New', monospace;
+    
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    --font-size-5xl: 3rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* Layout */
+    --container-max-width: 1200px;
+    --container-padding: 1rem;
+    --section-padding: 4rem 0;
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    
+    /* Z-index */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: rgb(10, 10, 10);
+        --card-bg: rgba(17, 25, 40, 0.9);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --transition: none;
+    }
+    
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

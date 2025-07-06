@@ -1,0 +1,210 @@
+/* Skills Section */
+.skills {
+    background-color: var(--bg-color);
+    padding: var(--section-padding);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.skills::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(135deg, rgba(0, 247, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0, 255, 157, 0.05) 40px, rgba(0, 255, 157, 0.05) 41px),
+        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 255, 157, 0.05) 40px, rgba(0, 255, 157, 0.05) 41px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Technical Stack Grid */
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Technical Stack Card */
+.tech-stack-card {
+    background-color: rgba(11, 20, 32, 0.9);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border: 1px solid;
+    border-image: linear-gradient(90deg, #00ff9d, #00f7ff, #ff00ff) 1;
+}
+
+.tech-stack-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+    z-index: 5;
+    animation: borderPulse 1.5s infinite alternate;
+}
+
+@keyframes borderPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(0, 255, 157, 0);
+    }
+}
+
+.tech-stack-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #00ff9d, #00f7ff, #ff00ff);
+    z-index: 2;
+}
+
+.tech-stack-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 255, 157, 0.03) 0%, transparent 70%);
+    z-index: 0;
+}
+
+/* Icon */
+.tech-stack-icon {
+    font-size: var(--font-size-4xl);
+    color: #00ff9d;
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    text-shadow: 0 0 15px rgba(0, 255, 157, 0.8);
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.tech-stack-card:hover .tech-stack-icon {
+    transform: scale(1.2);
+    animation: glowPulse 1.5s infinite alternate;
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(0, 255, 157, 1), 0 0 30px rgba(0, 255, 157, 0.7);
+    }
+}
+
+/* Card Title */
+.tech-stack-card h3 {
+    color: #ffffff;
+    text-align: center;
+    font-family: var(--header-font);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 8px rgba(0, 255, 157, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+/* Tech Stack Items */
+.tech-stack-items {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    font-family: var(--body-font);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+    padding: 0 var(--spacing-sm);
+    transition: var(--transition);
+}
+
+.tech-stack-card:hover .tech-stack-items {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Grid background animation */
+.skills::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 157, 0.05) 0%, transparent 70%);
+    z-index: 0;
+    animation: pulseGrid 8s infinite alternate;
+}
+
+@keyframes pulseGrid {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .tech-stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .skills {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .tech-stack-grid {
+        grid-template-columns: 1fr;
+        padding-bottom: var(--spacing-xl);
+    }
+    
+    .tech-stack-card {
+        padding: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-stack-card {
+        padding: var(--spacing-md);
+    }
+    
+    .tech-stack-icon {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .tech-stack-card h3 {
+        font-size: var(--font-size-base);
+    }
+    
+    .tech-stack-items {
+        font-size: var(--font-size-xs);
+    }
+}
