@@ -517,8 +517,8 @@
 
 @media (max-width: 600px) {
     .hero-social-icons-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-sm);
     }
     
     .social-label {

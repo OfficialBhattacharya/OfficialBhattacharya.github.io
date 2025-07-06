@@ -356,6 +356,23 @@
             border: 2px solid rgba(0, 255, 157, 0.3);
         }
 
+        /* Mobile Touch Behavior */
+        .manga-page-container {
+            touch-action: pan-y pinch-zoom;
+        }
+        
+        .manga-panel {
+            touch-action: manipulation;
+        }
+        
+        .nav-button {
+            touch-action: manipulation;
+        }
+        
+        .fullscreen-modal {
+            touch-action: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .manga-header h1 {
@@ -383,6 +400,16 @@
                 top: 10px;
                 right: 15px;
                 font-size: 2rem;
+            }
+            
+            /* Improve mobile scrolling */
+            .manga-panel {
+                margin-bottom: 1rem;
+            }
+            
+            .manga-panel img {
+                max-width: 100%;
+                height: auto;
             }
         }
 
@@ -502,7 +529,7 @@
             '../src/assets/Manga/Shunya/Panel_3withText.jpg'
         ];
 
-        function updatePageDisplay() {
+        function updatePageDisplay(shouldScroll = false) {
             document.getElementById('currentPage').textContent = currentPageIndex + 1;
             document.getElementById('progressFill').style.width = `${((currentPageIndex + 1) / totalPages) * 100}%`;
             
@@ -515,21 +542,23 @@
             document.getElementById('modalPrevBtn').disabled = currentPageIndex === 0;
             document.getElementById('modalNextBtn').disabled = currentPageIndex === totalPages - 1;
             
-            // Scroll to current panel
-            panels[currentPageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Only scroll when explicitly requested (not during scroll tracking)
+            if (shouldScroll) {
+                panels[currentPageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function nextPage() {
             if (currentPageIndex < totalPages - 1) {
                 currentPageIndex++;
-                updatePageDisplay();
+                updatePageDisplay(true);
             }
         }
 
         function previousPage() {
             if (currentPageIndex > 0) {
                 currentPageIndex--;
-                updatePageDisplay();
+                updatePageDisplay(true);
             }
         }
 
@@ -544,7 +573,7 @@
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
             
-            updatePageDisplay();
+            updatePageDisplay(false); // Don't scroll when opening modal
             
             // Add animation
             setTimeout(() => {
@@ -568,7 +597,7 @@
                 currentPageIndex++;
                 document.getElementById('modalImage').src = images[currentPageIndex];
                 document.getElementById('modalImage').alt = `Shunya - Panel ${currentPageIndex + 1}`;
-                updatePageDisplay();
+                updatePageDisplay(false); // Don't scroll when navigating in modal
             }
         }
 
@@ -577,7 +606,7 @@
                 currentPageIndex--;
                 document.getElementById('modalImage').src = images[currentPageIndex];
                 document.getElementById('modalImage').alt = `Shunya - Panel ${currentPageIndex + 1}`;
-                updatePageDisplay();
+                updatePageDisplay(false); // Don't scroll when navigating in modal
             }
         }
 
@@ -605,46 +634,105 @@
         // Initialize page display
         updatePageDisplay();
 
-        // Add scroll-based page tracking
-        window.addEventListener('scroll', () => {
+        // Add scroll-based page tracking with throttling
+        let scrollTimeout;
+        let isScrolling = false;
+        let pageLoaded = false;
+        
+        function updateCurrentPageFromScroll() {
+            // Don't update during page load
+            if (!pageLoaded) return;
+            
             const scrollTop = window.pageYOffset;
             const windowHeight = window.innerHeight;
+            const viewportCenter = scrollTop + windowHeight / 2;
             
+            let newPageIndex = 0;
+            let minDistance = Infinity;
+            
+            // Find the panel closest to the viewport center
             panels.forEach((panel, index) => {
                 const panelTop = panel.offsetTop;
                 const panelHeight = panel.offsetHeight;
+                const panelCenter = panelTop + panelHeight / 2;
+                const distance = Math.abs(viewportCenter - panelCenter);
                 
-                if (scrollTop >= panelTop - windowHeight / 2 && scrollTop < panelTop + panelHeight - windowHeight / 2) {
-                    if (currentPageIndex !== index) {
-                        currentPageIndex = index;
-                        updatePageDisplay();
-                    }
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    newPageIndex = index;
                 }
             });
+            
+            if (currentPageIndex !== newPageIndex) {
+                currentPageIndex = newPageIndex;
+                updatePageDisplay(false); // Don't scroll when updating from scroll
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            isScrolling = true;
+            clearTimeout(scrollTimeout);
+            
+            // Throttle scroll updates
+            scrollTimeout = setTimeout(() => {
+                updateCurrentPageFromScroll();
+                isScrolling = false;
+            }, 150);
         });
 
-        // Touch/swipe support for mobile
+        // Enable scroll tracking after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                pageLoaded = true;
+            }, 500);
+        });
+
+        // Touch/swipe support for mobile (only in modal)
         let touchStartX = 0;
         let touchStartY = 0;
+        let touchStartTime = 0;
         
         document.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
+            // Only handle swipes in modal or on navigation buttons
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'block' || e.target.closest('.nav-button')) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
+            }
         });
         
         document.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const touchEndY = e.changedTouches[0].clientY;
-            
-            const deltaX = touchEndX - touchStartX;
-            const deltaY = touchEndY - touchStartY;
-            
-            // Only process horizontal swipes
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-                if (deltaX > 0) {
-                    previousPage();
-                } else {
-                    nextPage();
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'block' || e.target.closest('.nav-button')) {
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                const touchEndTime = Date.now();
+                
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+                const deltaTime = touchEndTime - touchStartTime;
+                
+                // Only process horizontal swipes that are quick enough and long enough
+                if (Math.abs(deltaX) > Math.abs(deltaY) && 
+                    Math.abs(deltaX) > 50 && 
+                    deltaTime < 300 && 
+                    Math.abs(deltaY) < 100) {
+                    
+                    e.preventDefault();
+                    if (deltaX > 0) {
+                        if (modal.style.display === 'block') {
+                            modalPrevious();
+                        } else {
+                            previousPage();
+                        }
+                    } else {
+                        if (modal.style.display === 'block') {
+                            modalNext();
+                        } else {
+                            nextPage();
+                        }
+                    }
                 }
             }
         });
