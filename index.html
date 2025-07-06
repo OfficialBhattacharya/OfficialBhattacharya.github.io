@@ -616,6 +616,18 @@
         <section id="art-travel" class="art-travel">
             <div class="container">
                 <h2 class="section-title">Art & Travel</h2>
+                
+                <!-- Server Notice -->
+                <div class="server-notice" id="serverNotice" style="display: none;">
+                    <div class="notice-content">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="notice-text">
+                            <h4>Best Experience with Local Server</h4>
+                            <p>For the best viewing experience of the manga and all interactive features, please run the local server using <code>npm start</code>.</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="art-travel-content">
                     <!-- Manga Section -->
                     <div class="manga-section">
@@ -669,6 +681,40 @@
                                     <i class="fas fa-external-link-alt"></i>
                                     <span>View Full Manga</span>
                                 </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Fallback content for when images don't load -->
+                        <div class="manga-fallback" id="mangaFallback" style="display: none;">
+                            <div class="fallback-content">
+                                <div class="fallback-header">
+                                    <i class="fas fa-book-open"></i>
+                                    <h3>Shunya - Cyberpunk Manga</h3>
+                                </div>
+                                <div class="fallback-description">
+                                    <p>A cyberpunk tale exploring the intersection of technology and consciousness. Set in Mumbai, 2019, the story follows mysterious phenomena that challenge our understanding of reality itself.</p>
+                                    <p>The manga consists of 3 beautifully illustrated panels that tell a complete story about perception, consciousness, and the thin line between the digital and physical worlds.</p>
+                                </div>
+                                <div class="fallback-features">
+                                    <div class="feature">
+                                        <i class="fas fa-palette"></i>
+                                        <span>Original artwork with cyberpunk aesthetics</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-brain"></i>
+                                        <span>Philosophical themes about consciousness</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-city"></i>
+                                        <span>Mumbai setting with futuristic elements</span>
+                                    </div>
+                                </div>
+                                <div class="fallback-links">
+                                    <a href="mangas/shunya.html" class="manga-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        <span>View Full Manga (Server Required)</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

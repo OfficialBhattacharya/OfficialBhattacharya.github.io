@@ -489,6 +489,62 @@ function initManga() {
     let currentPage = 0;
     const totalPages = mangaPages.length;
     
+    // Check if we're running from file:// protocol
+    const isFileProtocol = window.location.protocol === 'file:';
+    
+    // Track image loading errors
+    let imageErrorCount = 0;
+    
+    // Add error handling for image loading
+    mangaImages.forEach((img, index) => {
+        img.addEventListener('error', function() {
+            console.warn(`Failed to load manga image ${index + 1}:`, this.src);
+            imageErrorCount++;
+            
+            if (isFileProtocol) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'manga-error';
+                errorDiv.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--accent-color); font-family: var(--header-font); text-align: center; padding: 2rem;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem; color: #ff9800;"></i>
+                        <h3 style="margin-bottom: 1rem;">Image Loading Issue</h3>
+                        <p style="margin-bottom: 1rem; max-width: 400px; line-height: 1.4;">
+                            The manga images cannot be loaded when opening the file directly. 
+                            Please use a local server to view the full content.
+                        </p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">
+                            Run: <code style="background: rgba(0,255,157,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">npm start</code> or use a local server
+                        </p>
+                    </div>
+                `;
+                this.parentNode.appendChild(errorDiv);
+                this.style.display = 'none';
+            }
+            
+            // Show fallback content if multiple images fail to load
+            if (imageErrorCount >= 2) {
+                const fallbackContent = document.getElementById('mangaFallback');
+                const mangaViewer = document.querySelector('.manga-viewer');
+                if (fallbackContent && mangaViewer) {
+                    mangaViewer.style.display = 'none';
+                    fallbackContent.style.display = 'block';
+                }
+            }
+        });
+        
+        img.addEventListener('load', function() {
+            console.log(`Successfully loaded manga image ${index + 1}`);
+        });
+    });
+    
+    // Show server notice if running from file protocol
+    if (isFileProtocol) {
+        const serverNotice = document.getElementById('serverNotice');
+        if (serverNotice) {
+            serverNotice.style.display = 'block';
+        }
+    }
+    
     // Initialize
     showPage(currentPage);
     
