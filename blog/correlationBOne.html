@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correlation and Beyond Part I - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .blog-text h1 {
+            font-size: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-text h2 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: #34495e;
+        }
+        .blog-text h3 {
+            font-size: 1.25rem;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #34495e;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+        .series-nav {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        .series-nav a {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .series-nav a:hover {
+            background: #2980b9;
+        }
+        .series-nav a.disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .series-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Correlation and Beyond Part I<span class="series-badge">NOT SO USUAL STATISTICS</span></h1>
+        <div class="blog-meta">
+            <span class="blog-date">March 15, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>Hello everyone! It's truly great to be sharing this journey here. The curiosity of the community and the insanely motivating urge to know more make it the perfect place to share and learn together.</p>
+
+            <p>This is the inaugural post in a new series, "Beyond the Basics," where I'll explore some of the less common, yet highly insightful, questions encountered during technical interviews and academic discussions.</p>
+
+            <p>My aim is to compile a resource of those "not-so-usual" questions that truly test a deeper understanding of various technical topics, alongside foundational concepts to provide a complete picture. In each post I will focus on a specific area, diving into both the fundamentals and a few tricky questions.</p>
+
+            <p>I hope these notes prove to be a valuable resource for anyone preparing for technical interviews, or simply looking to broaden their technical knowledge. Let's get started!</p>
+
+            <h1>1. What is the Pearson's Correlation Coefficient?</h1>
+
+            <h3>Definition</h3>
+            <p>Pearson's correlation coefficient measures the linear correlation between two variables. For variables X and Y, it is defined as:</p>
+
+            <div class="math">
+                $$ \rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X \sigma_Y} $$
+            </div>
+
+            <p>where:</p>
+            <ul>
+                <li>The covariance between X and Y: $$\text{Cov}(X,Y)$$</li>
+                <li>The standard deviations of X and Y: $$\sigma_X, \sigma_Y$$</li>
+                <li>The means of X and Y: $$\mu_X, \mu_Y$$</li>
+            </ul>
+
+            <h3>Properties</h3>
+            <p><strong>Range</strong>: $$-1 \leq \rho \leq 1$$</p>
+            <ul>
+                <li>Perfect positive linear correlation: $$\rho = 1$$</li>
+                <li>Perfect negative linear correlation: $$\rho = -1$$</li>
+                <li>No linear correlation (We will come to this later): $$\rho = 0$$</li>
+            </ul>
+
+            <p><strong>Interpretation</strong></p>
+            <ul>
+                <li>Measures the strength and direction of linear relationship</li>
+                <li>Independent of the scale of measurement</li>
+                <li>Sensitive to outliers</li>
+            </ul>
+
+            <p><strong>Computation</strong></p>
+            <p>For a sample of n points $(x_i, y_i)$:</p>
+            <div class="math">
+                $$ \rho = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}} $$
+            </div>
+
+            <h1>2. But does zero correlation imply independence?</h1>
+
+            <p>The short answer is: No, only under specific circumstances. We will explore a few interesting properties of this coefficient.</p>
+
+            <p>An example where we might have zero correlation but dependent variables?</p>
+
+            <h3>Problem Setup:</h3>
+            <p>Consider two random variables:</p>
+            <ul>
+                <li>X: A random variable symmetrically distributed around zero.</li>
+                <li>Y: A perfect nonlinear function of X like, $$Y = X^2$$</li>
+            </ul>
+
+            <h3>Motivation:</h3>
+            <ul>
+                <li>Y is completely determined by X.</li>
+                <li>Knowing X reveals Y exactly.</li>
+                <li>Therefore, X and Y are dependent.</li>
+            </ul>
+
+            <h3>Proof:</h3>
+            <p>The correlation between X and Y is zero, which we can prove through the following steps:</p>
+
+            <p><strong>Covariance Calculation</strong></p>
+            <div class="math">
+                $$ \text{Cov}(X, Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] $$
+            </div>
+
+            <p><strong>Expected Value of X</strong></p>
+            <p>Since X is symmetric around zero:</p>
+            <div class="math">
+                $$ \mathbb{E}[X] = 0 $$
+            </div>
+
+            <p><strong>Expected Value of XY</strong></p>
+            <div class="math">
+                $$ \mathbb{E}[XY] = \mathbb{E}[X \cdot X^2] = \mathbb{E}[X^3] $$
+            </div>
+            <ul>
+                <li>For symmetric X, $$X^3$$ is an odd function.</li>
+                <li>Therefore: $$\mathbb{E}[X^3] = 0$$</li>
+            </ul>
+
+            <p><strong>Final Result</strong></p>
+            <div class="math">
+                $$ \text{Cov}(X, Y) = 0 - 0 \cdot \mathbb{E}[Y] = 0 $$
+                $$ \rho_{X,Y} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} = 0 $$
+            </div>
+
+            <h3>Interpretation</h3>
+
+            <p><strong>Relationship Shape</strong></p>
+            <ul>
+                <li>The relationship between X and Y forms a perfect U-shape.</li>
+                <li>This is a strong nonlinear relationship.</li>
+                <li>Correlation cannot capture this nonlinearity.</li>
+            </ul>
+
+            <p><strong>Distribution Properties</strong></p>
+            <ul>
+                <li>If X is normally distributed:
+                    <ul>
+                        <li>Y follows a chi-squared distribution.</li>
+                        <li>The joint distribution is not bivariate normal. (Another interesting point to remember)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Correlation's Limitations</h3>
+            <ul>
+                <li>Correlation measures only linear relationships.</li>
+                <li>It can miss strong nonlinear dependencies.</li>
+                <li>Zero correlation does not guarantee independence.</li>
+            </ul>
+
+            <h3>Joint Normality Exception</h3>
+            <ul>
+                <li>For jointly normal random variables:
+                    <ul>
+                        <li>Zero correlation does imply independence.</li>
+                        <li>This is a special case, not the general rule.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Dependence Types</h3>
+            <ul>
+                <li>Linear dependence: Captured by correlation.</li>
+                <li>Nonlinear dependence: Not captured by correlation.</li>
+                <li>Functional dependence: Strongest form of dependence.</li>
+            </ul>
+
+            <h1>3. Is the sum of two marginally normal random variables always normal?</h1>
+            <p>The sum of two normal random variables is not always normal. While this holds when the variables are <strong>jointly normal</strong>, it is not true in general.</p>
+
+            <h3>Example: Sum of Two Normal Random Variables That Is Not Normal</h3>
+
+            <h3>Problem Setup</h3>
+            <ul>
+                <li>Let $$X \sim \mathcal{N}(0, 1)$$ be a standard normal random variable.</li>
+                <li>$$\epsilon$$ ($$\epsilon = +1/-1$$ with probability 1/2 each): An independent Rademacher random variable</li>
+                <li>Define $$Y = \epsilon \cdot X$$</li>
+            </ul>
+
+            <h3>Marginal Normality of X and Y</h3>
+            <p><strong>X is normal</strong>: By definition, $$X \sim \mathcal{N}(0, 1)$$</p>
+            <p><strong>Y is normal</strong>:</p>
+            <p>The cumulative distribution function (CDF) of Y is:</p>
+            <div class="math">
+                $$
+                P(Y \leq y) = P(\epsilon X \leq y) = \frac{1}{2} P(X \leq y) + \frac{1}{2} P(-X \leq y) = \frac{1}{2} \Phi(y) + \frac{1}{2} \Phi(y) = \Phi(y)
+                $$
+            </div>
+            <div class="math">
+                $$\because -X \sim \mathcal{N}(0, 1)$$
+                $$\therefore Y \sim \mathcal{N}(0, 1)$$
+            </div>
+
+            <h3>Joint Distribution is Not Bivariate Normal</h3>
+            <p>The joint distribution of (X, Y) is degenerate:</p>
+            <ul>
+                <li>When $$\epsilon = 1, Y = X.$$</li>
+                <li>When $$\epsilon = -1, Y = -X.$$</li>
+            </ul>
+            <p>The support lies entirely on the lines y = x and y = -x, which violates the requirement for a non-degenerate bivariate normal distribution which must have full support in $$\mathbb{R}^2$$</p>
+
+            <h3>The sum Z = X + Y simplifies as:</h3>
+            <div class="math">
+                $$
+                Z = X + \epsilon X = 
+                \begin{cases} 
+                2X & \text{if } \epsilon = +1 \quad (\text{probability } 1/2), \\
+                0 & \text{if } \epsilon = -1 \quad (\text{probability } 1/2).
+                \end{cases}
+                $$
+            </div>
+
+            <h3>Distribution of Z</h3>
+            <p><strong>Point mass at 0</strong>:</p>
+            <div class="math">
+                $$P(Z = 0) = P(\epsilon = -1) = \frac{1}{2}$$
+            </div>
+            <p><strong>Continuous component</strong> for $$Z \neq 0$$</p>
+            <p>When $$\epsilon = +1, Z = 2X \sim \mathcal{N}(0, 4)$$ The density for $$z \neq 0$$:</p>
+            <div class="math">
+                $$f_Z(z) = \frac{1}{2} \cdot \frac{1}{2} f_X\left(\frac{z}{2}\right) = \frac{1}{4} \cdot \frac{1}{\sqrt{2\pi}} e^{-z^2/8}, \quad z \neq 0$$
+            </div>
+
+            <h3>Why Z is Not Normal</h3>
+            <ul>
+                <li>Z has a <strong>point mass</strong> at 0 with probability 1/2.</li>
+                <li>A true normal distribution is <strong>continuous</strong> and has <strong>no point masses</strong>.</li>
+            </ul>
+            <p>Thus, Z cannot be normal.</p>
+
+            <h2>Conclusion</h2>
+            <ul>
+                <li><strong>X and Y</strong> are both marginally normal.</li>
+                <li><strong>(X, Y)</strong> is <strong>not jointly normal</strong>.</li>
+                <li><strong>Z = X + Y</strong> is <strong>not normal</strong> due to the point mass at 0.</li>
+            </ul>
+
+            <p>In Part II, we'll explore geometric applications of correlation and discover some cutting-edge measures that go beyond traditional Pearson correlation.</p>
+
+            <div class="series-nav">
+                <a href="#" class="disabled">← Previous</a>
+                <a href="correlationBTwo.html">Next: Part II →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Basics: Statistical Insights - Part 2 - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .blog-text h1 {
+            font-size: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-text h2 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: #34495e;
+        }
+        .blog-text h3 {
+            font-size: 1.25rem;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #34495e;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+        .series-nav {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        .series-nav a {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .series-nav a:hover {
+            background: #2980b9;
+        }
+        .series-nav a.disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .reference-list {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 2rem;
+        }
+        .reference-list h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .reference-list ol {
+            padding-left: 1.5rem;
+        }
+        .reference-list li {
+            margin-bottom: 0.5rem;
+        }
+        .reference-list a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .reference-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Beyond the Basics: Statistical Insights - Part 2</h1>
+        <div class="blog-meta">
+            <span class="blog-date">March 15, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>Welcome back to the second part of our "Beyond the Basics" series! In this installment, we'll explore some fascinating geometric applications of correlation and discover some cutting-edge measures that go beyond traditional Pearson correlation.</p>
+
+            <h1>4. What is the correlation coefficient for an equilateral triangle in the first quadrant in XY plane?</h1>
+
+            <h3>The Problem</h3>
+            <p>Consider an equilateral triangle in the XY plane:</p>
+            <ul>
+                <li>Three vertices serve as data points</li>
+                <li>The triangle can rotate around its centroid</li>
+                <li>We want to understand how the regression line changes with rotation</li>
+            </ul>
+
+            <h3>Initial Setup</h3>
+            <p>For an equilateral triangle centered at the origin (0,0), the vertices can be represented as:</p>
+            <div class="math">
+                $$ (x_k, y_k) = \left(r\cos\left(\frac{2\pi k}{3} + \theta\right), r\sin\left(\frac{2\pi k}{3} + \theta\right)\right) $$
+            </div>
+            <p>where:</p>
+            <ul>
+                <li>r is the distance from the centroid to any vertex.</li>
+                <li>The rotation angle: $$\theta$$</li>
+                <li>k = 0,1,2 represents the three vertices.</li>
+            </ul>
+
+            <h3>Observations from Regression Line Properties</h3>
+
+            <p><strong>Constant Slope</strong></p>
+            <ul>
+                <li>The regression line is always parallel to the X-axis.</li>
+                <li>The slope is always zero.</li>
+                <li>$$\therefore y = \bar{y}$$</li>
+            </ul>
+
+            <p><strong>Centroid Property</strong></p>
+            <ul>
+                <li>The regression line always passes through the centroid.</li>
+                <li>Since the triangle is centered at the origin, the line is y = 0.</li>
+            </ul>
+
+            <h3>Proof</h3>
+            <p><strong>1. Mean Values</strong></p>
+            <p>For any rotation angle $$\theta$$:</p>
+            <div class="math">
+                $$ \bar{x} = \frac{1}{3}\sum_{k=0}^{2} r\cos\left(\frac{2\pi k}{3} + \theta\right) = 0 $$
+                $$ \bar{y} = \frac{1}{3}\sum_{k=0}^{2} r\sin\left(\frac{2\pi k}{3} + \theta\right) = 0 $$
+            </div>
+
+            <p><strong>2. Correlation Coefficient</strong></p>
+            <p>The correlation between x and y coordinates is:</p>
+            <div class="math">
+                $$ \rho_{x,y} = \frac{\sum_{k=0}^{2} (x_k - \bar{x})(y_k - \bar{y})}{\sqrt{\sum_{k=0}^{2} (x_k - \bar{x})^2 \sum_{k=0}^{2} (y_k - \bar{y})^2}} = 0 $$
+            </div>
+
+            <p><strong>3. Regression Line</strong></p>
+            <p>$$\because \rho_{x,y} = 0$$ The regression line is:</p>
+            <div class="math">
+                $$ y = \bar{y} = 0 $$
+            </div>
+
+            <h2>Implications</h2>
+
+            <h3>Geometric Interpretation</h3>
+            <p><strong>1. Symmetry</strong></p>
+            <ul>
+                <li>The equilateral triangle's perfect symmetry ensures equal distribution of points.</li>
+                <li>Any rotation preserves this symmetry.</li>
+                <li>The centroid remains fixed at the origin.</li>
+            </ul>
+
+            <p><strong>2. Independence?</strong></p>
+            <ul>
+                <li>The x and y coordinates are uncorrelated.</li>
+                <li>There is no linear relationship between x and y.</li>
+                <li>This holds true for any rotation angle.</li>
+            </ul>
+
+            <h1>5. Can we extend this to regular polygons using complex roots of unity or otherwise?</h1>
+
+            <h3>Complex Roots of Unity</h3>
+            <p>The n-th roots of unity are the complex numbers that satisfy the equation:</p>
+            <div class="math">
+                $$ z^n = 1 $$
+            </div>
+
+            <p>These roots can be expressed in the form:</p>
+            <div class="math">
+                $$ z_k = e^{i\frac{2\pi k}{n}}, \quad k = 0,1,\ldots,n-1 $$
+            </div>
+
+            <p>where:</p>
+            <ul>
+                <li>i is the imaginary unit.</li>
+                <li>n is the number of roots.</li>
+                <li>k is the index of each root.</li>
+            </ul>
+
+            <h3>Geometric Interpretation</h3>
+            <p>When plotted on the complex plane:</p>
+            <ul>
+                <li>Each root lies on the unit circle.</li>
+                <li>The roots are evenly spaced, forming the vertices of a regular n-gon.</li>
+                <li>The first root (k=0) is always at (1,0).</li>
+                <li>The roots are distributed at angles of $$\frac{2\pi k}{n}$$ from the positive real axis.</li>
+            </ul>
+
+            <h3>Key Properties</h3>
+            <p>The sum of all n-th roots of unity is zero:</p>
+            <div class="math">
+                $$ \sum_{k=0}^{n-1} e^{i\frac{2\pi k}{n}} = 0 $$
+            </div>
+
+            <p>This implies that both the real and imaginary parts sum to zero:</p>
+            <div class="math">
+                $$ \sum_{k=0}^{n-1} \cos\left(\frac{2\pi k}{n}\right) = 0 $$
+                $$ \sum_{k=0}^{n-1} \sin\left(\frac{2\pi k}{n}\right) = 0 $$
+            </div>
+
+            <h3>Coordinate Representation</h3>
+            <p>For a regular n-gon, the vertices can be represented as:</p>
+            <div class="math">
+                $$ (x_k, y_k) = \left(\cos\left(\frac{2\pi k}{n}\right), \sin\left(\frac{2\pi k}{n}\right)\right) $$
+            </div>
+
+            <h3>Zero Correlation</h3>
+            <p><strong>Mean Values</strong></p>
+            <p>From the properties of roots of unity:</p>
+            <div class="math">
+                $$ \bar{x} = \frac{1}{n}\sum_{k=0}^{n-1} \cos\left(\frac{2\pi k}{n}\right) = 0 $$
+                $$ \bar{y} = \frac{1}{n}\sum_{k=0}^{n-1} \sin\left(\frac{2\pi k}{n}\right) = 0 $$
+            </div>
+
+            <p><strong>Simplified Correlation Formula</strong></p>
+            <p>$$\because \bar{x} = \bar{y} = 0,$$ the correlation formula simplifies to:</p>
+            <div class="math">
+                $$\therefore \rho_{x,y} = \frac{\sum_{k=0}^{n-1} x_k y_k}{\sqrt{\sum_{k=0}^{n-1} x_k^2 \sum_{k=0}^{n-1} y_k^2}} $$
+            </div>
+
+            <p><strong>Trigonometric Identities</strong></p>
+            <p>The numerator becomes:</p>
+            <div class="math">
+                $$ \sum_{k=0}^{n-1} \cos\left(\frac{2\pi k}{n}\right) \sin\left(\frac{2\pi k}{n}\right) = 0 $$
+            </div>
+            
+            <p>The denominator terms are equal:</p>
+            <div class="math">
+                $$ \sum_{k=0}^{n-1} \cos^2\left(\frac{2\pi k}{n}\right) = \sum_{k=0}^{n-1} \sin^2\left(\frac{2\pi k}{n}\right) = \frac{n}{2} $$
+            </div>
+
+            <p><strong>Final Result</strong></p>
+            <div class="math">
+                $$ \therefore \rho_{x,y} = \frac{0}{\sqrt{\frac{n}{2} \cdot \frac{n}{2}}} = 0 $$
+            </div>
+
+            <h1>Relatively New Measures of Independence/Correlation</h1>
+
+            <p>While Pearson's correlation has been the gold standard for decades, recent developments have introduced more robust and comprehensive measures of dependence. Here are some cutting-edge approaches:</p>
+
+            <h3>1. Chatterjee's Correlation Coefficient</h3>
+            <p>A new coefficient of correlation by Sourav Chatterjee represents a significant breakthrough in correlation analysis:</p>
+            <ul>
+                <li>Chatterjee's correlation is distribution-free, asymptotically normal, and consistent against all alternatives.</li>
+                <li>It is designed to be more robust to outliers and non-linear relationships compared to Pearson's and Spearman's.</li>
+                <li>This measure is particularly useful when the underlying distribution is unknown or when dealing with complex relationships.</li>
+                <li>Unlike Pearson's correlation, it can detect any type of functional relationship, not just linear ones.</li>
+            </ul>
+
+            <h3>2. Nonlinear Correlation Coefficient (NCC)</h3>
+            <p>The NCC provides a measure that captures nonlinear dependencies more effectively:</p>
+            <ul>
+                <li>Specifically designed to detect nonlinear relationships that traditional correlation measures miss.</li>
+                <li>Provides a more comprehensive view of variable relationships.</li>
+                <li>Particularly useful in machine learning and data mining applications.</li>
+            </ul>
+
+            <h3>3. Fechner Correlation Coefficient</h3>
+            <p>A robust alternative that:</p>
+            <ul>
+                <li>Is less sensitive to outliers than Pearson's correlation.</li>
+                <li>Provides insights into monotonic relationships.</li>
+                <li>Offers computational advantages in certain scenarios.</li>
+            </ul>
+
+            <h3>4. g-Correlation Coefficient</h3>
+            <p>A generalized approach that:</p>
+            <ul>
+                <li>Extends traditional correlation concepts to more complex relationships.</li>
+                <li>Provides flexibility in capturing various types of dependence structures.</li>
+                <li>Offers theoretical foundations for understanding complex data relationships.</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+            <p>In this two-part series, we've explored some fascinating aspects of correlation and statistical dependence. From the fundamental properties of Pearson's correlation to the geometric elegance of regular polygons, and finally to the cutting-edge developments in correlation measures, we've seen how mathematics continues to evolve to meet the challenges of modern data analysis.</p>
+
+            <p>The key takeaways from our exploration:</p>
+            <ul>
+                <li>Zero correlation does not imply independence in general</li>
+                <li>The sum of marginally normal variables is not always normal</li>
+                <li>Regular polygons exhibit beautiful symmetry properties in their correlation structure</li>
+                <li>New correlation measures are expanding our toolkit for understanding complex relationships</li>
+            </ul>
+
+            <p>These insights remind us that in statistics, as in many fields, the most interesting discoveries often lie in the exceptions to the rules and the exploration of edge cases that challenge our assumptions.</p>
+
+            <div class="reference-list">
+                <h3>References</h3>
+                <ol>
+                    <li>Chatterjee, S. (2019). <a href="https://arxiv.org/abs/1909.10140" target="_blank">A new coefficient of correlation</a>. arXiv preprint arXiv:1909.10140.</li>
+                    <li>Nonlinear correlation coefficient (NCC). <a href="https://arxiv.org/abs/2406.06924" target="_blank">arXiv:2406.06924</a>.</li>
+                    <li>Fechner correlation coefficient. <a href="https://arxiv.org/pdf/2406.06924" target="_blank">arXiv:2406.06924</a>.</li>
+                    <li>g-correlation coefficient. <a href="https://arxiv.org/abs/2406.06924" target="_blank">arXiv:2406.06924</a>.</li>
+                </ol>
+            </div>
+
+            <div class="series-nav">
+                <a href="regression-lines-regular-polygons.html">← Previous: Part 1</a>
+                <a href="#" class="disabled">Next →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 
