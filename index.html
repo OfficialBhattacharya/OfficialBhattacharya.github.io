@@ -40,6 +40,9 @@
             <a href="#games" class="sundial-section">
                 <span>Games</span>
             </a>
+            <a href="#art-travel" class="sundial-section">
+                <span>Art & Travel</span>
+            </a>
         </div>
     </nav>
 
@@ -608,6 +611,91 @@
                 </div>
             </div>
         </section>
+
+        <!-- Art & Travel Section -->
+        <section id="art-travel" class="art-travel">
+            <div class="container">
+                <h2 class="section-title">Art & Travel</h2>
+                <div class="art-travel-content">
+                    <!-- Manga Section -->
+                    <div class="manga-section">
+                        <div class="manga-header">
+                            <div class="manga-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="manga-title">Shunya</h3>
+                            <p class="manga-description">A cyberpunk manga exploring the intersection of technology and consciousness</p>
+                        </div>
+                        
+                        <div class="manga-viewer">
+                            <div class="manga-pages">
+                                <div class="manga-page active" data-page="1">
+                                    <img src="src/assets/Manga/Shunya/Panel_1withText.jpg" alt="Shunya - Page 1" class="manga-image">
+                                    <div class="page-number">1 / 3</div>
+                                </div>
+                                <div class="manga-page" data-page="2">
+                                    <img src="src/assets/Manga/Shunya/Panel_2withText.jpg" alt="Shunya - Page 2" class="manga-image">
+                                    <div class="page-number">2 / 3</div>
+                                </div>
+                                <div class="manga-page" data-page="3">
+                                    <img src="src/assets/Manga/Shunya/Panel_3withText.jpg" alt="Shunya - Page 3" class="manga-image">
+                                    <div class="page-number">3 / 3</div>
+                                </div>
+                            </div>
+                            
+                            <div class="manga-controls">
+                                <button class="nav-btn prev-btn" id="prevBtn">
+                                    <i class="fas fa-chevron-left"></i>
+                                    <span>Previous</span>
+                                </button>
+                                
+                                <div class="page-indicator">
+                                    <span class="current-page">1</span>
+                                    <span class="page-separator">/</span>
+                                    <span class="total-pages">3</span>
+                                </div>
+                                
+                                <button class="nav-btn next-btn" id="nextBtn">
+                                    <span>Next</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="manga-info">
+                            <p class="manga-subtitle">Click on any panel to view in fullscreen</p>
+                            <div class="manga-links">
+                                <a href="mangas/shunya.html" class="manga-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>View Full Manga</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal for full-screen manga viewing -->
+        <div id="mangaModal" class="manga-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img id="modalImage" class="modal-image" src="" alt="">
+                <div class="modal-controls">
+                    <button class="modal-nav-btn" id="modalPrevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="modal-page-indicator">
+                        <span id="modalCurrentPage">1</span>
+                        <span>/</span>
+                        <span id="modalTotalPages">3</span>
+                    </div>
+                    <button class="modal-nav-btn" id="modalNextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Scripts -->

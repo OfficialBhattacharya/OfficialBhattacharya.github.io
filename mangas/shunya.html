@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shunya - Manga | Diganta Bhattacharya</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../src/styles/main.css">
+    
+    <style>
+        /* Manga Page Specific Styles */
+        .manga-page-container {
+            min-height: 100vh;
+            background: var(--bg-color);
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manga-page-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 157, 0.05) 0%,
+                transparent 20%,
+                rgba(255, 0, 60, 0.05) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
+        }
+
+        .manga-header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .manga-header h1 {
+            font-family: var(--header-font);
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: var(--cyberpunk-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+
+        .manga-subtitle {
+            font-family: var(--body-font);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--accent-color);
+            font-family: var(--header-font);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 25px;
+            background: rgba(0, 255, 157, 0.1);
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .back-to-home:hover {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent-color);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        .manga-full-viewer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .manga-reader {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .manga-reader:hover {
+            border-color: rgba(0, 255, 157, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+        }
+
+        .manga-panel {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            background: #000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .manga-panel img {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .manga-panel:hover img {
+            transform: scale(1.02);
+        }
+
+        .panel-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 255, 157, 0.9);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: var(--header-font);
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .manga-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 255, 157, 0.1);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            color: var(--accent-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-family: var(--header-font);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent-color);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .page-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: var(--header-font);
+            color: var(--accent-color);
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(0, 255, 157, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+
+        .manga-info-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .manga-info-section h3 {
+            font-family: var(--header-font);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .manga-info-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .manga-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .manga-tag {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            color: var(--accent-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-family: var(--header-font);
+        }
+
+        /* Modal Styles */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--accent-color);
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--primary-color);
+            text-shadow: var(--neon-glow);
+        }
+
+        .modal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 2rem;
+        }
+
+        .modal-nav-btn {
+            background: rgba(0, 255, 157, 0.2);
+            border: 2px solid rgba(0, 255, 157, 0.5);
+            color: var(--accent-color);
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-nav-btn:hover {
+            background: rgba(0, 255, 157, 0.3);
+            border-color: var(--accent-color);
+            box-shadow: var(--neon-glow);
+        }
+
+        .modal-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .modal-page-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--header-font);
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .manga-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .manga-reader {
+                padding: 1rem;
+            }
+            
+            .manga-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .progress-bar {
+                width: 150px;
+            }
+            
+            .modal-nav {
+                width: 90%;
+            }
+            
+            .modal-close {
+                top: 10px;
+                right: 15px;
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .manga-header h1 {
+                font-size: 2rem;
+            }
+            
+            .back-to-home {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .progress-bar {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="manga-page-container">
+        <div class="manga-header">
+            <a href="../index.html#art-travel" class="back-to-home">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Portfolio</span>
+            </a>
+            <h1>Shunya</h1>
+            <p class="manga-subtitle">A cyberpunk tale of consciousness and reality</p>
+        </div>
+
+        <div class="manga-full-viewer">
+            <div class="manga-reader">
+                <div class="manga-panel" data-panel="1">
+                    <img src="../src/assets/Manga/Shunya/Panel_1withText.jpg" alt="Shunya - Panel 1" onclick="openModal(0)">
+                    <div class="panel-number">Panel 1</div>
+                </div>
+
+                <div class="manga-panel" data-panel="2">
+                    <img src="../src/assets/Manga/Shunya/Panel_2withText.jpg" alt="Shunya - Panel 2" onclick="openModal(1)">
+                    <div class="panel-number">Panel 2</div>
+                </div>
+
+                <div class="manga-panel" data-panel="3">
+                    <img src="../src/assets/Manga/Shunya/Panel_3withText.jpg" alt="Shunya - Panel 3" onclick="openModal(2)">
+                    <div class="panel-number">Panel 3</div>
+                </div>
+
+                <div class="manga-navigation">
+                    <button class="nav-button" id="prevButton" onclick="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                        <span>Previous</span>
+                    </button>
+                    
+                    <div class="page-progress">
+                        <span id="currentPage">1</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 33.33%"></div>
+                        </div>
+                        <span id="totalPages">3</span>
+                    </div>
+                    
+                    <button class="nav-button" id="nextButton" onclick="nextPage()">
+                        <span>Next</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="manga-info-section">
+                <h3>About Shunya</h3>
+                <p>
+                    In a world where reality and simulation blur, a lone observer witnesses the strange behavior of both humans and machines during a solar eclipse. This cyberpunk narrative explores themes of perception, consciousness, and the thin line between the digital and physical worlds.
+                </p>
+                <p>
+                    Set in Mumbai, 2019, the story follows mysterious phenomena that challenge our understanding of reality itself. What begins as a simple observation of unusual behavior evolves into something far more profound and unsettling.
+                </p>
+                <div class="manga-tags">
+                    <span class="manga-tag">Cyberpunk</span>
+                    <span class="manga-tag">Sci-Fi</span>
+                    <span class="manga-tag">Mystery</span>
+                    <span class="manga-tag">Philosophical</span>
+                    <span class="manga-tag">Original</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for fullscreen viewing -->
+        <div id="fullscreenModal" class="fullscreen-modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <img id="modalImage" class="modal-image" src="" alt="">
+                <div class="modal-nav">
+                    <button class="modal-nav-btn" id="modalPrevBtn" onclick="modalPrevious()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="modal-page-indicator">
+                        <span id="modalCurrentPage">1</span>
+                        <span>/</span>
+                        <span id="modalTotalPages">3</span>
+                    </div>
+                    <button class="modal-nav-btn" id="modalNextBtn" onclick="modalNext()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Manga viewer functionality
+        let currentPageIndex = 0;
+        const totalPages = 3;
+        const panels = document.querySelectorAll('.manga-panel');
+        const images = [
+            '../src/assets/Manga/Shunya/Panel_1withText.jpg',
+            '../src/assets/Manga/Shunya/Panel_2withText.jpg',
+            '../src/assets/Manga/Shunya/Panel_3withText.jpg'
+        ];
+
+        function updatePageDisplay() {
+            document.getElementById('currentPage').textContent = currentPageIndex + 1;
+            document.getElementById('progressFill').style.width = `${((currentPageIndex + 1) / totalPages) * 100}%`;
+            
+            // Update navigation buttons
+            document.getElementById('prevButton').disabled = currentPageIndex === 0;
+            document.getElementById('nextButton').disabled = currentPageIndex === totalPages - 1;
+            
+            // Update modal indicators
+            document.getElementById('modalCurrentPage').textContent = currentPageIndex + 1;
+            document.getElementById('modalPrevBtn').disabled = currentPageIndex === 0;
+            document.getElementById('modalNextBtn').disabled = currentPageIndex === totalPages - 1;
+            
+            // Scroll to current panel
+            panels[currentPageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function nextPage() {
+            if (currentPageIndex < totalPages - 1) {
+                currentPageIndex++;
+                updatePageDisplay();
+            }
+        }
+
+        function previousPage() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updatePageDisplay();
+            }
+        }
+
+        function openModal(panelIndex) {
+            currentPageIndex = panelIndex;
+            const modal = document.getElementById('fullscreenModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = images[panelIndex];
+            modalImage.alt = `Shunya - Panel ${panelIndex + 1}`;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            updatePageDisplay();
+            
+            // Add animation
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modalImage.style.transform = 'scale(1)';
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.style.opacity = '0';
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function modalNext() {
+            if (currentPageIndex < totalPages - 1) {
+                currentPageIndex++;
+                document.getElementById('modalImage').src = images[currentPageIndex];
+                document.getElementById('modalImage').alt = `Shunya - Panel ${currentPageIndex + 1}`;
+                updatePageDisplay();
+            }
+        }
+
+        function modalPrevious() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                document.getElementById('modalImage').src = images[currentPageIndex];
+                document.getElementById('modalImage').alt = `Shunya - Panel ${currentPageIndex + 1}`;
+                updatePageDisplay();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal.style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    modalPrevious();
+                } else if (e.key === 'ArrowRight') {
+                    modalNext();
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('fullscreenModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeModal();
+            }
+        });
+
+        // Initialize page display
+        updatePageDisplay();
+
+        // Add scroll-based page tracking
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            
+            panels.forEach((panel, index) => {
+                const panelTop = panel.offsetTop;
+                const panelHeight = panel.offsetHeight;
+                
+                if (scrollTop >= panelTop - windowHeight / 2 && scrollTop < panelTop + panelHeight - windowHeight / 2) {
+                    if (currentPageIndex !== index) {
+                        currentPageIndex = index;
+                        updatePageDisplay();
+                    }
+                }
+            });
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            // Only process horizontal swipes
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    previousPage();
+                } else {
+                    nextPage();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

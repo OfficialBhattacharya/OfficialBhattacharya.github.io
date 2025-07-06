@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initHomeAnimations();
     initTerminalEffects();
     initGames();
+    initManga();
     initScrollAnimations();
     initResponsiveFeatures();
 });
@@ -465,6 +466,268 @@ function initTicTacToe() {
 }
 
 /**
+ * Manga viewer functionality
+ */
+function initManga() {
+    const mangaPages = document.querySelectorAll('.manga-page');
+    const mangaImages = document.querySelectorAll('.manga-image');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentPageSpan = document.querySelector('.current-page');
+    
+    // Modal elements
+    const modal = document.getElementById('mangaModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalPrevBtn = document.getElementById('modalPrevBtn');
+    const modalNextBtn = document.getElementById('modalNextBtn');
+    const modalCurrentPage = document.getElementById('modalCurrentPage');
+    const modalTotalPages = document.getElementById('modalTotalPages');
+    const closeModal = document.querySelector('.close-modal');
+    
+    if (!mangaPages.length) return;
+    
+    let currentPage = 0;
+    const totalPages = mangaPages.length;
+    
+    // Initialize
+    showPage(currentPage);
+    
+    // Navigation button events
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+    }
+    
+    // Add click event to images for modal
+    mangaImages.forEach((image, index) => {
+        image.addEventListener('click', () => {
+            openModal(index);
+        });
+    });
+    
+    // Modal events
+    if (closeModal) {
+        closeModal.addEventListener('click', closeModalHandler);
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalHandler();
+            }
+        });
+    }
+    
+    if (modalPrevBtn) {
+        modalPrevBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+                updateModalImage();
+            }
+        });
+    }
+    
+    if (modalNextBtn) {
+        modalNextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                showPage(currentPage);
+                updateModalImage();
+            }
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (modal && modal.style.display === 'block') {
+            if (e.key === 'ArrowLeft' && currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+                updateModalImage();
+            } else if (e.key === 'ArrowRight' && currentPage < totalPages - 1) {
+                currentPage++;
+                showPage(currentPage);
+                updateModalImage();
+            } else if (e.key === 'Escape') {
+                closeModalHandler();
+            }
+        }
+    });
+    
+    function showPage(pageIndex) {
+        // Update main viewer
+        mangaPages.forEach((page, index) => {
+            page.classList.toggle('active', index === pageIndex);
+        });
+        
+        // Update navigation buttons
+        if (prevBtn) {
+            prevBtn.disabled = pageIndex === 0;
+        }
+        if (nextBtn) {
+            nextBtn.disabled = pageIndex === totalPages - 1;
+        }
+        
+        // Update page indicator
+        if (currentPageSpan) {
+            currentPageSpan.textContent = pageIndex + 1;
+        }
+        
+        // Update modal navigation buttons
+        if (modalPrevBtn) {
+            modalPrevBtn.disabled = pageIndex === 0;
+        }
+        if (modalNextBtn) {
+            modalNextBtn.disabled = pageIndex === totalPages - 1;
+        }
+        
+        // Update modal page indicator
+        if (modalCurrentPage) {
+            modalCurrentPage.textContent = pageIndex + 1;
+        }
+        if (modalTotalPages) {
+            modalTotalPages.textContent = totalPages;
+        }
+        
+        // Add slide animation effect
+        mangaPages.forEach((page, index) => {
+            if (index === pageIndex) {
+                page.style.transform = 'translateX(0)';
+                page.style.opacity = '1';
+            } else if (index < pageIndex) {
+                page.style.transform = 'translateX(-100%)';
+                page.style.opacity = '0';
+            } else {
+                page.style.transform = 'translateX(100%)';
+                page.style.opacity = '0';
+            }
+        });
+    }
+    
+    function openModal(pageIndex) {
+        if (!modal || !modalImage) return;
+        
+        currentPage = pageIndex;
+        showPage(currentPage);
+        updateModalImage();
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Add open animation
+        setTimeout(() => {
+            modal.style.opacity = '1';
+            modalImage.style.transform = 'scale(1)';
+        }, 10);
+    }
+    
+    function closeModalHandler() {
+        if (!modal) return;
+        
+        modal.style.opacity = '0';
+        modalImage.style.transform = 'scale(0.9)';
+        
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+    
+    function updateModalImage() {
+        if (!modalImage || !mangaImages[currentPage]) return;
+        
+        modalImage.src = mangaImages[currentPage].src;
+        modalImage.alt = mangaImages[currentPage].alt;
+        
+        // Add loading effect
+        modalImage.style.opacity = '0';
+        modalImage.onload = () => {
+            modalImage.style.opacity = '1';
+        };
+    }
+    
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    
+    const mangaViewer = document.querySelector('.manga-viewer');
+    if (mangaViewer) {
+        mangaViewer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, false);
+        
+        mangaViewer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            // Only process horizontal swipes
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0 && currentPage > 0) {
+                    // Swipe right - previous page
+                    currentPage--;
+                    showPage(currentPage);
+                } else if (deltaX < 0 && currentPage < totalPages - 1) {
+                    // Swipe left - next page
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            }
+        }, false);
+    }
+    
+    // Add modal swipe support
+    if (modal) {
+        modal.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, false);
+        
+        modal.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            // Only process horizontal swipes
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0 && currentPage > 0) {
+                    // Swipe right - previous page
+                    currentPage--;
+                    showPage(currentPage);
+                    updateModalImage();
+                } else if (deltaX < 0 && currentPage < totalPages - 1) {
+                    // Swipe left - next page
+                    currentPage++;
+                    showPage(currentPage);
+                    updateModalImage();
+                }
+            }
+        }, false);
+    }
+}
+
+/**
  * Scroll animations
  */
 function initScrollAnimations() {
@@ -569,6 +832,7 @@ window.portfolioApp = {
     initHomeAnimations,
     initTerminalEffects,
     initGames,
+    initManga,
     createBinaryRain,
     initParticles
 };

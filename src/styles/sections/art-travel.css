@@ -1,0 +1,393 @@
+/* Art & Travel Section */
+.art-travel {
+    padding: var(--section-padding);
+    background: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.art-travel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 157, 0.03) 0%,
+        transparent 20%,
+        rgba(255, 0, 60, 0.03) 80%,
+        transparent 100%
+    );
+    pointer-events: none;
+}
+
+.art-travel-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Manga Section */
+.manga-section {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.manga-section:hover {
+    border-color: rgba(0, 255, 157, 0.4);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+}
+
+.manga-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.manga-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    text-shadow: var(--neon-glow);
+}
+
+.manga-title {
+    font-family: var(--header-font);
+    font-size: var(--font-size-4xl);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: var(--cyberpunk-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.manga-description {
+    font-family: var(--body-font);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Manga Viewer */
+.manga-viewer {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.manga-pages {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: #000;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 157, 0.3);
+}
+
+.manga-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.manga-page.active {
+    opacity: 1;
+}
+
+.manga-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    transition: transform 0.3s ease;
+}
+
+.manga-page:hover .manga-image {
+    transform: scale(1.02);
+}
+
+.page-number {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(0, 255, 157, 0.9);
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-family: var(--header-font);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-shadow: none;
+}
+
+/* Controls */
+.manga-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 255, 157, 0.1);
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-family: var(--header-font);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: var(--font-size-sm);
+}
+
+.nav-btn:hover {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: var(--neon-glow);
+    transform: translateY(-2px);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.page-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--header-font);
+    font-size: var(--font-size-lg);
+    color: var(--accent-color);
+    background: rgba(0, 255, 157, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+}
+
+.current-page {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.page-separator {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Manga Info */
+.manga-info {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.manga-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--body-font);
+    font-size: var(--font-size-sm);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.manga-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.manga-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--accent-color);
+    font-family: var(--header-font);
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    border-radius: 25px;
+    background: rgba(0, 255, 157, 0.1);
+    transition: var(--transition);
+}
+
+.manga-link:hover {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: var(--neon-glow);
+    transform: translateY(-2px);
+}
+
+/* Modal Styles */
+.manga-modal {
+    display: none;
+    position: fixed;
+    z-index: var(--z-modal);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: var(--accent-color);
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+    text-shadow: var(--neon-glow);
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+}
+
+.modal-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 2rem;
+}
+
+.modal-nav-btn {
+    background: rgba(0, 255, 157, 0.2);
+    border: 2px solid rgba(0, 255, 157, 0.5);
+    color: var(--accent-color);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: var(--font-size-lg);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-nav-btn:hover {
+    background: rgba(0, 255, 157, 0.3);
+    border-color: var(--accent-color);
+    box-shadow: var(--neon-glow);
+}
+
+.modal-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.modal-page-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--header-font);
+    font-size: var(--font-size-xl);
+    color: var(--accent-color);
+    background: rgba(0, 255, 157, 0.1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    border: 2px solid rgba(0, 255, 157, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .manga-pages {
+        height: 400px;
+    }
+    
+    .manga-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        justify-content: center;
+        max-width: 200px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        height: 95%;
+    }
+    
+    .modal-controls {
+        width: 90%;
+    }
+    
+    .manga-section {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .manga-pages {
+        height: 300px;
+    }
+    
+    .manga-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .close-modal {
+        top: 10px;
+        right: 15px;
+        font-size: 2rem;
+    }
+} 
