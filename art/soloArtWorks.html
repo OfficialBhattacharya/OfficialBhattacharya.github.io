@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Art-Works - Diganta Bhattacharya</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../src/styles/main.css">
+    
+    <style>
+        .art-gallery {
+            padding: 2rem 0;
+        }
+        
+        .art-viewer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .art-pages {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        .art-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .art-page.active {
+            opacity: 1;
+        }
+        
+        .art-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #1a1a1a;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 255, 136, 0.8);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .art-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(45deg, #00cc6a, #00ff88);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .art-info {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .art-subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 1rem;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 255, 136, 0.9);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            background: rgba(0, 255, 136, 1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html#art-travel" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Portfolio</span>
+    </a>
+
+    <section class="art-gallery">
+        <div class="container">
+            <h1 class="section-title">Solo Art-Works</h1>
+            <p style="text-align: center; color: #888; margin-bottom: 2rem;">
+                A collection of original digital artwork and creative expressions
+            </p>
+            
+            <div class="art-viewer">
+                <div class="art-pages">
+                    <div class="art-page active" data-page="1">
+                        <img src="../src/assets/art/SoloArt/artwork_1.jpg" alt="Solo Artwork 1" class="art-image">
+                        <div class="page-number">1 / 3</div>
+                    </div>
+                    <div class="art-page" data-page="2">
+                        <img src="../src/assets/art/SoloArt/artwork_2.jpeg" alt="Solo Artwork 2" class="art-image">
+                        <div class="page-number">2 / 3</div>
+                    </div>
+                    <div class="art-page" data-page="3">
+                        <img src="../src/assets/art/SoloArt/artwork_3.jpg" alt="Solo Artwork 3" class="art-image">
+                        <div class="page-number">3 / 3</div>
+                    </div>
+                </div>
+                
+                <div class="art-controls">
+                    <button class="nav-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                        <span>Previous</span>
+                    </button>
+                    
+                    <div class="page-indicator">
+                        <span class="current-page">1</span>
+                        <span class="page-separator">/</span>
+                        <span class="total-pages">3</span>
+                    </div>
+                    
+                    <button class="nav-btn next-btn" id="nextBtn">
+                        <span>Next</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="art-info">
+                    <p class="art-subtitle">Click on any artwork to view in fullscreen</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 3;
+        
+        const pages = document.querySelectorAll('.art-page');
+        const currentPageSpan = document.querySelector('.current-page');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        function showPage(pageNum) {
+            pages.forEach(page => page.classList.remove('active'));
+            pages[pageNum - 1].classList.add('active');
+            currentPageSpan.textContent = pageNum;
+            
+            prevBtn.disabled = pageNum === 1;
+            nextBtn.disabled = pageNum === totalPages;
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+        
+        // Click on image to view fullscreen
+        pages.forEach(page => {
+            page.addEventListener('click', () => {
+                const img = page.querySelector('img');
+                if (img.requestFullscreen) {
+                    img.requestFullscreen();
+                } else if (img.webkitRequestFullscreen) {
+                    img.webkitRequestFullscreen();
+                } else if (img.mozRequestFullScreen) {
+                    img.mozRequestFullScreen();
+                } else if (img.msRequestFullscreen) {
+                    img.msRequestFullscreen();
+                }
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+        
+        // Initialize
+        showPage(currentPage);
+    </script>
+</body>
+</html>

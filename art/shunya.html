@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shunya - Manga | Diganta Bhattacharya</title>
+    <title>Shunya - Art | Diganta Bhattacharya</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="../src/styles/main.css">
     
     <style>
-        /* Manga Page Specific Styles */
-        .manga-page-container {
+        /* Art Page Specific Styles */
+        .art-page-container {
             min-height: 100vh;
             background: var(--bg-color);
             padding: 2rem 0;
@@ -22,7 +22,7 @@
             overflow: hidden;
         }
 
-        .manga-page-container::before {
+        .art-page-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -38,14 +38,14 @@
             pointer-events: none;
         }
 
-        .manga-header {
+        .art-header {
             text-align: center;
             padding: 2rem 0;
             position: relative;
             z-index: 1;
         }
 
-        .manga-header h1 {
+        .art-header h1 {
             font-family: var(--header-font);
             font-size: 4rem;
             color: var(--primary-color);
@@ -59,7 +59,7 @@
             text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
         }
 
-        .manga-subtitle {
+        .art-subtitle {
             font-family: var(--body-font);
             font-size: 1.5rem;
             color: rgba(255, 255, 255, 0.7);
@@ -90,7 +90,7 @@
             transform: translateY(-2px);
         }
 
-        .manga-full-viewer {
+        .art-full-viewer {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
@@ -98,7 +98,7 @@
             z-index: 1;
         }
 
-        .manga-reader {
+        .art-reader {
             background: var(--card-bg);
             border-radius: var(--border-radius-lg);
             border: 1px solid rgba(0, 255, 157, 0.2);
@@ -108,12 +108,12 @@
             margin-bottom: 2rem;
         }
 
-        .manga-reader:hover {
+        .art-reader:hover {
             border-color: rgba(0, 255, 157, 0.4);
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
         }
 
-        .manga-panel {
+        .art-panel {
             position: relative;
             width: 100%;
             max-width: 800px;
@@ -125,7 +125,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .manga-panel img {
+        .art-panel img {
             width: 100%;
             height: auto;
             display: block;
@@ -133,7 +133,7 @@
             transition: transform 0.3s ease;
         }
 
-        .manga-panel:hover img {
+        .art-panel:hover img {
             transform: scale(1.02);
         }
 
@@ -151,7 +151,7 @@
             z-index: 2;
         }
 
-        .manga-navigation {
+        .art-navigation {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -212,7 +212,7 @@
             box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
         }
 
-        .manga-info-section {
+        .art-info-section {
             background: var(--card-bg);
             border-radius: var(--border-radius-lg);
             border: 1px solid rgba(0, 255, 157, 0.2);
@@ -221,7 +221,7 @@
             margin-bottom: 2rem;
         }
 
-        .manga-info-section h3 {
+        .art-info-section h3 {
             font-family: var(--header-font);
             font-size: 1.5rem;
             color: var(--primary-color);
@@ -230,20 +230,20 @@
             letter-spacing: 1px;
         }
 
-        .manga-info-section p {
+        .art-info-section p {
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
             margin-bottom: 1rem;
         }
 
-        .manga-tags {
+        .art-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1rem;
         }
 
-        .manga-tag {
+        .art-tag {
             background: rgba(0, 255, 157, 0.1);
             border: 1px solid rgba(0, 255, 157, 0.3);
             color: var(--accent-color);
@@ -357,11 +357,11 @@
         }
 
         /* Mobile Touch Behavior */
-        .manga-page-container {
+        .art-page-container {
             touch-action: pan-y pinch-zoom;
         }
         
-        .manga-panel {
+        .art-panel {
             touch-action: manipulation;
         }
         
@@ -375,15 +375,15 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .manga-header h1 {
+            .art-header h1 {
                 font-size: 2.5rem;
             }
             
-            .manga-reader {
+            .art-reader {
                 padding: 1rem;
             }
             
-            .manga-navigation {
+            .art-navigation {
                 flex-direction: column;
                 gap: 1rem;
             }
@@ -403,18 +403,18 @@
             }
             
             /* Improve mobile scrolling */
-            .manga-panel {
+            .art-panel {
                 margin-bottom: 1rem;
             }
             
-            .manga-panel img {
+            .art-panel img {
                 max-width: 100%;
                 height: auto;
             }
         }
 
         @media (max-width: 480px) {
-            .manga-header h1 {
+            .art-header h1 {
                 font-size: 2rem;
             }
             
@@ -430,34 +430,34 @@
     </style>
 </head>
 <body>
-    <div class="manga-page-container">
-        <div class="manga-header">
+    <div class="art-page-container">
+        <div class="art-header">
             <a href="../index.html#art-travel" class="back-to-home">
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Portfolio</span>
             </a>
             <h1>Shunya</h1>
-            <p class="manga-subtitle">A cyberpunk tale of consciousness and reality</p>
+            <p class="art-subtitle">A cyberpunk tale of consciousness and reality</p>
         </div>
 
-        <div class="manga-full-viewer">
-            <div class="manga-reader">
-                <div class="manga-panel" data-panel="1">
-                    <img src="../src/assets/Manga/Shunya/Panel_1withText.jpg" alt="Shunya - Panel 1" onclick="openModal(0)">
+        <div class="art-full-viewer">
+            <div class="art-reader">
+                <div class="art-panel" data-panel="1">
+                    <img src="../src/assets/art/Shunya/Panel_1withText.jpg" alt="Shunya - Panel 1" onclick="openModal(0)">
                     <div class="panel-number">Panel 1</div>
                 </div>
 
-                <div class="manga-panel" data-panel="2">
-                    <img src="../src/assets/Manga/Shunya/Panel_2withText.jpg" alt="Shunya - Panel 2" onclick="openModal(1)">
+                <div class="art-panel" data-panel="2">
+                    <img src="../src/assets/art/Shunya/Panel_2withText.jpg" alt="Shunya - Panel 2" onclick="openModal(1)">
                     <div class="panel-number">Panel 2</div>
                 </div>
 
-                <div class="manga-panel" data-panel="3">
-                    <img src="../src/assets/Manga/Shunya/Panel_3withText.jpg" alt="Shunya - Panel 3" onclick="openModal(2)">
+                <div class="art-panel" data-panel="3">
+                    <img src="../src/assets/art/Shunya/Panel_3withText.jpg" alt="Shunya - Panel 3" onclick="openModal(2)">
                     <div class="panel-number">Panel 3</div>
                 </div>
 
-                <div class="manga-navigation">
+                <div class="art-navigation">
                     <button class="nav-button" id="prevButton" onclick="previousPage()">
                         <i class="fas fa-chevron-left"></i>
                         <span>Previous</span>
@@ -478,7 +478,7 @@
                 </div>
             </div>
 
-            <div class="manga-info-section">
+            <div class="art-info-section">
                 <h3>About Shunya</h3>
                 <p>
                     In a world where reality and simulation blur, a lone observer witnesses the strange behavior of both humans and machines during a solar eclipse. This cyberpunk narrative explores themes of perception, consciousness, and the thin line between the digital and physical worlds.
@@ -486,12 +486,12 @@
                 <p>
                     Set in Mumbai, 2019, the story follows mysterious phenomena that challenge our understanding of reality itself. What begins as a simple observation of unusual behavior evolves into something far more profound and unsettling.
                 </p>
-                <div class="manga-tags">
-                    <span class="manga-tag">Cyberpunk</span>
-                    <span class="manga-tag">Sci-Fi</span>
-                    <span class="manga-tag">Mystery</span>
-                    <span class="manga-tag">Philosophical</span>
-                    <span class="manga-tag">Original</span>
+                <div class="art-tags">
+                    <span class="art-tag">Cyberpunk</span>
+                    <span class="art-tag">Sci-Fi</span>
+                    <span class="art-tag">Mystery</span>
+                    <span class="art-tag">Philosophical</span>
+                    <span class="art-tag">Original</span>
                 </div>
             </div>
         </div>
@@ -519,14 +519,14 @@
     </div>
 
     <script>
-        // Manga viewer functionality
+        // Art viewer functionality
         let currentPageIndex = 0;
         const totalPages = 3;
-        const panels = document.querySelectorAll('.manga-panel');
+        const panels = document.querySelectorAll('.art-panel');
         const images = [
-            '../src/assets/Manga/Shunya/Panel_1withText.jpg',
-            '../src/assets/Manga/Shunya/Panel_2withText.jpg',
-            '../src/assets/Manga/Shunya/Panel_3withText.jpg'
+            '../src/assets/art/Shunya/Panel_1withText.jpg',
+            '../src/assets/art/Shunya/Panel_2withText.jpg',
+            '../src/assets/art/Shunya/Panel_3withText.jpg'
         ];
 
         function updatePageDisplay(shouldScroll = false) {

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initHomeAnimations();
     initTerminalEffects();
     initGames();
-    initManga();
+    initArt();
     initScrollAnimations();
     initResponsiveFeatures();
 });
@@ -466,17 +466,17 @@ function initTicTacToe() {
 }
 
 /**
- * Manga viewer functionality
+ * Art viewer functionality
  */
-function initManga() {
-    const mangaPages = document.querySelectorAll('.manga-page');
-    const mangaImages = document.querySelectorAll('.manga-image');
+function initArt() {
+    const artPages = document.querySelectorAll('.art-page');
+    const artImages = document.querySelectorAll('.art-image');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const currentPageSpan = document.querySelector('.current-page');
     
     // Modal elements
-    const modal = document.getElementById('mangaModal');
+    const modal = document.getElementById('artModal');
     const modalImage = document.getElementById('modalImage');
     const modalPrevBtn = document.getElementById('modalPrevBtn');
     const modalNextBtn = document.getElementById('modalNextBtn');
@@ -484,10 +484,10 @@ function initManga() {
     const modalTotalPages = document.getElementById('modalTotalPages');
     const closeModal = document.querySelector('.close-modal');
     
-    if (!mangaPages.length) return;
+    if (!artPages.length) return;
     
     let currentPage = 0;
-    const totalPages = mangaPages.length;
+    const totalPages = artPages.length;
     
     // Check if we're running from file:// protocol
     const isFileProtocol = window.location.protocol === 'file:';
@@ -496,20 +496,20 @@ function initManga() {
     let imageErrorCount = 0;
     
     // Add error handling for image loading
-    mangaImages.forEach((img, index) => {
+    artImages.forEach((img, index) => {
         img.addEventListener('error', function() {
-            console.warn(`Failed to load manga image ${index + 1}:`, this.src);
+            console.warn(`Failed to load art image ${index + 1}:`, this.src);
             imageErrorCount++;
             
             if (isFileProtocol) {
                 const errorDiv = document.createElement('div');
-                errorDiv.className = 'manga-error';
+                errorDiv.className = 'art-error';
                 errorDiv.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--accent-color); font-family: var(--header-font); text-align: center; padding: 2rem;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem; color: #ff9800;"></i>
                         <h3 style="margin-bottom: 1rem;">Image Loading Issue</h3>
                         <p style="margin-bottom: 1rem; max-width: 400px; line-height: 1.4;">
-                            The manga images cannot be loaded when opening the file directly. 
+                            The art images cannot be loaded when opening the file directly. 
                             Please use a local server to view the full content.
                         </p>
                         <p style="font-size: 0.9rem; opacity: 0.8;">
@@ -523,17 +523,17 @@ function initManga() {
             
             // Show fallback content if multiple images fail to load
             if (imageErrorCount >= 2) {
-                const fallbackContent = document.getElementById('mangaFallback');
-                const mangaViewer = document.querySelector('.manga-viewer');
-                if (fallbackContent && mangaViewer) {
-                    mangaViewer.style.display = 'none';
+                const fallbackContent = document.getElementById('artFallback');
+                const artViewer = document.querySelector('.art-viewer');
+                if (fallbackContent && artViewer) {
+                    artViewer.style.display = 'none';
                     fallbackContent.style.display = 'block';
                 }
             }
         });
         
         img.addEventListener('load', function() {
-            console.log(`Successfully loaded manga image ${index + 1}`);
+            console.log(`Successfully loaded art image ${index + 1}`);
         });
     });
     
@@ -568,7 +568,7 @@ function initManga() {
     }
     
     // Add click event to images for modal
-    mangaImages.forEach((image, index) => {
+    artImages.forEach((image, index) => {
         image.addEventListener('click', () => {
             openModal(index);
         });
@@ -626,7 +626,7 @@ function initManga() {
     
     function showPage(pageIndex) {
         // Update main viewer
-        mangaPages.forEach((page, index) => {
+        artPages.forEach((page, index) => {
             page.classList.toggle('active', index === pageIndex);
         });
         
@@ -660,7 +660,7 @@ function initManga() {
         }
         
         // Add slide animation effect
-        mangaPages.forEach((page, index) => {
+        artPages.forEach((page, index) => {
             if (index === pageIndex) {
                 page.style.transform = 'translateX(0)';
                 page.style.opacity = '1';
@@ -704,10 +704,10 @@ function initManga() {
     }
     
     function updateModalImage() {
-        if (!modalImage || !mangaImages[currentPage]) return;
+        if (!modalImage || !artImages[currentPage]) return;
         
-        modalImage.src = mangaImages[currentPage].src;
-        modalImage.alt = mangaImages[currentPage].alt;
+        modalImage.src = artImages[currentPage].src;
+        modalImage.alt = artImages[currentPage].alt;
         
         // Add loading effect
         modalImage.style.opacity = '0';
@@ -722,14 +722,14 @@ function initManga() {
     let touchEndX = 0;
     let touchEndY = 0;
     
-    const mangaViewer = document.querySelector('.manga-viewer');
-    if (mangaViewer) {
-        mangaViewer.addEventListener('touchstart', (e) => {
+    const artViewer = document.querySelector('.art-viewer');
+    if (artViewer) {
+        artViewer.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
         }, false);
         
-        mangaViewer.addEventListener('touchend', (e) => {
+        artViewer.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             touchEndY = e.changedTouches[0].screenY;
             
@@ -888,7 +888,7 @@ window.portfolioApp = {
     initHomeAnimations,
     initTerminalEffects,
     initGames,
-    initManga,
+    initArt,
     createBinaryRain,
     initParticles
 };

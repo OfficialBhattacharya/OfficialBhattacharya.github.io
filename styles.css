@@ -515,7 +515,7 @@ footer {
     right: 1rem;
 }
 
-.manga-image-modal.active {
+.art-image-modal.active {
     display: flex;
 }
 

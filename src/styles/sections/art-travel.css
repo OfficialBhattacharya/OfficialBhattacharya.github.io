@@ -6,6 +6,338 @@
     overflow: hidden;
 }
 
+/* Cyberpunk Art Grid */
+.art-cyberpunk-grid {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.art-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.art-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* Art Preview Cards */
+.art-preview-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid rgba(0, 255, 157, 0.2);
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.art-preview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 157, 0.05) 0%,
+        transparent 50%,
+        rgba(255, 0, 60, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.art-preview-card:hover::before {
+    opacity: 1;
+}
+
+.art-preview-card:hover {
+    border-color: rgba(0, 255, 157, 0.5);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+    transform: translateY(-5px);
+}
+
+/* Preview Headers */
+.art-preview-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+}
+
+.art-preview-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    text-shadow: var(--neon-glow);
+    flex-shrink: 0;
+}
+
+.manga-card .art-preview-icon {
+    color: #00ff88;
+}
+
+.artwork-card .art-preview-icon {
+    color: #ff6b6b;
+}
+
+.story-card .art-preview-icon {
+    color: #ffa500;
+}
+
+.art-preview-title h4 {
+    font-family: var(--header-font);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.art-preview-title p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+/* Preview Content */
+.art-preview-content {
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Manga Preview */
+.manga-preview, .artwork-preview {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.art-preview-card:hover .preview-image {
+    transform: scale(1.05);
+}
+
+.preview-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 1rem;
+    color: white;
+}
+
+.preview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.preview-label {
+    font-family: var(--header-font);
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.preview-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Story Preview */
+.story-preview {
+    padding: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    height: 250px;
+    align-items: center;
+}
+
+.story-text {
+    flex: 2;
+}
+
+.story-excerpt {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.story-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.story-chapters, .story-status {
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-family: var(--header-font);
+}
+
+.story-status {
+    background: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+}
+
+.story-visual {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mystery-elements {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.mystery-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 255, 157, 0.1);
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.art-preview-card:hover .mystery-icon {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: rgba(0, 255, 157, 0.5);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+}
+
+/* Preview Footers */
+.art-preview-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(0, 255, 157, 0.2);
+    display: flex;
+    justify-content: center;
+}
+
+.view-manga-btn, .view-artwork-btn, .read-story-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 255, 157, 0.1);
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-family: var(--header-font);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.view-manga-btn:hover, .view-artwork-btn:hover, .read-story-btn:hover {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: var(--neon-glow);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design for Cyberpunk Grid */
+@media (max-width: 768px) {
+    .art-top-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .art-cyberpunk-grid {
+        gap: 1.5rem;
+    }
+    
+    .art-preview-card {
+        min-height: 350px;
+    }
+    
+    .story-preview {
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+    }
+    
+    .story-visual {
+        order: -1;
+    }
+    
+    .mystery-elements {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .mystery-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .art-preview-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .art-preview-icon {
+        font-size: 2rem;
+    }
+    
+    .art-preview-title h4 {
+        font-size: 1.2rem;
+    }
+    
+    .manga-preview, .artwork-preview {
+        height: 200px;
+    }
+    
+    .story-preview {
+        padding: 1rem;
+    }
+}
+
 /* Server Notice */
 .server-notice {
     background: rgba(255, 193, 7, 0.1);
@@ -71,8 +403,8 @@
     z-index: 1;
 }
 
-/* Manga Section */
-.manga-section {
+/* Art Section */
+.art-section {
     background: var(--card-bg);
     border-radius: var(--border-radius-lg);
     border: 1px solid rgba(0, 255, 157, 0.2);
@@ -82,24 +414,24 @@
     transition: var(--transition);
 }
 
-.manga-section:hover {
+.art-section:hover {
     border-color: rgba(0, 255, 157, 0.4);
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
 }
 
-.manga-header {
+.art-header {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.manga-icon {
+.art-icon {
     font-size: 3rem;
     color: var(--accent-color);
     margin-bottom: 1rem;
     text-shadow: var(--neon-glow);
 }
 
-.manga-title {
+.art-title {
     font-family: var(--header-font);
     font-size: var(--font-size-4xl);
     color: var(--primary-color);
@@ -112,7 +444,7 @@
     -webkit-text-fill-color: transparent;
 }
 
-.manga-description {
+.art-description {
     font-family: var(--body-font);
     color: rgba(255, 255, 255, 0.7);
     font-size: var(--font-size-lg);
@@ -121,13 +453,13 @@
     line-height: 1.6;
 }
 
-/* Manga Viewer */
-.manga-viewer {
+/* Art Viewer */
+.art-viewer {
     position: relative;
     margin: 2rem 0;
 }
 
-.manga-pages {
+.art-pages {
     position: relative;
     width: 100%;
     height: 600px;
@@ -137,7 +469,7 @@
     border: 2px solid rgba(0, 255, 157, 0.3);
 }
 
-.manga-page {
+.art-page {
     position: absolute;
     top: 0;
     left: 0;
@@ -148,11 +480,11 @@
     cursor: pointer;
 }
 
-.manga-page.active {
+.art-page.active {
     opacity: 1;
 }
 
-.manga-image {
+.art-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -160,7 +492,7 @@
     transition: transform 0.3s ease;
 }
 
-.manga-page:hover .manga-image {
+.art-page:hover .art-image {
     transform: scale(1.02);
 }
 
@@ -179,7 +511,7 @@
 }
 
 /* Controls */
-.manga-controls {
+.art-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -242,13 +574,13 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* Manga Info */
-.manga-info {
+/* Art Info */
+.art-info {
     text-align: center;
     margin-top: 2rem;
 }
 
-.manga-subtitle {
+.art-subtitle {
     color: rgba(255, 255, 255, 0.6);
     font-family: var(--body-font);
     font-size: var(--font-size-sm);
@@ -256,13 +588,13 @@
     font-style: italic;
 }
 
-.manga-links {
+.art-links {
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
 
-.manga-link {
+.art-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -277,7 +609,7 @@
     transition: var(--transition);
 }
 
-.manga-link:hover {
+.art-link:hover {
     background: rgba(0, 255, 157, 0.2);
     border-color: var(--accent-color);
     box-shadow: var(--neon-glow);
@@ -285,7 +617,7 @@
 }
 
 /* Modal Styles */
-.manga-modal {
+.art-modal {
     display: none;
     position: fixed;
     z-index: var(--z-modal);
@@ -388,7 +720,7 @@
 }
 
 /* Error handling styles */
-.manga-error {
+.art-error {
     position: absolute;
     top: 0;
     left: 0;
@@ -399,13 +731,13 @@
     z-index: 10;
 }
 
-.manga-error code {
+.art-error code {
     font-family: var(--mono-font);
     color: var(--accent-color);
 }
 
 /* Fallback content styles */
-.manga-fallback {
+.art-fallback {
     background: var(--card-bg);
     border: 1px solid rgba(0, 255, 157, 0.2);
     border-radius: var(--border-radius-lg);
@@ -485,11 +817,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .manga-pages {
+    .art-pages {
         height: 400px;
     }
     
-    .manga-controls {
+    .art-controls {
         flex-direction: column;
         gap: 1rem;
     }
@@ -509,17 +841,17 @@
         width: 90%;
     }
     
-    .manga-section {
+    .art-section {
         padding: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .manga-pages {
+    .art-pages {
         height: 300px;
     }
     
-    .manga-title {
+    .art-title {
         font-size: var(--font-size-3xl);
     }
     
@@ -527,5 +859,442 @@
         top: 10px;
         right: 15px;
         font-size: 2rem;
+    }
+}
+
+/* ==================== TRAVEL SECTION ==================== */
+
+/* Travel Section */
+.travel {
+    background-color: var(--bg-color);
+    position: relative;
+    padding: var(--section-padding);
+    min-height: 100vh;
+}
+
+.travel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(315deg, rgba(0, 255, 157, 0.05) 0%, rgba(255, 0, 157, 0.05) 50%, rgba(0, 247, 255, 0.05) 100%);
+    pointer-events: none;
+}
+
+/* Travel Grid */
+.travel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+    padding: var(--spacing-md);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: var(--spacing-xl);
+}
+
+/* Travel Card */
+.travel-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 450px;
+    justify-content: space-between;
+}
+
+.travel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cyberpunk-gradient);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.travel-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-color);
+    box-shadow: 0 12px 35px rgba(0, 255, 157, 0.3);
+}
+
+.travel-card:hover::before {
+    opacity: 0.1;
+}
+
+/* Travel Map Container */
+.travel-map-container {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.travel-map-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        transparent 30%, 
+        rgba(0, 255, 157, 0.05) 50%, 
+        transparent 70%
+    );
+    animation: scanline 3s linear infinite;
+}
+
+@keyframes scanline {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Neon Map */
+.neon-map {
+    width: 100%;
+    height: 100%;
+    max-width: 150px;
+    max-height: 150px;
+    transition: var(--transition);
+    filter: drop-shadow(0 0 5px rgba(0, 255, 157, 0.5));
+}
+
+.travel-card:hover .neon-map {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(0, 255, 157, 0.8));
+}
+
+/* Location Markers */
+.location-marker {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.travel-card:hover .location-marker {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* Travel Info */
+.travel-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.travel-title {
+    font-family: var(--header-font);
+    color: var(--primary-color);
+    font-size: var(--font-size-2xl);
+    margin: 0 0 var(--spacing-md) 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+.travel-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-lg);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    text-align: center;
+    max-width: 280px;
+}
+
+.travel-places {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.place-tag {
+    background-color: rgba(0, 255, 157, 0.1);
+    color: var(--accent-color);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 15px;
+    font-size: var(--font-size-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    font-family: var(--header-font);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.place-tag:hover {
+    background-color: rgba(0, 255, 157, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+/* Travel Link */
+.travel-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    background: var(--accent-color);
+    color: var(--bg-color);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: var(--font-size-base);
+    transition: var(--transition);
+    margin-top: auto;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--header-font);
+    border: 2px solid var(--accent-color);
+}
+
+.travel-card:hover .travel-link {
+    background: transparent;
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+    transform: translateY(-2px);
+}
+
+.travel-link i {
+    font-size: var(--font-size-sm);
+    transition: var(--transition);
+}
+
+.travel-card:hover .travel-link i {
+    transform: translateX(5px);
+}
+
+/* Travel Footer */
+.travel-footer {
+    margin-top: var(--spacing-2xl);
+    text-align: center;
+    border-top: 1px solid rgba(0, 255, 157, 0.2);
+    padding-top: var(--spacing-xl);
+}
+
+.travel-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+}
+
+.travel-link-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: rgba(0, 255, 157, 0.1);
+    border: 2px solid rgba(0, 255, 157, 0.3);
+    color: var(--accent-color);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: 25px;
+    font-family: var(--header-font);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: var(--font-size-base);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.travel-link-btn:hover {
+    background: rgba(0, 255, 157, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 25px rgba(0, 255, 157, 0.4);
+    transform: translateY(-3px);
+}
+
+.travel-link-btn i {
+    font-size: var(--font-size-lg);
+}
+
+/* Specific Map Colors */
+.india-map path {
+    filter: drop-shadow(0 0 8px #ff6b35);
+}
+
+.travel-card:hover .india-map path {
+    filter: drop-shadow(0 0 15px #ff6b35);
+}
+
+.oman-map path {
+    filter: drop-shadow(0 0 8px #c2410c);
+}
+
+.travel-card:hover .oman-map path {
+    filter: drop-shadow(0 0 15px #c2410c);
+}
+
+.russia-map path {
+    filter: drop-shadow(0 0 8px #0ea5e9);
+}
+
+.travel-card:hover .russia-map path {
+    filter: drop-shadow(0 0 15px #0ea5e9);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .travel-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: var(--spacing-lg);
+        padding: var(--spacing-sm);
+    }
+    
+    .travel-card {
+        padding: var(--spacing-lg);
+        min-height: 420px;
+    }
+    
+    .travel-map-container {
+        max-width: 180px;
+        height: 180px;
+    }
+    
+    .neon-map {
+        max-width: 130px;
+        max-height: 130px;
+    }
+}
+
+@media (max-width: 768px) {
+    .travel {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .travel-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-sm);
+    }
+    
+    .travel-card {
+        width: 90%;
+        max-width: 500px;
+        margin: 0 auto;
+        min-height: 400px;
+    }
+    
+    .travel-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .travel-description {
+        font-size: var(--font-size-sm);
+        max-width: 250px;
+    }
+    
+    .travel-map-container {
+        max-width: 160px;
+        height: 160px;
+    }
+    
+    .neon-map {
+        max-width: 120px;
+        max-height: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .travel {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .travel-grid {
+        gap: var(--spacing-md);
+        padding: var(--spacing-xs);
+    }
+    
+    .travel-card {
+        padding: var(--spacing-md);
+        width: 95%;
+        min-height: 380px;
+    }
+    
+    .travel-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .travel-description {
+        font-size: var(--font-size-xs);
+        max-width: 220px;
+    }
+    
+    .travel-map-container {
+        max-width: 140px;
+        height: 140px;
+    }
+    
+    .neon-map {
+        max-width: 100px;
+        max-height: 100px;
+    }
+    
+    .travel-link {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+    
+    .travel-link-btn {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-size-sm);
+    }
+}
+
+@media (max-width: 400px) {
+    .travel-card {
+        padding: var(--spacing-sm);
+        min-height: 360px;
+    }
+    
+    .travel-title {
+        font-size: var(--font-size-base);
+    }
+    
+    .travel-map-container {
+        max-width: 120px;
+        height: 120px;
+    }
+    
+    .neon-map {
+        max-width: 90px;
+        max-height: 90px;
+    }
+    
+    .place-tag {
+        font-size: var(--font-size-xs);
+        padding: 4px 8px;
     }
 } 

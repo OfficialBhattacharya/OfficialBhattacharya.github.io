@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Russia Travel - Diganta Bhattacharya</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff4757, #3742fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 71, 87, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(255, 71, 87, 0.1);
+            border: 2px solid #ff4757;
+            color: #ff4757;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 71, 87, 0.2);
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+        }
+
+        .main-map-section {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .main-map-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-map-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #ff4757;
+            margin-bottom: 1rem;
+        }
+
+        .map-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.2);
+        }
+
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff4757;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .highlights-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #3742fa;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(55, 66, 250, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .highlight-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #3742fa;
+            box-shadow: 0 10px 30px rgba(55, 66, 250, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            color: #3742fa;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #3742fa;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-info {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .culture-section {
+            margin-top: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        .culture-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #ff4757;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .culture-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .culture-item {
+            text-align: center;
+        }
+
+        .culture-item-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: #3742fa;
+            margin-bottom: 0.5rem;
+        }
+
+        .culture-item-text {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .regions-section {
+            margin-top: 4rem;
+        }
+
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .region-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .region-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #ff4757;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .region-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #ff4757;
+            margin-bottom: 1rem;
+        }
+
+        .region-info {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .gallery-section {
+            margin-top: 4rem;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            border: 1px solid rgba(55, 66, 250, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: #3742fa;
+            box-shadow: 0 10px 30px rgba(55, 66, 250, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-overlay i {
+            color: #3742fa;
+            font-size: 2rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #ffffff;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #3742fa;
+        }
+
+        .lightbox-image-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .nav-btn {
+            background: rgba(55, 66, 250, 0.8);
+            border: none;
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3742fa;
+            transform: scale(1.1);
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .back-button {
+                position: static;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+            
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .gallery-image {
+                height: 200px;
+            }
+            
+            .close {
+                top: 1rem;
+                right: 1rem;
+                font-size: 2rem;
+            }
+            
+            .lightbox-nav {
+                padding: 0 1rem;
+            }
+            
+            .nav-btn {
+                padding: 0.8rem;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../../../index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+            <h1 class="title">РОССИЯ</h1>
+            <p class="subtitle">Russian Federation - The Largest Country in the World</p>
+        </header>
+
+        <section class="main-map-section">
+            <div class="main-map-container">
+                <h2 class="main-map-title">Russian Federation</h2>
+                <img src="Flag-map_of_Russia-edit.svg" alt="Russia Map" class="map-image">
+            </div>
+            
+            <div class="stats-bar">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">17.1M</div>
+                        <div class="stat-label">km² Area</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">146M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Moscow</div>
+                        <div class="stat-label">Capital</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">11</div>
+                        <div class="stat-label">Time Zones</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="highlights-section">
+            <h2 class="section-title">Iconic Landmarks & Attractions</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3 class="highlight-name">Red Square</h3>
+                    <div class="highlight-info">
+                        The heart of Moscow and Russia, featuring the iconic St. Basil's Cathedral, Kremlin walls, and Lenin's Mausoleum. A UNESCO World Heritage Site.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3 class="highlight-name">Saint Basil's Cathedral</h3>
+                    <div class="highlight-info">
+                        The most recognizable symbol of Russia with its colorful onion domes. Built in the 16th century, it's an architectural masterpiece.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3 class="highlight-name">Siberia</h3>
+                    <div class="highlight-info">
+                        Vast wilderness region covering most of northern Asia, known for its extreme cold, Lake Baikal, and the Trans-Siberian Railway.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="highlight-name">Lake Baikal</h3>
+                    <div class="highlight-info">
+                        The world's deepest and oldest freshwater lake, containing 20% of Earth's unfrozen fresh water. A UNESCO World Heritage Site.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3 class="highlight-name">Trans-Siberian Railway</h3>
+                    <div class="highlight-info">
+                        The longest railway line in the world, spanning 9,289 kilometers from Moscow to Vladivostok. An epic journey across Russia.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="highlight-name">Hermitage Museum</h3>
+                    <div class="highlight-info">
+                        One of the world's largest and oldest museums in St. Petersburg, housed in the magnificent Winter Palace with over 3 million items.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="highlight-name">Kamchatka Peninsula</h3>
+                    <div class="highlight-info">
+                        Land of volcanoes and geysers, home to brown bears and pristine wilderness. A remote paradise for adventure seekers.
+                    </div>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="highlight-name">Golden Ring</h3>
+                    <div class="highlight-info">
+                        A cluster of ancient towns northeast of Moscow, showcasing traditional Russian architecture, monasteries, and cultural heritage.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="regions-section">
+            <h2 class="section-title">Regions & Federal Districts</h2>
+            <div class="regions-grid">
+                <div class="region-card">
+                    <h3 class="region-name">Central Russia</h3>
+                    <div class="region-info">
+                        Heart of Russia including Moscow, the Golden Ring cities, and the cultural center of the nation. Rich in history and political significance.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Northwest Russia</h3>
+                    <div class="region-info">
+                        Home to St. Petersburg, the "Venice of the North," with its imperial palaces, canals, and world-class museums and theaters.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Siberia</h3>
+                    <div class="region-info">
+                        Vast region stretching from the Urals to the Pacific, containing Lake Baikal, endless forests, and rich mineral resources.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Far East</h3>
+                    <div class="region-info">
+                        Russia's eastern frontier including Vladivostok, Kamchatka, and the Kuril Islands. Gateway to Asia and the Pacific.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Southern Russia</h3>
+                    <div class="region-info">
+                        Includes the Caucasus region, Sochi, and the fertile lands along the Volga River. Known for its diverse cultures and landscapes.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Ural Region</h3>
+                    <div class="region-info">
+                        The boundary between Europe and Asia, rich in minerals and industrial heritage. Home to Yekaterinburg and the Ural Mountains.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2 class="section-title">Photo Gallery</h2>
+            <div class="photo-gallery">
+                <div class="gallery-item" onclick="openLightbox(0)">
+                    <img src="Russia_1.jpeg" alt="Russia Landscape 1" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(1)">
+                    <img src="Russia_2.jpeg" alt="Russia Landscape 2" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(2)">
+                    <img src="Russia_3.jpeg" alt="Russia Landscape 3" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(3)">
+                    <img src="Russia_4.jpeg" alt="Russia Landscape 4" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(4)">
+                    <img src="Russia_5.jpeg" alt="Russia Landscape 5" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="lightbox">
+            <div class="lightbox-content">
+                <span class="close" onclick="closeLightbox()">&times;</span>
+                <div class="lightbox-image-container">
+                    <img id="lightbox-image" src="" alt="">
+                    <div class="lightbox-nav">
+                        <button class="nav-btn prev-btn" onclick="changeImage(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeImage(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="lightbox-counter">
+                    <span id="image-counter">1 / 5</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="culture-section">
+            <h2 class="culture-title">Russian Culture & Heritage</h2>
+            <div class="culture-content">
+                <div class="culture-item">
+                    <h3 class="culture-item-title">Literature</h3>
+                    <div class="culture-item-text">
+                        Home to literary giants like Tolstoy, Dostoevsky, and Chekhov. Russian literature has profoundly influenced world culture and philosophy.
+                    </div>
+                </div>
+
+                <div class="culture-item">
+                    <h3 class="culture-item-title">Music & Ballet</h3>
+                    <div class="culture-item-text">
+                        Renowned for classical music composers like Tchaikovsky, Rachmaninoff, and Stravinsky. The Bolshoi Ballet is world-famous.
+                    </div>
+                </div>
+
+                <div class="culture-item">
+                    <h3 class="culture-item-title">Architecture</h3>
+                    <div class="culture-item-text">
+                        From onion domes of Orthodox churches to Soviet constructivism and imperial palaces. Each era left its unique architectural mark.
+                    </div>
+                </div>
+
+                <div class="culture-item">
+                    <h3 class="culture-item-title">Cuisine</h3>
+                    <div class="culture-item-text">
+                        Hearty dishes like borscht, blini, and beef stroganoff. Russian cuisine reflects the country's climate and agricultural traditions.
+                    </div>
+                </div>
+
+                <div class="culture-item">
+                    <h3 class="culture-item-title">Folk Traditions</h3>
+                    <div class="culture-item-text">
+                        Rich folklore including Matryoshka dolls, traditional crafts, and festivals like Maslenitsa. Deep connection to nature and seasons.
+                    </div>
+                </div>
+
+                <div class="culture-item">
+                    <h3 class="culture-item-title">Science & Space</h3>
+                    <div class="culture-item-text">
+                        Pioneering achievements in space exploration, mathematics, and physics. Russia launched the first satellite and put the first human in space.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Array of image sources
+        const images = [
+            'Russia_1.jpeg',
+            'Russia_2.jpeg',
+            'Russia_3.jpeg',
+            'Russia_4.jpeg',
+            'Russia_5.jpeg'
+        ];
+
+        let currentImageIndex = 0;
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const imageCounter = document.getElementById('image-counter');
+            
+            lightboxImage.src = images[currentImageIndex];
+            lightboxImage.alt = `Russia Landscape ${currentImageIndex + 1}`;
+            imageCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+            
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            }
+            
+            const lightboxImage = document.getElementById('lightbox-image');
+            const imageCounter = document.getElementById('image-counter');
+            
+            lightboxImage.src = images[currentImageIndex];
+            lightboxImage.alt = `Russia Landscape ${currentImageIndex + 1}`;
+            imageCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        // Close lightbox when clicking outside the image
+        document.addEventListener('click', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxContent = document.querySelector('.lightbox-image-container');
+            
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.style.display === 'block') {
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                } else if (event.key === 'ArrowLeft') {
+                    changeImage(-1);
+                } else if (event.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

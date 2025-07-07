@@ -40,8 +40,11 @@
             <a href="#games" class="sundial-section">
                 <span>Games</span>
             </a>
-            <a href="#art-travel" class="sundial-section">
-                <span>Art & Travel</span>
+            <a href="#art" class="sundial-section">
+                <span>Art</span>
+            </a>
+            <a href="#travel" class="sundial-section">
+                <span>Travel</span>
             </a>
         </div>
     </nav>
@@ -517,7 +520,7 @@
                                 <article class="topic-article featured-article" onclick="window.open('blog/correlationBTwo.html', '_blank')">
                                     <div class="article-header">
                                         <h4 class="article-title">Correlation and Beyond Part II</h4>
-                                        <span class="article-date">April 27, 2025</span>
+                                        <span class="article-date">April 13, 2025</span>
                                     </div>
                                     <p class="article-excerpt">Geometric applications of correlation with equilateral triangles and regular polygons, plus cutting-edge correlation measures like Chatterjee's coefficient.</p>
                                     <div class="article-link">
@@ -624,10 +627,10 @@
             </div>
         </section>
 
-        <!-- Art & Travel Section -->
-        <section id="art-travel" class="art-travel">
+        <!-- Art Section -->
+        <section id="art" class="art">
             <div class="container">
-                <h2 class="section-title">Art & Travel</h2>
+                <h2 class="section-title">Art</h2>
                 
                 <!-- Server Notice -->
                 <div class="server-notice" id="serverNotice" style="display: none;">
@@ -635,98 +638,113 @@
                         <i class="fas fa-info-circle"></i>
                         <div class="notice-text">
                             <h4>Best Experience with Local Server</h4>
-                            <p>For the best viewing experience of the manga and all interactive features, please run the local server using <code>npm start</code>.</p>
+                            <p>For the best viewing experience of the art and all interactive features, please run the local server using <code>npm start</code>.</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="art-travel-content">
-                    <!-- Manga Section -->
-                    <div class="manga-section">
-                        <div class="manga-header">
-                            <div class="manga-icon">
-                                <i class="fas fa-book-open"></i>
-                            </div>
-                            <h3 class="manga-title">Shunya</h3>
-                            <p class="manga-description">A cyberpunk manga exploring the intersection of technology and consciousness</p>
-                        </div>
-                        
-                        <div class="manga-viewer">
-                            <div class="manga-pages">
-                                <div class="manga-page active" data-page="1">
-                                    <img src="src/assets/Manga/Shunya/Panel_1withText.jpg" alt="Shunya - Page 1" class="manga-image">
-                                    <div class="page-number">1 / 3</div>
-                                </div>
-                                <div class="manga-page" data-page="2">
-                                    <img src="src/assets/Manga/Shunya/Panel_2withText.jpg" alt="Shunya - Page 2" class="manga-image">
-                                    <div class="page-number">2 / 3</div>
-                                </div>
-                                <div class="manga-page" data-page="3">
-                                    <img src="src/assets/Manga/Shunya/Panel_3withText.jpg" alt="Shunya - Page 3" class="manga-image">
-                                    <div class="page-number">3 / 3</div>
-                                </div>
-                            </div>
-                            
-                            <div class="manga-controls">
-                                <button class="nav-btn prev-btn" id="prevBtn">
-                                    <i class="fas fa-chevron-left"></i>
-                                    <span>Previous</span>
-                                </button>
-                                
-                                <div class="page-indicator">
-                                    <span class="current-page">1</span>
-                                    <span class="page-separator">/</span>
-                                    <span class="total-pages">3</span>
-                                </div>
-                                
-                                <button class="nav-btn next-btn" id="nextBtn">
-                                    <span>Next</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="manga-info">
-                            <p class="manga-subtitle">Click on any panel to view in fullscreen</p>
-                            <div class="manga-links">
-                                <a href="mangas/shunya.html" class="manga-link" target="_blank">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    <span>View Full Manga</span>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Fallback content for when images don't load -->
-                        <div class="manga-fallback" id="mangaFallback" style="display: none;">
-                            <div class="fallback-content">
-                                <div class="fallback-header">
+                <div class="art-cyberpunk-grid">
+                    <!-- Top Row -->
+                    <div class="art-top-row">
+                        <!-- Manga Preview -->
+                        <div class="art-preview-card manga-card" onclick="window.open('art/shunya.html', '_blank')">
+                            <div class="art-preview-header">
+                                <div class="art-preview-icon">
                                     <i class="fas fa-book-open"></i>
-                                    <h3>Shunya - Cyberpunk Manga</h3>
                                 </div>
-                                <div class="fallback-description">
-                                    <p>A cyberpunk tale exploring the intersection of technology and consciousness. Set in Mumbai, 2019, the story follows mysterious phenomena that challenge our understanding of reality itself.</p>
-                                    <p>The manga consists of 3 beautifully illustrated panels that tell a complete story about perception, consciousness, and the thin line between the digital and physical worlds.</p>
+                                <div class="art-preview-title">
+                                    <h4>Manga: Shunya</h4>
+                                    <p>A shounen manga exploring the intersection of technology and absurdity</p>
                                 </div>
-                                <div class="fallback-features">
-                                    <div class="feature">
-                                        <i class="fas fa-palette"></i>
-                                        <span>Original artwork with cyberpunk aesthetics</span>
-                                    </div>
-                                    <div class="feature">
-                                        <i class="fas fa-brain"></i>
-                                        <span>Philosophical themes about consciousness</span>
-                                    </div>
-                                    <div class="feature">
-                                        <i class="fas fa-city"></i>
-                                        <span>Mumbai setting with futuristic elements</span>
+                            </div>
+                            <div class="art-preview-content">
+                                <div class="manga-preview">
+                                    <img src="src/assets/art/Shunya/Panel_1withText.jpg" alt="Shunya Preview" class="preview-image">
+                                    <div class="preview-overlay">
+                                        <div class="preview-text">
+                                            <span class="preview-label">Latest Panel</span>
+                                            <span class="preview-desc">3 Panels Available</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="fallback-links">
-                                    <a href="mangas/shunya.html" class="manga-link" target="_blank">
-                                        <i class="fas fa-external-link-alt"></i>
-                                        <span>View Full Manga (Server Required)</span>
-                                    </a>
+                            </div>
+                            <div class="art-preview-footer">
+                                <button class="view-manga-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View Manga</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Solo Art Preview -->
+                        <div class="art-preview-card artwork-card" onclick="window.open('art/soloArtWorks.html', '_blank')">
+                            <div class="art-preview-header">
+                                <div class="art-preview-icon">
+                                    <i class="fas fa-paint-brush"></i>
                                 </div>
+                                <div class="art-preview-title">
+                                    <h4>Solo Art-Works</h4>
+                                    <p>A collection of original digital artwork and creative expressions</p>
+                                </div>
+                            </div>
+                            <div class="art-preview-content">
+                                <div class="artwork-preview">
+                                    <img src="src/assets/art/SoloArt/artwork_1.jpg" alt="Solo Art Preview" class="preview-image">
+                                    <div class="preview-overlay">
+                                        <div class="preview-text">
+                                            <span class="preview-label">Featured Art</span>
+                                            <span class="preview-desc">3 Artworks Available</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="art-preview-footer">
+                                <button class="view-artwork-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View Artwork</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Row -->
+                    <div class="art-bottom-row">
+                        <!-- Fiction Story Preview -->
+                        <div class="art-preview-card story-card" onclick="window.open('art/aBadAttAtMurder.html', '_blank')">
+                            <div class="art-preview-header">
+                                <div class="art-preview-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                                        <div class="art-preview-title">
+                            <h4>Fiction: A Bad Attempt at A Murder?</h4>
+                            <p>A hostel mystery set in a prestigious Mathematics and Statistics institute in Kolkata</p>
+                        </div>
+                    </div>
+                    <div class="art-preview-content">
+                        <div class="story-preview">
+                            <div class="story-text">
+                                <p class="story-excerpt">
+                                    "It was a bone-chillingly cold night, an anomaly for a July evening in Kolkata. There were chances of heavy downpour as threatening storm clouds loomed overhead, casting the campus into a cloak of darkness as early as seven in the evening..."
+                                </p>
+                                <div class="story-stats">
+                                    <span class="story-chapters">6 Chapters</span>
+                                    <span class="story-status">In Progress</span>
+                                </div>
+                                    </div>
+                                    <div class="story-visual">
+                                        <div class="mystery-elements">
+                                            <div class="mystery-icon"><i class="fas fa-key"></i></div>
+                                            <div class="mystery-icon"><i class="fas fa-search"></i></div>
+                                            <div class="mystery-icon"><i class="fas fa-skull"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="art-preview-footer">
+                                <button class="read-story-btn">
+                                    <i class="fas fa-eye"></i>
+                                    <span>Read Story</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -734,26 +752,152 @@
             </div>
         </section>
 
-        <!-- Modal for full-screen manga viewing -->
-        <div id="mangaModal" class="manga-modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <img id="modalImage" class="modal-image" src="" alt="">
-                <div class="modal-controls">
-                    <button class="modal-nav-btn" id="modalPrevBtn">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="modal-page-indicator">
-                        <span id="modalCurrentPage">1</span>
-                        <span>/</span>
-                        <span id="modalTotalPages">3</span>
+        <!-- Travel Section -->
+        <section id="travel" class="travel">
+            <div class="container">
+                <h2 class="section-title">Travel</h2>
+                
+                <div class="travel-grid">
+                    <!-- India Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/India/India.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map india-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="indiaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#00ccff;stop-opacity:1" />
+                                    </linearGradient>
+                                    <filter id="neonGlow">
+                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                        <feMerge> 
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <!-- India outline -->
+                                <path d="M150 50 L180 60 L200 80 L220 100 L240 130 L250 160 L260 190 L250 220 L240 250 L220 280 L200 300 L180 320 L160 340 L140 350 L120 345 L100 340 L80 320 L70 300 L60 280 L50 250 L45 220 L50 190 L60 160 L70 130 L80 100 L100 80 L120 65 L140 55 Z" 
+                                      fill="url(#indiaGradient)" 
+                                      stroke="#00ff88" 
+                                      stroke-width="2" 
+                                      filter="url(#neonGlow)"/>
+                                <!-- Delhi marker -->
+                                <circle cx="140" cy="120" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- West Bengal marker -->
+                                <circle cx="210" cy="160" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Maharashtra marker -->
+                                <circle cx="110" cy="180" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Kerala marker -->
+                                <circle cx="100" cy="260" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Goa marker -->
+                                <circle cx="90" cy="200" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">India</h4>
+                            <p class="travel-description">Incredible India - A journey through 12 states and regions, from the Himalayas to the coastlines</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Delhi</span>
+                                <span class="place-tag">West Bengal</span>
+                                <span class="place-tag">Maharashtra</span>
+                                <span class="place-tag">Kerala</span>
+                                <span class="place-tag">+8 more</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
                     </div>
-                    <button class="modal-nav-btn" id="modalNextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+
+                    <!-- Oman Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/Oman/Oman.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map oman-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="omanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#f7931e;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Oman outline -->
+                                <path d="M80 120 L120 110 L160 115 L200 125 L240 140 L270 160 L280 190 L275 220 L260 250 L240 280 L210 300 L180 310 L150 315 L120 310 L90 300 L70 280 L60 250 L55 220 L60 190 L70 160 L80 140 Z" 
+                                      fill="url(#omanGradient)" 
+                                      stroke="#ff6b35" 
+                                      stroke-width="2" 
+                                      filter="url(#neonGlow)"/>
+                                <!-- Muscat marker -->
+                                <circle cx="180" cy="200" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Nizwa marker -->
+                                <circle cx="160" cy="220" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Wahiba Sands marker -->
+                                <circle cx="200" cy="240" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Jebel Shams marker -->
+                                <circle cx="140" cy="180" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Oman</h4>
+                            <p class="travel-description">Sultanate of Oman - Pearl of the Arabian Peninsula with deserts, mountains, and rich heritage</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Muscat</span>
+                                <span class="place-tag">Wahiba Sands</span>
+                                <span class="place-tag">Jebel Shams</span>
+                                <span class="place-tag">Nizwa</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
+
+                    <!-- Russia Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/Russia/Russia.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map russia-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="russiaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#3742fa;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Russia outline (simplified) -->
+                                <path d="M50 150 L280 140 L290 170 L280 200 L270 230 L250 250 L220 260 L190 265 L160 260 L130 255 L100 250 L70 240 L50 220 L45 190 L50 170 Z" 
+                                      fill="url(#russiaGradient)" 
+                                      stroke="#ff4757" 
+                                      stroke-width="2" 
+                                      filter="url(#neonGlow)"/>
+                                <!-- Moscow marker -->
+                                <circle cx="120" cy="180" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- St. Petersburg marker -->
+                                <circle cx="110" cy="160" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Siberia marker -->
+                                <circle cx="220" cy="200" r="3" fill="#ffffff" class="location-marker"/>
+                                <!-- Kamchatka marker -->
+                                <circle cx="270" cy="180" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Russia</h4>
+                            <p class="travel-description">Russian Federation - The largest country in the world, from Red Square to Siberian wilderness</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Moscow</span>
+                                <span class="place-tag">St. Petersburg</span>
+                                <span class="place-tag">Siberia</span>
+                                <span class="place-tag">Kamchatka</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+
     </main>
 
     <!-- Scripts -->

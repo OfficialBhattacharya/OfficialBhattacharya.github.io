@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Travel - Diganta Bhattacharya</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .main-map-section {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .main-map-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-map-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .map-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .regions-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #00ccff;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .region-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 204, 255, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .region-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #00ccff;
+            box-shadow: 0 10px 30px rgba(0, 204, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .region-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #00ccff;
+            margin-bottom: 1rem;
+        }
+
+        .region-map {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .region-info {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .back-button {
+                position: static;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+            
+            .regions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../../../index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+            <h1 class="title">INDIA</h1>
+            <p class="subtitle">Incredible India - A Journey Through Diversity</p>
+        </header>
+
+        <section class="main-map-section">
+            <div class="main-map-container">
+                <h2 class="main-map-title">India - The Subcontinent</h2>
+                <img src="Flag-map_of_India_(de-facto).svg" alt="India Map" class="map-image">
+            </div>
+            
+            <div class="stats-bar">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">States</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Union Territories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">1.4B+</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">22</div>
+                        <div class="stat-label">Official Languages</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="regions-section">
+            <h2 class="section-title">States & Regions Explored</h2>
+            <div class="regions-grid">
+                <div class="region-card">
+                    <h3 class="region-name">Delhi</h3>
+                    <img src="Delhi/Delhi_Municipalities.svg.png" alt="Delhi Map" class="region-map">
+                    <div class="region-info">
+                        The capital territory of India, a bustling metropolis that blends ancient history with modern development. Home to iconic landmarks like Red Fort, India Gate, and Lotus Temple.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">West Bengal</h3>
+                    <img src="WestBengal/Language_Map_of_West_Bengal_(2011_Census).svg.png" alt="West Bengal Map" class="region-map">
+                    <div class="region-info">
+                        The cultural heart of eastern India, known for its rich literary tradition, art, and the City of Joy - Kolkata. Bengali culture, Durga Puja, and intellectual heritage.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Maharashtra</h3>
+                    <img src="Maharashtra/Language_Map_of_Maharashtra_(2011_Census).svg.png" alt="Maharashtra Map" class="region-map">
+                    <div class="region-info">
+                        The financial capital state, home to Mumbai - Bollywood's heart. Known for its progressive outlook, industrial development, and diverse landscapes from beaches to hill stations.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Kerala</h3>
+                    <img src="Kerala/Language_Map_of_Kerala_(2011_Census).svg.png" alt="Kerala Map" class="region-map">
+                    <div class="region-info">
+                        God's Own Country - famous for backwaters, spice plantations, and high literacy rates. A tropical paradise with unique culture and Ayurvedic traditions.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Tamil Nadu</h3>
+                    <img src="TamilNadu/Language_Map_of_Tamil_Nadu_(2011_Census).svg.png" alt="Tamil Nadu Map" class="region-map">
+                    <div class="region-info">
+                        Ancient Dravidian culture, magnificent temples, and rich classical traditions. Home to Chennai and known for its technological advancement and cultural heritage.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Andhra Pradesh</h3>
+                    <img src="AndhraPradesh/Language_Map_of_Andhra_Pradesh_(2011_Census).svg.png" alt="Andhra Pradesh Map" class="region-map">
+                    <div class="region-info">
+                        The rice bowl of India, known for its spicy cuisine, classical dance forms, and the historic city of Hyderabad with its IT industry and Charminar.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Goa</h3>
+                    <img src="Goa/Goa_administrative_de.svg.png" alt="Goa Map" class="region-map">
+                    <div class="region-info">
+                        India's smallest state, famous for its pristine beaches, Portuguese colonial architecture, vibrant nightlife, and unique Indo-Portuguese culture.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Himachal Pradesh</h3>
+                    <img src="HimachalPradesh/Map_of_Himachal_Pradesh.svg.png" alt="Himachal Pradesh Map" class="region-map">
+                    <div class="region-info">
+                        The abode of snow, nestled in the Himalayas. Famous for hill stations like Shimla and Manali, adventure sports, and pristine mountain landscapes.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Uttarakhand</h3>
+                    <img src="Uttarakhand/Uttarakhand_2011_administrativ.svg.png" alt="Uttarakhand Map" class="region-map">
+                    <div class="region-info">
+                        Devbhoomi (Land of Gods), home to sacred sites like Rishikesh and Haridwar. Known for yoga, spirituality, and the source of holy rivers Ganga and Yamuna.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Meghalaya</h3>
+                    <img src="Meghalaya/Meghalaya_2012.svg.png" alt="Meghalaya Map" class="region-map">
+                    <div class="region-info">
+                        The abode of clouds, known for its living root bridges, Cherrapunji (one of the wettest places on Earth), and unique matrilineal society.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Orissa</h3>
+                    <img src="Orissa/Orissa_State_map.svg.png" alt="Orissa Map" class="region-map">
+                    <div class="region-info">
+                        Land of Jagannath, home to the famous Puri Temple and Konark Sun Temple. Known for classical Odissi dance, handloom textiles, and rich cultural heritage.
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <h3 class="region-name">Andaman & Nicobar</h3>
+                    <img src="Andaman&Nicobar/Andaman_and_Nicobar_Islands_Wikivoyage_map.svg.png" alt="Andaman & Nicobar Map" class="region-map">
+                    <div class="region-info">
+                        Tropical paradise islands in the Bay of Bengal, known for pristine beaches, coral reefs, rich marine life, and historical significance in India's freedom struggle.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
