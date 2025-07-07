@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yield Curve Construction and Smoothing: Example of NSS Model - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Yield Curve Construction and Smoothing: Example of NSS Model</h1>
+        <div class="blog-meta">
+            <span class="blog-date">May 11, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>The <strong>Nelson-Siegel-Svensson (NSS) model</strong> is a widely used parametric model for fitting the yield curve. It extends the Nelson-Siegel model by adding an additional term to capture more complex yield curve shapes. The NSS model is defined as:</p>
+
+            <div class="math">
+                \[ y(\tau) = \beta_0 + \beta_1 \left(\frac{1 - e^{-\lambda_1 \tau}}{\lambda_1 \tau}\right) + \beta_2 \left(\frac{1 - e^{-\lambda_1 \tau}}{\lambda_1 \tau} - e^{-\lambda_1 \tau}\right) + \beta_3 \left(\frac{1 - e^{-\lambda_2 \tau}}{\lambda_2 \tau} - e^{-\lambda_2 \tau}\right) \]
+            </div>
+
+            <p>Where:</p>
+            <ul>
+                <li>\(y(\tau)\): Yield for maturity \(\tau\)</li>
+                <li>\(\beta_0, \beta_1, \beta_2, \beta_3\): Parameters controlling the level, slope, curvature, and additional curvature</li>
+                <li>\(\lambda_1, \lambda_2\): Decay parameters</li>
+            </ul>
+
+            <h2>Step 1: Collect Data</h2>
+            <ol>
+                <li><strong>Bond Yields</strong>: Gather observed yields for bonds with different maturities \(\tau_1, \tau_2, \dots, \tau_n\).</li>
+                <li><strong>Maturities</strong>: Record the corresponding maturities for each yield.</li>
+            </ol>
+
+            <h2>Step 2: Define the NSS Model</h2>
+            <ol>
+                <li><strong>Model Equation</strong>:
+                    <div class="math">
+                        \[ y(\tau) = \beta_0 + \beta_1 \left(\frac{1 - e^{-\lambda_1 \tau}}{\lambda_1 \tau}\right) + \beta_2 \left(\frac{1 - e^{-\lambda_1 \tau}}{\lambda_1 \tau} - e^{-\lambda_1 \tau}\right) + \beta_3 \left(\frac{1 - e^{-\lambda_2 \tau}}{\lambda_2 \tau} - e^{-\lambda_2 \tau}\right) \]
+                    </div>
+                </li>
+                <li><strong>Parameters</strong>: The parameters to estimate are \(\beta_0, \beta_1, \beta_2, \beta_3, \lambda_1, \lambda_2\).</li>
+            </ol>
+
+            <h2>Step 3: Define the Objective Function</h2>
+            <ol>
+                <li><strong>Fitting Error</strong>: The goal is to minimize the sum of squared errors between observed yields \(y_i\) and model-predicted yields \(\hat{y}_i\):
+                    <div class="math">
+                        \[ \text{SSE} = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \]
+                    </div>
+                </li>
+                <li><strong>Objective Function</strong>:
+                    <div class="math">
+                        \[ \min_{\beta_0, \beta_1, \beta_2, \beta_3, \lambda_1, \lambda_2} \sum_{i=1}^n \left(y_i - \left[\beta_0 + \beta_1 \left(\frac{1 - e^{-\lambda_1 \tau_i}}{\lambda_1 \tau_i}\right) + \beta_2 \left(\frac{1 - e^{-\lambda_1 \tau_i}}{\lambda_1 \tau_i} - e^{-\lambda_1 \tau_i}\right) + \beta_3 \left(\frac{1 - e^{-\lambda_2 \tau_i}}{\lambda_2 \tau_i} - e^{-\lambda_2 \tau_i}\right)\right]\right)^2 \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 4: Optimization</h2>
+            <ol>
+                <li><strong>Initial Guess</strong>: Provide an initial guess for the parameters \(\beta_0, \beta_1, \beta_2, \beta_3, \lambda_1, \lambda_2\).</li>
+                <li><strong>Optimization Algorithm</strong>: Use a numerical optimization algorithm (e.g., Levenberg-Marquardt, BFGS) to minimize the objective function.</li>
+                <li><strong>Constraints</strong>: Impose constraints to ensure \(\lambda_1, \lambda_2 > 0\) (to ensure decay).</li>
+            </ol>
+
+            <h2>Step 5: Implementation</h2>
+            <ol>
+                <li><strong>Algorithm</strong>:
+                    <ul>
+                        <li>Define the NSS model and objective function</li>
+                        <li>Use an optimization library (e.g., <code>scipy.optimize</code> in Python) to minimize the objective function</li>
+                        <li>Extract the fitted parameters</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 6: Validate the Fit</h2>
+            <ol>
+                <li><strong>Residual Analysis</strong>: Check the residuals \(y_i - \hat{y}_i\) to ensure the model fits well.</li>
+                <li><strong>Goodness of Fit</strong>: Compute metrics such as R-squared, RMSE, and MAE to assess model performance.</li>
+                <li><strong>Visual Inspection</strong>: Plot the fitted yield curve against observed yields to visually assess the quality of the fit.</li>
+            </ol>
+
+            <h2>Step 7: Smoothing</h2>
+            <ol>
+                <li><strong>Interpolation</strong>: Use the fitted NSS model to interpolate yields for maturities not in the original dataset.</li>
+                <li><strong>Extrapolation</strong>: Extrapolate yields for maturities beyond the observed range (with caution).</li>
+                <li><strong>Forward Rate Calculation</strong>: Derive forward rates from the fitted yield curve using the relationship:
+                    <div class="math">
+                        \[ f(0,t) = y(t) + t \cdot \frac{dy(t)}{dt} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li><strong>NSS model</strong>:
+                    <div class="math">
+                        \[ y(\tau) = \beta_0 + \beta_1 \left(\frac{1 - e^{-\lambda_1 \tau}}{\lambda_1 \tau}\right) + \beta_2 \left(\frac{1 - e^{-\lambda_1 \tau}}{\lambda_1 \tau} - e^{-\lambda_1 \tau}\right) + \beta_3 \left(\frac{1 - e^{-\lambda_2 \tau}}{\lambda_2 \tau} - e^{-\lambda_2 \tau}\right) \]
+                    </div>
+                </li>
+                <li><strong>Objective function</strong>:
+                    <div class="math">
+                        \[ \min_{\beta_0, \beta_1, \beta_2, \beta_3, \lambda_1, \lambda_2} \sum_{i=1}^n (y_i - \hat{y}_i)^2 \]
+                    </div>
+                </li>
+                <li><strong>Optimization</strong>: Use numerical methods to minimize the objective function and estimate parameters.</li>
+                <li><strong>Application</strong>: Use the fitted model for interpolation, extrapolation, and forward rate calculation.</li>
+            </ol>
+
+            <h2>Practical Applications</h2>
+            <p>The NSS model is widely used in:</p>
+            <ul>
+                <li><strong>Central Banking</strong>: Many central banks use NSS models for constructing sovereign yield curves</li>
+                <li><strong>Risk Management</strong>: Financial institutions use fitted yield curves for pricing derivatives and managing interest rate risk</li>
+                <li><strong>Portfolio Management</strong>: Investment managers use yield curve models for bond portfolio optimization</li>
+                <li><strong>Regulatory Reporting</strong>: Banks use standardized yield curves for regulatory capital calculations</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

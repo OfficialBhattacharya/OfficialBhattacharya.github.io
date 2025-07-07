@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk Modeling: Example of Credit Valuation Adjustment - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Credit Risk Modeling: Example of Credit Valuation Adjustment</h1>
+        <div class="blog-meta">
+            <span class="blog-date">May 4, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>Estimating the <strong>Probability of Default (PD)</strong>, <strong>Loss Given Default (LGD)</strong>, and <strong>Exposure at Default (EAD)</strong> for each counterparty, and calculating the <strong>Expected Loss (EL)</strong> and <strong>Credit Valuation Adjustment (CVA)</strong> involves a combination of statistical modeling, Monte Carlo simulations, and financial mathematics.</p>
+
+            <h2>Step 1: Estimate Probability of Default (PD)</h2>
+            <ol>
+                <li><strong>Data Collection</strong>: Gather historical data on defaults, including:
+                    <ul>
+                        <li>Credit ratings</li>
+                        <li>Financial ratios (e.g., debt-to-equity, interest coverage)</li>
+                        <li>Macroeconomic variables (e.g., GDP growth, unemployment)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Model Specification</strong>: Use a logistic regression or a structural model (e.g., Merton model) to estimate PD:
+                    <ul>
+                        <li><strong>Logistic Regression</strong>:
+                            <div class="math">
+                                \[ PD = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \dots + \beta_n X_n)}} \]
+                            </div>
+                            Where \(X_1, \dots, X_n\) are explanatory variables (e.g., financial ratios).
+                        </li>
+                        
+                        <li><strong>Merton Model</strong>:
+                            <div class="math">
+                                \[ PD = \Phi\left(\frac{\ln(V_0 / D) + (\mu - \sigma^2 / 2)T}{\sigma \sqrt{T}}\right) \]
+                            </div>
+                            Where:
+                            <ul>
+                                <li>\(V_0\): Firm's asset value</li>
+                                <li>\(D\): Debt threshold</li>
+                                <li>\(\mu\): Expected return on assets</li>
+                                <li>\(\sigma\): Asset volatility</li>
+                                <li>\(\Phi\): Standard normal CDF</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li><strong>Calibration</strong>: Calibrate the model parameters using historical default data.</li>
+            </ol>
+
+            <h2>Step 2: Estimate Loss Given Default (LGD)</h2>
+            <ol>
+                <li><strong>Data Collection</strong>: Collect recovery rates from historical defaults.</li>
+                <li><strong>Model Specification</strong>: Use a beta distribution or historical averages to estimate LGD:
+                    <div class="math">
+                        \[ LGD = 1 - \text{Recovery Rate} \]
+                    </div>
+                    The recovery rate can be modeled as:
+                    <div class="math">
+                        \[ \text{Recovery Rate} \sim \text{Beta}(\alpha, \beta) \]
+                    </div>
+                    Where \(\alpha\) and \(\beta\) are shape parameters estimated from historical data.
+                </li>
+            </ol>
+
+            <h2>Step 3: Estimate Exposure at Default (EAD)</h2>
+            <ol>
+                <li><strong>Data Collection</strong>: Gather data on current exposures and potential future exposures (e.g., from credit lines, derivatives).</li>
+                <li><strong>Model Specification</strong>: Use Monte Carlo simulations to estimate EAD:
+                    <ul>
+                        <li>Simulate future exposures under different scenarios</li>
+                        <li>Compute the expected exposure at each time step:
+                            <div class="math">
+                                \[ EAD = \max(0, \text{Future Exposure}) \]
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 4: Calculate Expected Loss (EL)</h2>
+            <ol>
+                <li><strong>Formula</strong>:
+                    <div class="math">
+                        \[ EL = PD \times LGD \times EAD \]
+                    </div>
+                </li>
+                <li><strong>Aggregation</strong>: Sum the expected losses across all counterparties to get the portfolio EL.</li>
+            </ol>
+
+            <h2>Step 5: Monte Carlo Simulation for CVA</h2>
+            <ol>
+                <li><strong>Simulate Counterparty Exposures</strong>:
+                    <ul>
+                        <li>Simulate future market scenarios (e.g., interest rates, FX rates) using a stochastic model (e.g., HJM for rates, GBM for equities)</li>
+                        <li>Compute the exposure at each time step for each counterparty</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Simulate Default Events</strong>:
+                    For each counterparty, simulate default times using the estimated PD:
+                    <div class="math">
+                        \[ \tau_i \sim \text{Exponential}(\lambda_i) \]
+                    </div>
+                    Where \(\lambda_i = -\ln(1 - PD_i)\).
+                </li>
+                
+                <li><strong>Compute Discounted Losses</strong>:
+                    For each scenario, compute the discounted loss due to default:
+                    <div class="math">
+                        \[ L_i = \mathbb{1}_{\tau_i \leq T} \cdot LGD_i \cdot EAD_i \cdot D(0, \tau_i) \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(\mathbb{1}_{\tau_i \leq T}\): Indicator function for default before time \(T\)</li>
+                        <li>\(D(0, \tau_i)\): Discount factor from time 0 to \(\tau_i\)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Calculate CVA</strong>:
+                    Average the discounted losses across all scenarios:
+                    <div class="math">
+                        \[ CVA = \frac{1}{N} \sum_{i=1}^N L_i \]
+                    </div>
+                    Where \(N\) is the number of Monte Carlo scenarios.
+                </li>
+            </ol>
+
+            <h2>Step 6: Implementation</h2>
+            <ol>
+                <li><strong>Algorithm</strong>:
+                    <ul>
+                        <li>Estimate PD, LGD, and EAD for each counterparty</li>
+                        <li>Simulate future exposures and default events using Monte Carlo</li>
+                        <li>Compute discounted losses and average to get CVA</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 7: Validate Results</h2>
+            <ol>
+                <li><strong>Convergence Check</strong>: Ensure the Monte Carlo simulation has converged by increasing \(N\).</li>
+                <li><strong>Sensitivity Analysis</strong>: Test the sensitivity of CVA to changes in PD, LGD, and EAD.</li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li>Estimate PD using logistic regression or Merton model.</li>
+                <li>Estimate LGD using historical recovery rates.</li>
+                <li>Estimate EAD using Monte Carlo simulations.</li>
+                <li>Compute EL:
+                    <div class="math">
+                        \[ EL = PD \times LGD \times EAD \]
+                    </div>
+                </li>
+                <li>Simulate CVA:
+                    <div class="math">
+                        \[ CVA = \frac{1}{N} \sum_{i=1}^N \mathbb{1}_{\tau_i \leq T} \cdot LGD_i \cdot EAD_i \cdot D(0, \tau_i) \]
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

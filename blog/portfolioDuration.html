@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Duration and Convexity: Example of Key Rate - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Portfolio Duration and Convexity: Example of Key Rate</h1>
+        <div class="blog-meta">
+            <span class="blog-date">May 25, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>To calculate <strong>Key Rate Durations (KRD)</strong> and <strong>Convexity</strong> for a portfolio, we measure the sensitivity of the portfolio's value to changes in specific points along the yield curve (KRD) and the curvature of the price-yield relationship (Convexity). This methodology provides a comprehensive understanding of interest rate risk for complex portfolios.</p>
+
+            <h2>Step 1: Define Key Rates</h2>
+            <ol>
+                <li><strong>Select Key Rates</strong>:
+                    <ul>
+                        <li>Choose specific maturities (e.g., 2, 5, 10, 30 years) that represent key points on the yield curve</li>
+                        <li>Let the key rates be \(r_1, r_2, \dots, r_n\)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Yield Curve Shifts</strong>:
+                    For each key rate \(r_i\), define a small parallel shift \(\Delta r_i\) (e.g., ±1 basis point).
+                </li>
+            </ol>
+
+            <h2>Step 2: Calculate Key Rate Durations (KRD)</h2>
+            <ol>
+                <li><strong>Initial Portfolio Value</strong>:
+                    Compute the portfolio's initial value \(P_0\) using the current yield curve.
+                </li>
+                
+                <li><strong>Shift the Yield Curve</strong>:
+                    For each key rate \(r_i\), shift the yield curve at \(r_i\) by \(\Delta r_i\) while keeping other rates constant.
+                </li>
+                
+                <li><strong>Revalue the Portfolio</strong>:
+                    Compute the portfolio's new value \(P_i^+\) for an upward shift and \(P_i^-\) for a downward shift.
+                </li>
+                
+                <li><strong>Calculate KRD</strong>:
+                    The key rate duration for \(r_i\) is:
+                    <div class="math">
+                        \[ \text{KRD}_i = -\frac{1}{P_0} \cdot \frac{P_i^+ - P_i^-}{2 \Delta r_i} \]
+                    </div>
+                    This measures the sensitivity of the portfolio's value to changes in the yield at maturity \(r_i\).
+                </li>
+                
+                <li><strong>Repeat</strong>:
+                    Repeat Steps 2–4 for all key rates \(r_1, r_2, \dots, r_n\).
+                </li>
+            </ol>
+
+            <h2>Step 3: Calculate Portfolio Duration</h2>
+            <ol>
+                <li><strong>Weighted Average</strong>:
+                    The portfolio's effective duration \(D\) is the weighted average of key rate durations:
+                    <div class="math">
+                        \[ D = \sum_{i=1}^n w_i \cdot \text{KRD}_i \]
+                    </div>
+                    Where \(w_i\) is the weight of the \(i\)-th key rate in the portfolio.
+                </li>
+            </ol>
+
+            <h2>Step 4: Calculate Convexity</h2>
+            <ol>
+                <li><strong>Initial Portfolio Value</strong>:
+                    Use the initial portfolio value \(P_0\).
+                </li>
+                
+                <li><strong>Shift the Yield Curve</strong>:
+                    Shift the entire yield curve upward and downward by \(\Delta r\) (e.g., ±1 basis point).
+                </li>
+                
+                <li><strong>Revalue the Portfolio</strong>:
+                    Compute the portfolio's new value \(P^+\) for an upward shift and \(P^-\) for a downward shift.
+                </li>
+                
+                <li><strong>Calculate Convexity</strong>:
+                    The convexity \(C\) is:
+                    <div class="math">
+                        \[ C = \frac{1}{P_0} \cdot \frac{P^+ + P^- - 2P_0}{(\Delta r)^2} \]
+                    </div>
+                    This measures the curvature of the portfolio's price-yield relationship.
+                </li>
+            </ol>
+
+            <h2>Step 5: Validate Results</h2>
+            <ol>
+                <li><strong>Consistency Check</strong>:
+                    <ul>
+                        <li>Ensure the sum of key rate durations matches the portfolio's effective duration</li>
+                        <li>Verify convexity is positive (indicating a convex price-yield relationship)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Sensitivity Analysis</strong>:
+                    Test the impact of larger yield shifts on KRD and convexity.
+                </li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li><strong>Key Rate Duration</strong>:
+                    <div class="math">
+                        \[ \text{KRD}_i = -\frac{1}{P_0} \cdot \frac{P_i^+ - P_i^-}{2 \Delta r_i} \]
+                    </div>
+                </li>
+                
+                <li><strong>Portfolio Duration</strong>:
+                    <div class="math">
+                        \[ D = \sum_{i=1}^n w_i \cdot \text{KRD}_i \]
+                    </div>
+                </li>
+                
+                <li><strong>Convexity</strong>:
+                    <div class="math">
+                        \[ C = \frac{1}{P_0} \cdot \frac{P^+ + P^- - 2P_0}{(\Delta r)^2} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 6: Interpretation</h2>
+            <ol>
+                <li><strong>KRD</strong>:
+                    <ul>
+                        <li>High \(\text{KRD}_i\) indicates high sensitivity to changes in the \(i\)-th key rate</li>
+                        <li>Low \(\text{KRD}_i\) indicates low sensitivity</li>
+                        <li>Positive KRD suggests portfolio value decreases when that key rate increases</li>
+                        <li>Negative KRD suggests portfolio value increases when that key rate increases</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Convexity</strong>:
+                    <ul>
+                        <li>High convexity indicates greater curvature (portfolio benefits more from yield decreases than it loses from yield increases)</li>
+                        <li>Low convexity indicates less curvature</li>
+                        <li>Positive convexity is generally favorable for bondholders</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Practical Applications</h2>
+            <ol>
+                <li><strong>Risk Management</strong>:
+                    <ul>
+                        <li>Identify concentration risk in specific yield curve segments</li>
+                        <li>Hedge portfolio exposures using instruments with offsetting KRDs</li>
+                        <li>Monitor changes in key rate exposures over time</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Portfolio Construction</strong>:
+                    <ul>
+                        <li>Design portfolios with desired duration and convexity characteristics</li>
+                        <li>Balance exposures across different yield curve segments</li>
+                        <li>Optimize portfolios for specific interest rate scenarios</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Performance Attribution</strong>:
+                    <ul>
+                        <li>Decompose portfolio returns by key rate changes</li>
+                        <li>Analyze the impact of yield curve shifts on portfolio performance</li>
+                        <li>Evaluate the effectiveness of duration and convexity hedging strategies</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Advanced Considerations</h2>
+            <ol>
+                <li><strong>Non-Parallel Shifts</strong>:
+                    <ul>
+                        <li>Model twist and butterfly yield curve movements</li>
+                        <li>Consider correlation between different key rates</li>
+                        <li>Use principal component analysis for yield curve modeling</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Credit Risk Integration</strong>:
+                    <ul>
+                        <li>Adjust KRD calculations for credit spread changes</li>
+                        <li>Consider the interaction between interest rate and credit risk</li>
+                        <li>Model the impact of credit events on duration and convexity</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Embedded Options</strong>:
+                    <ul>
+                        <li>Account for option-adjusted duration and convexity</li>
+                        <li>Model the impact of embedded options on key rate sensitivities</li>
+                        <li>Consider negative convexity for callable bonds</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Implementation Example</h2>
+            <p>Consider a portfolio with the following bonds:</p>
+            <ul>
+                <li>2-year Treasury: 30% weight</li>
+                <li>5-year Treasury: 40% weight</li>
+                <li>10-year Treasury: 30% weight</li>
+            </ul>
+            
+            <p>The portfolio's effective duration would be:</p>
+            <div class="math">
+                \[ D = 0.3 \times \text{KRD}_2 + 0.4 \times \text{KRD}_5 + 0.3 \times \text{KRD}_{10} \]
+            </div>
+            
+            <p>Where \(\text{KRD}_2\), \(\text{KRD}_5\), and \(\text{KRD}_{10}\) are the key rate durations for the 2-year, 5-year, and 10-year segments respectively.</p>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

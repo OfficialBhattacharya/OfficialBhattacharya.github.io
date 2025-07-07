@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset-Liability Management (ALM): Example of Gap Analysis - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Asset-Liability Management (ALM): Example of Gap Analysis</h1>
+        <div class="blog-meta">
+            <span class="blog-date">June 1, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p><strong>Gap Analysis</strong> and <strong>simulation modeling</strong> are critical tools in Asset-Liability Management (ALM) for assessing interest rate risk and liquidity risk. This comprehensive framework enables financial institutions to manage their balance sheet exposures and optimize their risk-return profile.</p>
+
+            <h2>Step 1: Perform Gap Analysis</h2>
+            <ol>
+                <li><strong>Define Time Buckets</strong>:
+                    Divide the time horizon into buckets (e.g., 0–1 month, 1–3 months, 3–6 months, 6–12 months, 1–5 years, >5 years).
+                </li>
+                
+                <li><strong>Classify Assets and Liabilities</strong>:
+                    Categorize all assets and liabilities into the time buckets based on their repricing or maturity dates.
+                </li>
+                
+                <li><strong>Calculate Gaps</strong>:
+                    For each time bucket, compute the <strong>repricing gap</strong>:
+                    <div class="math">
+                        \[ \text{Gap}_i = \text{Assets}_i - \text{Liabilities}_i \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(\text{Assets}_i\): Assets repricing or maturing in bucket \(i\)</li>
+                        <li>\(\text{Liabilities}_i\): Liabilities repricing or maturing in bucket \(i\)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Cumulative Gap</strong>:
+                    Compute the cumulative gap up to each bucket:
+                    <div class="math">
+                        \[ \text{Cumulative Gap}_i = \sum_{j=1}^i \text{Gap}_j \]
+                    </div>
+                </li>
+                
+                <li><strong>Interpret Gaps</strong>:
+                    <ul>
+                        <li><strong>Positive gap</strong>: More assets than liabilities are repricing (benefits from rising rates)</li>
+                        <li><strong>Negative gap</strong>: More liabilities than assets are repricing (benefits from falling rates)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 2: Simulate Interest Rate Scenarios</h2>
+            <ol>
+                <li><strong>Define Scenarios</strong>:
+                    Specify interest rate scenarios (e.g., parallel shifts, steepening, flattening, or custom yield curve changes).
+                </li>
+                
+                <li><strong>Simulate Rate Changes</strong>:
+                    For each scenario, adjust the yield curve by the specified shifts.
+                </li>
+                
+                <li><strong>Revalue Assets and Liabilities</strong>:
+                    Revalue all assets and liabilities under the new yield curve using discounted cash flow (DCF) methods:
+                    <div class="math">
+                        \[ PV = \sum_{t=1}^T \frac{CF_t}{(1 + r_t)^t} \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(CF_t\): Cash flow at time \(t\)</li>
+                        <li>\(r_t\): Discount rate at time \(t\)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 3: Assess Impact on Net Interest Income (NII)</h2>
+            <ol>
+                <li><strong>Project Cash Flows</strong>:
+                    For each scenario, project cash flows from assets and liabilities based on their repricing schedules.
+                </li>
+                
+                <li><strong>Calculate NII</strong>:
+                    Compute the net interest income for each scenario:
+                    <div class="math">
+                        \[ \text{NII} = \sum_{i=1}^n (\text{Interest Income}_i - \text{Interest Expense}_i) \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(\text{Interest Income}_i\): Interest income from assets in bucket \(i\)</li>
+                        <li>\(\text{Interest Expense}_i\): Interest expense from liabilities in bucket \(i\)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Compare Scenarios</strong>:
+                    Compare NII across scenarios to assess the impact of interest rate changes.
+                </li>
+            </ol>
+
+            <h2>Step 4: Assess Impact on Economic Value of Equity (EVE)</h2>
+            <ol>
+                <li><strong>Revalue Equity</strong>:
+                    Compute the economic value of equity (EVE) under each scenario:
+                    <div class="math">
+                        \[ \text{EVE} = \text{PV of Assets} - \text{PV of Liabilities} \]
+                    </div>
+                </li>
+                
+                <li><strong>Sensitivity Analysis</strong>:
+                    Analyze the change in EVE across scenarios to assess interest rate risk.
+                </li>
+            </ol>
+
+            <h2>Step 5: Simulate Liquidity Scenarios</h2>
+            <ol>
+                <li><strong>Define Liquidity Scenarios</strong>:
+                    Specify scenarios for changes in funding availability or deposit withdrawals.
+                </li>
+                
+                <li><strong>Project Cash Flows</strong>:
+                    For each scenario, project cash inflows and outflows based on the liquidity profile of assets and liabilities.
+                </li>
+                
+                <li><strong>Calculate Liquidity Gaps</strong>:
+                    Compute the liquidity gap for each time bucket:
+                    <div class="math">
+                        \[ \text{Liquidity Gap}_i = \text{Cash Inflows}_i - \text{Cash Outflows}_i \]
+                    </div>
+                </li>
+                
+                <li><strong>Cumulative Liquidity Gap</strong>:
+                    Compute the cumulative liquidity gap up to each bucket:
+                    <div class="math">
+                        \[ \text{Cumulative Liquidity Gap}_i = \sum_{j=1}^i \text{Liquidity Gap}_j \]
+                    </div>
+                </li>
+                
+                <li><strong>Assess Liquidity Risk</strong>:
+                    Identify periods of liquidity shortfalls and plan contingency funding.
+                </li>
+            </ol>
+
+            <h2>Step 6: Validate Results</h2>
+            <ol>
+                <li><strong>Consistency Check</strong>:
+                    Ensure the gap analysis and simulation results are consistent with historical data and market conditions.
+                </li>
+                
+                <li><strong>Stress Testing</strong>:
+                    Perform stress tests for extreme scenarios (e.g., large rate shocks, severe liquidity crises).
+                </li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li><strong>Repricing gap</strong>:
+                    <div class="math">
+                        \[ \text{Gap}_i = \text{Assets}_i - \text{Liabilities}_i \]
+                    </div>
+                </li>
+                
+                <li><strong>Cumulative gap</strong>:
+                    <div class="math">
+                        \[ \text{Cumulative Gap}_i = \sum_{j=1}^i \text{Gap}_j \]
+                    </div>
+                </li>
+                
+                <li><strong>Net interest income</strong>:
+                    <div class="math">
+                        \[ \text{NII} = \sum_{i=1}^n (\text{Interest Income}_i - \text{Interest Expense}_i) \]
+                    </div>
+                </li>
+                
+                <li><strong>Economic value of equity</strong>:
+                    <div class="math">
+                        \[ \text{EVE} = \text{PV of Assets} - \text{PV of Liabilities} \]
+                    </div>
+                </li>
+                
+                <li><strong>Liquidity gap</strong>:
+                    <div class="math">
+                        \[ \text{Liquidity Gap}_i = \text{Cash Inflows}_i - \text{Cash Outflows}_i \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 7: Interpretation</h2>
+            <ol>
+                <li><strong>Gap Analysis</strong>:
+                    <ul>
+                        <li>Identify mismatches in repricing and maturity profiles</li>
+                        <li>Plan hedging strategies to mitigate interest rate risk</li>
+                        <li>Assess the balance sheet's sensitivity to rate changes</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Simulation Results</strong>:
+                    <ul>
+                        <li>Assess the impact of interest rate and liquidity scenarios on NII and EVE</li>
+                        <li>Develop contingency plans for adverse scenarios</li>
+                        <li>Optimize asset-liability mix for risk-adjusted returns</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Regulatory Framework and Best Practices</h2>
+            <ol>
+                <li><strong>Regulatory Requirements</strong>:
+                    <ul>
+                        <li>Comply with Basel III requirements for interest rate risk in the banking book (IRRBB)</li>
+                        <li>Meet local regulatory standards for ALM and stress testing</li>
+                        <li>Maintain adequate capital buffers based on ALM analysis</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Governance Framework</strong>:
+                    <ul>
+                        <li>Establish clear roles and responsibilities for ALM</li>
+                        <li>Implement regular reporting to senior management and board</li>
+                        <li>Maintain independent validation of ALM models and assumptions</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Model Risk Management</strong>:
+                    <ul>
+                        <li>Validate behavioral assumptions for non-maturity deposits</li>
+                        <li>Back-test model predictions against actual outcomes</li>
+                        <li>Document model limitations and uncertainty ranges</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Advanced ALM Techniques</h2>
+            <ol>
+                <li><strong>Dynamic Hedging</strong>:
+                    <ul>
+                        <li>Implement dynamic hedging strategies based on gap analysis</li>
+                        <li>Use derivatives to manage interest rate and liquidity risk</li>
+                        <li>Monitor hedge effectiveness and adjust positions regularly</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Behavioral Modeling</strong>:
+                    <ul>
+                        <li>Model customer behavior for deposits and loan prepayments</li>
+                        <li>Incorporate option values in behavioral models</li>
+                        <li>Account for competitive dynamics in pricing models</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Multi-Currency ALM</strong>:
+                    <ul>
+                        <li>Extend gap analysis to multiple currencies</li>
+                        <li>Manage foreign exchange risk alongside interest rate risk</li>
+                        <li>Consider currency basis risk in funding strategies</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Practical Implementation</h2>
+            <p>A typical ALM framework implementation involves:</p>
+            <ul>
+                <li><strong>Data Infrastructure</strong>: Robust data collection and validation processes</li>
+                <li><strong>Technology Platform</strong>: Integrated ALM systems with scenario modeling capabilities</li>
+                <li><strong>Risk Limits</strong>: Clear limits on gap exposures and risk metrics</li>
+                <li><strong>Reporting Framework</strong>: Regular management reports with key risk indicators</li>
+                <li><strong>Strategic Planning</strong>: Integration with business planning and capital allocation</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
