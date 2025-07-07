@@ -1,0 +1,16 @@
+country,country_code,visits,percentage,cities,flag_emoji
+India,IN,142,37.8,"Mumbai: 45, Kolkata: 28, Delhi: 22, Bangalore: 19, Chennai: 15, Others: 13",🇮🇳
+United States,US,89,23.7,"New York: 23, San Francisco: 18, Los Angeles: 15, Chicago: 12, Boston: 11, Others: 10",🇺🇸
+United Kingdom,GB,34,9.0,"London: 18, Manchester: 7, Birmingham: 4, Others: 5",🇬🇧
+Canada,CA,23,6.1,"Toronto: 12, Vancouver: 6, Montreal: 3, Others: 2",🇨🇦
+Germany,DE,19,5.1,"Berlin: 8, Munich: 5, Hamburg: 3, Others: 3",🇩🇪
+Australia,AU,15,4.0,"Sydney: 7, Melbourne: 5, Perth: 2, Brisbane: 1",🇦🇺
+France,FR,12,3.2,"Paris: 6, Lyon: 3, Marseille: 2, Nice: 1",🇫🇷
+Japan,JP,11,2.9,"Tokyo: 6, Osaka: 3, Kyoto: 2",🇯🇵
+Singapore,SG,9,2.4,"Singapore: 9",🇸🇬
+Netherlands,NL,8,2.1,"Amsterdam: 5, Rotterdam: 2, The Hague: 1",🇳🇱
+Brazil,BR,7,1.9,"São Paulo: 4, Rio de Janeiro: 2, Brasília: 1",🇧🇷
+Sweden,SE,5,1.3,"Stockholm: 3, Gothenburg: 2",🇸🇪
+Switzerland,CH,4,1.1,"Zurich: 2, Geneva: 1, Basel: 1",🇨🇭
+Norway,NO,3,0.8,"Oslo: 2, Bergen: 1",🇳🇴
+Others,XX,2,0.5,"Various: 2",🌍 

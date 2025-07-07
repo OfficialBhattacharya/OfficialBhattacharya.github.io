@@ -724,6 +724,12 @@
 }
 
 @media (max-width: 768px) {
+    /* Fix section overflow conflicts for mobile */
+    .blog {
+        overflow: visible;
+        overflow-y: visible;
+    }
+    
     .blog-topics-grid {
         padding: var(--spacing-sm);
         gap: var(--spacing-lg);
@@ -747,12 +753,42 @@
     
     .topic-content {
         padding: var(--spacing-md);
+        overflow: visible;
     }
     
     .topic-articles {
         max-height: 280px;
+        overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: var(--secondary-color) transparent;
+        /* Enhanced mobile scrolling */
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        /* Momentum scrolling for iOS */
+        -webkit-overflow-scrolling: touch;
+        /* Ensure scrollable area is properly defined */
+        min-height: 0;
+        flex: 1;
+    }
+    
+    /* Ensure scrollbars are visible on mobile */
+    .topic-articles::-webkit-scrollbar {
+        width: 6px;
+        display: block;
+    }
+    
+    .topic-articles::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+    }
+    
+    .topic-articles::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 3px;
+        opacity: 0.8;
     }
     
     .article-header {
@@ -773,9 +809,34 @@
     
     .topic-articles {
         max-height: 240px;
+        overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
         padding-right: var(--spacing-xs);
+        /* Enhanced mobile scrolling for small screens */
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        scrollbar-width: thin;
+        min-height: 0;
+        flex: 1;
+    }
+    
+    /* Smaller scrollbars for very small screens */
+    .topic-articles::-webkit-scrollbar {
+        width: 4px;
+        display: block;
+    }
+    
+    .topic-articles::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 2px;
+    }
+    
+    .topic-articles::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 2px;
+        opacity: 0.7;
     }
     
     .topic-article {

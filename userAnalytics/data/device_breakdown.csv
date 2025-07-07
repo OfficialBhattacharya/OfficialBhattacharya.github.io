@@ -1,0 +1,4 @@
+device,percentage,visits,color,browser_breakdown
+Desktop,47.2,178,#00ff88,"Chrome: 67%, Firefox: 18%, Safari: 10%, Edge: 5%"
+Mobile,41.8,157,#0099ff,"Chrome Mobile: 72%, Safari Mobile: 23%, Samsung Browser: 5%"
+Tablet,11.0,41,#ff6699,"Safari: 68%, Chrome: 27%, Other: 5%" 

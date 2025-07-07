@@ -1,0 +1,15 @@
+email,timestamp,source,status,country
+example1@gmail.com,2024-12-20T10:30:00Z,Homepage Quick Signup,active,India
+example2@yahoo.com,2024-12-22T14:15:00Z,Analytics Page,active,United States
+example3@hotmail.com,2024-12-24T09:45:00Z,Homepage Quick Signup,active,United Kingdom
+example4@outlook.com,2024-12-26T16:20:00Z,Analytics Page,active,Canada
+example5@gmail.com,2024-12-28T11:55:00Z,Homepage Quick Signup,active,Germany
+example6@domain.com,2024-12-30T13:40:00Z,Analytics Page,active,Australia
+example7@email.com,2025-01-01T08:25:00Z,Homepage Quick Signup,active,France
+example8@test.com,2025-01-03T15:10:00Z,Analytics Page,active,Japan
+example9@mail.com,2025-01-05T12:35:00Z,Homepage Quick Signup,active,Singapore
+example10@inbox.com,2025-01-07T17:50:00Z,Analytics Page,active,Netherlands
+example11@webmail.com,2025-01-09T09:15:00Z,Homepage Quick Signup,active,Brazil
+example12@service.com,2025-01-11T14:30:00Z,Analytics Page,active,Sweden
+example13@provider.com,2025-01-13T11:45:00Z,Homepage Quick Signup,active,Switzerland
+example14@company.com,2025-01-15T16:05:00Z,Analytics Page,active,Norway 

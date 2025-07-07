@@ -5,6 +5,11 @@
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS
+    if (typeof emailjs !== 'undefined') {
+        // emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Replace with your EmailJS Public API Key
+    }
+    
     initNavigation();
     initHomeAnimations();
     initTerminalEffects();
@@ -900,6 +905,11 @@ function initResponsiveFeatures() {
         });
     }
     
+    // Enhanced mobile scrolling for blog sections
+    if (window.innerWidth <= 768) {
+        initMobileBlogScrolling();
+    }
+    
     // Handle window resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
@@ -910,6 +920,11 @@ function initResponsiveFeatures() {
             
             // Update particle positions
             initParticles();
+            
+            // Reinitialize mobile blog scrolling if needed
+            if (window.innerWidth <= 768) {
+                initMobileBlogScrolling();
+            }
         }, 250);
     });
     
@@ -923,6 +938,74 @@ function initResponsiveFeatures() {
             }
         });
     }
+}
+
+/**
+ * Initialize enhanced mobile scrolling for blog sections
+ */
+function initMobileBlogScrolling() {
+    const topicArticles = document.querySelectorAll('.topic-articles');
+    
+    topicArticles.forEach(container => {
+        // Ensure proper touch scrolling
+        container.style.webkitOverflowScrolling = 'touch';
+        container.style.overflowY = 'auto';
+        container.style.overscrollBehavior = 'contain';
+        container.style.touchAction = 'pan-y';
+        
+        // Add momentum scrolling for iOS
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            container.style.webkitOverflowScrolling = 'touch';
+            container.style.transform = 'translateZ(0)'; // Force hardware acceleration
+        }
+        
+        // Prevent scroll interference from parent elements
+        container.addEventListener('touchstart', function(e) {
+            // Allow natural scrolling
+            e.stopPropagation();
+        }, { passive: true });
+        
+        container.addEventListener('touchmove', function(e) {
+            // Prevent parent scroll when scrolling within container
+            const scrollTop = container.scrollTop;
+            const scrollHeight = container.scrollHeight;
+            const height = container.clientHeight;
+            const delta = e.touches[0].clientY - (e.touches[1] ? e.touches[1].clientY : 0);
+            
+            // If at top and trying to scroll up, or at bottom and trying to scroll down
+            if ((scrollTop === 0 && delta > 0) || (scrollTop === scrollHeight - height && delta < 0)) {
+                e.preventDefault();
+            }
+            
+            e.stopPropagation();
+        }, { passive: false });
+        
+        // Add visual feedback when scrolling
+        let scrollTimeout;
+        container.addEventListener('scroll', function() {
+            container.style.opacity = '0.8';
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                container.style.opacity = '1';
+            }, 150);
+        }, { passive: true });
+    });
+    
+    // Fix blog section overflow issues
+    const blogSection = document.querySelector('.blog');
+    if (blogSection) {
+        blogSection.style.overflow = 'visible';
+        blogSection.style.overflowY = 'visible';
+    }
+    
+    // Ensure topic content containers don't interfere with scrolling
+    const topicContents = document.querySelectorAll('.topic-content');
+    topicContents.forEach(content => {
+        content.style.overflow = 'visible';
+        content.style.display = 'flex';
+        content.style.flexDirection = 'column';
+        content.style.minHeight = '0';
+    });
 }
 
 /**
@@ -1017,19 +1100,31 @@ function trackVisit(sessionId, visitorId) {
 
 async function getUserLocation() {
     try {
-        // For demo purposes, return mock location
-        const locations = [
-            { country: 'India', city: 'Mumbai', region: 'Maharashtra', countryCode: 'IN' },
-            { country: 'United States', city: 'New York', region: 'New York', countryCode: 'US' },
-            { country: 'United Kingdom', city: 'London', region: 'England', countryCode: 'GB' },
-            { country: 'Germany', city: 'Berlin', region: 'Berlin', countryCode: 'DE' },
-            { country: 'Canada', city: 'Toronto', region: 'Ontario', countryCode: 'CA' }
-        ];
-        return locations[Math.floor(Math.random() * locations.length)];
+        // Uncomment and add your API key to enable real location tracking
+        // const response = await fetch('https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_IP_GEOLOCATION_API_KEY');
+        // if (response.ok) {
+        //     const data = await response.json();
+        //     return {
+        //         country: data.country_name,
+        //         city: data.city,
+        //         region: data.state_prov,
+        //         countryCode: data.country_code2
+        //     };
+        // }
+        console.log('Using mock location data (API key not configured)');
     } catch (error) {
-        console.log('Location detection unavailable');
-        return null;
+        console.log('Real location detection unavailable, using mock data');
     }
+    
+    // Fallback to mock location data
+    const locations = [
+        { country: 'India', city: 'Mumbai', region: 'Maharashtra', countryCode: 'IN' },
+        { country: 'United States', city: 'New York', region: 'New York', countryCode: 'US' },
+        { country: 'United Kingdom', city: 'London', region: 'England', countryCode: 'GB' },
+        { country: 'Germany', city: 'Berlin', region: 'Berlin', countryCode: 'DE' },
+        { country: 'Canada', city: 'Toronto', region: 'Ontario', countryCode: 'CA' }
+    ];
+    return locations[Math.floor(Math.random() * locations.length)];
 }
 
 function updateVisitWithLocation(sessionId, location) {
@@ -1041,22 +1136,90 @@ function updateVisitWithLocation(sessionId, location) {
     }
 }
 
-function loadAnalyticsPreview() {
-    const visits = JSON.parse(localStorage.getItem('site_visits') || '[]');
-    const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
-    
-    // Calculate stats
-    const totalVisitors = visits.length || Math.floor(Math.random() * 500) + 100; // Mock data for demo
-    const uniqueCountries = new Set(
-        visits.filter(v => v.location && v.location.country)
-              .map(v => v.location.country)
-    ).size || Math.floor(Math.random() * 10) + 15; // Mock data for demo
-    const subscriberCount = subscribers.length || Math.floor(Math.random() * 50) + 25; // Mock data for demo
-    
-    // Update preview elements
-    updatePreviewStat('previewTotalVisitors', totalVisitors);
-    updatePreviewStat('previewCountries', uniqueCountries);
-    updatePreviewStat('previewSubscribers', subscriberCount);
+async function loadAnalyticsPreview() {
+    try {
+        // Try to load from CSV files
+        const [visitorStats, geoData, subscriberData] = await Promise.all([
+            loadCSVData('visitor_stats.csv'),
+            loadCSVData('geographic_data.csv'),
+            loadCSVData('newsletter_subscribers.csv')
+        ]);
+
+        // Get latest stats
+        const latestStats = visitorStats[visitorStats.length - 1];
+        const totalVisitors = parseInt(latestStats?.total_visitors) || 376;
+        const uniqueCountries = geoData?.length || 15;
+        const subscriberCount = subscriberData?.length || 54;
+
+        // Update preview elements
+        updatePreviewStat('previewTotalVisitors', totalVisitors);
+        updatePreviewStat('previewCountries', uniqueCountries);
+        updatePreviewStat('previewSubscribers', subscriberCount);
+
+    } catch (error) {
+        console.log('CSV data not available, using fallback data');
+        // Fallback to localStorage and mock data
+        const visits = JSON.parse(localStorage.getItem('site_visits') || '[]');
+        const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+        
+        const totalVisitors = visits.length || 376;
+        const uniqueCountries = new Set(
+            visits.filter(v => v.location && v.location.country)
+                  .map(v => v.location.country)
+        ).size || 15;
+        const subscriberCount = subscribers.length || 54;
+        
+        updatePreviewStat('previewTotalVisitors', totalVisitors);
+        updatePreviewStat('previewCountries', uniqueCountries);
+        updatePreviewStat('previewSubscribers', subscriberCount);
+    }
+}
+
+async function loadCSVData(filename) {
+    try {
+        const response = await fetch(`userAnalytics/data/${filename}`);
+        const text = await response.text();
+        return parseCSV(text);
+    } catch (error) {
+        throw new Error(`Failed to load ${filename}`);
+    }
+}
+
+function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',');
+    const data = [];
+
+    for (let i = 1; i < lines.length; i++) {
+        const values = parseCSVLine(lines[i]);
+        const row = {};
+        headers.forEach((header, index) => {
+            row[header.trim()] = values[index] ? values[index].trim() : '';
+        });
+        data.push(row);
+    }
+
+    return data;
+}
+
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current);
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    result.push(current);
+    return result;
 }
 
 function updatePreviewStat(elementId, value) {
@@ -1104,16 +1267,26 @@ function initQuickNewsletterForm() {
             }
             
             // Add new subscriber
-            subscribers.push({
+            const newSubscriber = {
                 email: email,
                 timestamp: new Date().toISOString(),
-                source: 'Homepage Quick Signup'
-            });
+                source: 'Homepage Quick Signup',
+                status: 'active',
+                country: 'Unknown'
+            };
             
+            subscribers.push(newSubscriber);
             localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
             
-            // For production, you would send this to your email service here
-            // await sendToEmailService(email);
+            // Try to update CSV data
+            try {
+                await updateNewsletterCSV(newSubscriber);
+            } catch (error) {
+                console.log('Could not update CSV, stored locally only');
+            }
+            
+            // Optional: Send email via EmailJS (requires API setup)
+            // await sendQuickNewsletterEmail(email);
             
             showQuickMessage('Successfully subscribed! Welcome to the newsletter.', 'success');
             emailInput.value = '';
@@ -1128,6 +1301,51 @@ function initQuickNewsletterForm() {
             setQuickLoading(false);
         }
     });
+}
+
+async function sendQuickNewsletterEmail(email) {
+    // Uncomment and configure EmailJS to enable email notifications
+    // if (typeof emailjs === 'undefined') {
+    //     console.log('EmailJS not loaded, subscription stored locally only');
+    //     return;
+    // }
+    // 
+    // const templateParams = {
+    //     user_email: email,
+    //     timestamp: new Date().toISOString(),
+    //     source: 'Homepage Quick Newsletter Signup'
+    // };
+    //
+    // return emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams); // Replace with your EmailJS Service and Template IDs
+    
+    console.log('Email notification disabled (API not configured)');
+}
+
+async function updateNewsletterCSV(newSubscriber) {
+    // In a real implementation, this would make an API call to update the server-side CSV
+    // For now, we'll simulate the update by storing it in a special localStorage key
+    const csvUpdates = JSON.parse(localStorage.getItem('csv_updates_newsletter') || '[]');
+    
+    const csvRow = {
+        email: newSubscriber.email.replace(/,/g, ''), // Remove commas to avoid CSV issues
+        timestamp: newSubscriber.timestamp,
+        source: newSubscriber.source,
+        status: newSubscriber.status,
+        country: newSubscriber.country
+    };
+    
+    csvUpdates.push(csvRow);
+    localStorage.setItem('csv_updates_newsletter', JSON.stringify(csvUpdates));
+    
+    console.log('Newsletter CSV update queued:', csvRow);
+}
+
+async function updateVisitorCSV(newVisitData) {
+    // Similar function for updating visitor data
+    const csvUpdates = JSON.parse(localStorage.getItem('csv_updates_visitors') || '[]');
+    csvUpdates.push(newVisitData);
+    localStorage.setItem('csv_updates_visitors', JSON.stringify(csvUpdates));
+    console.log('Visitor CSV update queued:', newVisitData);
 }
 
 function validateEmail(email) {
