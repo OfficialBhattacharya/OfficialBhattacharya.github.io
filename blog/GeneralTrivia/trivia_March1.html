@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC NEWS DIGEST - I: March 1, 2025 | General Trivia</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-green: #00ff88;
+            --neon-red: #ff006b;
+            --neon-orange: #ff9500;
+            --neon-purple: #bf00ff;
+            --neon-blue: #0088ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --terminal-green: #00ff41;
+            --terminal-amber: #ffb000;
+            --grid-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Back Button */
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateX(-5px);
+        }
+
+        /* Header */
+        .cyber-header {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 107, 0.1) 100%);
+            border-bottom: 2px solid var(--neon-cyan);
+            position: relative;
+        }
+
+        .cyber-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="100" fill="rgba(0,255,255,0.05)">01010101</text></svg>');
+            background-size: 100px 100px;
+            opacity: 0.1;
+        }
+
+        .news-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+            margin-bottom: 1rem;
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        .news-subtitle {
+            font-size: 1.5rem;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .news-date {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--terminal-amber);
+            font-size: 1.1rem;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 20px var(--neon-cyan); }
+            to { text-shadow: 0 0 30px var(--neon-cyan), 0 0 40px var(--neon-cyan); }
+        }
+
+        /* News Grid */
+        .news-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 200px);
+            gap: 1rem;
+            grid-template-areas:
+                "headline headline feature1 feature2"
+                "headline headline feature1 brief1"
+                "major1 major2 tech1 brief2"
+                "major1 spotlight spotlight brief3";
+        }
+
+        /* News Block Styles */
+        .news-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--grid-color);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .news-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .news-block:hover::before {
+            opacity: 1;
+        }
+
+        .news-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: var(--neon-cyan);
+        }
+
+        /* Grid Areas */
+        .headline { grid-area: headline; }
+        .feature1 { grid-area: feature1; }
+        .feature2 { grid-area: feature2; }
+        .brief1 { grid-area: brief1; }
+        .brief2 { grid-area: brief2; }
+        .brief3 { grid-area: brief3; }
+        .major1 { grid-area: major1; }
+        .major2 { grid-area: major2; }
+        .tech1 { grid-area: tech1; }
+        .spotlight { grid-area: spotlight; }
+
+        /* Content Styling */
+        .news-category {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-orange);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .headline .news-title {
+            font-size: 2rem;
+            color: var(--neon-green);
+        }
+
+        .feature1 .news-title,
+        .major1 .news-title,
+        .major2 .news-title {
+            font-size: 1.4rem;
+        }
+
+        .news-content {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #cccccc;
+        }
+
+        .headline .news-content {
+            font-size: 1.1rem;
+        }
+
+        .news-highlight {
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        /* Special Effects */
+        .glitch-text {
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .news-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(5, 180px);
+                grid-template-areas:
+                    "headline headline feature1"
+                    "headline headline feature2"
+                    "major1 major2 tech1"
+                    "brief1 brief2 brief3"
+                    "spotlight spotlight spotlight";
+            }
+        }
+
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(10, auto);
+                grid-template-areas:
+                    "headline"
+                    "feature1"
+                    "feature2"
+                    "major1"
+                    "major2"
+                    "tech1"
+                    "brief1"
+                    "brief2"
+                    "brief3"
+                    "spotlight";
+            }
+            
+            .news-block {
+                min-height: 150px;
+            }
+            
+            .news-logo {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .news-block {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .news-block:nth-child(1) { animation-delay: 0.1s; }
+        .news-block:nth-child(2) { animation-delay: 0.2s; }
+        .news-block:nth-child(3) { animation-delay: 0.3s; }
+        .news-block:nth-child(4) { animation-delay: 0.4s; }
+        .news-block:nth-child(5) { animation-delay: 0.5s; }
+        .news-block:nth-child(6) { animation-delay: 0.6s; }
+        .news-block:nth-child(7) { animation-delay: 0.7s; }
+        .news-block:nth-child(8) { animation-delay: 0.8s; }
+        .news-block:nth-child(9) { animation-delay: 0.9s; }
+        .news-block:nth-child(10) { animation-delay: 1.0s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Terminal Cursor */
+        .terminal-cursor {
+            display: inline-block;
+            background: var(--neon-green);
+            width: 2px;
+            height: 1.2em;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Back Navigation -->
+    <nav class="back-nav">
+        <a href="../../index.html#blog" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Blog</span>
+        </a>
+    </nav>
+
+    <!-- Header -->
+    <header class="cyber-header">
+        <h1 class="news-logo glitch-text">UPSC News Digest</h1>
+        <p class="news-subtitle">Issue I</p>
+        <p class="news-date">March 1, 2025<span class="terminal-cursor"></span></p>
+    </header>
+
+    <!-- News Grid -->
+    <main class="news-container">
+        <div class="news-grid">
+            <!-- Headline Story -->
+            <article class="news-block headline">
+                <div class="news-category">
+                    <i class="fas fa-globe"></i>
+                    GLOBAL CLIMATE
+                </div>
+                <h2 class="news-title">Loss and Damage Fund Established at COP28</h2>
+                <p class="news-content">
+                    The <span class="news-highlight">Loss and Damage Fund</span> was formally established at COP28 to address climate impacts in vulnerable nations. This historic agreement marks a significant milestone in international climate finance, providing crucial support for countries facing irreversible climate damage.
+                </p>
+            </article>
+
+            <!-- Feature Stories -->
+            <article class="news-block feature1">
+                <div class="news-category">
+                    <i class="fas fa-road"></i>
+                    INFRASTRUCTURE
+                </div>
+                <h2 class="news-title">PM Gati Shakti Master Plan</h2>
+                <p class="news-content">
+                    India's <span class="news-highlight">PM Gati Shakti National Master Plan</span> integrates infrastructure planning across 16 ministries for enhanced multimodal connectivity and economic growth.
+                </p>
+            </article>
+
+            <article class="news-block feature2">
+                <div class="news-category">
+                    <i class="fas fa-water"></i>
+                    WATER MANAGEMENT
+                </div>
+                <h2 class="news-title">Ken-Betwa Link Initiative</h2>
+                <p class="news-content">
+                    The <span class="news-highlight">Ken-Betwa Link Project</span> marks India's first inter-river linking initiative under the National Perspective Plan for water resource management.
+                </p>
+            </article>
+
+            <!-- Major Stories -->
+            <article class="news-block major1">
+                <div class="news-category">
+                    <i class="fas fa-atom"></i>
+                    QUANTUM TECH
+                </div>
+                <h2 class="news-title">National Quantum Mission</h2>
+                <p class="news-content">
+                    The <span class="news-highlight">National Quantum Mission</span> targets developing intermediate-scale quantum computers with 50-1000 qubits by 2031, positioning India as a quantum technology leader.
+                </p>
+            </article>
+
+            <article class="news-block major2">
+                <div class="news-category">
+                    <i class="fas fa-star"></i>
+                    ASTRONOMY
+                </div>
+                <h2 class="news-title">Dark Sky Reserve in Ladakh</h2>
+                <p class="news-content">
+                    India's inaugural <span class="news-highlight">Dark Sky Reserve</span> in Hanle, Ladakh aims to preserve astronomical observation conditions and promote astro-tourism in the region.
+                </p>
+            </article>
+
+            <!-- Tech Brief -->
+            <article class="news-block tech1">
+                <div class="news-category">
+                    <i class="fas fa-mobile-alt"></i>
+                    FINTECH
+                </div>
+                <h2 class="news-title">UPI Lite X</h2>
+                <p class="news-content">
+                    <span class="news-highlight">UPI Lite X</span> enables offline digital payments of up to ₹500 without internet connectivity, revolutionizing rural payments.
+                </p>
+            </article>
+
+            <!-- Brief Stories -->
+            <article class="news-block brief1">
+                <div class="news-category">
+                    <i class="fas fa-graduation-cap"></i>
+                    EDUCATION
+                </div>
+                <h2 class="news-title">PARAKH Assessment</h2>
+                <p class="news-content">
+                    <span class="news-highlight">PARAKH</span> serves as India's national assessment regulator for holistic development evaluation.
+                </p>
+            </article>
+
+            <article class="news-block brief2">
+                <div class="news-category">
+                    <i class="fas fa-seedling"></i>
+                    AGRICULTURE
+                </div>
+                <h2 class="news-title">Millet Production Leader</h2>
+                <p class="news-content">
+                    India produces <span class="news-highlight">20% of global millets</span> and 80% of Asia's output, leading sustainable agriculture.
+                </p>
+            </article>
+
+            <article class="news-block brief3">
+                <div class="news-category">
+                    <i class="fas fa-leaf"></i>
+                    ENVIRONMENT
+                </div>
+                <h2 class="news-title">Mission LiFE</h2>
+                <p class="news-content">
+                    <span class="news-highlight">Mission LiFE</span> promotes pro-planet behaviors through NUDGE framework for environmental excellence.
+                </p>
+            </article>
+
+            <!-- Spotlight -->
+            <article class="news-block spotlight">
+                <div class="news-category">
+                    <i class="fas fa-paw"></i>
+                    WILDLIFE CONSERVATION
+                </div>
+                <h2 class="news-title">International Big Cat Alliance (IBCA)</h2>
+                <p class="news-content">
+                    Launched by India, the <span class="news-highlight">International Big Cat Alliance</span> focuses on conserving seven big cat species globally, promoting international cooperation in wildlife protection and habitat preservation efforts worldwide.
+                </p>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        // Add some interactive effects
+        document.querySelectorAll('.news-block').forEach(block => {
+            block.addEventListener('mouseenter', function() {
+                this.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--neon-cyan');
+            });
+            
+            block.addEventListener('mouseleave', function() {
+                this.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--grid-color');
+            });
+        });
+
+        // Glitch effect for logo
+        const logo = document.querySelector('.news-logo');
+        setInterval(() => {
+            if (Math.random() < 0.1) {
+                logo.style.textShadow = '2px 0 #ff006b, -2px 0 #00ffff';
+                setTimeout(() => {
+                    logo.style.textShadow = '0 0 20px var(--neon-cyan)';
+                }, 100);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

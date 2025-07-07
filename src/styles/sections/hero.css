@@ -231,65 +231,95 @@
     text-align: center;
     font-size: var(--font-size-lg);
     color: var(--secondary-color);
-    text-shadow: 
-        0 0 5px currentColor,
-        0 0 10px currentColor,
-        0 0 15px currentColor,
-        0 0 20px currentColor;
     font-family: var(--header-font);
     letter-spacing: 0.1em;
     font-weight: 600;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
-    white-space: nowrap;
-    min-height: 1.5em;
+    min-height: 3em;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    padding: 0.4em 0.8em;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    padding: 0.6em 0.8em;
     backdrop-filter: blur(10px);
     width: 100%; /* Full width of grid column (exactly half of parent) */
+    box-shadow: 
+        0 0 10px rgba(0, 255, 136, 0.3),
+        inset 0 0 20px rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
 }
 
 .subtitle-col .text-content {
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     overflow: hidden;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: 900;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 2;
+    line-height: 1.1;
+    gap: 0.1em;
 }
 
-.subtitle-col::after {
-    content: '';
-    position: absolute;
-    right: 0.8em;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 1.2em;
-    background: currentColor;
-    animation: blink 1s infinite;
+.text-line {
+    display: block;
+    -webkit-text-stroke: 2px #ffffff;
+    text-stroke: 2px #ffffff;
+    color: transparent;
+    border: 2px solid #ffffff;
+    padding: 0.2em 0.4em;
+    border-radius: 8px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    box-shadow: 
+        0 0 10px rgba(0, 255, 136, 0.6),
+        0 0 20px rgba(0, 255, 136, 0.4),
+        inset 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
-/* First subtitle - Neon Yellow */
+
+
+/* First subtitle - Bright Neon Green */
 .subtitle-col:nth-child(1) {
-    color: #ffff00;
+    color: #00ff88;
 }
 
-.subtitle-col:nth-child(1) .text-content {
-    animation: typewriter1 15s steps(20, end) infinite;
+.subtitle-col:nth-child(1) .text-line {
+    -webkit-text-stroke: 2px #ffccdd;
+    text-stroke: 2px #ffccdd;
+    color: transparent;
+    border: 2px solid #ffccdd;
+    box-shadow: 
+        0 0 10px rgba(255, 102, 153, 0.8),
+        0 0 20px rgba(255, 102, 153, 0.6),
+        0 0 30px rgba(255, 102, 153, 0.3),
+        inset 0 0 10px rgba(255, 204, 221, 0.2);
 }
 
-/* Second subtitle - Neon Blue */
+/* Second subtitle - Lime Neon Green */
 .subtitle-col:nth-child(2) {
-    color: #00bfff;
+    color: #39ff14;
 }
 
-.subtitle-col:nth-child(2) .text-content {
-    animation: typewriter2 15s steps(18, end) infinite;
-    animation-delay: 7.5s;
+.subtitle-col:nth-child(2) .text-line {
+    -webkit-text-stroke: 2px #ccddff;
+    text-stroke: 2px #ccddff;
+    color: transparent;
+    border: 2px solid #ccddff;
+    box-shadow: 
+        0 0 10px rgba(102, 153, 255, 0.8),
+        0 0 20px rgba(102, 153, 255, 0.6),
+        0 0 30px rgba(102, 153, 255, 0.3),
+        inset 0 0 10px rgba(204, 221, 255, 0.2);
 }
 
 /* Typewriter animation for subtitles */
@@ -305,65 +335,205 @@
     animation: scanning 2s linear infinite;
 }
 
-/* Typewriter animations */
-@keyframes typewriter1 {
+/* Neon signboard effects */
+.neon-letter {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* Red neon for Statistical Modeller */
+.subtitle-col:nth-child(1) .neon-letter {
+    color: #ffccdd;
+    text-shadow: 
+        0 0 5px #ff6699,
+        0 0 10px #ff6699,
+        0 0 15px #ff6699;
+}
+
+/* Blue neon for FullStack Developer */
+.subtitle-col:nth-child(2) .neon-letter {
+    color: #ccddff;
+    text-shadow: 
+        0 0 5px #6699ff,
+        0 0 10px #6699ff,
+        0 0 15px #6699ff;
+}
+
+/* Red neon animations */
+.subtitle-col:nth-child(1) .neon-letter.faulty {
+    animation: flicker-off-red 0.1s ease-in-out forwards;
+}
+
+.subtitle-col:nth-child(1) .neon-letter.sparking {
+    animation: spark-effect-red 2s ease-in-out forwards;
+}
+
+/* Blue neon animations */
+.subtitle-col:nth-child(2) .neon-letter.faulty {
+    animation: flicker-off-blue 0.1s ease-in-out forwards;
+}
+
+.subtitle-col:nth-child(2) .neon-letter.sparking {
+    animation: spark-effect-blue 2s ease-in-out forwards;
+}
+
+@keyframes flicker-off-red {
     0% { 
-        width: 0;
-        opacity: 1;
-    }
-    15% { 
-        width: 100%;
-        opacity: 1;
-    }
-    20% { 
-        width: 100%;
-        opacity: 1;
-    }
-    80% { 
-        width: 100%;
-        opacity: 1;
-    }
-    85% { 
-        width: 100%;
-        opacity: 0;
+        opacity: 1; 
+        color: #ffccdd;
+        text-shadow: 
+            0 0 5px #ff6699,
+            0 0 10px #ff6699,
+            0 0 15px #ff6699;
+        filter: brightness(1);
     }
     100% { 
-        width: 0;
-        opacity: 0;
+        opacity: 0.3; 
+        color: #ffffff;
+        text-shadow: 
+            0 0 3px rgba(255, 255, 255, 0.4),
+            0 0 6px rgba(255, 255, 255, 0.2);
+        filter: brightness(0.6) contrast(0.8);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
     }
 }
 
-@keyframes typewriter2 {
+@keyframes flicker-off-blue {
     0% { 
-        width: 0;
-        opacity: 1;
-    }
-    15% { 
-        width: 100%;
-        opacity: 1;
-    }
-    20% { 
-        width: 100%;
-        opacity: 1;
-    }
-    80% { 
-        width: 100%;
-        opacity: 1;
-    }
-    85% { 
-        width: 100%;
-        opacity: 0;
+        opacity: 1; 
+        color: #ccddff;
+        text-shadow: 
+            0 0 5px #6699ff,
+            0 0 10px #6699ff,
+            0 0 15px #6699ff;
+        filter: brightness(1);
     }
     100% { 
-        width: 0;
-        opacity: 0;
+        opacity: 0.3; 
+        color: #ffffff;
+        text-shadow: 
+            0 0 3px rgba(255, 255, 255, 0.4),
+            0 0 6px rgba(255, 255, 255, 0.2);
+        filter: brightness(0.6) contrast(0.8);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
     }
 }
 
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+@keyframes spark-effect-red {
+    0% { 
+        opacity: 0.3; 
+        color: #ffffff;
+        text-shadow: 
+            0 0 3px rgba(255, 255, 255, 0.4),
+            0 0 6px rgba(255, 255, 255, 0.2);
+        filter: brightness(0.6) contrast(0.8);
+    }
+    5%, 15%, 25%, 35%, 45% { 
+        opacity: 1; 
+        color: #ffccdd;
+        text-shadow: 
+            0 0 3px #ff6699,
+            0 0 6px #ff6699,
+            0 0 9px #ff6699,
+            0 0 12px #ff6699,
+            0 0 15px #ff6699;
+        filter: brightness(1.8) contrast(1.5);
+        transform: scale(1.1);
+    }
+    10%, 20%, 30%, 40% { 
+        opacity: 0.4; 
+        color: #ffffff;
+        text-shadow: 
+            0 0 2px rgba(255, 255, 255, 0.5),
+            0 0 4px rgba(255, 255, 255, 0.3);
+        filter: brightness(0.4) contrast(0.6);
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 0.2;
+        color: #ffffff;
+        text-shadow: 
+            0 0 1px rgba(255, 255, 255, 0.3);
+        filter: brightness(0.3) contrast(0.4);
+    }
+    75% {
+        opacity: 0.8;
+        color: #ffccdd;
+        text-shadow: 
+            0 0 8px #ff6699,
+            0 0 16px #ff6699;
+        filter: brightness(1.3);
+    }
+    100% { 
+        opacity: 1; 
+        color: #ffccdd;
+        text-shadow: 
+            0 0 5px #ff6699,
+            0 0 10px #ff6699,
+            0 0 15px #ff6699;
+        filter: brightness(1);
+        transform: scale(1);
+    }
 }
+
+@keyframes spark-effect-blue {
+    0% { 
+        opacity: 0.3; 
+        color: #ffffff;
+        text-shadow: 
+            0 0 3px rgba(255, 255, 255, 0.4),
+            0 0 6px rgba(255, 255, 255, 0.2);
+        filter: brightness(0.6) contrast(0.8);
+    }
+    5%, 15%, 25%, 35%, 45% { 
+        opacity: 1; 
+        color: #ccddff;
+        text-shadow: 
+            0 0 3px #6699ff,
+            0 0 6px #6699ff,
+            0 0 9px #6699ff,
+            0 0 12px #6699ff,
+            0 0 15px #6699ff;
+        filter: brightness(1.8) contrast(1.5);
+        transform: scale(1.1);
+    }
+    10%, 20%, 30%, 40% { 
+        opacity: 0.4; 
+        color: #ffffff;
+        text-shadow: 
+            0 0 2px rgba(255, 255, 255, 0.5),
+            0 0 4px rgba(255, 255, 255, 0.3);
+        filter: brightness(0.4) contrast(0.6);
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 0.2;
+        color: #ffffff;
+        text-shadow: 
+            0 0 1px rgba(255, 255, 255, 0.3);
+        filter: brightness(0.3) contrast(0.4);
+    }
+    75% {
+        opacity: 0.8;
+        color: #ccddff;
+        text-shadow: 
+            0 0 8px #6699ff,
+            0 0 16px #6699ff;
+        filter: brightness(1.3);
+    }
+    100% { 
+        opacity: 1; 
+        color: #ccddff;
+        text-shadow: 
+            0 0 5px #6699ff,
+            0 0 10px #6699ff,
+            0 0 15px #6699ff;
+        filter: brightness(1);
+        transform: scale(1);
+    }
+}
+
+
 
 @keyframes scanning {
     0% { transform: translateX(-100%); }
@@ -554,12 +724,40 @@
         opacity: 0 !important;
     }
     
-    .subtitle-col:nth-child(1) {
-        color: #ffff00 !important;
+    .subtitle-col:nth-child(1) .text-line {
+        color: #00ff88 !important;
+        -webkit-text-stroke: 4px #000000 !important;
+        text-stroke: 4px #000000 !important;
+        text-shadow: 
+            3px 3px 0px #000000,
+            -3px -3px 0px #000000,
+            3px -3px 0px #000000,
+            -3px 3px 0px #000000,
+            6px 6px 0px rgba(0, 0, 0, 0.9),
+            0 0 5px #00ff88,
+            0 0 10px #00ff88,
+            0 0 20px #00ff88,
+            0 0 30px #00ff88,
+            0 0 40px #00ff88,
+            0 0 50px rgba(0, 255, 136, 0.5) !important;
     }
     
-    .subtitle-col:nth-child(2) {
-        color: #00bfff !important;
+    .subtitle-col:nth-child(2) .text-line {
+        color: #39ff14 !important;
+        -webkit-text-stroke: 4px #000000 !important;
+        text-stroke: 4px #000000 !important;
+        text-shadow: 
+            3px 3px 0px #000000,
+            -3px -3px 0px #000000,
+            3px -3px 0px #000000,
+            -3px 3px 0px #000000,
+            6px 6px 0px rgba(0, 0, 0, 0.9),
+            0 0 5px #39ff14,
+            0 0 10px #39ff14,
+            0 0 20px #39ff14,
+            0 0 30px #39ff14,
+            0 0 40px #39ff14,
+            0 0 50px rgba(57, 255, 20, 0.5) !important;
     }
     
     .subtitle-col::before {

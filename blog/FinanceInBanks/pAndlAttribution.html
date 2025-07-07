@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     <!-- Add KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
     <style>
         .blog-content {
             max-width: 800px;
@@ -37,6 +37,16 @@
             padding: 1rem;
             background: #f8f9fa;
             border-radius: 5px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .katex-display {
+            margin: 1em 0 !important;
+        }
+        
+        .katex {
+            font-size: 1.1em;
         }
         .back-link {
             display: inline-block;
@@ -51,7 +61,7 @@
     </style>
 </head>
 <body>
-    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
     
     <div class="blog-content">
         <h1 class="blog-title">P&L Attribution of a Book: Example of Factor-Based Attribution</h1>
@@ -340,16 +350,16 @@
 
             <p>Attribution calculation:</p>
             <div class="math">
-                \[ \text{Duration P&L} = -5.2 \times (-0.25\%) = +1.30\% \]
+                \[ \textcolor{red}{\text{Duration P\&L}} = -5.2 \times (-0.25\%) = \textcolor{red}{+1.30\%} \]
             </div>
             <div class="math">
-                \[ \text{Credit P&L} = 2.8 \times (-0.15\%) = -0.42\% \]
+                \[ \textcolor{blue}{\text{Credit P\&L}} = 2.8 \times (-0.15\%) = \textcolor{blue}{-0.42\%} \]
             </div>
             <div class="math">
-                \[ \text{Curve P&L} = 0.3 \times 0.10\% = +0.03\% \]
+                \[ \textcolor{red}{\text{Curve P\&L}} = 0.3 \times 0.10\% = \textcolor{red}{+0.03\%} \]
             </div>
             <div class="math">
-                \[ \text{Total Factor P&L} = 1.30\% - 0.42\% + 0.03\% = +0.91\% \]
+                \[ \textcolor{red}{\text{Total Factor P\&L}} = 1.30\% - 0.42\% + 0.03\% = \textcolor{red}{+0.91\%} \]
             </div>
 
             <h2>Model Validation and Governance</h2>
@@ -396,16 +406,27 @@
     </div>
 
     <!-- Add KaTeX JS -->
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "\\[", right: "\\]", display: true},
-                    {left: "\\(", right: "\\)", display: false}
-                ]
-            });
+            try {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "\\[", right: "\\]", display: true},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "$", right: "$", display: false},
+                        {left: "$$", right: "$$", display: true}
+                    ],
+                    throwOnError: false,
+                    errorColor: '#cc0000',
+                    fleqn: false,
+                    strict: false
+                });
+                console.log("KaTeX rendering completed successfully");
+            } catch (error) {
+                console.error("KaTeX rendering failed:", error);
+            }
         });
     </script>
 </body>

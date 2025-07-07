@@ -18,11 +18,44 @@
 }
 
 .blog-topics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: var(--spacing-xl);
     margin-top: var(--spacing-xl);
     padding: var(--spacing-md);
+}
+
+.blog-topics-row {
+    display: flex;
+    gap: var(--spacing-xl);
+    width: 100%;
+}
+
+.blog-topics-row-top {
+    justify-content: space-between;
+}
+
+.blog-topics-row-top .blog-topic-card {
+    flex: 1;
+    max-width: calc(50% - var(--spacing-xl) / 2);
+}
+
+.blog-topics-row-bottom {
+    justify-content: space-between;
+}
+
+.blog-topics-row-bottom .blog-topic-card {
+    flex: 1;
+    max-width: calc(33.333% - var(--spacing-xl) * 2 / 3);
+}
+
+.blog-topics-row-third {
+    justify-content: center;
+}
+
+.blog-topics-row-third .blog-topic-card {
+    flex: 1;
+    max-width: 100%;
 }
 
 .blog-topic-card {
@@ -94,6 +127,78 @@
     border-color: rgba(255, 100, 0, 0.8);
 }
 
+/* Financial Mathematics Card Specific Styling */
+.finmath-card {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(75, 0, 130, 0.05) 100%);
+}
+
+.finmath-card::before {
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(138, 43, 226, 0.8), 
+        transparent
+    );
+}
+
+.finmath-card:hover {
+    box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
+    border-color: rgba(138, 43, 226, 0.8);
+}
+
+/* Machine Learning Card Specific Styling */
+.ml-card {
+    background: linear-gradient(135deg, rgba(50, 205, 50, 0.05) 0%, rgba(0, 128, 128, 0.05) 100%);
+}
+
+.ml-card::before {
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(50, 205, 50, 0.8), 
+        transparent
+    );
+}
+
+.ml-card:hover {
+    box-shadow: 0 15px 30px rgba(50, 205, 50, 0.3);
+    border-color: rgba(50, 205, 50, 0.8);
+}
+
+/* General Trivia Card Specific Styling */
+.trivia-card {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 165, 0, 0.05) 100%);
+}
+
+.trivia-card::before {
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 215, 0, 0.8), 
+        transparent
+    );
+}
+
+.trivia-card:hover {
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+    border-color: rgba(255, 215, 0, 0.8);
+}
+
+/* Kaggle Grind Card Specific Styling */
+.kaggle-card {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 255, 68, 0.05) 100%);
+}
+
+.kaggle-card::before {
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 255, 136, 0.8), 
+        transparent
+    );
+}
+
+.kaggle-card:hover {
+    box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+    border-color: rgba(0, 255, 136, 0.8);
+}
+
 .topic-header {
     padding: var(--spacing-lg);
     text-align: center;
@@ -118,6 +223,26 @@
     text-shadow: 0 0 20px rgba(255, 150, 0, 0.5);
 }
 
+.finmath-card .topic-icon {
+    color: rgba(138, 43, 226, 0.9);
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+}
+
+.ml-card .topic-icon {
+    color: rgba(50, 205, 50, 0.9);
+    text-shadow: 0 0 20px rgba(50, 205, 50, 0.5);
+}
+
+.trivia-card .topic-icon {
+    color: rgba(255, 215, 0, 0.9);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.kaggle-card .topic-icon {
+    color: rgba(0, 255, 136, 0.9);
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
 .topic-title {
     font-family: var(--header-font);
     font-size: var(--font-size-xxl);
@@ -136,6 +261,26 @@
 .statistics-card .topic-title {
     color: rgba(255, 150, 0, 0.9);
     text-shadow: 0 0 15px rgba(255, 150, 0, 0.5);
+}
+
+.finmath-card .topic-title {
+    color: rgba(138, 43, 226, 0.9);
+    text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+}
+
+.ml-card .topic-title {
+    color: rgba(50, 205, 50, 0.9);
+    text-shadow: 0 0 15px rgba(50, 205, 50, 0.5);
+}
+
+.trivia-card .topic-title {
+    color: rgba(255, 215, 0, 0.9);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.kaggle-card .topic-title {
+    color: rgba(0, 255, 136, 0.9);
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
 }
 
 .topic-description {
@@ -210,6 +355,46 @@
     box-shadow: 0 0 10px rgba(255, 150, 0, 0.5);
 }
 
+/* Financial Mathematics Card Scrollbar */
+.finmath-card .topic-articles::-webkit-scrollbar-thumb {
+    background: rgba(138, 43, 226, 0.8);
+}
+
+.finmath-card .topic-articles::-webkit-scrollbar-thumb:hover {
+    background: rgba(138, 43, 226, 1);
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+/* Machine Learning Card Scrollbar */
+.ml-card .topic-articles::-webkit-scrollbar-thumb {
+    background: rgba(50, 205, 50, 0.8);
+}
+
+.ml-card .topic-articles::-webkit-scrollbar-thumb:hover {
+    background: rgba(50, 205, 50, 1);
+    box-shadow: 0 0 10px rgba(50, 205, 50, 0.5);
+}
+
+/* General Trivia Card Scrollbar */
+.trivia-card .topic-articles::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.8);
+}
+
+.trivia-card .topic-articles::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 1);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Kaggle Grind Card Scrollbar */
+.kaggle-card .topic-articles::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.8);
+}
+
+.kaggle-card .topic-articles::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 136, 1);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
 .topic-article {
     background: rgba(20, 20, 20, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -260,6 +445,42 @@
     );
 }
 
+.finmath-card .topic-article::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(138, 43, 226, 0.05),
+        transparent
+    );
+}
+
+.ml-card .topic-article::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(50, 205, 50, 0.05),
+        transparent
+    );
+}
+
+.trivia-card .topic-article::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 215, 0, 0.05),
+        transparent
+    );
+}
+
+.kaggle-card .topic-article::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 255, 136, 0.05),
+        transparent
+    );
+}
+
 .topic-article:hover {
     transform: translateX(5px);
     border-color: var(--secondary-color);
@@ -274,6 +495,26 @@
 .statistics-card .topic-article:hover {
     border-color: rgba(255, 150, 0, 0.8);
     box-shadow: 0 5px 15px rgba(255, 150, 0, 0.2);
+}
+
+.finmath-card .topic-article:hover {
+    border-color: rgba(138, 43, 226, 0.8);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+}
+
+.ml-card .topic-article:hover {
+    border-color: rgba(50, 205, 50, 0.8);
+    box-shadow: 0 5px 15px rgba(50, 205, 50, 0.2);
+}
+
+.trivia-card .topic-article:hover {
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+
+.kaggle-card .topic-article:hover {
+    border-color: rgba(0, 255, 136, 0.8);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
 }
 
 .topic-article:hover::before {
@@ -316,6 +557,26 @@
     text-shadow: 0 0 10px rgba(255, 150, 0, 0.3);
 }
 
+.finmath-card .article-title {
+    color: rgba(138, 43, 226, 0.9);
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+
+.ml-card .article-title {
+    color: rgba(50, 205, 50, 0.9);
+    text-shadow: 0 0 10px rgba(50, 205, 50, 0.3);
+}
+
+.trivia-card .article-title {
+    color: rgba(255, 215, 0, 0.9);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.kaggle-card .article-title {
+    color: rgba(0, 255, 136, 0.9);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
 .article-date {
     font-family: var(--body-font);
     color: var(--secondary-color);
@@ -330,6 +591,22 @@
 
 .statistics-card .article-date {
     color: rgba(255, 150, 0, 0.7);
+}
+
+.finmath-card .article-date {
+    color: rgba(138, 43, 226, 0.9);
+}
+
+.ml-card .article-date {
+    color: rgba(50, 205, 50, 0.9);
+}
+
+.trivia-card .article-date {
+    color: rgba(255, 215, 0, 0.9);
+}
+
+.kaggle-card .article-date {
+    color: rgba(0, 255, 136, 0.9);
 }
 
 .article-excerpt {
@@ -365,6 +642,22 @@
 
 .statistics-card .article-link {
     color: rgba(255, 150, 0, 0.9);
+}
+
+.finmath-card .article-link {
+    color: rgba(138, 43, 226, 0.9);
+}
+
+.ml-card .article-link {
+    color: rgba(50, 205, 50, 0.9);
+}
+
+.trivia-card .article-link {
+    color: rgba(255, 215, 0, 0.9);
+}
+
+.kaggle-card .article-link {
+    color: rgba(0, 255, 136, 0.9);
 }
 
 .article-link i {
@@ -403,9 +696,15 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .blog-topics-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-xl);
+    .blog-topics-row {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+    
+    .blog-topics-row-top .blog-topic-card,
+    .blog-topics-row-bottom .blog-topic-card,
+    .blog-topics-row-third .blog-topic-card {
+        max-width: 100%;
     }
     
     .blog-topic-card {

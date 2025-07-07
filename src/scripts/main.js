@@ -76,6 +76,7 @@ function initHomeAnimations() {
     initCyberpunkNameAnimation();
     createBinaryRain();
     initParticles();
+    initFaultyNeonSignboard();
 }
 
 function initCyberpunkNameAnimation() {
@@ -164,6 +165,75 @@ function initParticles() {
         
         particlesContainer.appendChild(particle);
     }
+}
+
+function initFaultyNeonSignboard() {
+    const words = document.querySelectorAll('.text-line[data-word]');
+    if (!words.length) return;
+    
+    // Array to store faulty letter info for each word
+    const faultyLetters = [];
+    
+    // Select one random letter from each word to be faulty
+    words.forEach((word, wordIndex) => {
+        const letters = word.querySelectorAll('.neon-letter');
+        if (letters.length === 0) return;
+        
+        // Choose a random letter (avoid first and last for better visual effect)
+        const availableIndices = [];
+        for (let i = 1; i < letters.length - 1; i++) {
+            availableIndices.push(i);
+        }
+        
+        const randomIndex = availableIndices.length > 0 
+            ? availableIndices[Math.floor(Math.random() * availableIndices.length)]
+            : Math.floor(Math.random() * letters.length);
+            
+        const faultyLetter = letters[randomIndex];
+        
+        faultyLetters.push({
+            element: faultyLetter,
+            wordIndex: wordIndex,
+            letterIndex: randomIndex,
+            isCurrentlyFaulty: false
+        });
+    });
+    
+    // Function to handle the faulty animation cycle for a specific letter
+    function startFaultyCycle(letterInfo) {
+        // Wait 3 seconds before going faulty
+        setTimeout(() => {
+            // Start faulty state - dim the letter
+            letterInfo.element.classList.add('faulty');
+            letterInfo.isCurrentlyFaulty = true;
+            
+            // After 2 seconds of being dim, add sparking effect
+            setTimeout(() => {
+                letterInfo.element.classList.remove('faulty');
+                letterInfo.element.classList.add('sparking');
+                
+                // After sparking effect (2s), restore to normal and restart cycle
+                setTimeout(() => {
+                    letterInfo.element.classList.remove('sparking');
+                    letterInfo.isCurrentlyFaulty = false;
+                    
+                    // Restart the cycle
+                    startFaultyCycle(letterInfo);
+                }, 2000);
+            }, 2000);
+        }, 3000);
+    }
+    
+    // Start the faulty cycle for each letter with a slight delay between them
+    faultyLetters.forEach((letterInfo, index) => {
+        // Add a small random delay (0-5 seconds) so they don't all start at the same time
+        const initialDelay = Math.random() * 5000;
+        setTimeout(() => {
+            startFaultyCycle(letterInfo);
+        }, initialDelay);
+    });
+    
+    console.log('Faulty neon signboard initialized with', faultyLetters.length, 'faulty letters');
 }
 
 /**
