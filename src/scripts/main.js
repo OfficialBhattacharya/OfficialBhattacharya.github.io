@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initArt();
     initScrollAnimations();
     initResponsiveFeatures();
+    initAnalytics();
 });
 
 /**
@@ -950,6 +951,215 @@ function throttle(func, limit) {
             setTimeout(() => inThrottle = false, limit);
         }
     };
+}
+
+/**
+ * Analytics functionality
+ */
+function initAnalytics() {
+    // Initialize basic visitor tracking
+    initVisitorTracking();
+    
+    // Load preview stats for main page
+    loadAnalyticsPreview();
+    
+    // Initialize quick newsletter form
+    initQuickNewsletterForm();
+    
+    // Auto-refresh preview stats every 30 seconds
+    setInterval(loadAnalyticsPreview, 30000);
+}
+
+function initVisitorTracking() {
+    // Track this page visit
+    const sessionId = generateSessionId();
+    const visitorId = getOrCreateVisitorId();
+    
+    trackVisit(sessionId, visitorId);
+    
+    // Get user location for geographic tracking
+    getUserLocation().then(location => {
+        if (location) {
+            updateVisitWithLocation(sessionId, location);
+        }
+    });
+}
+
+function generateSessionId() {
+    return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function getOrCreateVisitorId() {
+    let visitorId = localStorage.getItem('visitor_id');
+    if (!visitorId) {
+        visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('visitor_id', visitorId);
+    }
+    return visitorId;
+}
+
+function trackVisit(sessionId, visitorId) {
+    const visits = JSON.parse(localStorage.getItem('site_visits') || '[]');
+    const now = new Date();
+    
+    const visit = {
+        sessionId,
+        visitorId,
+        timestamp: now.toISOString(),
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        page: 'home'
+    };
+    
+    visits.push(visit);
+    localStorage.setItem('site_visits', JSON.stringify(visits));
+}
+
+async function getUserLocation() {
+    try {
+        // For demo purposes, return mock location
+        const locations = [
+            { country: 'India', city: 'Mumbai', region: 'Maharashtra', countryCode: 'IN' },
+            { country: 'United States', city: 'New York', region: 'New York', countryCode: 'US' },
+            { country: 'United Kingdom', city: 'London', region: 'England', countryCode: 'GB' },
+            { country: 'Germany', city: 'Berlin', region: 'Berlin', countryCode: 'DE' },
+            { country: 'Canada', city: 'Toronto', region: 'Ontario', countryCode: 'CA' }
+        ];
+        return locations[Math.floor(Math.random() * locations.length)];
+    } catch (error) {
+        console.log('Location detection unavailable');
+        return null;
+    }
+}
+
+function updateVisitWithLocation(sessionId, location) {
+    const visits = JSON.parse(localStorage.getItem('site_visits') || '[]');
+    const visit = visits.find(v => v.sessionId === sessionId);
+    if (visit) {
+        visit.location = location;
+        localStorage.setItem('site_visits', JSON.stringify(visits));
+    }
+}
+
+function loadAnalyticsPreview() {
+    const visits = JSON.parse(localStorage.getItem('site_visits') || '[]');
+    const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+    
+    // Calculate stats
+    const totalVisitors = visits.length || Math.floor(Math.random() * 500) + 100; // Mock data for demo
+    const uniqueCountries = new Set(
+        visits.filter(v => v.location && v.location.country)
+              .map(v => v.location.country)
+    ).size || Math.floor(Math.random() * 10) + 15; // Mock data for demo
+    const subscriberCount = subscribers.length || Math.floor(Math.random() * 50) + 25; // Mock data for demo
+    
+    // Update preview elements
+    updatePreviewStat('previewTotalVisitors', totalVisitors);
+    updatePreviewStat('previewCountries', uniqueCountries);
+    updatePreviewStat('previewSubscribers', subscriberCount);
+}
+
+function updatePreviewStat(elementId, value) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        // Add loading class
+        element.classList.add('loading-stat');
+        
+        // Update value after brief delay
+        setTimeout(() => {
+            element.textContent = value.toLocaleString();
+            element.classList.remove('loading-stat');
+        }, 500 + Math.random() * 1000);
+    }
+}
+
+function initQuickNewsletterForm() {
+    const form = document.getElementById('quickNewsletterForm');
+    const emailInput = document.getElementById('quickEmailInput');
+    const submitButton = document.getElementById('quickSubscribeButton');
+    const messageElement = document.getElementById('quickFormMessage');
+    
+    if (!form || !emailInput || !submitButton || !messageElement) return;
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        
+        if (!validateEmail(email)) {
+            showQuickMessage('Please enter a valid email address.', 'error');
+            return;
+        }
+        
+        setQuickLoading(true);
+        
+        try {
+            // Store subscription locally
+            const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+            
+            // Check if already subscribed
+            if (subscribers.find(sub => sub.email === email)) {
+                showQuickMessage('You are already subscribed!', 'error');
+                return;
+            }
+            
+            // Add new subscriber
+            subscribers.push({
+                email: email,
+                timestamp: new Date().toISOString(),
+                source: 'Homepage Quick Signup'
+            });
+            
+            localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+            
+            // For production, you would send this to your email service here
+            // await sendToEmailService(email);
+            
+            showQuickMessage('Successfully subscribed! Welcome to the newsletter.', 'success');
+            emailInput.value = '';
+            
+            // Update subscriber count in preview
+            loadAnalyticsPreview();
+            
+        } catch (error) {
+            console.error('Subscription error:', error);
+            showQuickMessage('Something went wrong. Please try again later.', 'error');
+        } finally {
+            setQuickLoading(false);
+        }
+    });
+}
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function setQuickLoading(loading) {
+    const submitButton = document.getElementById('quickSubscribeButton');
+    if (submitButton) {
+        submitButton.disabled = loading;
+        if (loading) {
+            submitButton.innerHTML = '<div class="loading-spinner"></div>';
+            submitButton.style.opacity = '0.7';
+        } else {
+            submitButton.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            submitButton.style.opacity = '1';
+        }
+    }
+}
+
+function showQuickMessage(message, type) {
+    const messageElement = document.getElementById('quickFormMessage');
+    if (messageElement) {
+        messageElement.textContent = message;
+        messageElement.className = `quick-form-message ${type}`;
+        messageElement.style.display = 'block';
+        
+        setTimeout(() => {
+            messageElement.style.display = 'none';
+        }, 5000);
+    }
 }
 
 // Export functions for potential external use

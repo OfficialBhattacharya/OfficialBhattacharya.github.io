@@ -46,6 +46,9 @@
             <a href="#travel" class="sundial-section">
                 <span>Travel</span>
             </a>
+            <a href="#analytics" class="sundial-section">
+                <span>Analytics</span>
+            </a>
         </div>
     </nav>
 
@@ -1175,6 +1178,86 @@
                             <i class="fas fa-arrow-right"></i>
                             <span>Explore</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="analytics">
+            <div class="container">
+                <h2 class="section-title">Visitor Analytics</h2>
+                <div class="analytics-overview">
+                    <p class="analytics-description">
+                        Explore real-time insights into website traffic, user engagement, and geographic distribution. 
+                        Subscribe to the newsletter for weekly updates on statistics, finance, and technology.
+                    </p>
+                    
+                    <div class="analytics-preview-grid">
+                        <!-- Quick Stats -->
+                        <div class="quick-stats-container">
+                            <div class="quick-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="previewTotalVisitors">Loading...</div>
+                                    <div class="stat-label">Total Visitors</div>
+                                </div>
+                            </div>
+                            
+                            <div class="quick-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="previewCountries">Loading...</div>
+                                    <div class="stat-label">Countries</div>
+                                </div>
+                            </div>
+                            
+                            <div class="quick-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="previewSubscribers">Loading...</div>
+                                    <div class="stat-label">Newsletter Subscribers</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Newsletter Quick Signup -->
+                        <div class="quick-newsletter-container">
+                            <h3 class="quick-newsletter-title">Weekly Newsletter</h3>
+                            <p class="quick-newsletter-description">
+                                Get insights on statistics, finance, and technology delivered to your inbox every Sunday.
+                            </p>
+                            <form class="quick-newsletter-form" id="quickNewsletterForm">
+                                <div class="newsletter-input-group">
+                                    <input 
+                                        type="email" 
+                                        class="quick-newsletter-input" 
+                                        id="quickEmailInput"
+                                        placeholder="Enter your email" 
+                                        required
+                                    >
+                                    <button type="submit" class="quick-newsletter-button" id="quickSubscribeButton">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="quick-form-message" id="quickFormMessage"></div>
+                        </div>
+                    </div>
+
+                    <!-- View Full Analytics Button -->
+                    <div class="analytics-cta">
+                        <a href="userAnalytics/userAnalytics.html" class="analytics-button">
+                            <i class="fas fa-chart-line"></i>
+                            <span>View Detailed Analytics</span>
+                            <div class="button-glow"></div>
+                        </a>
                     </div>
                 </div>
             </div>
