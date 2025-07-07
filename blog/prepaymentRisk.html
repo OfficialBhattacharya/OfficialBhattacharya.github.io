@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modeling Prepayment Risk: Example of PSA Model and CPR - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Modeling Prepayment Risk: Example of PSA Model and CPR</h1>
+        <div class="blog-meta">
+            <span class="blog-date">June 15, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>To model prepayment behavior in mortgage-backed securities (MBS), you can use the <strong>Public Securities Association (PSA) benchmark</strong> or develop <strong>custom prepayment models</strong> based on factors like interest rates, loan age, and borrower behavior. Understanding prepayment risk is crucial for accurate valuation and risk management of MBS portfolios.</p>
+
+            <h2>Step 1: Use the PSA Benchmark</h2>
+            <ol>
+                <li><strong>PSA Benchmark</strong>:
+                    <ul>
+                        <li>The PSA benchmark assumes prepayment rates increase linearly for the first 30 months and then remain constant</li>
+                        <li>The standard PSA model is defined as:
+                            <div class="math">
+                                \[ \text{CPR} = \min\left(0.2 \times \text{Loan Age}, 6\%\right) \]
+                            </div>
+                            Where:
+                            <ul>
+                                <li>\(\text{Loan Age}\): Age of the loan in months</li>
+                                <li>\(\text{CPR}\): Conditional Prepayment Rate (annualized)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li><strong>Custom PSA Multiples</strong>:
+                    Adjust the PSA benchmark by applying a multiple (e.g., 100% PSA, 150% PSA):
+                    <div class="math">
+                        \[ \text{CPR} = \text{PSA Multiple} \times \min\left(0.2 \times \text{Loan Age}, 6\%\right) \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 2: Develop Custom Prepayment Models</h2>
+            <ol>
+                <li><strong>Define Factors</strong>:
+                    Identify key drivers of prepayment behavior:
+                    <ul>
+                        <li><strong>Interest Rates</strong>: Refinancing incentives (e.g., difference between current mortgage rate and market rate)</li>
+                        <li><strong>Loan Age</strong>: Burnout effect (prepayment slows as loans age)</li>
+                        <li><strong>Borrower Behavior</strong>: Seasonality, economic conditions, etc.</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Functional Form</strong>:
+                    Use a multiplicative model to combine factors:
+                    <div class="math">
+                        \[ \text{CPR} = \text{Base CPR} \times \text{Refinancing Incentive} \times \text{Age Factor} \times \text{Seasonality Factor} \]
+                    </div>
+                </li>
+                
+                <li><strong>Refinancing Incentive</strong>:
+                    Model the refinancing incentive as a function of the rate difference:
+                    <div class="math">
+                        \[ \text{Refinancing Incentive} = f(\Delta r), \quad \Delta r = \text{Current Rate} - \text{Market Rate} \]
+                    </div>
+                    Common functional forms include:
+                    <ul>
+                        <li><strong>Logistic function</strong>:
+                            <div class="math">
+                                \[ f(\Delta r) = \frac{1}{1 + e^{-k(\Delta r - r_0)}} \]
+                            </div>
+                        </li>
+                        <li><strong>Linear function</strong>:
+                            <div class="math">
+                                \[ f(\Delta r) = \max(0, \min(1, a \Delta r + b)) \]
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li><strong>Age Factor</strong>:
+                    Model the age factor to capture the burnout effect:
+                    <div class="math">
+                        \[ \text{Age Factor} = g(\text{Loan Age}) \]
+                    </div>
+                    Common functional forms include:
+                    <ul>
+                        <li><strong>Linear ramp-up</strong>:
+                            <div class="math">
+                                \[ g(\text{Loan Age}) = \min\left(\frac{\text{Loan Age}}{30}, 1\right) \]
+                            </div>
+                        </li>
+                        <li><strong>Exponential decay</strong>:
+                            <div class="math">
+                                \[ g(\text{Loan Age}) = e^{-\lambda \times \text{Loan Age}} \]
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li><strong>Seasonality Factor</strong>:
+                    Model seasonality using monthly multipliers:
+                    <div class="math">
+                        \[ \text{Seasonality Factor} = h(\text{Month}) \]
+                    </div>
+                    Example:
+                    <div class="math">
+                        \[ h(\text{Month}) = 1 + \alpha \sin\left(\frac{2\pi (\text{Month} - \phi)}{12}\right) \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 3: Calculate CPR</h2>
+            <ol>
+                <li><strong>Base CPR</strong>:
+                    Estimate the base CPR using historical data or the PSA benchmark.
+                </li>
+                
+                <li><strong>Apply Factors</strong>:
+                    Combine the factors to compute the CPR:
+                    <div class="math">
+                        \[ \text{CPR} = \text{Base CPR} \times \text{Refinancing Incentive} \times \text{Age Factor} \times \text{Seasonality Factor} \]
+                    </div>
+                </li>
+                
+                <li><strong>Convert to SMM</strong>:
+                    Convert the annualized CPR to the monthly Single Monthly Mortality (SMM) rate:
+                    <div class="math">
+                        \[ \text{SMM} = 1 - (1 - \text{CPR})^{1/12} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 4: Validate the Model</h2>
+            <ol>
+                <li><strong>Historical Fit</strong>:
+                    <ul>
+                        <li>Calibrate the model parameters to fit historical prepayment data</li>
+                        <li>Use optimization techniques (e.g., least squares) to minimize the error between model predictions and observed CPR</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Sensitivity Analysis</strong>:
+                    Test the model under different scenarios (e.g., rising rates, economic downturns).
+                </li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li><strong>PSA benchmark</strong>:
+                    <div class="math">
+                        \[ \text{CPR} = \min\left(0.2 \times \text{Loan Age}, 6\%\right) \]
+                    </div>
+                </li>
+                
+                <li><strong>Custom prepayment model</strong>:
+                    <div class="math">
+                        \[ \text{CPR} = \text{Base CPR} \times f(\Delta r) \times g(\text{Loan Age}) \times h(\text{Month}) \]
+                    </div>
+                </li>
+                
+                <li><strong>Refinancing incentive</strong>:
+                    <div class="math">
+                        \[ f(\Delta r) = \frac{1}{1 + e^{-k(\Delta r - r_0)}} \]
+                    </div>
+                </li>
+                
+                <li><strong>Age factor</strong>:
+                    <div class="math">
+                        \[ g(\text{Loan Age}) = \min\left(\frac{\text{Loan Age}}{30}, 1\right) \]
+                    </div>
+                </li>
+                
+                <li><strong>Seasonality factor</strong>:
+                    <div class="math">
+                        \[ h(\text{Month}) = 1 + \alpha \sin\left(\frac{2\pi (\text{Month} - \phi)}{12}\right) \]
+                    </div>
+                </li>
+                
+                <li><strong>Convert CPR to SMM</strong>:
+                    <div class="math">
+                        \[ \text{SMM} = 1 - (1 - \text{CPR})^{1/12} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 5: Interpretation</h2>
+            <ol>
+                <li><strong>PSA Benchmark</strong>:
+                    <ul>
+                        <li>Use for quick estimates or benchmarking</li>
+                        <li>Adjust PSA multiples to reflect market conditions</li>
+                        <li>Standard assumption: 100% PSA means 6% CPR at maturity</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Custom Models</strong>:
+                    <ul>
+                        <li>Use for detailed analysis and scenario testing</li>
+                        <li>Incorporate additional factors (e.g., credit scores, loan-to-value ratios) for greater accuracy</li>
+                        <li>Allow for dynamic adjustment based on market conditions</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Advanced Modeling Considerations</h2>
+            <ol>
+                <li><strong>Macroeconomic Factors</strong>:
+                    <ul>
+                        <li>Include GDP growth, unemployment rate, and housing price indices</li>
+                        <li>Model the impact of monetary policy on refinancing behavior</li>
+                        <li>Account for regional economic variations</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Borrower Characteristics</strong>:
+                    <ul>
+                        <li>Incorporate FICO scores, debt-to-income ratios, and loan-to-value ratios</li>
+                        <li>Model heterogeneity in borrower sophistication and financial literacy</li>
+                        <li>Account for first-time homebuyer vs. repeat buyer behavior</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Loan Characteristics</strong>:
+                    <ul>
+                        <li>Consider loan type (fixed vs. adjustable rate), term, and origination channel</li>
+                        <li>Model the impact of loan modifications and workout programs</li>
+                        <li>Account for cash-out vs. rate-and-term refinancing motivations</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Model Implementation and Validation</h2>
+            <ol>
+                <li><strong>Data Requirements</strong>:
+                    <ul>
+                        <li>Historical prepayment data by loan cohort and vintage</li>
+                        <li>Interest rate time series (mortgage rates, Treasury rates, spreads)</li>
+                        <li>Macroeconomic and housing market data</li>
+                        <li>Loan-level characteristics and performance data</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Calibration Techniques</strong>:
+                    <ul>
+                        <li>Maximum likelihood estimation for parameter fitting</li>
+                        <li>Cross-validation to prevent overfitting</li>
+                        <li>Regularization techniques for stable parameter estimates</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Model Validation</strong>:
+                    <ul>
+                        <li>Out-of-sample testing on holdout datasets</li>
+                        <li>Backtesting against historical performance</li>
+                        <li>Benchmarking against market consensus and agency models</li>
+                        <li>Stress testing under extreme scenarios</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Risk Management Applications</h2>
+            <ol>
+                <li><strong>Portfolio Valuation</strong>:
+                    <ul>
+                        <li>Calculate option-adjusted spreads (OAS) for MBS pricing</li>
+                        <li>Estimate effective duration and convexity under various prepayment scenarios</li>
+                        <li>Model negative convexity risk in mortgage portfolios</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Hedging Strategies</strong>:
+                    <ul>
+                        <li>Design hedges using Treasury futures, swaps, and swaptions</li>
+                        <li>Implement dynamic hedging based on prepayment model outputs</li>
+                        <li>Manage basis risk between hedging instruments and MBS</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Stress Testing</strong>:
+                    <ul>
+                        <li>Model prepayment behavior under adverse scenarios</li>
+                        <li>Assess portfolio performance under various interest rate paths</li>
+                        <li>Evaluate the impact of economic shocks on prepayment rates</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Market Applications and Industry Usage</h2>
+            <p>Prepayment models are essential for:</p>
+            <ul>
+                <li><strong>Investment Management</strong>: Portfolio construction and performance attribution for MBS portfolios</li>
+                <li><strong>Trading and Sales</strong>: Pricing and risk management of mortgage securities</li>
+                <li><strong>Regulatory Compliance</strong>: Stress testing and capital adequacy calculations</li>
+                <li><strong>Origination</strong>: Pipeline hedging and mortgage banking profitability analysis</li>
+                <li><strong>Securitization</strong>: Structure design and credit enhancement sizing</li>
+            </ul>
+
+            <h2>Implementation Example</h2>
+            <p>Consider a 30-year fixed-rate mortgage with the following characteristics:</p>
+            <ul>
+                <li>Current mortgage rate: 4.5%</li>
+                <li>Market rate: 3.5%</li>
+                <li>Loan age: 24 months</li>
+                <li>Current month: June (month 6)</li>
+            </ul>
+
+            <p>Using our custom model:</p>
+            <div class="math">
+                \[ \Delta r = 4.5\% - 3.5\% = 1.0\% \]
+            </div>
+            <div class="math">
+                \[ f(\Delta r) = \frac{1}{1 + e^{-2(1.0 - 0.5)}} \approx 0.73 \]
+            </div>
+            <div class="math">
+                \[ g(24) = \frac{24}{30} = 0.8 \]
+            </div>
+            <div class="math">
+                \[ h(6) = 1 + 0.1 \sin\left(\frac{2\pi (6 - 3)}{12}\right) = 1.1 \]
+            </div>
+            <div class="math">
+                \[ \text{CPR} = 6\% \times 0.73 \times 0.8 \times 1.1 \approx 3.85\% \]
+            </div>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

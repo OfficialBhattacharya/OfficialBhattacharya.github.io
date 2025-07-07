@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hedging MBS using Duration: Example of Hedge Ratio Calculation - Diganta Bhattacharya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Add KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .blog-text {
+            line-height: 1.8;
+            color: #333;
+        }
+        .math {
+            overflow-x: auto;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="blog-content">
+        <h1 class="blog-title">Hedging MBS using Duration: Example of Hedge Ratio Calculation</h1>
+        <div class="blog-meta">
+            <span class="blog-date">June 22, 2025</span>
+            <span class="blog-author">By Diganta Bhattacharya</span>
+        </div>
+        
+        <div class="blog-text">
+            <p>To calculate the <strong>duration</strong> of an MBS portfolio and a hedging instrument (e.g., Treasury bonds), and determine the <strong>hedge ratio</strong>, we need to understand the interest rate sensitivity of both the portfolio and the hedging instruments. This comprehensive approach enables effective risk management of mortgage-backed securities portfolios.</p>
+
+            <h2>Step 1: Calculate the Duration of the MBS Portfolio</h2>
+            <ol>
+                <li><strong>Cash Flow Projection</strong>:
+                    Project the cash flows of the MBS portfolio, incorporating prepayment assumptions (e.g., using CPR or a custom prepayment model).
+                </li>
+                
+                <li><strong>Discount Cash Flows</strong>:
+                    Discount the cash flows using the appropriate yield curve:
+                    <div class="math">
+                        \[ PV_t = \frac{CF_t}{(1 + r_t)^t} \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(CF_t\): Cash flow at time \(t\)</li>
+                        <li>\(r_t\): Discount rate at time \(t\)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Calculate Macaulay Duration</strong>:
+                    Compute the weighted average time to receive cash flows:
+                    <div class="math">
+                        \[ D_{\text{MBS}} = \frac{\sum_{t=1}^T t \cdot PV_t}{\sum_{t=1}^T PV_t} \]
+                    </div>
+                </li>
+                
+                <li><strong>Calculate Modified Duration</strong>:
+                    Adjust for changes in yield:
+                    <div class="math">
+                        \[ \text{Modified Duration}_{\text{MBS}} = \frac{D_{\text{MBS}}}{1 + \frac{y}{m}} \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(y\): Yield to maturity</li>
+                        <li>\(m\): Number of compounding periods per year</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Step 2: Calculate the Duration of the Hedging Instrument</h2>
+            <ol>
+                <li><strong>Cash Flow Projection</strong>:
+                    Project the cash flows of the hedging instrument (e.g., Treasury bonds).
+                </li>
+                
+                <li><strong>Discount Cash Flows</strong>:
+                    Discount the cash flows using the appropriate yield curve:
+                    <div class="math">
+                        \[ PV_t = \frac{CF_t}{(1 + r_t)^t} \]
+                    </div>
+                </li>
+                
+                <li><strong>Calculate Macaulay Duration</strong>:
+                    Compute the weighted average time to receive cash flows:
+                    <div class="math">
+                        \[ D_{\text{Hedge}} = \frac{\sum_{t=1}^T t \cdot PV_t}{\sum_{t=1}^T PV_t} \]
+                    </div>
+                </li>
+                
+                <li><strong>Calculate Modified Duration</strong>:
+                    Adjust for changes in yield:
+                    <div class="math">
+                        \[ \text{Modified Duration}_{\text{Hedge}} = \frac{D_{\text{Hedge}}}{1 + \frac{y}{m}} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 3: Determine the Hedge Ratio</h2>
+            <ol>
+                <li><strong>Market Values</strong>:
+                    Compute the market value of the MBS portfolio (\(V_{\text{MBS}}\)) and the hedging instrument (\(V_{\text{Hedge}}\)).
+                </li>
+                
+                <li><strong>Hedge Ratio</strong>:
+                    Calculate the hedge ratio (\(HR\)) as:
+                    <div class="math">
+                        \[ HR = \frac{\text{Modified Duration}_{\text{MBS}} \times V_{\text{MBS}}}{\text{Modified Duration}_{\text{Hedge}} \times V_{\text{Hedge}}} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 4: Validate the Hedge</h2>
+            <ol>
+                <li><strong>Sensitivity Analysis</strong>:
+                    Test the hedge ratio under different yield curve scenarios (e.g., parallel shifts, steepening, flattening).
+                </li>
+                
+                <li><strong>Rebalancing</strong>:
+                    Monitor the hedge ratio over time and rebalance as needed to maintain effective hedging.
+                </li>
+            </ol>
+
+            <h2>Mathematical Summary</h2>
+            <ol>
+                <li><strong>Macaulay duration</strong>:
+                    <div class="math">
+                        \[ D = \frac{\sum_{t=1}^T t \cdot PV_t}{\sum_{t=1}^T PV_t} \]
+                    </div>
+                </li>
+                
+                <li><strong>Modified duration</strong>:
+                    <div class="math">
+                        \[ \text{Modified Duration} = \frac{D}{1 + \frac{y}{m}} \]
+                    </div>
+                </li>
+                
+                <li><strong>Hedge ratio</strong>:
+                    <div class="math">
+                        \[ HR = \frac{\text{Modified Duration}_{\text{MBS}} \times V_{\text{MBS}}}{\text{Modified Duration}_{\text{Hedge}} \times V_{\text{Hedge}}} \]
+                    </div>
+                </li>
+            </ol>
+
+            <h2>Step 5: Interpretation</h2>
+            <ol>
+                <li><strong>Hedge Ratio</strong>:
+                    <ul>
+                        <li>The hedge ratio indicates the number of units of the hedging instrument required to offset the interest rate risk of the MBS portfolio</li>
+                        <li>A hedge ratio of 1 implies a perfect hedge under small yield changes</li>
+                        <li>Hedge ratios greater than 1 indicate that more hedging instruments are needed than the portfolio value</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Effectiveness</strong>:
+                    <ul>
+                        <li>The hedge is effective if the portfolio's value remains stable under yield curve changes</li>
+                        <li>Perfect hedging assumes parallel yield curve shifts and linear price-yield relationships</li>
+                        <li>Real-world effectiveness may vary due to basis risk and convexity differences</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Advanced Hedging Considerations</h2>
+            <ol>
+                <li><strong>Convexity Adjustment</strong>:
+                    For large yield changes, incorporate convexity differences:
+                    <div class="math">
+                        \[ \Delta P = -\text{Duration} \times \Delta y \times P + \frac{1}{2} \times \text{Convexity} \times (\Delta y)^2 \times P \]
+                    </div>
+                    Where:
+                    <ul>
+                        <li>\(\Delta P\): Change in price</li>
+                        <li>\(\Delta y\): Change in yield</li>
+                        <li>\(P\): Initial price</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Key Rate Duration Hedging</strong>:
+                    <ul>
+                        <li>Use multiple hedging instruments to match key rate durations</li>
+                        <li>Hedge specific yield curve segments (e.g., 2-year, 5-year, 10-year)</li>
+                        <li>Minimize exposure to non-parallel yield curve shifts</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Option-Adjusted Duration</strong>:
+                    <ul>
+                        <li>Account for embedded options in MBS (prepayment options)</li>
+                        <li>Use effective duration that incorporates option-adjusted spreads</li>
+                        <li>Consider negative convexity effects at low interest rates</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Hedging Instruments and Strategies</h2>
+            <ol>
+                <li><strong>Treasury Securities</strong>:
+                    <ul>
+                        <li>Treasury bonds and notes for long-term duration matching</li>
+                        <li>Treasury futures for cost-effective hedging</li>
+                        <li>STRIPS for zero-coupon duration matching</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Interest Rate Swaps</strong>:
+                    <ul>
+                        <li>Fixed-for-floating swaps to manage duration exposure</li>
+                        <li>Asset swaps to hedge specific MBS tranches</li>
+                        <li>Basis swaps to manage spread risk</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Options and Swaptions</strong>:
+                    <ul>
+                        <li>Interest rate caps and floors for asymmetric hedging</li>
+                        <li>Swaptions to hedge prepayment option risk</li>
+                        <li>Collar strategies for cost-effective hedging</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Dynamic Hedging and Rebalancing</h2>
+            <ol>
+                <li><strong>Hedge Monitoring</strong>:
+                    <ul>
+                        <li>Track hedge effectiveness using P&L attribution</li>
+                        <li>Monitor duration drift due to time decay and rate changes</li>
+                        <li>Assess basis risk between MBS and hedging instruments</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Rebalancing Triggers</strong>:
+                    <ul>
+                        <li>Duration threshold breaches (e.g., ±0.25 years)</li>
+                        <li>Significant yield curve shape changes</li>
+                        <li>Prepayment model updates affecting MBS duration</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Transaction Costs</strong>:
+                    <ul>
+                        <li>Balance hedging effectiveness with trading costs</li>
+                        <li>Use liquid instruments to minimize bid-ask spreads</li>
+                        <li>Optimize rebalancing frequency based on cost-benefit analysis</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Risk Management Framework</h2>
+            <ol>
+                <li><strong>Risk Limits</strong>:
+                    <ul>
+                        <li>Set duration limits for the net portfolio exposure</li>
+                        <li>Establish maximum hedge ratio deviations</li>
+                        <li>Monitor value-at-risk (VaR) for the hedged portfolio</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Stress Testing</strong>:
+                    <ul>
+                        <li>Test hedge performance under extreme rate scenarios</li>
+                        <li>Assess hedging effectiveness during market stress</li>
+                        <li>Evaluate correlation breakdown risks</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Performance Attribution</strong>:
+                    <ul>
+                        <li>Decompose portfolio returns by duration risk and spread risk</li>
+                        <li>Measure hedging effectiveness through tracking error</li>
+                        <li>Analyze residual risks and unhedged exposures</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Practical Implementation Example</h2>
+            <p>Consider an MBS portfolio with the following characteristics:</p>
+            <ul>
+                <li>Portfolio value: $100 million</li>
+                <li>Modified duration: 4.2 years</li>
+                <li>Hedging instrument: 10-year Treasury futures</li>
+                <li>Futures modified duration: 8.5 years</li>
+                <li>Futures contract value: $100,000</li>
+            </ul>
+
+            <p>Calculate the hedge ratio:</p>
+            <div class="math">
+                \[ HR = \frac{4.2 \times 100,000,000}{8.5 \times 100,000} = \frac{420,000,000}{850,000} \approx 494 \text{ contracts} \]
+            </div>
+
+            <p>This means approximately 494 Treasury futures contracts should be sold to hedge the interest rate risk of the $100 million MBS portfolio.</p>
+
+            <h2>Regulatory and Accounting Considerations</h2>
+            <ol>
+                <li><strong>Hedge Accounting</strong>:
+                    <ul>
+                        <li>Document hedge relationships for accounting purposes</li>
+                        <li>Test hedge effectiveness using regression or dollar offset methods</li>
+                        <li>Maintain hedge documentation and effectiveness testing records</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Capital Requirements</strong>:
+                    <ul>
+                        <li>Consider risk-weighted asset implications of hedging strategies</li>
+                        <li>Evaluate netting benefits for capital adequacy calculations</li>
+                        <li>Assess counterparty credit risk for derivative hedges</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Market Risk Management</strong>:
+                    <ul>
+                        <li>Comply with regulatory market risk requirements</li>
+                        <li>Report hedged and unhedged risk exposures</li>
+                        <li>Maintain appropriate risk governance and oversight</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Add KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
