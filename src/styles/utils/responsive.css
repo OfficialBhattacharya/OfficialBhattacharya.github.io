@@ -56,19 +56,33 @@ section {
     
     .main-container {
         min-height: auto;
-        overflow-y: auto;
+        overflow-y: visible;
+        overflow-x: hidden;
     }
     
     section {
         min-height: auto;
         padding: var(--spacing-xl) 0;
-        overflow-y: auto;
+        overflow-y: visible;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Special handling for blog section */
+    section.blog {
+        overflow: visible;
     }
     
     /* Ensure content doesn't get hidden behind navbar */
     body {
         padding-bottom: 70px;
+        /* Fix for iOS viewport height issues */
+        min-height: -webkit-fill-available;
+    }
+    
+    html {
+        /* Fix for iOS viewport height issues */
+        height: -webkit-fill-available;
     }
 }
 

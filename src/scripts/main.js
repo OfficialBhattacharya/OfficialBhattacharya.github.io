@@ -947,48 +947,106 @@ function initMobileBlogScrolling() {
     const topicArticles = document.querySelectorAll('.topic-articles');
     
     topicArticles.forEach(container => {
-        // Ensure proper touch scrolling
-        container.style.webkitOverflowScrolling = 'touch';
-        container.style.overflowY = 'auto';
-        container.style.overscrollBehavior = 'contain';
-        container.style.touchAction = 'pan-y';
+        // Clear any existing event listeners by cloning the node
+        const newContainer = container.cloneNode(true);
+        container.parentNode.replaceChild(newContainer, container);
         
-        // Add momentum scrolling for iOS
+        // Ensure proper touch scrolling with enhanced settings
+        newContainer.style.webkitOverflowScrolling = 'touch';
+        newContainer.style.overflowY = 'auto';
+        newContainer.style.overflowX = 'hidden';
+        newContainer.style.overscrollBehavior = 'contain';
+        newContainer.style.touchAction = 'pan-y';
+        newContainer.style.scrollBehavior = 'smooth';
+        
+        // Force hardware acceleration for better performance
+        newContainer.style.transform = 'translateZ(0)';
+        newContainer.style.willChange = 'scroll-position';
+        
+        // Enhanced mobile/iOS specific handling
         if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            container.style.webkitOverflowScrolling = 'touch';
-            container.style.transform = 'translateZ(0)'; // Force hardware acceleration
+            newContainer.style.webkitOverflowScrolling = 'touch';
+            newContainer.style.transform = 'translate3d(0,0,0)'; // Force hardware acceleration
+            newContainer.style.backfaceVisibility = 'hidden';
         }
         
-        // Prevent scroll interference from parent elements
-        container.addEventListener('touchstart', function(e) {
-            // Allow natural scrolling
+        // Better Android handling
+        if (/Android/.test(navigator.userAgent)) {
+            newContainer.style.overscrollBehaviorY = 'contain';
+            newContainer.style.scrollbarWidth = 'thin';
+        }
+        
+        let isScrolling = false;
+        let startY = 0;
+        let currentY = 0;
+        
+        // Enhanced touch event handling
+        newContainer.addEventListener('touchstart', function(e) {
+            isScrolling = false;
+            startY = e.touches[0].clientY;
+            newContainer.style.transition = 'none';
             e.stopPropagation();
         }, { passive: true });
         
-        container.addEventListener('touchmove', function(e) {
-            // Prevent parent scroll when scrolling within container
-            const scrollTop = container.scrollTop;
-            const scrollHeight = container.scrollHeight;
-            const height = container.clientHeight;
-            const delta = e.touches[0].clientY - (e.touches[1] ? e.touches[1].clientY : 0);
+        newContainer.addEventListener('touchmove', function(e) {
+            currentY = e.touches[0].clientY;
+            const deltaY = startY - currentY;
             
-            // If at top and trying to scroll up, or at bottom and trying to scroll down
-            if ((scrollTop === 0 && delta > 0) || (scrollTop === scrollHeight - height && delta < 0)) {
+            const scrollTop = newContainer.scrollTop;
+            const scrollHeight = newContainer.scrollHeight;
+            const height = newContainer.clientHeight;
+            const maxScroll = scrollHeight - height;
+            
+            // Allow scrolling within the container bounds
+            if ((scrollTop <= 0 && deltaY < 0) || (scrollTop >= maxScroll && deltaY > 0)) {
+                // At boundary, prevent further scrolling
                 e.preventDefault();
+            } else {
+                // Allow natural scrolling within bounds
+                isScrolling = true;
             }
             
             e.stopPropagation();
         }, { passive: false });
         
+        newContainer.addEventListener('touchend', function(e) {
+            if (isScrolling) {
+                newContainer.style.transition = 'opacity 0.15s ease';
+            }
+            e.stopPropagation();
+        }, { passive: true });
+        
         // Add visual feedback when scrolling
         let scrollTimeout;
-        container.addEventListener('scroll', function() {
-            container.style.opacity = '0.8';
+        newContainer.addEventListener('scroll', function() {
             clearTimeout(scrollTimeout);
+            newContainer.classList.add('scrolling');
+            
             scrollTimeout = setTimeout(() => {
-                container.style.opacity = '1';
-            }, 150);
+                newContainer.classList.remove('scrolling');
+            }, 100);
         }, { passive: true });
+        
+        // Handle focus for accessibility
+        newContainer.addEventListener('focus', function() {
+            newContainer.style.outline = '2px solid rgba(0, 255, 157, 0.5)';
+        });
+        
+        newContainer.addEventListener('blur', function() {
+            newContainer.style.outline = 'none';
+        });
+        
+        // Make scrollable containers focusable for keyboard navigation
+        if (!newContainer.hasAttribute('tabindex')) {
+            newContainer.setAttribute('tabindex', '0');
+        }
+        
+        // Add aria-label for screen readers
+        if (!newContainer.hasAttribute('aria-label')) {
+            const topicCard = newContainer.closest('.blog-topic-card');
+            const topicTitle = topicCard ? topicCard.querySelector('.topic-title')?.textContent : 'Blog articles';
+            newContainer.setAttribute('aria-label', `Scrollable list of ${topicTitle} articles`);
+        }
     });
     
     // Fix blog section overflow issues
@@ -996,16 +1054,34 @@ function initMobileBlogScrolling() {
     if (blogSection) {
         blogSection.style.overflow = 'visible';
         blogSection.style.overflowY = 'visible';
+        blogSection.style.overflowX = 'hidden';
     }
     
-    // Ensure topic content containers don't interfere with scrolling
+    // Ensure parent containers don't interfere with scrolling
     const topicContents = document.querySelectorAll('.topic-content');
     topicContents.forEach(content => {
         content.style.overflow = 'visible';
         content.style.display = 'flex';
         content.style.flexDirection = 'column';
         content.style.minHeight = '0';
+        content.style.position = 'relative';
     });
+    
+    // Ensure blog topic cards have proper structure
+    const blogTopicCards = document.querySelectorAll('.blog-topic-card');
+    blogTopicCards.forEach(card => {
+        card.style.overflow = 'hidden';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+    });
+    
+    // Ensure main blog container has proper styling
+    const blogTopicsGrid = document.querySelector('.blog-topics-grid');
+    if (blogTopicsGrid) {
+        blogTopicsGrid.style.overflow = 'visible';
+    }
+    
+    console.log('Enhanced mobile blog scrolling initialized for', topicArticles.length, 'containers');
 }
 
 /**
