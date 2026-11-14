@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collector's Cabinet · Diganta Bhattacharya</title>
+    <meta name="description" content="A personal collection of coins, banknotes and stamps, catalogued front and back.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Rajdhani:wght@400;500;600&family=Orbitron:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="cabinet-header">
+        <a class="back-link" href="../index.html"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <p class="eyebrow">Private Collection · Catalogue Raisonné</p>
+        <h1>The Collector's Cabinet</h1>
+        <p class="lede">Coins, banknotes and stamps from my collection, each shown front and back. Click an item to flip it, or use the magnifier to look at the engraving, watermarks, mint marks and perforations.</p>
+        <div class="kind-tabs" role="tablist" aria-label="Collection sections">
+            <button class="kind-tab" role="tab" data-kind="coins"><i class="fas fa-coins"></i> Coins <span class="kind-count">0</span></button>
+            <button class="kind-tab" role="tab" data-kind="notes"><i class="fas fa-money-bill-wave"></i> Notes <span class="kind-count">0</span></button>
+            <button class="kind-tab" role="tab" data-kind="stamps"><i class="fas fa-stamp"></i> Stamps <span class="kind-count">0</span></button>
+        </div>
+        <dl class="ledger" id="ledger">
+            <div><dt id="statLabel">Notes</dt><dd id="statNotes">0</dd></div>
+            <div><dt>Countries</dt><dd id="statCountries">0</dd></div>
+            <div><dt>Span</dt><dd id="statSpan">—</dd></div>
+        </dl>
+    </header>
+
+    <nav class="filters" aria-label="Filter collection">
+        <div class="filter-group">
+            <label for="filterCountry">Country</label>
+            <select id="filterCountry"><option value="">All</option></select>
+        </div>
+        <div class="filter-group">
+            <label for="filterEra">Era</label>
+            <select id="filterEra"><option value="">All</option></select>
+        </div>
+        <div class="filter-group">
+            <label for="filterDenom">Denomination</label>
+            <select id="filterDenom"><option value="">All</option></select>
+        </div>
+        <div class="filter-group grow">
+            <label for="filterSearch">Search</label>
+            <input id="filterSearch" type="search" placeholder="Serial, Pick no., signature…">
+        </div>
+        <button class="reset-btn" id="resetFilters" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+    </nav>
+
+    <main>
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
+        <section class="gallery" id="gallery" aria-label="Collection gallery"></section>
+        <div class="empty" id="emptyState" hidden>
+            <i class="fas fa-box-archive"></i>
+            <p>Nothing here matches these filters yet.</p>
+        </div>
+    </main>
+
+    <!-- Inspection modal -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-backdrop" data-close></div>
+        <div class="modal-panel">
+            <button class="modal-close" data-close aria-label="Close"><i class="fas fa-xmark"></i></button>
+            <div class="viewer">
+                <div class="viewer-stage" id="viewerStage">
+                    <img id="viewerImg" alt="">
+                    <div class="loupe" id="loupe" aria-hidden="true"></div>
+                </div>
+                <div class="viewer-controls">
+                    <div class="side-toggle" role="tablist">
+                        <button role="tab" data-side="front" class="active">Obverse</button>
+                        <button role="tab" data-side="back">Reverse</button>
+                    </div>
+                    <div class="zoom-controls">
+                        <button id="zoomOut" aria-label="Zoom out"><i class="fas fa-minus"></i></button>
+                        <span id="zoomLevel">1.0×</span>
+                        <button id="zoomIn" aria-label="Zoom in"><i class="fas fa-plus"></i></button>
+                        <button id="loupeToggle" aria-pressed="false" title="Loupe"><i class="fas fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+            </div>
+            <aside class="dossier" id="dossier">
+                <p class="eyebrow" id="modalCatalog"></p>
+                <h2 id="modalTitle"></h2>
+                <dl class="spec" id="modalSpec"></dl>
+                <div class="notes" id="modalNotes"></div>
+            </aside>
+        </div>
+    </div>
+
+    <footer class="cabinet-footer">
+        <p>Catalogue numbers follow Krause (KM#) for coins, Pick for banknotes and Stanley Gibbons (SG) for stamps, where they can be identified.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

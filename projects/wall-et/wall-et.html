@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wall_ET - Crypto Wallet | Diganta Bhattacharya</title>
+    <title>Wall_ET · Money Tracker | Diganta Bhattacharya</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -306,6 +306,48 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ---- Money Tracker guide ---- */
+        .privacy-note { display:flex; gap:.75rem; align-items:flex-start; max-width:900px; margin:0 auto 2.5rem; padding:1rem 1.25rem; border:1px solid rgba(255,165,0,.35); background:rgba(255,165,0,.07); border-radius:10px; color:rgba(255,255,255,.85); }
+        .privacy-note i { color:#ffa500; margin-top:.2rem; }
+        .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1rem; }
+        .flow-step { background:var(--card-bg); border:1px solid rgba(255,165,0,.25); border-radius:12px; padding:1.25rem; position:relative; }
+        .flow-step h4 { font-family:var(--header-font); color:#ffa500; font-size:.85rem; letter-spacing:.08em; margin-bottom:.5rem; }
+        .flow-step p { color:rgba(255,255,255,.8); font-size:.98rem; line-height:1.55; }
+        .flow-step:not(:last-child)::after { content:'\2192'; position:absolute; right:-.85rem; top:50%; transform:translateY(-50%); color:#ffa500; font-size:1.2rem; }
+        .tab-index { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin:1rem 0 2.5rem; }
+        .tab-index a { padding:.4rem .9rem; border-radius:999px; border:1px solid rgba(255,165,0,.35); color:#ffd28a; text-decoration:none; font-size:.95rem; }
+        .tab-index a:hover { background:rgba(255,165,0,.12); }
+        .tab-group { margin-bottom:3.5rem; scroll-margin-top:2rem; }
+        .tab-group-head { display:flex; align-items:center; gap:.9rem; margin-bottom:.4rem; }
+        .tab-group-head i { color:#ffa500; font-size:1.3rem; }
+        .tab-group-head h3 { font-family:var(--header-font); font-size:1.4rem; color:#fff; }
+        .tab-group-head .count { font-family:var(--mono-font); font-size:.8rem; color:#ffa500; border:1px solid rgba(255,165,0,.4); border-radius:999px; padding:.1rem .55rem; }
+        .tab-group > p { color:rgba(255,255,255,.7); margin-bottom:1.5rem; }
+        .tab-card { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:1.75rem; align-items:start; background:var(--card-bg); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:1.25rem; margin-bottom:1.25rem; }
+        .tab-card:nth-child(even) { grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); }
+        .tab-card:nth-child(even) .tab-shot { order:2; }
+        .tab-shot { border-radius:10px; overflow:hidden; border:1px solid rgba(255,165,0,.25); cursor:zoom-in; background:#0b0b0b; }
+        .tab-shot img { width:100%; display:block; transition:transform .4s ease; }
+        .tab-shot:hover img { transform:scale(1.02); }
+        .tab-text .crumb { font-family:var(--mono-font); font-size:.78rem; color:#ffa500; letter-spacing:.06em; }
+        .tab-text h4 { font-family:var(--header-font); font-size:1.25rem; margin:.25rem 0 .15rem; color:#fff; }
+        .tab-text .tagline { color:#ffd28a; margin-bottom:.85rem; font-size:1.02rem; }
+        .tab-text h5 { font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.55); margin:.9rem 0 .3rem; font-family:var(--header-font); }
+        .tab-text p { color:rgba(255,255,255,.85); line-height:1.6; font-size:1rem; }
+        .tab-text code, .flow-step code { font-family:var(--mono-font); font-size:.88em; background:rgba(255,165,0,.1); color:#ffd28a; padding:.05rem .35rem; border-radius:4px; }
+        .tab-text kbd { font-family:var(--mono-font); border:1px solid rgba(255,255,255,.3); border-radius:4px; padding:0 .3rem; font-size:.85em; }
+        .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:2000; padding:2rem; cursor:zoom-out; }
+        .lightbox.open { display:flex; }
+        .lightbox img { max-width:100%; max-height:100%; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,.8); }
+        .lightbox figcaption { position:absolute; bottom:1rem; left:0; right:0; text-align:center; color:#ffd28a; font-family:var(--header-font); font-size:.9rem; }
+        @media (max-width: 900px) {
+            .tab-card, .tab-card:nth-child(even) { grid-template-columns:1fr; }
+            .tab-card:nth-child(even) .tab-shot { order:0; }
+            .flow { grid-template-columns:1fr 1fr; }
+            .flow-step::after { display:none; }
+        }
+        @media (max-width: 560px) { .flow { grid-template-columns:1fr; } .project-nav { top:.75rem; left:.75rem; } }
     </style>
 </head>
 <body>
@@ -321,93 +363,316 @@
     <section class="project-hero">
         <div class="project-content">
             <h1 class="project-title">Wall_ET</h1>
-            <p class="project-subtitle">A modern, interactive financial dashboard built with Plotly Dash for tracking your stock portfolio, mutual funds, loans, credit cards, and other investments.</p>
+            <p class="project-subtitle">Money Tracker: a private, local dashboard for the whole household balance sheet, built around one question: <em>will the money last through retirement?</em></p>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="project-content">
-        <!-- Overview Section -->
         <section class="project-section">
             <h2 class="section-title">Project Overview</h2>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="feature-title">Portfolio Overview</h3>
-                    <p class="feature-description">Comprehensive net worth trajectory tracking, asset allocation visualization, and current portfolio status monitoring.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-table"></i>
-                    </div>
-                    <h3 class="feature-title">Stock Portfolio</h3>
-                    <p class="feature-description">Interactive datatable with sorting and filtering capabilities, performance tracking, and price comparison analysis.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-area"></i>
-                    </div>
-                    <h3 class="feature-title">Mutual Funds</h3>
-                    <p class="feature-description">Fund performance tracking, NAV history monitoring, and comprehensive investment analysis tools.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <h3 class="feature-title">Financial Management</h3>
-                    <p class="feature-description">Track loans, credit cards, savings accounts, and other investments with detailed analytics and management tools.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3 class="feature-title">Market Data</h3>
-                    <p class="feature-description">Real-time market trends analysis, stock performance metrics, and comprehensive financial data visualization.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h3 class="feature-title">Investment Analysis</h3>
-                    <p class="feature-description">Advanced analytics for alternative investments, performance metrics, and detailed financial calculations.</p>
-                </div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-umbrella-beach"></i></div><h3 class="feature-title">Retirement first</h3><p class="feature-description">Every asset and every loan feeds one projection: the corpus at retirement age, the monthly income it pays and the age it lasts to.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-file-excel"></i></div><h3 class="feature-title">Plain Excel in, no import step</h3><p class="feature-description">Drop or save a broker export or tracker workbook in the Money folder and the page reloads with the new numbers.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-layer-group"></i></div><h3 class="feature-title">Every asset class</h3><p class="feature-description">Stocks, mutual funds, ETFs, gold, silver, PF, insurance policies, land, home loans and salary, with nothing counted twice.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-scale-balanced"></i></div><h3 class="feature-title">True returns</h3><p class="feature-description">Booked profit plus unrealised gains, reconciled line by line against what the broker's app reports.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-filter"></i></div><h3 class="feature-title">Strategy screens</h3><p class="feature-description">Screener exports are checked against your own rules, sectors and correlation, then cross-referenced into a consensus board.</p></div>
+                <div class="feature-card"><div class="feature-icon"><i class="fas fa-rss"></i></div><h3 class="feature-title">Newswire</h3><p class="feature-description">Headlines are summarised three times a trading day into compact per-stock histories with a 7-day tone signal.</p></div>
             </div>
         </section>
 
-        <!-- Screenshots Section -->
         <section class="project-section">
-            <h2 class="section-title">Application Screenshots</h2>
-            <div class="screenshots-grid">
-                <div class="screenshot-card">
-                    <img src="../../src/assets/Wallet/Wallet_1.JPG" alt="Wall_ET Dashboard" class="screenshot-image">
-                    <div class="screenshot-info">
-                        <h3 class="screenshot-title">Financial Dashboard</h3>
-                        <p class="screenshot-description">Interactive Plotly Dash interface showing comprehensive portfolio overview with net worth trajectory and asset allocation.</p>
+            <h2 class="section-title">How It Works</h2>
+            <div class="flow">
+                <div class="flow-step"><h4>1 · FILES</h4><p>One folder per asset class: daily stock snapshots, the MF statement, PF snapshots, a workbook per policy and per loan, and screener CSVs.</p></div>
+                <div class="flow-step"><h4>2 · READ</h4><p>A Vite plugin reads every workbook with ExcelJS into one virtual data module. If a file can't be read, a red banner names it and the problem.</p></div>
+                <div class="flow-step"><h4>3 · COMPUTE</h4><p>Small pure modules do the maths: portfolio, trades, XIRR, EPF accrual, SIP step-ups, EMI schedules, new-regime tax, correlation and the retirement projection.</p></div>
+                <div class="flow-step"><h4>4 · SHOW</h4><p>React views in Chrome-style tabs. The URL keeps your place, keyboard shortcuts move between tabs, and there's a light <i>Paper</i> theme.</p></div>
+            </div>
+            <p style="color:rgba(255,255,255,.75);margin-top:1.25rem;line-height:1.6">Background jobs (macOS launchd) refresh public NSE daily prices, F&amp;O lot sizes and stock news. Everything runs on the laptop and nothing is uploaded.</p>
+        </section>
+
+        <section class="project-section" id="tabs">
+            <h2 class="section-title">Every Tab, Explained</h2>
+            <div class="privacy-note"><i class="fas fa-eye-slash"></i><div>These are real screenshots of the running app, with <b>every figure and name blurred</b>. Layout, charts and labels are untouched. The app has 5 top-level tabs, and all 21 sub-tabs are covered below.</div></div>
+            <nav class="tab-index">
+                <a href="#tab-overview"><i class="fas fa-newspaper"></i> Overview</a>
+                <a href="#tab-investments"><i class="fas fa-chart-line"></i> Investments</a>
+                <a href="#tab-pf-policies"><i class="fas fa-piggy-bank"></i> PF &amp; policies</a>
+                <a href="#tab-property-loans"><i class="fas fa-house"></i> Property &amp; loans</a>
+                <a href="#tab-strategies"><i class="fas fa-chess"></i> Strategies</a>
+            </nav>
+            <div class="tab-group" id="tab-overview">
+                <div class="tab-group-head"><i class="fas fa-newspaper"></i><h3>Overview</h3><span class="count">4 tabs</span></div>
+                <p>The big picture: where you stand today and whether it is enough for retirement.</p>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Overview › Front page"><img src="../../src/assets/Wallet/tracker/01-front-page.jpg" alt="Front page tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">OVERVIEW › FRONT PAGE</span>
+                        <h4>Front page</h4>
+                        <p class="tagline">"The Money Times"</p>
+                        <h5>What it shows</h5>
+                        <p>A newspaper-style landing page. The top strip shows net worth, today's move in stocks, the next insurance premium, total loans owed and when the news last ran. The lead story is the retirement outlook: the corpus at retirement age, the monthly income it can pay and the age the money lasts to. On the right, the <b>Action desk</b> lists jobs taken from your own data, such as an EMI that differs from what the loan needs, an F&amp;O lot-size change, a missing input or an unvalued property. Below are holdings by asset class, the day's gainers and decliners, and the newswire for your stocks.</p>
+                        <h5>How it works</h5>
+                        <p>Every block is computed from the same Excel files as the other tabs, so the front page is a summary, not a separate data source. Press <kbd>p</kbd> to print it as a newspaper.</p>
                     </div>
-                </div>
-                <div class="screenshot-card">
-                    <img src="../../src/assets/Wallet/Wallet_2.JPG" alt="Wall_ET Portfolio" class="screenshot-image">
-                    <div class="screenshot-info">
-                        <h3 class="screenshot-title">Stock Portfolio Tracker</h3>
-                        <p class="screenshot-description">Interactive datatable with sorting and filtering capabilities for tracking stock performance and price comparisons.</p>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Overview › Retirement plan"><img src="../../src/assets/Wallet/tracker/02-retirement.jpg" alt="Retirement plan tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">OVERVIEW › RETIREMENT PLAN</span>
+                        <h4>Retirement plan</h4>
+                        <p class="tagline">The goal every other tab feeds</p>
+                        <h5>What it shows</h5>
+                        <p>Adds up every asset: stocks plus broker cash, mutual funds, PF, gold, silver, policy payouts, and land equity net of loans. Each one is projected to your retirement age at its own expected return, then drawn down at your withdrawal rate with inflation. <b>How long the money lasts</b> charts the balance each year after you retire. The KPI row gives net worth today, corpus at retirement, monthly income and an <b>On track?</b> check against today's expenses. <b>Corpus by age</b> stacks the projection by asset class.</p>
+                        <h5>How it works</h5>
+                        <p>Assumptions (retirement age, life expectancy, inflation, withdrawal rate, return after retirement) come from <code>Retirement/RetirementPlan.xlsx</code>. The sliders are what-ifs and don't change the file.</p>
                     </div>
-                </div>
-                <div class="screenshot-card">
-                    <img src="../../src/assets/Wallet/Wallet_3.JPG" alt="Wall_ET Analytics" class="screenshot-image">
-                    <div class="screenshot-info">
-                        <h3 class="screenshot-title">Investment Analytics</h3>
-                        <p class="screenshot-description">Comprehensive analysis tools for mutual funds, loans, credit cards, and other financial investments.</p>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Overview › Monthly summary"><img src="../../src/assets/Wallet/tracker/03-summary.jpg" alt="Monthly summary tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">OVERVIEW › MONTHLY SUMMARY</span>
+                        <h4>Monthly summary</h4>
+                        <p class="tagline">What leaves the account every month</p>
+                        <h5>What it shows</h5>
+                        <p>Four numbers: committed each month, take-home, left for living, and investing each month. The <b>Monthly commitments</b> table lists every home-loan EMI, SIP and policy premium with its per-month and per-year cost and the date it ends. Yearly premiums are spread across the months.</p>
+                        <h5>How it works</h5>
+                        <p>It also includes a fact-check of committed outgo against take-home, outgo by year, and a big-picture view of how commitments fall away as loans and premium terms end.</p>
                     </div>
-                </div>
-                <div class="screenshot-card">
-                    <img src="../../src/assets/Wallet/Wallet_4.JPG" alt="Wall_ET Market Data" class="screenshot-image">
-                    <div class="screenshot-info">
-                        <h3 class="screenshot-title">Market Data Visualization</h3>
-                        <p class="screenshot-description">Real-time market trends and analysis with advanced visualization using Plotly for financial data insights.</p>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Overview › Salary"><img src="../../src/assets/Wallet/tracker/04-salary.jpg" alt="Salary tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">OVERVIEW › SALARY</span>
+                        <h4>Salary</h4>
+                        <p class="tagline">Pay, tax and where each month's salary goes</p>
+                        <h5>What it shows</h5>
+                        <p>Monthly fixed pay, expected bonus, gross for the year and monthly take-home. <b>Where a month's pay goes</b> walks from fixed pay through income tax, PF, home-loan payments, policy premiums and SIPs to what's left for living and investing. The <b>Bonus</b> card shows the extra tax at your top slab (with surcharge), the amount in hand and the range after tax.</p>
+                        <h5>How it works</h5>
+                        <p>Reads sheet <code>Current</code> and sheet <code>Form16</code> (one row per employer per year) from <code>Salary/Salary.xlsx</code>. Tax uses the new regime, including surcharge and cess. The share of the bonus you invest flows into the Retirement plan.</p>
                     </div>
-                </div>
+                </article>
+            </div>
+            <div class="tab-group" id="tab-investments">
+                <div class="tab-group-head"><i class="fas fa-chart-line"></i><h3>Investments</h3><span class="count">6 tabs</span></div>
+                <p>Everything in the demat and fund accounts, valued daily.</p>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Investments › Daily tracker"><img src="../../src/assets/Wallet/tracker/05-daily-tracker.jpg" alt="Daily tracker tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">INVESTMENTS › DAILY TRACKER</span>
+                        <h4>Daily tracker</h4>
+                        <p class="tagline">The broker account, reconciled</p>
+                        <h5>What it shows</h5>
+                        <p>Capital (holdings plus cash), today's move, and the <b>true return</b>: unrealised gains plus profit already booked. Because the broker's own return figure ignores booked profit, the <b>Why the broker shows a loss</b> strip explains the difference piece by piece. The tab lists what changed since the previous snapshot (bought, sold, average price changed) and checks the cash balance against those trades. On the right is a <b>Tasks</b> panel with jobs suggested from your data, plus your own, saved to <code>Tasks/tasks.json</code>.</p>
+                        <h5>How it works</h5>
+                        <p>Below, <b>Portfolio fit</b> mini-pages (covered calls, small-cap directional, value &amp; quality, lowest correlation, early bull run, swing trades) each score screened stocks you don't hold on fixed weights: how many screens they pass, low correlation with your holdings, rule pass rate, sector room, news tone and momentum. It shows one pick per sector, with a correlation heatmap before and after adding them.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Investments › Stocks"><img src="../../src/assets/Wallet/tracker/06-stocks.jpg" alt="Stocks tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">INVESTMENTS › STOCKS</span>
+                        <h4>Stocks</h4>
+                        <p class="tagline">Holdings, allocation and trades</p>
+                        <h5>What it shows</h5>
+                        <p>Current value, invested amount, total returns and gainers vs losers. Bar charts show allocation by current value and returns by holding (switch between % and ₹). The holdings table can be filtered and sorted, and gains a <b>Day</b> column once there are two or more snapshots. Use ‹ › or the date picker to move between days.</p>
+                        <h5>How it works</h5>
+                        <p>The tab reads <code>IndianStocks/DDMMYYYY_dailySnapshot.xlsx</code> (Company, Shares, Avg. Price, Market Price, plus account cash). The <b>Trades</b> section below reads one workbook per position from <code>Trades/</code>. It shows each lot's buy and sell, the realised P&amp;L, and a trade-idea card with entry, exit, tags and lesson.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Investments › Mutual funds"><img src="../../src/assets/Wallet/tracker/07-mutual-funds.jpg" alt="Mutual funds tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">INVESTMENTS › MUTUAL FUNDS</span>
+                        <h4>Mutual funds</h4>
+                        <p class="tagline">Funds, SIPs and their projection</p>
+                        <h5>What it shows</h5>
+                        <p>Current value, invested, total returns and XIRR. Allocation can be viewed by category, sub-category or AMC, with returns by category beside it. <b>Projected to retirement</b> runs every active SIP forward with its yearly step-up and the expected return for its category, and shows monthly SIP, value at retirement and the retirement income from mutual funds.</p>
+                        <h5>How it works</h5>
+                        <p>The broker's holdings export is dropped in unchanged (personal-detail rows are ignored). <code>SIPs.xlsx</code> lists each SIP's amount, day, start date, status and step-up, plus an <code>Assumptions</code> sheet with return per category.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Investments › Gold"><img src="../../src/assets/Wallet/tracker/08-gold.jpg" alt="Gold tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">INVESTMENTS › GOLD</span>
+                        <h4>Gold</h4>
+                        <p class="tagline">Physical, SGB, digital and ETF gold in one place</p>
+                        <h5>What it shows</h5>
+                        <p>Current value, invested, total returns and share of the portfolio. Allocation and returns by holding, then a holdings table with quantity, average and current price, XIRR and weight.</p>
+                        <h5>How it works</h5>
+                        <p><code>Gold/Gold.xlsx</code> lists every instrument. Rows with source <i>Indian Stocks</i> or <i>Mutual Funds</i> are linked by name to the latest snapshot or statement. Their value updates automatically, and they are <b>left out</b> of the Stocks and Mutual Funds tabs, so nothing is counted twice.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Investments › Silver"><img src="../../src/assets/Wallet/tracker/09-silver.jpg" alt="Silver tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">INVESTMENTS › SILVER</span>
+                        <h4>Silver</h4>
+                        <p class="tagline">Same engine as Gold</p>
+                        <h5>What it shows</h5>
+                        <p>The same KPIs and holdings table for silver: physical bars or coins, silver ETFs and silver funds.</p>
+                        <h5>How it works</h5>
+                        <p>Reads <code>Silver/Silver.xlsx</code> with the same linking rules as Gold.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Investments › ETFs"><img src="../../src/assets/Wallet/tracker/10-etfs.jpg" alt="ETFs tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">INVESTMENTS › ETFS</span>
+                        <h4>ETFs</h4>
+                        <p class="tagline">Index and commodity ETFs held in the demat account</p>
+                        <h5>What it shows</h5>
+                        <p>Position, invested, total return, change since the last snapshot and share of broker capital. For each ETF it shows what it holds, 1M to 1Y trailing returns, distance from the 1-year high and volatility. There's a <b>growth of ₹100</b> chart over the year and a table of <b>how they move against your stocks</b> (average, lowest and highest correlation).</p>
+                        <h5>How it works</h5>
+                        <p>ETFs show only here. Stocks, Gold and the ticker leave them out, but the Daily tracker's capital includes them. The Retirement plan counts an equity-index ETF as stocks and a gold ETF as gold.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="tab-group" id="tab-pf-policies">
+                <div class="tab-group-head"><i class="fas fa-piggy-bank"></i><h3>PF &amp; policies</h3><span class="count">2 tabs</span></div>
+                <p>Long-term savings that pay out at retirement.</p>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="PF &amp; policies › Provident fund"><img src="../../src/assets/Wallet/tracker/11-pf.jpg" alt="Provident fund tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">PF &amp; POLICIES › PROVIDENT FUND</span>
+                        <h4>Provident fund</h4>
+                        <p class="tagline">EPF balance and projection</p>
+                        <h5>What it shows</h5>
+                        <p>Current balance, amount added this month, balance at retirement and the monthly retirement income it supports. <b>Balance by age</b> stacks the opening balance, your contributions and interest. Sliders change the monthly contribution, yearly increase and EPF rate.</p>
+                        <h5>How it works</h5>
+                        <p>From <code>PF/DDMMYYYY_pfSnapshot.xlsx</code>: an <code>Accounts</code> sheet with one row per employer (UAN, status, dates, balance) and an <code>Assumptions</code> sheet. Interest accrues monthly and is credited each March, matching the workbook's own projection sheet. Slider changes are what-ifs and aren't saved.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="PF &amp; policies › Policies"><img src="../../src/assets/Wallet/tracker/12-policies.jpg" alt="Policies tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">PF &amp; POLICIES › POLICIES</span>
+                        <h4>Policies</h4>
+                        <p class="tagline">Insurance and savings plans, as cashflows</p>
+                        <h5>What it shows</h5>
+                        <p>Life cover, premiums paid so far, premiums still ahead, and expected payouts. <b>Cashflows by year</b> plots premiums as negative bars and payouts as positive bars. For market-linked plans you can switch between the guaranteed and 4% / 8% illustration scenarios. A list of next premiums sits beside it. Each policy gets a card with its premium progress (paid through), XIRR and payout years.</p>
+                        <h5>How it works</h5>
+                        <p>There's one workbook per policy in <code>Policies/</code>: a <code>Policy</code> sheet (insurer, number, dates, term, premium, sum assured, paid-through) and a <code>Cashflows</code> sheet (date, year, type, scenario, amount). To add a new policy, copy an existing workbook.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="tab-group" id="tab-property-loans">
+                <div class="tab-group-head"><i class="fas fa-house"></i><h3>Property &amp; loans</h3><span class="count">2 tabs</span></div>
+                <p>Real estate on one side, the loans against it on the other.</p>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Property &amp; loans › Land"><img src="../../src/assets/Wallet/tracker/13-land.jpg" alt="Land tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">PROPERTY &amp; LOANS › LAND</span>
+                        <h4>Land</h4>
+                        <p class="tagline">Properties and the equity in them</p>
+                        <h5>What it shows</h5>
+                        <p>Total property value, home loans owed, equity and rental income. Each property has a card with its purchase cost, value now, loan owed, equity, appreciation and rent.</p>
+                        <h5>How it works</h5>
+                        <p>Reads <code>Land/Properties.xlsx</code>, one row per property. If no current market value is filled in, the purchase cost is used and an Action-desk task reminds you to update it. Each property links to the loan workbook that funds it.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Property &amp; loans › Loans"><img src="../../src/assets/Wallet/tracker/14-loans.jpg" alt="Loans tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">PROPERTY &amp; LOANS › LOANS</span>
+                        <h4>Loans</h4>
+                        <p class="tagline">EMIs, interest and payoff</p>
+                        <h5>What it shows</h5>
+                        <p>Outstanding balance, what you pay each month, interest this month and the payoff date. <b>Outstanding by year-end</b> splits each year into principal and interest. <b>Where your EMI goes</b> breaks this month's payment into interest and principal for each loan. Each loan card compares the EMI needed at the assumed rate with what you pay, and shows the gap, start date, last EMI and total interest.</p>
+                        <h5>How it works</h5>
+                        <p>There's one workbook per loan (principal, rate, tenure, first EMI, your payment, paid-through, optional bank balance) with a full <code>Schedule</code> sheet. If the bank's balance differs from the schedule, a banner explains the gap.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="tab-group" id="tab-strategies">
+                <div class="tab-group-head"><i class="fas fa-chess"></i><h3>Strategies</h3><span class="count">7 tabs</span></div>
+                <p>Screens for new ideas, checked against what you already own. It shows facts and arithmetic, not advice.</p>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Desk"><img src="../../src/assets/Wallet/tracker/15-desk.jpg" alt="Desk tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › DESK</span>
+                        <h4>Desk</h4>
+                        <p class="tagline">Scoreboard of every strategy</p>
+                        <h5>What it shows</h5>
+                        <p>One row per strategy, showing how many stocks it found, how many would add a new sector, how many fail no rule, the median ROE, ROCE and P/E, how many you already hold, and the average news tone.</p>
+                        <h5>How it works</h5>
+                        <p>Each strategy is a CSV export from screener.in dropped into <code>Screener Suggestions/</code> and named <code>DDMMYYYY_ScreenName.csv</code>. It shows up automatically.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Covered calls"><img src="../../src/assets/Wallet/tracker/16-covered-calls.jpg" alt="Covered calls tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › COVERED CALLS</span>
+                        <h4>Covered calls</h4>
+                        <p class="tagline">Large-cap dividend payers with F&amp;O lots</p>
+                        <h5>What it shows</h5>
+                        <p>The large-cap dividend screens, <b>checked against your portfolio</b>: your current sectors, each candidate's fit, price, market cap, P/E, ROE, ROCE, debt/equity, profit growth, dividend yield and rule checks. Extra pages: <b>Lots to start</b> (NSE F&amp;O lot size, shares you hold vs one lot, cost of the first lot), a <b>Calendar</b> of expiries and a <b>Yield calculator</b>.</p>
+                        <h5>How it works</h5>
+                        <p>Lot sizes come from NSE's public lot file and are refreshed weekly. Symbols are matched through <code>Stock News/sources.json</code>.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Directional"><img src="../../src/assets/Wallet/tracker/17-directional.jpg" alt="Directional tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › DIRECTIONAL</span>
+                        <h4>Directional</h4>
+                        <p class="tagline">Small-cap screens</p>
+                        <h5>What it shows</h5>
+                        <p>Small-cap value, quality and momentum screens with the same <i>checked against your portfolio</i> table: sector overlap, weight after buying, and pass/fail on each of your rules.</p>
+                        <h5>How it works</h5>
+                        <p>Sorting, search and a filter for stocks you already hold are on every strategy page.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Value &amp; quality"><img src="../../src/assets/Wallet/tracker/18-value-quality.jpg" alt="Value &amp; quality tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › VALUE &amp; QUALITY</span>
+                        <h4>Value &amp; quality</h4>
+                        <p class="tagline">Piotroski value and quality at a reasonable price</p>
+                        <h5>What it shows</h5>
+                        <p>The Piotroski value and quality-at-a-reasonable-price screens, with P/E, ROE, ROCE and Piotroski score. A sibling page, <b>Early runs</b>, finds stocks you don't hold where a fresh uptrend has just started (20-day average crossing above the 50-day) and that pass most quality checks.</p>
+                        <h5>How it works</h5>
+                        <p>Every check reads thresholds from the <code>Rules</code> sheet, so changing a number in Excel changes every page.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Consensus"><img src="../../src/assets/Wallet/tracker/19-consensus.jpg" alt="Consensus tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › CONSENSUS</span>
+                        <h4>Consensus</h4>
+                        <p class="tagline">Stocks several strategies agree on</p>
+                        <h5>What it shows</h5>
+                        <p>Stocks that pass two or more screens, ranked by strength (strong, cross-family or same-family), with how many screens and strategy families they pass, which strategies, price and today's move.</p>
+                        <h5>How it works</h5>
+                        <p>Agreement across different families (for example value <i>and</i> momentum) counts for more than several screens of the same kind.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Newswire"><img src="../../src/assets/Wallet/tracker/20-newswire.jpg" alt="Newswire tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › NEWSWIRE</span>
+                        <h4>Newswire</h4>
+                        <p class="tagline">News on stocks you hold and stocks you're watching</p>
+                        <h5>What it shows</h5>
+                        <p>For every stock: a signal, today's move, a 7-day tone strip, the latest headline and the event types (results, orders, ratings, dividends, deals, legal, management). Switch between <i>My stocks</i> and <i>To watch</i>, or between wire and card layouts, and search by stock or headline.</p>
+                        <h5>How it works</h5>
+                        <p>A launchd job reads each stock's public page three times every trading day (09:00, 15:45, 21:00) and stores only short summaries: daily rows, monthly digests and corporate actions, capped at 1 MB per stock. Headline tone over 7 days maps to <i>Buy more / Hold / Sell</i> for holdings and <i>Buy / Watch / Avoid</i> for the watch list. It is a headline signal, not advice.</p>
+                    </div>
+                </article>
+                <article class="tab-card">
+                    <figure class="tab-shot" data-caption="Strategies › Rules &amp; data"><img src="../../src/assets/Wallet/tracker/21-rules.jpg" alt="Rules &amp; data tab (figures blurred)" loading="lazy"></figure>
+                    <div class="tab-text">
+                        <span class="crumb">STRATEGIES › RULES &amp; DATA</span>
+                        <h4>Rules &amp; data</h4>
+                        <p class="tagline">How strategies are checked</p>
+                        <h5>What it shows</h5>
+                        <p>Your rule thresholds (sheet <code>Rules</code>: check, what it applies to, threshold) next to the sector of every stock you hold (sheet <code>Sectors</code>), plus instructions for adding a new strategy.</p>
+                        <h5>How it works</h5>
+                        <p>Both sheets live in <code>Screener Suggestions/Watchlist.xlsx</code>, along with optional per-stock overrides on the <code>Watchlist</code> sheet.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -416,46 +681,10 @@
             <h2 class="section-title">Technology Stack</h2>
             <div class="tech-stack-section">
                 <div class="tech-stack-grid">
-                    <div class="tech-category">
-                        <h3 class="tech-category-title">Core Framework</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Plotly Dash</span>
-                            <span class="tech-tag">Dash Bootstrap</span>
-                            <span class="tech-tag">HTML/CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="tech-category">
-                        <h3 class="tech-category-title">Data Analysis</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">NumPy</span>
-                            <span class="tech-tag">Plotly</span>
-                            <span class="tech-tag">yfinance</span>
-                            <span class="tech-tag">Excel Integration</span>
-                        </div>
-                    </div>
-                    <div class="tech-category">
-                        <h3 class="tech-category-title">Financial Data</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Stock Market APIs</span>
-                            <span class="tech-tag">Mutual Fund Data</span>
-                            <span class="tech-tag">Portfolio Analytics</span>
-                            <span class="tech-tag">Real-time Data</span>
-                            <span class="tech-tag">Financial Metrics</span>
-                        </div>
-                    </div>
-                    <div class="tech-category">
-                        <h3 class="tech-category-title">Visualization</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Interactive Charts</span>
-                            <span class="tech-tag">Data Tables</span>
-                            <span class="tech-tag">Responsive Design</span>
-                            <span class="tech-tag">Dashboard Components</span>
-                            <span class="tech-tag">Real-time Updates</span>
-                        </div>
-                    </div>
+                    <div class="tech-category"><h3 class="tech-category-title">Front end</h3><div class="tech-tags"><span class="tech-tag">React 18</span><span class="tech-tag">Vite 5</span><span class="tech-tag">Hand-rolled SVG charts</span><span class="tech-tag">Hash routing</span></div></div>
+                    <div class="tech-category"><h3 class="tech-category-title">Data</h3><div class="tech-tags"><span class="tech-tag">ExcelJS</span><span class="tech-tag">Vite virtual module</span><span class="tech-tag">Hot reload on save</span><span class="tech-tag">JSON news store</span></div></div>
+                    <div class="tech-category"><h3 class="tech-category-title">Finance maths</h3><div class="tech-tags"><span class="tech-tag">XIRR</span><span class="tech-tag">EMI schedules</span><span class="tech-tag">EPF accrual</span><span class="tech-tag">New-regime tax</span><span class="tech-tag">Correlation</span></div></div>
+                    <div class="tech-category"><h3 class="tech-category-title">Automation</h3><div class="tech-tags"><span class="tech-tag">Node.js scripts</span><span class="tech-tag">macOS launchd</span><span class="tech-tag">NSE public files</span><span class="tech-tag">screener.in exports</span></div></div>
                 </div>
             </div>
         </section>
@@ -476,6 +705,8 @@
         </section>
     </main>
 
+    <figure class="lightbox" id="lightbox" aria-hidden="true"><img alt=""><figcaption></figcaption></figure>
+
     <!-- Scripts -->
     <script>
         // Add smooth scrolling
@@ -487,6 +718,17 @@
                 });
             });
         });
+
+        // Screenshot lightbox
+        const lb = document.getElementById('lightbox');
+        document.querySelectorAll('.tab-shot').forEach(f => f.addEventListener('click', () => {
+            lb.querySelector('img').src = f.querySelector('img').src;
+            lb.querySelector('figcaption').textContent = f.dataset.caption;
+            lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+        }));
+        const closeLb = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); };
+        lb.addEventListener('click', closeLb);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
         // Add parallax effect to hero section
         window.addEventListener('scroll', () => {

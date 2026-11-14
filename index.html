@@ -49,6 +49,12 @@
             <a href="#travel" class="sundial-section">
                 <span>Travel</span>
             </a>
+            <a href="#collection" class="sundial-section">
+                <span>Collection</span>
+            </a>
+            <a href="#kaggle" class="sundial-section">
+                <span>Kaggle</span>
+            </a>
             <a href="#analytics" class="sundial-section">
                 <span>Analytics</span>
             </a>
@@ -387,13 +393,13 @@
                             <i class="fas fa-wallet" style="font-size: 2rem; color: #ffa500;"></i>
                         </div>
                         <h3>Wall_ET</h3>
-                        <p class="project-description">A modern, interactive financial dashboard built with Plotly Dash for tracking your stock portfolio, mutual funds, loans, and investments.</p>
+                        <p class="project-description">A personal money tracker built around one goal, retirement planning. It reads plain Excel files for stocks, mutual funds, PF, gold, silver, policies, loans, land and salary, and adds them up into a single projected retirement income.</p>
                         <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Plotly Dash</span>
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">yfinance</span>
-                            <span class="tech-tag">Financial Analytics</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Vite</span>
+                            <span class="tech-tag">ExcelJS</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Retirement Planning</span>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/OfficialBhattacharya/Wall-ET" target="_blank" class="github-link" onclick="event.stopPropagation()">
@@ -423,6 +429,24 @@
                             <a href="https://github.com/OfficialBhattacharya/GyAN" target="_blank" class="github-link" onclick="event.stopPropagation()">
                                 <i class="fab fa-github"></i>
                             </a>
+                        </div>
+                        <div class="view-button">
+                            <i class="fas fa-eye"></i>
+                            <span>View Project</span>
+                        </div>
+                    </div>
+                    <div class="project-card" onclick="window.open('projects/fairvalue/fairvalue.html', '_blank')">
+                        <div class="project-icon">
+                            <i class="fas fa-scale-balanced" style="font-size: 2rem; color: #00f7ff;"></i>
+                        </div>
+                        <h3>fairValue</h3>
+                        <p class="project-description">A stock fair-value engine that runs three pricers side by side: an FCFF DCF, a Monte Carlo DCF and a Bayesian signal-scenario model. Piloted on Dr. Reddy's Laboratories.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Monte Carlo</span>
                         </div>
                         <div class="view-button">
                             <i class="fas fa-eye"></i>
@@ -1037,11 +1061,11 @@
                         <div class="story-preview">
                             <div class="story-text">
                                 <p class="story-excerpt">
-                                    "It was a bone-chillingly cold night, an anomaly for a July evening in Kolkata. There were chances of heavy downpour as threatening storm clouds loomed overhead, casting the campus into a cloak of darkness as early as seven in the evening..."
+                                    "It was a bone-chillingly cold night, which is not a sentence anyone expects to write about Kolkata in July. July in Kolkata is supposed to be a steam bath..."
                                 </p>
                                 <div class="story-stats">
-                                    <span class="story-chapters">6 Chapters</span>
-                                    <span class="story-status">In Progress</span>
+                                    <span class="story-chapters">7 Chapters</span>
+                                    <span class="story-status">Complete</span>
                                 </div>
                                     </div>
                                     <div class="story-visual">
@@ -1204,6 +1228,90 @@
                         <div class="travel-link">
                             <i class="fas fa-arrow-right"></i>
                             <span>Explore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collection Section: Coins, Notes, Stamps -->
+        <section id="collection" class="games">
+            <div class="container">
+                <h2 class="section-title">Collection</h2>
+                <div class="games-grid">
+                    <div class="game-card" onclick="window.open('collection/index.html#coins', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-coins" style="font-size: 2rem; color: #FFD700;"></i>
+                        </div>
+                        <h3>Coins</h3>
+                        <p class="game-description">Coins from India and around the world, with Krause numbers, metal, weight and mint marks. Flip any coin to see its reverse.</p>
+                        <div class="play-button">
+                            <i class="fas fa-landmark"></i>
+                            <span>View Coins</span>
+                        </div>
+                    </div>
+                    <div class="game-card" onclick="window.open('collection/index.html#notes', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-money-bill-wave" style="font-size: 2rem; color: #00ff88;"></i>
+                        </div>
+                        <h3>Notes</h3>
+                        <p class="game-description">Banknotes catalogued with Pick numbers, serials and signatures. Zoom in on the engraving and watermarks.</p>
+                        <div class="play-button">
+                            <i class="fas fa-landmark"></i>
+                            <span>View Notes</span>
+                        </div>
+                    </div>
+                    <div class="game-card" onclick="window.open('collection/index.html#stamps', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-stamp" style="font-size: 2rem; color: #ff6b6b;"></i>
+                        </div>
+                        <h3>Stamps</h3>
+                        <p class="game-description">Postage stamps with Stanley Gibbons numbers, perforation, watermark and printing details.</p>
+                        <div class="play-button">
+                            <i class="fas fa-landmark"></i>
+                            <span>View Stamps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kaggle Section -->
+        <section id="kaggle" class="games">
+            <div class="container">
+                <h2 class="section-title">Kaggle</h2>
+                <div class="games-grid">
+                    <div class="game-card" onclick="window.open('kaggle/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fab fa-kaggle" style="font-size: 2.4rem; color: #20beff;"></i>
+                        </div>
+                        <h3>Every Competition</h3>
+                        <p class="game-description">67 competitions entered and 191 submissions across 33 of them, each with its own page: what I tried, how the score moved and every submission.</p>
+                        <div class="play-button">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Open Kaggle</span>
+                        </div>
+                    </div>
+                    <div class="game-card" onclick="window.open('kaggle/playground-series-s5e5.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-fire" style="font-size: 2rem; color: #ff6b6b;"></i>
+                        </div>
+                        <h3>Most Iterated</h3>
+                        <p class="game-description">Predict Calorie Expenditure: 27 submissions, from a regression template to age/sex cohort models (RMSLE 0.0566).</p>
+                        <div class="play-button">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>See the journey</span>
+                        </div>
+                    </div>
+                    <div class="game-card" onclick="window.open('kaggle/ariel-data-challenge-2025.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-satellite" style="font-size: 2rem; color: #00ff88;"></i>
+                        </div>
+                        <h3>Physics Beat ML</h3>
+                        <p class="game-description">NeurIPS Ariel 2025: a non-ML transit-curve fit scored more than double the quantile-regression model.</p>
+                        <div class="play-button">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Read more</span>
                         </div>
                     </div>
                 </div>
