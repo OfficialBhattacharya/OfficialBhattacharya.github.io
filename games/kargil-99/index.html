@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kargil '99 · Operation Vijay · a hex wargame</title>
+<meta name="description" content="A two-player hex-and-counter wargame of the 1999 Kargil conflict. Play the computer, a friend on the same device, or online.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root{--bg:#0d1110;--panel:#151b19;--line:#2a3330;--ink:#e9eee8;--muted:#93a29a;--ind:#2e6b3a;--ind2:#f08a24;--pak:#3b4a5c;--pak2:#e8edf2;--accent:#f0a830;--danger:#e2574c;--ok:#4cc38a}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:#0a0e0d}
+header h1{font-family:Oswald,sans-serif;font-size:1.35rem;margin:0;letter-spacing:.04em}
+header h1 small{font-family:Inter;font-size:.75rem;color:var(--muted);letter-spacing:.06em;margin-left:6px;font-weight:600}
+header a{color:var(--muted);text-decoration:none;font-size:.85rem}
+.track{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.track div{font-family:Oswald;font-size:.78rem;padding:3px 7px;border:1px solid var(--line);border-radius:4px;color:var(--muted);text-align:center;min-width:52px}
+.track div.now{border-color:var(--accent);color:#111;background:var(--accent)}
+.track div.storm::after{content:' ❄';}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:0;min-height:calc(100vh - 54px)}
+#mapwrap{overflow:auto;padding:10px;position:relative}
+#map{width:100%;height:auto;display:block;max-width:1100px;margin:0 auto;user-select:none;-webkit-user-select:none}
+aside{border-left:1px solid var(--line);background:var(--panel);padding:14px;display:flex;flex-direction:column;gap:12px;max-height:calc(100vh - 54px);overflow:auto}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px;background:#111614}
+.card h3{margin:0 0 6px;font-family:Oswald;font-weight:600;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.turnline{display:flex;align-items:center;gap:8px;font-family:Oswald;font-size:1.1rem}
+.badge{padding:2px 8px;border-radius:999px;font-size:.78rem;font-family:Inter;font-weight:700;letter-spacing:.04em}
+.badge.IND{background:var(--ind);color:#fff;box-shadow:inset 0 3px 0 var(--ind2)}.badge.PAK{background:var(--pak);color:#fff;box-shadow:inset 0 3px 0 var(--pak2)}
+#hint{color:#d6dfd8;line-height:1.45;font-size:.92rem;min-height:2.6em}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+button{font:inherit;font-weight:600;border-radius:8px;border:1px solid var(--line);background:#1d2522;color:var(--ink);padding:8px 12px;cursor:pointer;min-height:38px}
+button:hover:not(:disabled){border-color:var(--accent)}
+button.primary{background:var(--accent);color:#111;border-color:var(--accent)}
+button.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+.odds{font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#cfe;line-height:1.5}
+.die{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:8px;background:#f4f1e8;color:#111;font:700 1.4rem Oswald;margin-right:8px;vertical-align:middle}
+.res{font-family:Oswald;font-size:1.2rem;letter-spacing:.05em}
+#log{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--muted);max-height:180px;overflow:auto;line-height:1.5;white-space:pre-wrap}
+table.crt{border-collapse:collapse;width:100%;font-family:'JetBrains Mono',monospace;font-size:.72rem;text-align:center}
+table.crt th,table.crt td{border:1px solid var(--line);padding:2px}
+table.crt th{color:var(--muted)}
+.pool{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.75rem;padding:4px 8px;border-radius:6px;border:1px solid var(--line);cursor:pointer}
+.chip.sel{border-color:var(--accent);background:#3a2f12}
+/* overlay */
+.overlay{position:fixed;inset:0;background:rgba(5,8,7,.86);display:grid;place-items:center;z-index:50;padding:16px}
+.overlay[hidden]{display:none}
+.dialog{width:min(720px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+.dialog h2{font-family:Oswald;font-size:2rem;margin:0 0 4px;letter-spacing:.04em}
+.dialog .sub{color:var(--muted);margin:0 0 18px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.mode{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px}
+.mode b{font-family:Oswald;font-size:1.05rem;letter-spacing:.03em}
+.mode span{color:var(--muted);font-weight:400;font-size:.85rem}
+.join{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.join input{font:inherit;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#0c100f;color:var(--ink);text-transform:uppercase;letter-spacing:.2em;width:140px}
+.rules{font-size:.9rem;line-height:1.55;color:#d3dcd6}
+.rules h4{font-family:Oswald;letter-spacing:.05em;margin:14px 0 4px;color:var(--accent)}
+.rules ul{padding-left:1.1rem;margin:4px 0}
+.note{font-size:.8rem;color:var(--muted);margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+#netstatus{font-size:.8rem;color:var(--muted)}
+/* svg */
+.hex{stroke:#5b5545;stroke-width:.8}
+.hex.hl{stroke:var(--accent);stroke-width:2.4}
+.hex.tg{stroke:var(--danger);stroke-width:2.6}
+.hex.place{stroke:var(--ok);stroke-width:2.4}
+.unit{cursor:pointer}
+.unit.sel rect.body{stroke:var(--accent);stroke-width:3}
+.unit.att rect.body{stroke:#ffd34d;stroke-width:3}
+.unit.target rect.body{stroke:var(--danger);stroke-width:3}
+.unit.dim{opacity:.55}
+@media (max-width:900px){main{grid-template-columns:1fr}aside{border-left:0;border-top:1px solid var(--line);max-height:none}.track{margin-left:0}}
+</style>
+</head>
+<body>
+<header>
+  <a href="../../index.html#games"><i class="fas fa-arrow-left"></i> Portfolio</a>
+  <h1>KARGIL '99 <small>OPERATION VIJAY</small></h1>
+  <div class="track" id="track"></div>
+</header>
+<main>
+  <div id="mapwrap"><svg id="map" role="img" aria-label="Hex map of the Kargil sector"></svg></div>
+  <aside>
+    <div class="card">
+      <div class="turnline"><span id="turnname"></span><span class="badge" id="sidebadge"></span><span id="phasename" style="font-family:Inter;font-size:.85rem;color:var(--muted)"></span></div>
+      <div style="margin-top:6px;font-size:.85rem;color:var(--muted)">Kargil held by <span class="badge" id="objbadge"></span> <span id="netstatus"></span></div>
+      <p id="hint"></p>
+      <div class="btns" id="actions"></div>
+    </div>
+    <div class="card" id="combatcard" hidden><h3>Battle</h3><div id="combat"></div></div>
+    <div class="card" id="replcard" hidden><h3>Replacements</h3><div id="repl"></div></div>
+    <div class="card"><h3>Combat results</h3>
+      <table class="crt" id="crt"></table>
+      <p style="font-size:.75rem;color:var(--muted);margin:6px 0 0">NE nothing · DR retreat 2 · DRL lose a step + retreat · DE eliminated · EX both lose · AL attacker loses a step. Shifts: −1 defender on a peak, in Kargil or (India only) a fortified post; −1 if every attacker is across a river (max −2). Storm: attack ½.</p>
+    </div>
+    <div class="card"><h3>Log</h3><div id="log"></div></div>
+    <div class="btns"><button id="rulesbtn"><i class="fas fa-book"></i> Rules</button><button id="newbtn"><i class="fas fa-rotate"></i> New game</button></div>
+  </aside>
+</main>
+
+<div class="overlay" id="start">
+  <div class="dialog">
+    <h2>KARGIL '99</h2>
+    <p class="sub">May–July 1999. Pakistani intruders hold the heights above NH1A. India has seven turns to hold, or retake, Kargil.</p>
+    <div class="modes">
+      <button class="mode primary" data-mode="ai-IND"><b><i class="fas fa-flag"></i> Play India vs computer</b><span>Defend Kargil and throw the intruders back.</span></button>
+      <button class="mode" data-mode="ai-PAK"><b><i class="fas fa-mountain"></i> Play Pakistan vs computer</b><span>Infiltrate and seize Kargil before the weather turns.</span></button>
+      <button class="mode" data-mode="hotseat"><b><i class="fas fa-users"></i> Two players, one device</b><span>Pass the screen between turns.</span></button>
+      <button class="mode" data-mode="host"><b><i class="fas fa-globe"></i> Online: create a room</b><span>Get a code to send to a friend. You play India.</span></button>
+    </div>
+    <div class="join"><input id="joincode" maxlength="5" placeholder="CODE" aria-label="Room code"><button id="joinbtn"><i class="fas fa-right-to-bracket"></i> Join online room</button><span id="startnet" style="align-self:center;color:var(--muted);font-size:.85rem"></span></div>
+    <div class="rules" id="rulesbody"></div>
+    <p class="note">A historical simulation with abstract unit values, made for fun and learning. Its mechanics follow the classic introductory hex wargame <em>Battle for Moscow</em> (Frank Chadwick, GDW); the map, units and scenario here are new. Online play connects the two browsers directly through PeerJS's free public broker.</p>
+  </div>
+</div>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="engine.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>

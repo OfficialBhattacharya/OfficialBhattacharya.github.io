@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Networks I: From the Perceptron to the Multilayer Network | ML from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="A neuron is a weighted sum and a squashing function. One of them can only draw a straight line; stack them with a non-linearity in between and they can draw anything.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← ML from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">ML from Scratch · Lecture 3 of 5</p>
+<h1>Neural Networks I: From the Perceptron to the Multilayer Network</h1>
+<p class="dek">A neuron is a weighted sum and a squashing function. One of them can only draw a straight line; stack them with a non-linearity in between and they can draw anything.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>The neuron</h2>
+<p>A single unit computes a weighted sum of its inputs plus a bias, then applies an activation function $\phi$:</p>
+<div class="math">$$a=\phi(z),\qquad z=w^\top x+b=\sum_jw_jx_j+b.$$</div>
+<p>With $\phi=$ the sigmoid $\sigma(z)=1/(1+e^{-z})$ this is exactly <strong>logistic regression</strong>: the output is a probability, and the decision boundary $w^\top x+b=0$ is a straight line (a hyperplane).</p>
+
+<h2>The perceptron and its limit</h2>
+<p>Rosenblatt's perceptron (1958) uses a step function and the update $w\leftarrow w+\eta(y-\hat y)x$. It converges whenever the classes are linearly separable. Minsky and Papert (1969) pointed out that it <em>cannot</em> learn XOR: points $(0,0),(1,1)$ in one class and $(0,1),(1,0)$ in the other. No single line separates them. This result cooled neural network research for over a decade.</p>
+
+<h2>Hidden layers</h2>
+<p>Put a layer of $H$ neurons between input and output:</p>
+<div class="math">$$h=\phi(W^{(1)}x+b^{(1)}),\qquad \hat y=\sigma\big(w^{(2)\top}h+b^{(2)}\big).$$</div>
+<p>Each hidden unit draws its own line. The output unit combines these half-planes into regions of any shape. Two hidden units suffice for XOR: one detects "x₁ OR x₂", the other "x₁ AND x₂", and the output fires for OR-but-not-AND.</p>
+
+<div class="widget" data-widget="mlp" data-title="Train a tiny network in your browser"></div>
+
+<p>Press ▶ with the XOR data. With 1 hidden unit the network fails (it is still one line). With 2–4 tanh units it carves out the checkerboard. Switch the activation to <em>none (linear)</em> and it fails again however many units you add, which leads to the next point.</p>
+
+<h2>Why the non-linearity is essential</h2>
+<p>Without $\phi$, two layers collapse into one: $W^{(2)}(W^{(1)}x+b^{(1)})+b^{(2)}=Wx+b$. Depth buys nothing. Common activations:</p>
+<ul>
+<li><strong>Sigmoid</strong> $\sigma(z)$: smooth, outputs in (0,1); saturates, so gradients vanish for large |z|.</li>
+<li><strong>tanh</strong>: zero-centred version, $\tanh z=2\sigma(2z)-1$.</li>
+<li><strong>ReLU</strong> $\max(0,z)$: cheap, doesn't saturate for z>0, and is the default for deep nets. Variants: Leaky ReLU, GELU.</li>
+</ul>
+
+<h2>Universal approximation</h2>
+<p>A network with <em>one</em> hidden layer and enough units can approximate any continuous function on a compact set to arbitrary accuracy (Cybenko 1989; Hornik 1991). The intuition: two shifted steep sigmoids make a "bump", and enough bumps tile any function, like a histogram. The theorem says nothing about how many units you need or whether gradient descent will find them. In practice, <em>depth</em> represents many functions exponentially more efficiently than width.</p>
+
+<h2>Forward pass in NumPy</h2>
+<pre><code>def forward(X, W1, b1, w2, b2):
+    Z1 = X @ W1.T + b1          # (n, H)
+    H  = np.tanh(Z1)
+    s  = H @ w2 + b2            # (n,)
+    p  = 1 / (1 + np.exp(-s))
+    return Z1, H, p
+
+def loss(p, y):                 # binary cross-entropy
+    return -np.mean(y * np.log(p) + (1 - y) * np.log(1 - p))</code></pre>
+<p>Training means adjusting $W^{(1)},b^{(1)},w^{(2)},b^{(2)}$ to reduce the loss by gradient descent. That needs the gradient of the loss with respect to every weight, and computing it efficiently is backpropagation, the subject of the next lecture.</p>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>A neuron is φ(wᵀx + b); with a sigmoid it is logistic regression, a linear classifier.</li><li>Hidden layers with a non-linear activation combine half-planes into any shape (XOR needs 2 units).</li><li>Without non-linearity depth collapses; with it, one hidden layer is a universal approximator.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Write down explicit weights for a 2-2-1 network with step activations that computes XOR.</li><li>Show that tanh(z) = 2σ(2z) − 1 and that σ&#x27;(z) = σ(z)(1 − σ(z)).</li><li>In the widget, find the smallest hidden size that solves the circle dataset with ReLU vs tanh.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="02-bagging-boosting-xgboost.html"><small>← Lecture 2</small>Bagging vs Boosting, and XGBoost from the Objective Up</a><a class="next" href="04-backpropagation.html"><small>Lecture 4 →</small>Neural Networks II: Backpropagation from Scratch</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greeks, Hedging, Monte Carlo, and Where Black–Scholes Breaks | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="How traders actually use the model: sensitivities, discrete hedging P&amp;L, pricing by simulation, implied volatility, and the smile that tells you the assumptions are wrong.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 12 of 12</p>
+<h1>Greeks, Hedging, Monte Carlo, and Where Black–Scholes Breaks</h1>
+<p class="dek">How traders actually use the model: sensitivities, discrete hedging P&amp;L, pricing by simulation, implied volatility, and the smile that tells you the assumptions are wrong.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>The Greeks</h2>
+<p>Partial derivatives of the price, each a risk you can hedge:</p>
+<div class="math">$$\Delta=\frac{\partial V}{\partial S}=N(d_1),\quad \Gamma=\frac{\partial^2 V}{\partial S^2}=\frac{n(d_1)}{S\sigma\sqrt T},\quad \nu=\frac{\partial V}{\partial\sigma}=S\,n(d_1)\sqrt T,$$
+$$\Theta=\frac{\partial V}{\partial t}=-\frac{S\,n(d_1)\sigma}{2\sqrt T}-rKe^{-rT}N(d_2),\qquad \rho=\frac{\partial V}{\partial r}=KTe^{-rT}N(d_2)\quad\text{(calls)}.$$</div>
+<p>Here $n$ is the standard normal density. Gamma and vega peak at the money and grow as expiry approaches (gamma) or as maturity lengthens (vega). The calculator in Lecture 11 prints them live.</p>
+
+<h2>Hedging in discrete time</h2>
+<p>Black–Scholes assumes continuous rebalancing. In reality you rebalance daily or less. Over each interval the hedged P&L is approximately (Lecture 4):</p>
+<div class="math">$$\delta\Pi\approx\tfrac12\Gamma S^2\big(\sigma_{\text{realised}}^2-\sigma_{\text{implied}}^2\big)\delta t+\text{noise}.$$</div>
+<p>Two consequences show up in the simulation below. (1) The P&L of a hedged short option is <em>not</em> zero: its spread shrinks roughly like $1/\sqrt{\text{number of rebalances}}$. (2) If realised volatility exceeds the volatility you sold at, you lose on average. An option trader is really trading volatility.</p>
+
+<div class="widget" data-widget="hedge" data-title="Delta-hedging a short call: P&L distribution"></div>
+
+<h2>Pricing by Monte Carlo</h2>
+<p>Risk-neutral valuation says price = discounted average payoff under $\mathbb Q$. So simulate it (Lectures 1 and 7):</p>
+<pre><code>Z  = rng.standard_normal(M)
+ST = S0 * np.exp((r - 0.5 * sigma**2) * T + sigma * np.sqrt(T) * Z)
+price = np.exp(-r * T) * np.maximum(ST - K, 0).mean()
+stderr = np.exp(-r * T) * np.maximum(ST - K, 0).std() / np.sqrt(M)</code></pre>
+
+<div class="widget" data-widget="mc" data-title="Monte Carlo convergence"></div>
+
+<p>The error falls like $1/\sqrt M$, so 100× more paths buys 10× more accuracy. That's slow for a vanilla call, which has a formula. But Monte Carlo works unchanged for path-dependent payoffs (Asians, barriers, mortgage-backed securities) and for many underlyings, where trees and PDEs struggle. Variance-reduction tricks (antithetic variates, control variates using the BS price) speed it up a lot.</p>
+
+<h2>Implied volatility and the smile</h2>
+<p>Every input to Black–Scholes is observable except σ. Turn the formula around: given a market price, find the σ that reproduces it. This is the <strong>implied volatility</strong>, solved by Newton's method using vega:</p>
+<div class="math">$$\sigma_{k+1}=\sigma_k-\frac{BS(\sigma_k)-C_{\text{mkt}}}{\nu(\sigma_k)}.$$</div>
+<p>If the model were right, implied vol would be the same for every strike and maturity. It isn't. Equity index options show a <strong>skew</strong>: low strikes (crash protection) trade at higher implied vol. FX and many single stocks show a <strong>smile</strong>. Markets quote options <em>in implied vol</em>, using Black–Scholes as a translation layer rather than a truth.</p>
+
+<h2>Where the assumptions break</h2>
+<ul>
+<li><strong>Volatility isn't constant.</strong> It clusters and mean-reverts, and it rises when prices fall. Fixes: local volatility (Dupire), stochastic volatility (Heston, SABR).</li>
+<li><strong>Prices jump.</strong> Returns have fat tails, and a 5σ day is far more common than the normal predicts. Fix: jump-diffusion (Merton), which can't be hedged perfectly with stock alone.</li>
+<li><strong>Trading isn't free or continuous.</strong> Transaction costs make perfect hedging infinitely expensive. Real hedges use bands and accept residual risk.</li>
+<li><strong>Rates and dividends</strong> vary: use forwards (Black's formula) and term structures.</li>
+</ul>
+<div class="box"><strong class="tag">The lasting idea</strong>Even where the formula fails, the <em>method</em> survives: find a hedge, price by no-arbitrage, and evaluate an expectation under a martingale measure. Every model in modern derivatives pricing, from Heston to HJM (see the Finance in Banks posts), follows the path laid out in these twelve lectures.</div>
+
+<h2>The road we took</h2>
+<p>Probability (1–2) → finance and no-arbitrage (3) → Taylor series (4) → differential equations (5) → Brownian motion (6) → SDEs (7) → Itô's lemma (8) → martingales and Q (9) → binomial replication (10) → the PDE and formula (11) → using and stress-testing it (12).</p>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Greeks are sensitivities: Δ = N(d₁), Γ and vega peak at the money; theta pays for gamma.</li><li>Discrete hedging leaves residual P&amp;L ≈ ½ΓS²(σ²_real − σ²_impl)δt: options trade volatility.</li><li>Monte Carlo prices any payoff with error ~1/√M; implied vol and the smile show where BS is wrong.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Write a Newton solver for implied volatility and recover σ = 20% from the price 10.4506 (S = K = 100, T = 1, r = 5%).</li><li>Price an arithmetic Asian call by Monte Carlo and use the geometric Asian (closed form) as a control variate.</li><li>In the hedging widget, set realised σ = 30%. Explain the sign of the mean P&amp;L using gamma.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="11-black-scholes.html"><small>← Lecture 11</small>The Black–Scholes PDE and Formula</a><a class="next" href="index.html"><small>Finished →</small>Back to the syllabus</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

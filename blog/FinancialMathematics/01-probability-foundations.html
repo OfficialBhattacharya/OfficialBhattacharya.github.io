@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probability: The Language of Uncertainty | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Before we can price anything, we need a precise way to talk about &quot;what might happen&quot;. Sample spaces, random variables, expectation and the law that makes randomness predictable in bulk.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 1 of 12</p>
+<h1>Probability: The Language of Uncertainty</h1>
+<p class="dek">Before we can price anything, we need a precise way to talk about &quot;what might happen&quot;. Sample spaces, random variables, expectation and the law that makes randomness predictable in bulk.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<p>Black–Scholes is, at heart, a statement about averages. The price of an option will turn out to be an <em>expected value</em> of its payoff, computed under a special probability measure and discounted. So the series starts where every derivation eventually leads back to: probability.</p>
+
+<h2>Sample spaces, events and probability</h2>
+<p>A probability model has three ingredients, written $(\Omega, \mathcal{F}, \mathbb{P})$:</p>
+<ul>
+<li>$\Omega$, the <strong>sample space</strong>: every possible outcome. For one coin flip, $\Omega = \{H, T\}$. For tomorrow's stock price, $\Omega$ is a continuum.</li>
+<li>$\mathcal{F}$, the <strong>events</strong>: the questions we're allowed to ask ("is the price above 100?"). Formally a σ-algebra, closed under complements and countable unions.</li>
+<li>$\mathbb{P}$, the <strong>probability measure</strong>: assigns each event a number in $[0,1]$, with $\mathbb{P}(\Omega)=1$ and additivity over disjoint events.</li>
+</ul>
+<div class="box"><strong class="tag">Why this matters later</strong>The whole trick of option pricing (Lecture 9) is to keep $\Omega$ and $\mathcal{F}$ fixed and <em>swap</em> $\mathbb{P}$ for a different measure $\mathbb{Q}$. You can only do that cleanly if you've separated "what can happen" from "how likely it is".</div>
+
+<h2>Random variables and distributions</h2>
+<p>A <strong>random variable</strong> $X:\Omega\to\mathbb{R}$ attaches a number to each outcome, such as the payoff of a bet or tomorrow's return. Its <strong>distribution</strong> is summarised by the cumulative distribution function</p>
+<div class="math">$$F_X(x) = \mathbb{P}(X \le x).$$</div>
+<p>Discrete variables have a probability mass function $p(k)=\mathbb{P}(X=k)$. Continuous ones have a density $f(x)=F'(x)$ with $\mathbb{P}(a \lt X\le b)=\int_a^b f(x)\,dx$.</p>
+
+<h2>Expectation and variance</h2>
+<p>The <strong>expectation</strong> is the probability-weighted average:</p>
+<div class="math">$$\mathbb{E}[X] = \sum_k k\,p(k) \quad\text{or}\quad \mathbb{E}[X] = \int x f(x)\,dx, \qquad \mathbb{E}[g(X)] = \int g(x) f(x)\,dx.$$</div>
+<p>The last formula, the "law of the unconscious statistician", is the one we'll use constantly: an option's payoff is $g(S_T)$, and its value will be $e^{-rT}\mathbb{E}^{\mathbb{Q}}[g(S_T)]$.</p>
+<p>Expectation is <strong>linear</strong>: $\mathbb{E}[aX+bY]=a\mathbb{E}[X]+b\mathbb{E}[Y]$ always, even when $X$ and $Y$ are dependent. The <strong>variance</strong> measures spread:</p>
+<div class="math">$$\operatorname{Var}(X) = \mathbb{E}\big[(X-\mathbb{E}X)^2\big] = \mathbb{E}[X^2]-(\mathbb{E}X)^2.$$</div>
+<p>For <em>independent</em> variables variances add: $\operatorname{Var}(X+Y)=\operatorname{Var}X+\operatorname{Var}Y$. This one fact is why volatility scales with $\sqrt{t}$, as we'll see shortly.</p>
+
+<h2>The coin-flip model of a stock</h2>
+<p>Let each day the price move up or down by one unit with probability $p$ and $1-p$. Let $\xi_i=\pm1$ be the $i$-th move and $X_n=\sum_{i=1}^n \xi_i$ the total. The number of up-moves $U$ is <strong>binomial</strong>:</p>
+<div class="math">$$\mathbb{P}(U=k)=\binom{n}{k}p^k(1-p)^{n-k}, \qquad \mathbb{E}U=np,\quad \operatorname{Var}U=np(1-p).$$</div>
+<p>Each $\xi_i$ has variance $1$ when $p=\tfrac12$, so by independence $\operatorname{Var}(X_n)=n$ and the typical size of $X_n$ is $\sqrt{n}$, not $n$. Ten times more days means only about $3.16\times$ more spread. Keep this in mind: it becomes $\sigma\sqrt{T}$ in the Black–Scholes formula.</p>
+
+<div class="widget" data-widget="binomial" data-title="Binomial → Normal: drag n upwards"></div>
+
+<h2>Two limit theorems</h2>
+<p>The <strong>law of large numbers</strong>: the sample average of i.i.d. variables converges to their mean, $\frac1n\sum X_i\to\mathbb{E}X$. This is why Monte Carlo pricing (Lecture 12) works.</p>
+<p>The <strong>central limit theorem</strong>: if the $X_i$ are i.i.d. with mean $\mu$ and variance $\sigma^2$, then</p>
+<div class="math">$$\frac{\sum_{i=1}^n X_i - n\mu}{\sigma\sqrt n} \;\xrightarrow{d}\; \mathcal{N}(0,1).$$</div>
+<p>In the figure, drag $n$ upward and the jagged binomial bars snap onto the bell curve. That's the CLT at work. Many tiny, independent shocks add up to something Gaussian whatever the shape of each shock. This is the deepest justification for modelling (log) returns as normal, and it's how Brownian motion arises from coin flips in Lecture 6.</p>
+
+<div class="box warn"><strong class="tag">Caveat</strong>The CLT needs finite variance and not-too-dependent shocks. Real markets violate both at the edges (fat tails, volatility clustering), which is why the model has the limitations we discuss in Lecture 12.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>A probability model is (Ω, F, P): outcomes, askable events, likelihoods. Pricing will change P while keeping the rest.</li><li>Expectation is linear; variance adds for independent pieces, so spread grows like √n (later σ√T).</li><li>The CLT turns many small independent shocks into a normal distribution. This is the bridge from coin flips to Brownian motion.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>A fair die is rolled. Compute E[X], Var(X) and E[max(X − 3, 0)]. The last one is a &quot;call option&quot; on a die roll with strike 3.</li><li>Show Var(X) = E[X²] − (E X)² from the definition.</li><li>With p = 0.5 and n = 400 daily ±1 moves, use the CLT to approximate P(X₄₀₀ &gt; 40).</li></ol></section>
+<nav class="series-nav"><span>Start of the series</span><a class="next" href="02-normal-lognormal.html"><small>Lecture 2 →</small>Normal and Lognormal: The Shape of Returns</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

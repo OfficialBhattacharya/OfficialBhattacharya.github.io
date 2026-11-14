@@ -267,7 +267,7 @@
                                     
                                     <li>
                                         <span class="term-label">Current Role:</span>
-                                        <span class="term-value">Full Stack Developer @ ResiDash, Morgan Stanley, FID (Mumbai)</span>
+                                        <span class="term-value">Quant Researcher @ Securities Services, JP Morgan Chase (Mumbai)</span>
                                     </li>
                                     
                                     <li class="location-info">
@@ -293,9 +293,21 @@
                 <h2 class="section-title">Experience</h2>
                 <div class="timeline">
                     <div class="timeline-item">
+                        <div class="role">Quant Researcher</div>
+                        <div class="company">JP Morgan Chase, Securities Services</div>
+                        <div class="period">Dec 2025 - Present</div>
+                        <div class="location">Mumbai</div>
+                        <ul class="responsibilities">
+                            <li>Liquidity modelling for the Securities Services deposits book</li>
+                            <li>Hedging simulation for the deposits book across rate scenarios</li>
+                            <li>Building AI solutions for the custody and sales teams</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
                         <div class="role">Sr. Quant Strategist</div>
                         <div class="company">Morgan Stanley, FID</div>
-                        <div class="period">2022 - Present</div>
+                        <div class="period">2022 - 2025</div>
                         <div class="location">Mumbai</div>
                         <ul class="responsibilities">
                             <li>Leading strategic analytics for residential mortgage portfolios worth billions</li>
@@ -364,36 +376,12 @@
             <div class="container">
                 <h2 class="section-title">Projects</h2>
                 <div class="projects-grid">
-                    <div class="project-card" onclick="window.open('projects/tradedash/tradedash.html', '_blank')">
-                        <div class="project-icon">
-                            <i class="fas fa-chart-line" style="font-size: 2rem; color: #00ff88;"></i>
-                        </div>
-                        <h3>TradeDash</h3>
-                        <p class="project-description">A comprehensive trading dashboard for real-time market analysis and portfolio management.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">WebSocket</span>
-                            <span class="tech-tag">Chart.js</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/OfficialBhattacharya/TradeDash" target="_blank" class="github-link" onclick="event.stopPropagation()">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                        <div class="view-button">
-                            <i class="fas fa-eye"></i>
-                            <span>View Project</span>
-                        </div>
-                    </div>
-                    
                     <div class="project-card" onclick="window.open('projects/wall-et/wall-et.html', '_blank')">
                         <div class="project-icon">
                             <i class="fas fa-wallet" style="font-size: 2rem; color: #ffa500;"></i>
                         </div>
                         <h3>Wall_ET</h3>
-                        <p class="project-description">A personal money tracker built around one goal, retirement planning. It reads plain Excel files for stocks, mutual funds, PF, gold, silver, policies, loans, land and salary, and adds them up into a single projected retirement income.</p>
+                        <p class="project-description">A personal money tracker built around one goal, retirement planning (successor to TradeDash). It reads plain Excel files for stocks, mutual funds, PF, gold, silver, policies, loans, land and salary, and adds them up into a single projected retirement income.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">Vite</span>
@@ -744,19 +732,151 @@
                                     <i class="fas fa-calculator"></i>
                                 </div>
                                 <h3 class="topic-title">Financial Mathematics</h3>
-                                <p class="topic-description">Mathematical foundations of finance, derivatives pricing, and quantitative analysis</p>
+                                <p class="topic-description">Black–Scholes from Scratch: a 12-lecture series from probability to the pricing formula. <a href="blog/FinancialMathematics/index.html" target="_blank" style="color:inherit;text-decoration:underline">Full syllabus →</a></p>
                             </div>
                             <div class="topic-content">
                                 <div class="topic-articles">
-                                    <article class="topic-article featured-article">
+                                    <article class="topic-article featured-article" onclick="window.open('blog/FinancialMathematics/01-probability-foundations.html', '_blank')">
                                         <div class="article-header">
-                                            <h4 class="article-title">Coming Soon</h4>
-                                            <span class="article-date">TBD</span>
+                                            <h4 class="article-title">Lecture 1: Probability: The Language of Uncertainty</h4>
+                                            <span class="article-date">Nov 15, 2026 · Series start</span>
                                         </div>
-                                        <p class="article-excerpt">Exciting content on mathematical finance, stochastic calculus, and quantitative modeling techniques.</p>
+                                        <p class="article-excerpt">Before we can price anything, we need a precise way to talk about &quot;what might happen&quot;. Sample spaces, random variables, expectation and the law that makes randomness predictable in bulk.</p>
                                         <div class="article-link">
-                                            <i class="fas fa-clock"></i>
-                                            <span>In Progress</span>
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/02-normal-lognormal.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 2: Normal and Lognormal: The Shape of Returns</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Prices can&#x27;t go negative, but returns can. The normal distribution and its exponential cousin, the lognormal, and the moment-generating trick that produces the famous −σ²/2.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/03-finance-basics.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 3: Finance Basics: Interest, Forwards, Options and No-Arbitrage</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">The minimum finance you need: discounting, forwards, what an option actually is, and the one principle that drives all of derivatives pricing.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/04-taylor-series.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 4: Taylor Series: Local Approximations That Run Finance</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Duration, convexity, delta, gamma and Itô&#x27;s lemma are all Taylor expansions in disguise. Here is the tool, its error term, and why the second-order term is the one that matters.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/05-differential-equations.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 5: Differential Equations: From Compounding to the Heat Equation</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">How quantities evolve: ordinary differential equations, how to solve them by hand and by computer, and a first look at the partial differential equation Black–Scholes turns into.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/06-brownian-motion.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 6: From Random Walks to Brownian Motion</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Shrink the coin-flip walk in time and scale it by √n, and a continuous but nowhere-smooth random path appears. Its strange properties are why ordinary calculus breaks.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/07-sdes.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 7: Stochastic Differential Equations</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Add a noise term to an ODE and you get an SDE. What dX = μ dt + σ dW actually means, how to simulate it, and the model Black–Scholes assumes for stock prices.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/08-itos-lemma.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 8: Itô&#x27;s Lemma: The Chain Rule for Randomness</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Taylor-expand a function of Brownian motion, apply (dW)² = dt, and an extra term appears. The single most important formula in quantitative finance, derived and used.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/09-martingales-risk-neutral.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 9: Martingales and the Risk-Neutral Measure</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Fair games, conditional expectation, and the astonishing result that we can price as if every investor were indifferent to risk, by changing the probability measure.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/10-binomial-model.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 10: The Binomial Model: Replication with Arithmetic</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">All of the previous lecture&#x27;s measure theory, done with one step, two states and high-school algebra. Then stack the steps into a tree and watch it converge to Black–Scholes.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/11-black-scholes.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 11: The Black–Scholes PDE and Formula</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Delta-hedge away the randomness, demand the riskless return, and a PDE appears. Solve it two ways, via the heat equation and via risk-neutral expectation, and arrive at the formula.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/FinancialMathematics/12-greeks-hedging-limits.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 12: Greeks, Hedging, Monte Carlo, and Where Black–Scholes Breaks</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">How traders actually use the model: sensitivities, discrete hedging P&amp;L, pricing by simulation, implied volatility, and the smile that tells you the assumptions are wrong.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
                                         </div>
                                     </article>
                                 </div>
@@ -770,19 +890,67 @@
                                     <i class="fas fa-brain"></i>
                                 </div>
                                 <h3 class="topic-title">ML from Scratch</h3>
-                                <p class="topic-description">Building machine learning algorithms from the ground up with pen and paper</p>
+                                <p class="topic-description">From decision trees to neural networks, built from first principles with live figures. <a href="blog/MLFromScratch/index.html" target="_blank" style="color:inherit;text-decoration:underline">Full syllabus →</a></p>
                             </div>
                             <div class="topic-content">
                                 <div class="topic-articles">
-                                    <article class="topic-article featured-article">
+                                    <article class="topic-article featured-article" onclick="window.open('blog/MLFromScratch/01-cart-random-forests.html', '_blank')">
                                         <div class="article-header">
-                                            <h4 class="article-title">Coming Soon</h4>
-                                            <span class="article-date">TBD</span>
+                                            <h4 class="article-title">Lecture 1: Decision Trees (CART) and Random Forests</h4>
+                                            <span class="article-date">Nov 15, 2026 · Series start</span>
                                         </div>
-                                        <p class="article-excerpt">Deep dive into implementing neural networks, optimization algorithms, and statistical learning from first principles.</p>
+                                        <p class="article-excerpt">Recursive yes/no questions, the impurity measures that choose them, why a single deep tree overfits, and how averaging many randomised trees fixes it.</p>
                                         <div class="article-link">
-                                            <i class="fas fa-clock"></i>
-                                            <span>In Progress</span>
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/MLFromScratch/02-bagging-boosting-xgboost.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 2: Bagging vs Boosting, and XGBoost from the Objective Up</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Two opposite ways to combine weak learners: average independent ones, or build them in sequence to fix each other&#x27;s mistakes. Gradient boosting as gradient descent, and the second-order maths inside XGBoost.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/MLFromScratch/03-neural-nets-perceptron-mlp.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 3: Neural Networks I: From the Perceptron to the Multilayer Network</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">A neuron is a weighted sum and a squashing function. One of them can only draw a straight line; stack them with a non-linearity in between and they can draw anything.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/MLFromScratch/04-backpropagation.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 4: Neural Networks II: Backpropagation from Scratch</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">The chain rule, organised so that one backward sweep gives every gradient. Worked by hand on a tiny network, then vectorised.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
+                                        </div>
+                                    </article>
+
+                                    <article class="topic-article" onclick="window.open('blog/MLFromScratch/05-training-neural-nets.html', '_blank')">
+                                        <div class="article-header">
+                                            <h4 class="article-title">Lecture 5: Neural Networks III: Training That Actually Works</h4>
+                                            <span class="article-date">Nov 15, 2026</span>
+                                        </div>
+                                        <p class="article-excerpt">Losses, mini-batches, momentum and Adam, sensible initialisation, normalisation and regularisation. The practical toolkit that turns backprop into a model that generalises.</p>
+                                        <div class="article-link">
+                                            <i class="fas fa-arrow-right"></i>
+                                            <span>Read Lecture</span>
                                         </div>
                                     </article>
                                 </div>
@@ -957,6 +1125,21 @@
                         <p class="game-description">Merge tiles, build up to 2048 and beyond in this cyberpunk-themed version of the classic game. Use arrow keys or swipe to combine matching numbers.</p>
                         <div class="play-button">
                             <i class="fas fa-play"></i>
+                            <span>Play Game</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title" id="indie-games" style="font-size:1.6rem;margin-top:3rem">Indie Games</h3>
+                <div class="games-grid">
+                    <div class="game-card" onclick="window.open('games/kargil-99/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-mountain" style="font-size: 2rem; color: #f08a24;"></i>
+                        </div>
+                        <h3>Kargil '99: Operation Vijay</h3>
+                        <p class="game-description">A hex-and-counter wargame of the 1999 Kargil conflict: hold NH1A and Kargil town with the Grenadiers, Rajputana Rifles, J&amp;K Rifles, J&amp;K Light Infantry and Ladakh Scouts. Play the computer, a friend on the same screen, or online with a room code.</p>
+                        <div class="play-button">
+                            <i class="fas fa-chess-board"></i>
                             <span>Play Game</span>
                         </div>
                     </div>
@@ -1223,6 +1406,167 @@
                                 <span class="place-tag">St. Petersburg</span>
                                 <span class="place-tag">Siberia</span>
                                 <span class="place-tag">Kamchatka</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
+
+                    <!-- Vietnam Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/Vietnam/Vietnam.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map vietnam-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="vietnamGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#da251d;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ffcd00;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M114.2 321.9 L114.6 323.0 L114.4 325.4 L113.6 327.8 L113.9 328.9 L113.2 329.6 L111.9 325.0 L110.1 323.1 L109.7 322.3 L110.8 322.4 L112.6 321.2 L113.5 321.1 L114.2 321.9 Z M195.4 81.3 L194.5 81.5 L192.0 81.5 L189.9 83.6 L188.4 84.4 L186.2 85.1 L183.7 86.3 L183.0 88.3 L182.9 89.8 L182.6 91.4 L178.6 93.7 L177.5 93.5 L176.7 92.6 L175.6 92.8 L174.8 93.2 L173.9 93.2 L172.8 93.7 L171.5 93.5 L170.2 92.8 L169.5 92.6 L168.6 92.6 L168.4 93.5 L169.7 96.9 L170.1 98.5 L165.9 103.1 L166.3 106.1 L165.2 108.4 L162.7 110.2 L157.9 115.0 L155.7 115.1 L154.1 116.1 L150.6 123.9 L150.5 126.6 L150.0 128.5 L150.1 130.3 L148.5 134.0 L146.9 135.6 L146.6 137.6 L148.8 141.7 L149.1 142.4 L150.4 144.6 L151.1 146.2 L152.1 147.7 L155.8 151.8 L157.4 153.1 L159.4 153.9 L163.0 157.6 L164.8 159.9 L163.9 161.5 L164.4 164.8 L161.8 163.9 L162.2 164.3 L165.1 166.1 L169.7 172.5 L173.7 175.7 L177.7 179.3 L179.0 182.8 L182.6 185.0 L186.6 188.3 L186.5 189.0 L187.5 189.9 L190.3 191.6 L191.9 193.5 L192.5 195.2 L193.5 195.5 L194.7 195.1 L195.8 194.9 L196.6 195.0 L197.8 196.9 L199.5 198.7 L200.3 200.2 L201.0 200.0 L201.5 200.2 L201.6 201.6 L201.9 202.4 L204.2 204.9 L205.2 207.3 L208.0 211.1 L209.9 213.3 L211.4 214.6 L213.0 215.6 L214.7 219.9 L215.5 223.7 L217.2 228.0 L218.5 229.8 L218.5 233.4 L219.6 237.0 L220.7 239.4 L221.1 241.9 L221.4 243.1 L221.8 244.1 L223.0 248.3 L222.7 250.2 L221.9 248.3 L222.0 254.0 L222.7 256.9 L222.4 260.6 L223.2 261.9 L224.6 266.0 L225.6 267.5 L225.5 272.6 L226.0 275.1 L224.7 273.6 L223.7 271.9 L222.4 272.8 L221.3 274.1 L223.1 279.5 L221.0 279.0 L221.2 286.3 L222.1 288.0 L222.1 288.8 L221.9 289.8 L221.3 288.7 L221.2 287.6 L220.9 287.9 L220.9 288.4 L220.2 289.7 L220.0 291.3 L220.7 292.6 L220.9 293.7 L220.3 295.0 L219.5 296.3 L217.6 296.5 L217.1 299.1 L216.5 301.9 L213.0 302.4 L210.5 304.8 L207.4 305.7 L204.6 308.2 L201.6 310.4 L199.6 310.7 L198.0 311.2 L196.0 315.0 L192.7 315.4 L186.9 318.4 L185.0 319.9 L183.2 320.5 L180.6 321.8 L180.1 321.3 L179.2 320.2 L177.0 319.7 L175.9 318.4 L175.6 316.9 L175.3 316.2 L174.9 317.1 L174.5 320.9 L174.1 321.7 L173.1 322.1 L171.3 321.0 L169.6 318.9 L167.0 320.4 L167.8 320.5 L169.0 320.4 L169.9 320.8 L170.6 322.2 L170.5 323.0 L170.2 323.9 L167.8 324.1 L164.6 323.8 L164.1 323.9 L166.9 325.3 L169.6 326.1 L170.8 327.0 L170.8 327.7 L169.3 328.9 L168.1 330.4 L168.1 331.3 L168.1 332.3 L166.8 333.1 L166.0 333.0 L163.7 331.5 L157.3 325.5 L158.3 327.2 L165.0 333.9 L166.1 336.2 L166.3 337.8 L165.6 338.5 L164.5 339.5 L162.3 339.5 L158.6 337.0 L152.9 331.0 L150.9 330.2 L156.8 337.1 L157.7 338.7 L158.7 340.7 L158.4 341.8 L157.9 342.9 L144.1 349.3 L142.0 352.0 L140.3 355.4 L137.6 357.3 L136.1 359.1 L131.4 360.0 L128.9 359.7 L131.5 356.6 L129.8 355.4 L129.8 347.3 L130.4 338.5 L131.6 334.1 L133.4 333.0 L135.6 332.3 L135.6 331.4 L135.4 330.3 L134.3 328.7 L132.9 328.1 L131.0 327.8 L129.5 325.9 L128.4 326.0 L126.6 326.6 L125.6 325.8 L125.2 324.5 L123.6 323.0 L121.8 321.5 L122.6 321.3 L123.6 320.4 L124.6 319.3 L127.2 319.1 L129.8 319.2 L130.5 318.9 L131.6 317.7 L133.3 316.2 L134.6 315.4 L134.9 314.7 L134.4 313.1 L134.1 311.4 L134.6 310.9 L136.9 311.2 L139.6 312.0 L140.2 312.3 L141.7 310.3 L142.1 310.1 L143.1 310.1 L145.6 309.7 L148.2 309.2 L149.4 309.3 L150.5 310.6 L151.4 312.0 L151.8 312.0 L153.1 311.5 L154.2 312.2 L156.5 313.3 L157.8 313.4 L157.1 310.7 L157.9 308.8 L157.7 308.3 L156.5 307.4 L152.2 303.9 L151.5 302.8 L151.5 301.1 L151.4 298.7 L151.0 297.2 L151.1 296.3 L151.3 295.6 L152.1 295.3 L152.9 295.2 L153.5 294.6 L154.5 293.0 L156.5 293.1 L159.4 294.0 L161.5 294.6 L162.8 294.5 L163.0 294.3 L163.0 293.4 L163.1 289.7 L163.1 289.0 L164.8 288.6 L167.5 288.5 L169.0 288.3 L170.3 286.7 L173.7 286.2 L176.3 284.1 L178.5 281.9 L179.6 281.4 L181.0 281.0 L182.0 281.1 L183.4 282.3 L184.4 281.6 L185.7 280.1 L186.4 278.7 L186.8 276.4 L186.5 272.8 L185.9 270.1 L185.2 268.0 L185.0 265.9 L186.5 261.8 L187.8 257.2 L187.5 255.4 L186.2 252.6 L184.8 249.1 L183.3 245.4 L182.7 244.8 L182.3 243.7 L182.0 242.5 L182.7 238.6 L182.8 237.3 L184.5 235.5 L185.4 233.5 L186.3 231.2 L186.0 230.1 L185.9 227.7 L186.1 226.5 L185.7 225.5 L185.2 224.2 L185.5 223.3 L186.8 222.5 L187.4 221.2 L188.3 219.6 L188.8 218.3 L188.1 217.1 L186.9 215.3 L184.7 213.7 L182.3 211.7 L181.0 210.4 L180.0 209.1 L179.1 207.6 L178.7 206.5 L179.1 205.7 L182.7 203.9 L183.3 203.2 L183.7 202.2 L183.5 201.3 L182.5 200.7 L181.4 200.4 L179.7 199.2 L176.7 196.1 L175.2 195.4 L173.7 194.5 L173.0 193.6 L172.1 191.0 L171.7 190.8 L170.9 191.6 L169.8 192.4 L168.9 192.2 L168.1 191.5 L167.7 190.5 L166.8 189.2 L165.7 188.1 L165.5 184.4 L165.4 183.2 L164.8 181.5 L164.1 180.9 L163.3 180.5 L161.3 177.4 L160.1 175.8 L154.5 171.5 L153.9 170.8 L152.4 169.0 L149.8 166.5 L148.0 164.5 L146.7 162.3 L146.1 160.5 L145.8 159.1 L144.4 157.0 L143.2 155.4 L142.0 154.8 L140.6 154.6 L139.3 153.6 L137.0 151.3 L136.1 149.9 L135.5 148.9 L135.5 147.9 L136.0 146.2 L136.6 145.2 L136.7 144.5 L136.1 143.9 L133.5 142.8 L127.7 141.1 L125.6 139.9 L123.6 138.3 L122.1 137.2 L115.1 132.5 L113.0 131.8 L111.1 130.9 L110.6 130.1 L110.7 129.4 L111.4 128.8 L113.5 127.6 L114.2 126.2 L113.9 124.4 L113.2 122.6 L113.5 122.0 L114.2 121.9 L115.5 121.8 L118.3 121.7 L124.2 123.4 L125.1 123.2 L128.3 120.2 L129.5 118.4 L129.8 116.9 L130.4 116.0 L132.2 114.4 L132.2 113.0 L131.3 111.0 L130.5 110.3 L129.8 110.0 L127.4 110.2 L126.9 109.8 L126.6 108.4 L126.5 107.5 L125.7 106.5 L123.2 105.6 L121.0 105.4 L120.5 105.0 L121.3 104.0 L122.8 103.1 L123.9 102.5 L124.8 101.5 L125.0 100.5 L123.9 99.5 L122.4 98.5 L120.1 96.6 L116.9 94.5 L115.0 93.8 L114.0 93.9 L110.4 95.7 L108.5 96.8 L107.0 98.9 L105.3 99.3 L103.6 98.4 L101.7 97.5 L96.5 96.1 L94.2 95.0 L89.7 88.1 L89.0 86.7 L89.5 85.1 L89.8 82.8 L90.2 81.3 L91.0 79.9 L91.3 78.6 L91.0 77.4 L90.4 76.7 L89.5 76.5 L88.9 76.2 L88.3 74.6 L87.9 74.8 L87.4 76.8 L86.7 77.5 L85.8 77.8 L85.0 77.5 L84.7 76.7 L84.4 75.4 L84.0 73.6 L83.4 72.4 L81.5 71.2 L80.6 69.7 L77.6 66.3 L75.1 63.9 L74.0 61.8 L74.9 61.0 L76.2 59.8 L77.6 58.0 L79.1 55.8 L79.7 54.4 L80.2 53.8 L81.1 53.4 L82.1 53.6 L83.8 54.5 L86.3 55.7 L88.6 57.1 L89.5 58.5 L90.7 59.8 L91.7 60.2 L92.2 60.1 L93.6 59.1 L94.9 58.1 L95.0 57.0 L96.1 55.9 L97.6 54.3 L98.4 53.1 L98.9 53.0 L99.5 53.3 L101.9 56.8 L102.3 57.1 L103.0 56.5 L104.0 53.8 L105.0 52.7 L105.3 53.0 L111.1 58.2 L111.7 58.1 L112.3 57.9 L112.7 57.1 L113.2 55.3 L114.0 53.4 L115.9 52.3 L117.3 52.1 L117.8 53.0 L119.1 54.3 L120.6 54.5 L123.8 52.2 L124.9 51.8 L126.0 51.9 L127.2 51.8 L128.3 50.9 L129.4 49.8 L129.8 47.5 L130.1 45.5 L130.8 44.7 L131.8 44.2 L133.6 43.4 L137.5 41.5 L138.6 40.5 L139.3 40.0 L140.9 40.8 L142.8 42.5 L143.9 43.7 L144.7 45.0 L145.0 46.2 L148.0 47.1 L149.9 48.5 L151.2 49.5 L152.4 49.5 L153.6 49.2 L154.5 48.4 L155.9 48.4 L157.5 48.5 L158.3 48.8 L159.6 50.7 L160.2 51.0 L161.5 50.9 L163.8 50.2 L165.7 49.8 L167.4 50.6 L170.6 52.8 L169.7 54.3 L169.0 55.9 L167.6 57.1 L166.5 57.4 L165.9 59.0 L165.6 61.4 L165.9 62.6 L166.7 63.0 L167.6 63.8 L168.0 64.8 L168.1 67.2 L168.1 69.9 L168.2 70.8 L168.9 70.6 L169.6 70.3 L170.9 70.7 L172.6 71.4 L173.7 72.1 L174.6 72.0 L175.3 72.7 L175.6 74.0 L176.5 74.9 L178.9 76.6 L180.9 76.7 L182.5 79.0 L184.2 78.3 L185.0 79.3 L188.5 78.9 L190.9 78.0 L191.8 78.2 L194.1 80.1 L195.4 81.3 Z M172.4 96.7 L172.2 97.1 L171.1 96.1 L170.4 95.6 L171.0 94.2 L172.2 95.7 L172.4 96.7 Z M187.7 87.8 L184.7 90.6 L183.6 90.5 L184.6 87.4 L185.1 86.6 L186.9 87.7 L187.7 87.8 Z M186.0 94.2 L184.9 94.8 L183.5 94.7 L185.1 93.7 L186.0 92.3 L186.7 91.8 L186.6 93.0 L186.0 94.2 Z M175.8 98.2 L175.0 98.3 L173.4 96.5 L174.2 95.6 L176.1 96.2 L176.5 96.7 L176.5 97.1 L176.1 97.9 L175.8 98.2 Z" fill="url(#vietnamGradient)" stroke="#da251d" stroke-width="2" filter="url(#neonGlow)"/>
+                                <circle cx="151" cy="92" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="177" cy="95" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="203" cy="205" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="169" cy="314" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Vietnam</h4>
+                            <p class="travel-description">Socialist Republic of Vietnam: from Ha Long Bay&#x27;s karsts to Hoi An&#x27;s lanterns and the Mekong</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Hanoi</span>
+                                <span class="place-tag">Ha Long Bay</span>
+                                <span class="place-tag">Hoi An</span>
+                                <span class="place-tag">Ho Chi Minh City</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
+                    <!-- Thailand Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/Thailand/Thailand.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map thailand-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="thailandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#a51931;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#2d2a4a;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M173.1 231.5 L172.7 233.8 L171.6 232.9 L171.8 231.7 L172.3 231.2 L173.1 231.5 Z M169.3 224.8 L169.4 225.3 L168.3 225.0 L167.9 225.2 L166.6 225.0 L166.0 222.0 L166.2 221.3 L167.0 221.5 L168.3 223.0 L168.9 224.0 L169.3 224.8 Z M84.9 312.0 L84.6 313.6 L83.8 313.6 L82.9 314.6 L82.5 314.7 L81.7 311.6 L82.6 307.1 L83.0 306.4 L83.6 307.6 L85.4 308.2 L84.6 310.7 L84.9 312.0 Z M120.9 42.4 L120.7 43.7 L121.2 44.0 L121.9 43.4 L122.9 41.9 L123.9 41.1 L125.0 40.9 L126.2 41.9 L127.4 44.1 L128.7 45.4 L129.2 45.5 L129.6 46.5 L129.7 47.5 L129.1 49.6 L128.1 52.0 L126.6 55.0 L127.1 57.4 L129.1 59.5 L131.5 60.7 L134.0 60.3 L135.2 59.8 L136.3 58.8 L137.4 58.3 L138.6 58.2 L142.6 58.9 L143.8 59.6 L143.9 61.0 L143.5 64.5 L144.1 67.1 L145.2 69.8 L145.3 72.3 L143.9 76.4 L142.8 80.3 L141.5 82.1 L140.6 83.4 L140.3 84.2 L140.4 85.0 L141.3 86.1 L142.2 87.6 L142.4 89.1 L142.4 90.8 L141.7 93.2 L139.3 98.5 L137.4 103.1 L138.4 104.1 L140.2 104.8 L141.5 105.5 L142.8 105.0 L145.6 102.3 L148.0 100.2 L151.0 98.1 L151.1 97.9 L153.8 96.4 L154.9 95.0 L155.6 93.2 L156.5 92.5 L157.7 92.9 L159.2 92.2 L161.0 90.2 L162.5 89.3 L163.5 89.5 L165.2 90.7 L167.7 92.9 L170.0 94.3 L171.9 94.8 L172.9 95.6 L172.9 96.9 L173.3 97.7 L174.2 98.0 L174.6 97.9 L174.5 97.2 L175.4 96.4 L177.3 95.2 L179.2 94.5 L181.2 94.3 L182.5 93.3 L183.3 90.9 L184.5 89.1 L185.6 88.2 L186.8 87.8 L187.2 87.2 L186.5 86.5 L186.6 85.7 L187.4 84.9 L189.0 84.6 L191.6 84.7 L194.6 85.5 L198.0 87.0 L200.2 87.5 L201.3 86.9 L203.4 89.2 L206.5 94.2 L209.2 98.0 L211.4 100.6 L213.7 102.6 L216.1 104.0 L217.9 105.9 L219.5 109.4 L218.3 114.3 L218.0 118.5 L218.2 123.8 L219.6 127.7 L222.3 130.5 L223.9 132.7 L224.4 134.4 L226.5 135.9 L230.4 137.1 L231.9 138.2 L231.3 139.2 L231.3 140.3 L231.8 141.7 L233.1 142.7 L235.2 143.6 L236.5 144.5 L236.9 145.4 L236.8 147.0 L236.3 149.1 L235.4 150.8 L234.1 151.9 L234.0 152.8 L233.7 154.2 L233.7 157.0 L234.6 158.8 L234.9 161.2 L234.4 163.1 L233.9 167.1 L233.8 168.7 L233.4 169.9 L232.2 171.2 L230.6 172.4 L228.5 173.5 L227.3 173.9 L227.0 174.2 L226.0 175.4 L224.9 176.5 L224.1 176.5 L223.5 175.9 L223.0 175.2 L222.7 173.5 L220.8 172.7 L218.7 172.2 L214.5 173.0 L211.0 173.4 L207.1 172.9 L203.5 173.6 L202.0 173.7 L200.2 173.6 L198.6 173.6 L196.9 173.3 L194.0 172.3 L192.8 172.4 L190.4 173.3 L187.9 173.8 L185.6 174.2 L182.0 176.0 L179.4 178.5 L178.7 180.3 L177.4 182.1 L175.7 184.9 L173.4 187.6 L171.8 188.8 L172.2 189.5 L171.8 190.4 L169.4 190.8 L167.4 191.0 L167.0 191.4 L167.3 196.9 L167.9 198.9 L169.2 201.4 L170.1 202.7 L170.7 206.8 L170.8 210.2 L173.5 212.4 L175.1 214.0 L176.2 215.4 L175.8 216.4 L175.2 219.1 L175.8 222.7 L179.7 230.3 L180.0 230.9 L179.5 231.0 L178.9 229.5 L176.9 227.0 L176.3 224.3 L174.1 221.4 L172.9 220.2 L172.4 221.2 L171.7 222.3 L169.4 220.8 L167.6 219.2 L165.8 216.1 L165.6 216.8 L165.1 217.5 L163.2 215.1 L161.0 213.2 L159.2 212.5 L158.0 211.8 L156.9 210.8 L154.5 209.8 L148.6 211.3 L141.2 210.1 L138.3 211.2 L137.1 210.5 L136.5 209.2 L137.1 207.0 L137.3 202.3 L138.2 199.0 L137.7 196.5 L138.2 195.4 L138.5 193.7 L137.4 193.1 L132.1 191.8 L130.9 190.8 L129.6 192.0 L123.2 192.6 L120.9 193.6 L118.7 195.4 L118.1 197.8 L119.4 199.4 L120.2 202.1 L117.9 208.0 L117.5 209.7 L118.4 217.0 L118.1 220.9 L116.9 223.6 L114.9 225.9 L114.1 230.0 L112.5 231.9 L110.4 236.1 L109.1 241.4 L108.1 243.9 L107.5 248.4 L103.2 255.3 L102.3 259.1 L100.7 260.6 L101.3 261.8 L101.3 263.7 L100.8 268.8 L100.7 273.1 L101.3 275.4 L103.3 279.9 L102.9 281.2 L102.6 283.1 L104.3 283.9 L105.6 284.2 L112.5 282.0 L114.8 282.6 L115.7 284.6 L116.3 286.3 L117.5 295.7 L118.1 297.5 L119.5 299.1 L121.0 300.9 L121.5 300.6 L121.6 299.9 L121.7 299.2 L123.1 301.0 L124.2 304.3 L127.8 321.8 L128.9 324.0 L129.7 326.4 L127.5 325.2 L126.9 321.4 L126.3 319.7 L125.5 319.5 L124.3 319.5 L124.2 318.8 L125.1 317.5 L125.0 316.0 L123.7 314.8 L121.6 315.8 L121.7 318.5 L122.6 320.6 L126.1 325.3 L127.2 327.2 L128.6 327.8 L130.6 327.5 L133.1 329.5 L134.9 331.3 L139.7 334.1 L142.6 333.8 L145.7 333.1 L147.7 333.3 L149.8 334.0 L152.2 336.4 L156.1 342.3 L162.5 347.2 L161.8 348.4 L161.5 350.3 L159.0 352.8 L158.6 354.2 L157.6 356.0 L155.9 357.0 L154.5 357.2 L153.6 357.0 L153.0 356.7 L152.0 354.9 L151.4 354.4 L151.0 354.3 L147.8 355.5 L144.7 356.8 L144.2 358.0 L143.3 359.3 L142.4 359.9 L141.7 360.0 L141.0 359.2 L139.9 358.2 L139.0 357.2 L139.2 355.6 L140.9 353.3 L141.1 351.6 L140.9 348.8 L140.5 347.2 L139.9 347.2 L139.1 346.9 L136.7 347.2 L135.5 345.3 L134.9 343.3 L134.2 342.6 L133.4 342.2 L131.5 342.9 L130.2 342.5 L125.6 340.7 L123.8 337.9 L122.8 337.8 L122.0 338.1 L121.7 338.8 L121.2 342.0 L120.8 343.0 L115.6 336.5 L111.9 333.8 L112.4 328.9 L111.3 328.0 L110.0 327.9 L108.9 326.5 L109.8 323.6 L108.4 324.2 L106.4 324.1 L104.8 323.3 L103.6 319.3 L102.8 318.1 L101.1 316.0 L98.9 316.0 L98.2 315.0 L98.3 312.4 L96.7 310.8 L94.6 309.5 L92.9 308.7 L91.1 304.5 L89.6 303.5 L88.4 302.7 L86.7 303.2 L86.2 304.7 L85.1 306.2 L83.9 306.0 L82.7 305.2 L81.3 301.0 L81.0 298.4 L81.4 293.7 L83.1 289.4 L84.1 282.6 L85.6 278.2 L86.6 276.8 L88.1 270.9 L91.1 263.3 L91.4 261.8 L92.0 259.9 L92.4 258.2 L92.6 255.5 L92.2 254.1 L92.2 253.3 L92.8 252.3 L94.9 250.6 L97.8 247.8 L101.3 243.8 L104.8 237.7 L106.6 234.2 L107.3 232.9 L108.1 232.5 L109.3 231.3 L110.1 230.0 L110.2 229.3 L108.2 222.7 L107.0 220.5 L106.3 218.0 L106.0 216.1 L105.6 214.4 L105.8 212.8 L105.1 211.8 L103.5 210.6 L101.9 208.7 L100.9 205.6 L100.9 203.9 L99.9 202.4 L99.5 200.8 L100.1 199.3 L101.0 198.1 L100.9 192.4 L100.6 190.6 L100.1 187.6 L99.1 185.3 L97.6 182.6 L95.9 180.4 L91.4 176.3 L88.3 173.7 L86.7 171.2 L84.7 168.4 L83.3 166.4 L81.4 163.8 L80.5 160.3 L80.0 156.5 L80.3 155.3 L81.1 154.5 L82.3 153.8 L83.2 153.7 L85.8 152.0 L87.6 152.1 L88.0 151.7 L88.1 150.9 L87.9 147.5 L88.0 143.0 L88.3 139.3 L88.7 136.8 L93.5 134.0 L94.5 132.7 L94.9 131.4 L94.9 130.2 L94.5 129.3 L93.9 128.8 L90.8 131.3 L90.1 130.7 L88.7 126.7 L88.1 125.4 L87.3 123.9 L86.3 121.9 L86.1 118.3 L85.5 116.6 L81.7 112.8 L79.9 110.8 L77.6 107.8 L74.8 104.3 L71.9 101.0 L70.6 98.9 L70.1 98.5 L69.9 97.7 L70.8 95.4 L70.4 93.1 L69.0 90.1 L68.4 88.3 L68.5 87.5 L67.8 87.3 L66.2 87.4 L64.7 86.0 L63.2 83.0 L63.1 82.5 L63.6 82.5 L65.4 83.0 L66.1 83.0 L67.4 82.3 L69.3 81.5 L70.6 81.3 L70.9 81.0 L71.1 80.2 L70.1 73.3 L70.2 71.9 L72.1 68.9 L71.9 65.9 L72.4 61.6 L74.5 58.6 L76.1 57.2 L76.6 55.1 L77.3 54.6 L78.6 54.8 L81.3 56.4 L82.4 56.5 L84.1 56.5 L85.8 56.4 L86.7 56.2 L92.3 54.6 L93.5 54.5 L94.7 54.6 L95.5 54.6 L96.4 53.9 L97.0 52.6 L97.7 48.6 L98.1 47.9 L98.8 47.3 L100.1 46.9 L101.4 46.9 L103.2 47.7 L104.4 47.7 L105.7 47.4 L106.8 46.8 L107.5 46.1 L107.9 45.3 L107.6 43.7 L106.7 41.6 L106.9 41.4 L108.5 41.8 L110.7 42.3 L112.4 42.2 L113.5 41.9 L114.6 40.9 L116.0 40.0 L117.3 40.2 L118.4 41.0 L120.9 42.4 Z M119.9 273.9 L119.7 274.2 L118.8 273.6 L118.2 272.8 L117.9 271.8 L119.2 271.9 L119.8 272.8 L119.9 273.9 Z M119.8 276.2 L119.9 277.5 L119.4 278.9 L117.5 279.8 L116.9 278.6 L117.0 276.8 L117.3 276.3 L119.2 276.5 L119.8 276.2 Z M111.2 341.3 L110.8 341.4 L110.0 339.7 L111.0 337.2 L112.0 340.3 L111.2 341.3 Z M88.7 311.4 L88.5 311.8 L87.4 307.7 L88.9 308.8 L88.7 311.4 Z M98.9 318.6 L99.5 321.2 L98.7 320.7 L98.1 319.6 L98.1 317.9 L98.2 317.7 L98.9 318.6 Z" fill="url(#thailandGradient)" stroke="#a51931" stroke-width="2" filter="url(#neonGlow)"/>
+                                <circle cx="129" cy="187" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="97" cy="76" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="84" cy="313" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="95" cy="308" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Thailand</h4>
+                            <p class="travel-description">Kingdom of Thailand: glittering temples of Bangkok, the northern hills and Andaman islands</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Bangkok</span>
+                                <span class="place-tag">Chiang Mai</span>
+                                <span class="place-tag">Phuket</span>
+                                <span class="place-tag">Krabi</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
+                    <!-- Sri Lanka Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/SriLanka/SriLanka.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map srilanka-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="srilankaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#8d153a;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#eb7400;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M82.5 55.2 L77.5 56.0 L73.4 50.6 L72.5 48.1 L73.4 46.5 L74.5 45.6 L76.0 45.9 L77.8 51.1 L82.5 55.2 Z M74.8 103.4 L77.2 109.6 L70.4 105.4 L66.0 101.8 L64.2 98.9 L73.6 102.1 L74.8 103.4 Z M83.7 40.0 L91.4 40.4 L99.9 40.1 L105.8 41.3 L115.9 54.2 L143.4 77.1 L158.4 100.5 L159.6 105.5 L161.7 109.9 L165.2 111.2 L168.5 113.2 L183.2 135.7 L185.0 140.1 L184.7 145.0 L185.6 148.6 L189.7 150.5 L194.5 151.4 L197.7 154.8 L201.8 172.7 L201.8 178.3 L202.7 180.7 L221.6 208.5 L222.8 211.9 L222.5 214.5 L223.1 216.7 L226.6 221.6 L232.6 234.8 L235.2 237.8 L238.8 249.4 L239.1 271.6 L237.9 281.5 L234.3 293.5 L230.2 305.1 L225.5 313.6 L219.3 320.7 L198.3 335.9 L192.1 339.1 L164.6 348.5 L144.5 357.6 L125.6 360.0 L107.0 355.1 L92.8 343.2 L85.8 325.8 L80.7 307.6 L73.4 287.3 L68.0 224.9 L65.4 207.3 L60.9 185.1 L61.5 175.4 L64.5 166.2 L64.5 186.5 L67.1 188.9 L69.2 186.4 L71.3 165.3 L72.8 156.4 L80.1 133.2 L80.4 129.0 L79.0 120.3 L79.3 115.9 L90.5 99.6 L93.1 90.1 L94.6 80.4 L94.0 69.9 L92.0 59.5 L101.1 62.8 L106.1 66.4 L111.2 68.9 L115.3 67.6 L120.0 67.6 L116.8 62.0 L106.1 56.8 L88.7 53.6 L83.4 49.4 L81.3 45.8 L82.2 41.6 L83.7 40.0 Z" fill="url(#srilankaGradient)" stroke="#8d153a" stroke-width="2" filter="url(#neonGlow)"/>
+                                <circle cx="74" cy="279" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="137" cy="249" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="147" cy="194" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="103" cy="353" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Sri Lanka</h4>
+                            <p class="travel-description">The Pearl of the Indian Ocean: ancient rock fortresses, misty tea country and the colonial south coast</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Colombo</span>
+                                <span class="place-tag">Kandy</span>
+                                <span class="place-tag">Sigiriya</span>
+                                <span class="place-tag">Galle</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
+                    <!-- Kenya Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/Kenya/Kenya.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map kenya-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="kenyaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#bb0000;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#006600;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M235.5 270.6 L234.4 270.8 L235.0 269.2 L238.0 267.2 L239.3 267.6 L239.5 268.1 L239.4 268.5 L238.9 268.9 L235.5 270.6 Z M40.1 238.7 L40.0 234.0 L40.7 222.0 L40.6 211.5 L41.2 206.3 L43.8 203.0 L45.0 200.5 L45.9 197.1 L47.2 194.4 L50.3 192.2 L50.8 190.9 L54.1 187.2 L56.1 182.3 L57.6 180.7 L59.3 179.2 L60.6 178.4 L62.8 177.6 L64.5 177.1 L64.8 176.7 L64.9 176.0 L64.4 173.0 L65.1 172.0 L66.2 170.0 L67.5 168.2 L68.7 167.0 L69.4 165.8 L69.7 163.7 L69.8 162.2 L69.7 159.8 L69.4 154.2 L68.0 149.6 L67.1 144.4 L67.7 142.7 L66.6 139.7 L66.1 139.5 L65.2 138.8 L64.1 136.0 L63.2 133.4 L62.7 132.7 L59.0 130.5 L57.2 125.1 L55.1 123.9 L54.0 118.5 L53.8 117.0 L55.0 111.6 L54.8 110.4 L53.6 109.3 L50.1 108.1 L47.3 105.9 L47.6 105.2 L47.8 104.3 L46.4 103.8 L42.1 94.7 L47.6 89.2 L53.2 83.6 L60.4 76.6 L67.0 70.1 L72.6 64.5 L77.7 59.5 L77.6 60.4 L77.6 61.7 L78.3 62.5 L79.3 63.0 L80.8 62.5 L82.0 61.7 L83.2 61.5 L90.9 63.6 L92.1 65.4 L92.1 67.4 L92.4 68.8 L91.8 70.2 L91.2 74.5 L91.4 78.4 L93.7 81.3 L95.6 83.6 L97.2 86.8 L98.5 87.9 L100.1 88.3 L105.4 88.5 L113.1 88.7 L120.5 88.9 L121.2 89.0 L122.8 89.4 L129.7 93.8 L135.9 97.7 L141.3 101.1 L146.4 104.5 L151.5 107.8 L155.4 110.5 L159.2 111.3 L165.4 111.7 L169.7 111.8 L173.7 112.9 L179.7 114.0 L184.0 114.6 L186.7 115.1 L194.1 115.8 L195.3 115.4 L198.6 112.4 L202.3 107.6 L203.8 104.9 L208.4 102.2 L216.8 98.5 L222.6 95.9 L229.2 93.2 L232.1 95.5 L236.2 99.2 L238.0 101.0 L239.5 101.8 L241.7 102.3 L244.4 102.3 L245.9 102.2 L248.9 101.8 L255.9 101.3 L260.0 101.4 L256.6 106.2 L252.6 112.1 L245.0 122.8 L239.4 128.5 L235.0 132.7 L234.6 133.5 L234.7 138.2 L234.7 149.9 L234.8 173.1 L234.9 196.3 L235.0 219.5 L235.0 231.1 L235.0 235.1 L238.8 239.9 L242.5 244.7 L247.4 251.0 L250.0 254.4 L250.5 255.5 L250.3 257.8 L246.3 262.5 L243.0 264.7 L238.6 265.7 L237.3 265.5 L235.5 264.8 L234.8 266.0 L234.3 267.7 L233.3 267.4 L232.6 266.8 L233.0 270.0 L233.5 271.5 L232.8 273.6 L230.6 275.4 L230.4 277.0 L225.8 281.0 L219.2 281.5 L215.8 283.5 L214.2 285.2 L213.0 288.8 L213.5 294.3 L211.6 298.5 L211.3 300.7 L207.8 303.4 L206.3 305.9 L205.2 308.5 L204.3 309.7 L203.1 315.4 L201.5 318.9 L201.1 320.1 L200.7 321.2 L199.5 323.3 L198.7 324.6 L198.1 325.6 L194.0 334.6 L190.9 338.7 L188.5 338.2 L186.8 339.8 L186.6 340.5 L185.8 340.1 L183.7 338.6 L179.5 335.5 L175.3 332.5 L171.0 329.4 L166.8 326.4 L162.6 323.3 L158.3 320.3 L154.1 317.2 L149.9 314.1 L147.4 312.4 L146.3 311.3 L145.4 309.2 L145.0 308.7 L143.9 308.0 L142.6 307.9 L142.2 307.5 L142.2 306.5 L142.7 305.0 L144.2 302.2 L144.3 300.5 L144.0 298.7 L143.6 295.7 L143.2 295.0 L140.4 293.4 L134.5 290.1 L128.6 286.9 L122.7 283.6 L116.9 280.3 L111.0 277.0 L105.1 273.8 L99.2 270.5 L93.4 267.2 L87.5 263.9 L81.7 260.6 L75.7 257.4 L69.9 254.0 L64.0 250.8 L58.2 247.5 L52.3 244.2 L46.3 240.9 L44.2 239.7 L42.2 238.7 L40.1 238.7 Z" fill="url(#kenyaGradient)" stroke="#bb0000" stroke-width="2" filter="url(#neonGlow)"/>
+                                <circle cx="120" cy="247" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="74" cy="252" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="133" cy="284" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="199" cy="322" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Kenya</h4>
+                            <p class="travel-description">Republic of Kenya: big-five savannahs, Kilimanjaro views and the Indian Ocean coast</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Nairobi</span>
+                                <span class="place-tag">Maasai Mara</span>
+                                <span class="place-tag">Amboseli</span>
+                                <span class="place-tag">Mombasa</span>
+                            </div>
+                        </div>
+                        <div class="travel-link">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Explore</span>
+                        </div>
+                    </div>
+                    <!-- Tanzania Destination -->
+                    <div class="travel-card" onclick="window.open('src/assets/travel/Tanzania/Tanzania.html', '_blank')">
+                        <div class="travel-map-container">
+                            <svg class="neon-map tanzania-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="tanzaniaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#1eb53a;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#00a3dd;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M240.9 195.9 L242.4 200.1 L242.2 200.9 L241.2 201.4 L240.6 201.4 L239.9 200.7 L239.5 199.3 L238.7 199.6 L237.3 197.9 L235.9 197.9 L234.7 195.8 L235.2 194.1 L234.9 191.0 L236.4 189.5 L237.2 186.9 L238.2 188.6 L238.4 191.4 L239.7 194.7 L240.7 195.7 L240.9 195.9 Z M248.2 170.7 L248.3 171.7 L248.0 172.6 L248.1 175.6 L248.0 177.6 L246.8 180.4 L245.9 181.3 L245.1 181.1 L244.4 180.6 L243.9 179.9 L244.9 174.8 L244.4 171.1 L246.6 171.5 L248.2 170.7 Z M111.0 260.3 L109.9 259.8 L107.8 258.6 L104.8 257.6 L102.5 256.4 L101.4 255.3 L99.2 254.8 L97.2 254.7 L95.4 253.6 L93.5 253.5 L91.7 253.3 L91.3 252.6 L91.3 251.0 L90.6 250.6 L89.3 250.2 L87.8 250.2 L86.9 250.4 L86.4 250.3 L85.2 249.4 L84.1 248.3 L83.7 246.4 L82.0 245.2 L80.0 244.3 L74.6 244.4 L73.8 244.1 L72.5 243.2 L71.0 241.7 L69.7 239.9 L68.7 237.5 L68.2 236.1 L67.6 234.3 L66.2 231.6 L64.4 227.8 L63.0 224.8 L61.4 221.4 L60.8 219.0 L59.6 216.3 L57.6 213.0 L56.6 211.7 L55.4 210.6 L52.6 208.3 L49.4 206.1 L47.6 204.7 L45.3 200.2 L44.3 198.6 L43.6 195.8 L43.1 192.9 L43.3 191.7 L45.4 188.0 L45.6 186.9 L45.3 185.4 L44.3 182.4 L43.6 180.5 L43.0 178.8 L41.9 176.0 L40.4 172.2 L40.0 170.5 L40.0 169.3 L40.9 166.0 L41.6 162.6 L41.6 161.6 L47.8 161.8 L48.8 161.0 L52.3 158.8 L56.3 154.4 L57.1 152.6 L58.6 149.8 L60.3 148.4 L60.8 147.4 L61.3 145.9 L61.8 144.6 L63.8 142.7 L65.8 141.2 L65.7 140.6 L65.4 140.2 L65.7 139.8 L66.8 139.1 L68.9 138.4 L69.4 136.9 L69.4 135.3 L69.0 134.3 L69.1 133.2 L68.7 132.7 L67.4 132.5 L65.3 131.7 L63.5 131.3 L62.3 130.8 L61.9 130.5 L61.8 129.5 L62.0 128.4 L62.3 128.1 L62.7 126.9 L61.9 126.2 L61.8 125.9 L62.1 125.3 L63.9 121.6 L64.3 121.1 L65.1 121.0 L66.3 120.6 L67.4 120.4 L68.4 120.5 L69.1 120.3 L69.7 119.9 L70.2 118.4 L70.6 116.0 L70.4 114.1 L69.5 112.5 L69.3 110.2 L69.7 107.1 L69.4 104.6 L68.4 102.5 L67.4 101.3 L65.8 100.7 L63.4 97.5 L62.6 96.0 L62.8 95.1 L63.4 94.7 L63.6 94.6 L65.2 94.8 L66.7 94.4 L68.0 93.6 L69.4 93.3 L69.7 93.4 L70.0 93.5 L72.1 93.5 L75.6 93.5 L79.1 93.5 L82.7 93.5 L86.1 93.5 L89.6 93.5 L93.2 93.5 L96.7 93.5 L100.2 93.5 L103.7 93.5 L107.2 93.5 L110.7 93.5 L114.2 93.5 L117.8 93.5 L121.3 93.5 L124.8 93.5 L128.3 93.5 L130.4 93.5 L131.9 93.5 L133.4 94.2 L134.9 95.1 L139.2 97.5 L143.4 99.8 L147.6 102.2 L151.8 104.5 L156.0 106.9 L160.2 109.2 L164.4 111.6 L168.6 113.9 L172.8 116.3 L177.0 118.6 L181.3 121.0 L185.5 123.3 L189.7 125.7 L193.9 128.0 L198.1 130.4 L202.3 132.7 L204.3 133.9 L204.6 134.3 L205.0 136.5 L205.2 137.8 L205.1 139.0 L204.0 141.0 L203.6 142.1 L203.6 142.8 L203.9 143.1 L204.8 143.2 L205.7 143.6 L206.0 144.0 L206.6 145.5 L207.4 146.3 L209.2 147.6 L212.1 149.8 L215.2 152.0 L218.3 154.1 L221.2 156.3 L224.3 158.5 L227.4 160.7 L230.3 162.9 L233.4 165.1 L234.9 166.2 L235.5 166.4 L235.1 168.1 L233.5 172.2 L233.5 173.8 L232.8 175.8 L232.3 177.1 L230.7 182.8 L229.4 185.0 L227.6 190.0 L227.2 193.8 L228.3 196.5 L228.6 199.0 L230.8 201.4 L232.4 202.3 L233.6 203.4 L235.6 206.0 L236.8 208.6 L240.4 209.9 L241.9 212.7 L241.4 214.7 L239.7 216.4 L238.1 219.1 L236.8 222.6 L236.7 227.9 L237.7 227.2 L239.6 228.5 L239.8 232.4 L237.8 237.1 L237.2 239.2 L237.1 241.0 L238.6 246.6 L240.7 249.4 L240.6 250.3 L240.0 251.0 L243.8 256.0 L243.4 260.4 L244.9 263.7 L245.5 266.7 L246.4 268.9 L246.6 270.5 L245.4 272.2 L248.2 272.6 L249.8 274.0 L250.5 275.4 L252.5 275.3 L253.6 276.2 L255.2 277.0 L258.5 279.3 L259.4 280.4 L259.8 281.1 L260.0 281.5 L257.7 283.2 L254.2 286.0 L250.6 288.7 L247.3 290.5 L244.9 291.4 L242.2 291.8 L239.8 293.0 L237.5 294.7 L234.5 295.6 L230.8 295.6 L227.1 296.9 L223.3 299.2 L221.1 300.6 L217.6 298.5 L214.8 297.9 L211.7 297.9 L209.8 298.2 L209.1 298.6 L208.5 299.9 L208.0 302.0 L206.0 304.0 L202.3 305.9 L199.0 306.6 L195.9 306.1 L193.9 305.3 L192.8 304.2 L191.2 303.7 L189.1 303.8 L187.1 304.6 L185.2 306.1 L182.1 306.7 L177.9 306.5 L175.7 305.8 L175.3 304.6 L173.5 303.1 L170.1 301.4 L167.6 301.4 L166.0 303.0 L164.6 304.0 L163.2 304.4 L162.1 304.5 L161.0 304.1 L160.4 304.0 L155.7 303.9 L151.3 303.9 L151.1 303.2 L150.9 301.6 L149.9 300.2 L149.1 299.3 L148.2 299.1 L147.7 299.2 L147.2 298.5 L146.7 297.1 L145.9 295.9 L145.0 294.8 L144.4 293.9 L144.2 293.0 L144.3 292.1 L145.2 289.7 L145.5 288.1 L145.4 286.5 L145.0 284.7 L143.9 282.7 L144.0 282.2 L143.7 280.8 L143.6 279.8 L143.8 278.6 L143.6 277.0 L142.7 273.7 L142.7 272.8 L141.8 271.2 L138.8 267.3 L138.7 266.8 L134.1 262.9 L132.3 262.1 L131.6 262.8 L131.4 263.5 L131.6 264.7 L131.4 265.3 L131.2 265.6 L130.2 265.6 L129.5 265.4 L127.7 264.4 L126.4 264.1 L123.1 264.3 L121.8 264.6 L120.9 264.3 L119.1 262.6 L117.1 262.2 L115.2 262.1 L112.1 260.1 L111.4 260.2 L111.0 260.3 Z M245.1 231.8 L244.1 232.0 L243.6 231.8 L243.0 230.9 L244.1 230.2 L245.3 228.8 L247.8 226.8 L248.7 225.5 L249.0 225.2 L248.8 226.8 L247.4 230.2 L246.1 230.4 L245.1 231.8 Z" fill="url(#tanzaniaGradient)" stroke="#1eb53a" stroke-width="2" filter="url(#neonGlow)"/>
+                                <circle cx="149" cy="120" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="164" cy="137" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="199" cy="134" r="3" fill="#ffffff" class="location-marker"/>
+                                <circle cx="235" cy="196" r="3" fill="#ffffff" class="location-marker"/>
+                            </svg>
+                        </div>
+                        <div class="travel-info">
+                            <h4 class="travel-title">Tanzania</h4>
+                            <p class="travel-description">United Republic of Tanzania: Serengeti plains, Ngorongoro Crater, Kilimanjaro and Zanzibar</p>
+                            <div class="travel-places">
+                                <span class="place-tag">Serengeti</span>
+                                <span class="place-tag">Ngorongoro</span>
+                                <span class="place-tag">Kilimanjaro</span>
+                                <span class="place-tag">Zanzibar</span>
                             </div>
                         </div>
                         <div class="travel-link">

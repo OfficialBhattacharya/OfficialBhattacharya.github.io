@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Networks III: Training That Actually Works | ML from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Losses, mini-batches, momentum and Adam, sensible initialisation, normalisation and regularisation. The practical toolkit that turns backprop into a model that generalises.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← ML from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">ML from Scratch · Lecture 5 of 5</p>
+<h1>Neural Networks III: Training That Actually Works</h1>
+<p class="dek">Losses, mini-batches, momentum and Adam, sensible initialisation, normalisation and regularisation. The practical toolkit that turns backprop into a model that generalises.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Loss functions</h2>
+<ul>
+<li><strong>Regression:</strong> MSE $\frac1n\sum(y-\hat y)^2$ (Gaussian noise); MAE or Huber for robustness to outliers.</li>
+<li><strong>Binary classification:</strong> sigmoid + binary cross-entropy.</li>
+<li><strong>Multi-class:</strong> softmax $p_k=e^{s_k}/\sum_je^{s_j}$ + categorical cross-entropy $-\log p_{y}$.</li>
+</ul>
+<p>Cross-entropy is the negative log-likelihood. Minimising it is maximum likelihood, the same principle behind logistic regression.</p>
+
+<h2>Stochastic gradient descent</h2>
+<p>Computing the full gradient over millions of examples per step is wasteful. Use a random <strong>mini-batch</strong> $B$ (32–1024 examples):</p>
+<div class="math">$$\theta\leftarrow\theta-\eta\,\frac1{|B|}\sum_{i\in B}\nabla_\theta\ell_i(\theta).$$</div>
+<p>The noisy gradient is unbiased, cheap, and its noise even helps escape sharp minima. The learning rate η is the most important hyperparameter. Too high diverges, too low crawls.</p>
+
+<h2>Better optimisers</h2>
+<p><strong>Momentum</strong> accumulates a velocity so consistent directions speed up and oscillations cancel:</p>
+<div class="math">$$v\leftarrow\beta v+\nabla\ell,\qquad \theta\leftarrow\theta-\eta v\quad(\beta\approx0.9).$$</div>
+<p><strong>Adam</strong> keeps running means of the gradient and its square and takes per-parameter steps scaled by the gradient's typical size:</p>
+<div class="math">$$m\leftarrow\beta_1m+(1-\beta_1)g,\quad v\leftarrow\beta_2v+(1-\beta_2)g^2,\quad \theta\leftarrow\theta-\eta\frac{\hat m}{\sqrt{\hat v}+\epsilon},$$</div>
+<p>with bias corrections $\hat m=m/(1-\beta_1^t)$, $\hat v=v/(1-\beta_2^t)$. Defaults $\beta_1=0.9$, $\beta_2=0.999$, η = 1e-3 work surprisingly often. AdamW decouples weight decay from the adaptive step and is today's default for transformers.</p>
+
+<div class="widget" data-widget="optim" data-title="Optimisers in a narrow valley"></div>
+
+<p>The loss surface here is a curved, narrow valley, typical of real networks. Plain gradient descent zig-zags across the valley walls. Momentum builds speed along the floor. Adam rescales each direction and heads more directly to the minimum. Push the learning rate up and watch plain GD start to bounce.</p>
+
+<h2>Initialisation</h2>
+<p>Weights must break symmetry (not all equal) and keep activations' variance stable from layer to layer:</p>
+<div class="math">$$\text{Xavier/Glorot (tanh): }\operatorname{Var}(w)=\frac{2}{n_{\text{in}}+n_{\text{out}}},\qquad \text{He (ReLU): }\operatorname{Var}(w)=\frac{2}{n_{\text{in}}}.$$</div>
+<p>The factor 2 for ReLU compensates for it zeroing half of its inputs.</p>
+
+<h2>Normalisation and residuals</h2>
+<ul>
+<li><strong>Batch normalisation:</strong> standardise each feature over the mini-batch, then rescale with learnable γ, β. It smooths the loss landscape and allows higher learning rates.</li>
+<li><strong>Layer normalisation:</strong> standardise across features per example. It's the default in transformers and RNNs.</li>
+<li><strong>Residual connections</strong> $h_{l+1}=h_l+F(h_l)$: gradients flow through the identity path, which makes 100+ layer networks trainable.</li>
+</ul>
+
+<h2>Regularisation</h2>
+<ul>
+<li><strong>Weight decay</strong> (L2): add $\frac\lambda2\|\theta\|^2$; prefers small, smooth weights.</li>
+<li><strong>Dropout:</strong> during training zero each hidden unit with probability $p$ and scale the rest by $1/(1-p)$. This trains an implicit ensemble of thinned networks, bagging in disguise (Lecture 2).</li>
+<li><strong>Early stopping:</strong> keep the weights from the epoch with the best validation loss.</li>
+<li><strong>Data augmentation:</strong> label-preserving transformations (crops, flips, noise) multiply the data.</li>
+</ul>
+
+<h2>A training recipe</h2>
+<ol>
+<li>Overfit a tiny batch first. If you can't get its loss to ~0, there's a bug.</li>
+<li>Start with AdamW, a sensible η (1e-3), He/Xavier init and normalisation layers.</li>
+<li>Use a learning-rate schedule: warm-up, then cosine or step decay.</li>
+<li>Watch train vs validation loss. A gap means more regularisation or data. Both high means a bigger model or more training.</li>
+<li>Clip gradients (norm ≈ 1) for recurrent and very deep models.</li>
+</ol>
+<div class="box"><strong class="tag">Trees or nets?</strong>On tabular data, gradient-boosted trees (Lecture 2) are still usually the stronger baseline: less tuning, robust to feature scale and missing values. Neural networks win on images, audio, text, sequences and very large datasets, where learned representations matter. Many winning Kaggle solutions blend both.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Cross-entropy = maximum likelihood; mini-batch SGD gives cheap, unbiased, helpful-noise gradients.</li><li>Momentum smooths oscillation; Adam/AdamW adapt per-parameter step sizes and are strong defaults.</li><li>He/Xavier init, normalisation, residuals, weight decay, dropout and early stopping make deep nets train and generalise.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Show that dropout with rescaling 1/(1−p) keeps the expected activation unchanged.</li><li>Implement Adam for the XOR network from Lecture 4 and compare epochs-to-converge with plain GD.</li><li>Derive He initialisation by requiring Var(z_{l+1}) = Var(z_l) for ReLU layers.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="04-backpropagation.html"><small>← Lecture 4</small>Neural Networks II: Backpropagation from Scratch</a><a class="next" href="index.html"><small>Finished →</small>Back to the syllabus</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decision Trees (CART) and Random Forests | ML from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Recursive yes/no questions, the impurity measures that choose them, why a single deep tree overfits, and how averaging many randomised trees fixes it.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← ML from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">ML from Scratch · Lecture 1 of 5</p>
+<h1>Decision Trees (CART) and Random Forests</h1>
+<p class="dek">Recursive yes/no questions, the impurity measures that choose them, why a single deep tree overfits, and how averaging many randomised trees fixes it.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>A tree is a sequence of questions</h2>
+<p>A decision tree splits the feature space with axis-aligned questions ("is income ≤ 40k?") until each region is pure enough, then predicts the majority class (classification) or the mean (regression) in that region. CART, Classification And Regression Trees (Breiman et al., 1984), grows the tree greedily, one best split at a time.</p>
+
+<h2>Choosing a split: impurity</h2>
+<p>For a node with class proportions $p_k$, common impurity measures are</p>
+<div class="math">$$\text{Gini}=\sum_k p_k(1-p_k)=1-\sum_kp_k^2,\qquad \text{Entropy}=-\sum_kp_k\log_2p_k,\qquad \text{MSE (regression)}=\frac1n\sum_i(y_i-\bar y)^2.$$</div>
+<p>A split sends $n_L$ points left and $n_R$ right. CART picks the feature $j$ and threshold $t$ that maximise the impurity <strong>decrease</strong>:</p>
+<div class="math">$$\Delta I=I(\text{parent})-\frac{n_L}{n}I(L)-\frac{n_R}{n}I(R).$$</div>
+<p>For each feature, sort its values and try every midpoint between consecutive distinct values. With running counts this is $O(n\log n)$ per feature per node.</p>
+<div class="box"><strong class="tag">Worked example</strong>10 points, 5 red and 5 blue: Gini $=1-0.5^2-0.5^2=0.5$. A split gives left {4 red, 1 blue} and right {1 red, 4 blue}: each child has Gini $1-0.8^2-0.2^2=0.32$, weighted 0.32, so the decrease is 0.18. A split into {5,0} and {0,5} would cut it to 0, a decrease of 0.5.</div>
+
+<h2>From scratch in Python</h2>
+<pre><code>def gini(y):
+    p = np.bincount(y, minlength=2) / len(y)
+    return 1 - (p ** 2).sum()
+
+def best_split(X, y):
+    best = (None, None, gini(y))           # feature, threshold, impurity
+    for j in range(X.shape[1]):
+        order = np.argsort(X[:, j]); xs, ys = X[order, j], y[order]
+        for i in range(1, len(ys)):
+            if xs[i] == xs[i - 1]: continue
+            imp = (i * gini(ys[:i]) + (len(ys) - i) * gini(ys[i:])) / len(ys)
+            if imp < best[2]: best = (j, (xs[i] + xs[i - 1]) / 2, imp)
+    return best
+
+def grow(X, y, depth):
+    j, t, _ = best_split(X, y)
+    if depth == 0 or j is None: return {"leaf": y.mean()}
+    m = X[:, j] <= t
+    return {"j": j, "t": t, "l": grow(X[m], y[m], depth - 1), "r": grow(X[~m], y[~m], depth - 1)}</code></pre>
+
+<div class="widget" data-widget="cart" data-title="A CART tree carving up the plane"></div>
+
+<p>Increase the depth. Training accuracy climbs towards 100% as the tree builds tiny boxes around individual noisy points, but test accuracy peaks and then falls. A single deep tree has <strong>low bias and high variance</strong>: a slightly different training set gives a very different tree.</p>
+
+<h2>Controlling a single tree</h2>
+<ul>
+<li><strong>Pre-pruning:</strong> max depth, minimum samples per leaf, minimum impurity decrease.</li>
+<li><strong>Cost-complexity pruning:</strong> grow fully, then minimise $\text{error}+\alpha\cdot|\text{leaves}|$, choosing α by cross-validation.</li>
+</ul>
+<p>Trees are interpretable, need no feature scaling, and handle mixed types and interactions naturally. But they're unstable, and their decision boundaries are staircases.</p>
+
+<h2>Random forests: averaging away variance</h2>
+<p>If $B$ predictors each have variance $\sigma^2$ and pairwise correlation $\rho$, their average has variance</p>
+<div class="math">$$\operatorname{Var}\Big(\frac1B\sum_b \hat f_b\Big)=\rho\sigma^2+\frac{1-\rho}{B}\sigma^2.$$</div>
+<p>Averaging kills the second term. To shrink the first term we must <em>decorrelate</em> the trees. A random forest does both:</p>
+<ol>
+<li><strong>Bootstrap:</strong> each tree is trained on $n$ points drawn <em>with replacement</em> (bagging). About 63% of points appear in each sample.</li>
+<li><strong>Feature subsampling:</strong> at each split only a random subset of $m$ features is considered (typically $\sqrt p$ for classification, $p/3$ for regression). Strong features can't dominate every tree, so the trees disagree in useful ways.</li>
+<li><strong>Average</strong> the predictions (or majority vote).</li>
+</ol>
+
+<div class="widget" data-widget="forest" data-title="One tree vs a forest"></div>
+
+<p>With one tree the boundary is blocky and overfit. Add trees and it becomes a smooth, round boundary, and test accuracy improves without any pruning.</p>
+
+<h2>Free extras</h2>
+<ul>
+<li><strong>Out-of-bag (OOB) error:</strong> each point is left out by about 37% of the trees. Predict it with only those trees to get a built-in validation estimate.</li>
+<li><strong>Feature importance:</strong> total impurity decrease per feature, or (better) permutation importance, the drop in OOB accuracy when a feature is shuffled.</li>
+</ul>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>CART greedily picks the split with the largest impurity decrease (Gini, entropy, MSE).</li><li>Deep single trees overfit: low bias, high variance. Prune with depth/leaf limits or cost-complexity.</li><li>Random forests average bootstrapped, feature-subsampled trees, cutting variance; OOB error comes free.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Compute the Gini decrease for splitting {6 A, 4 B} into {5 A, 1 B} and {1 A, 3 B}. Compare with entropy.</li><li>Show that the probability a point is not in a bootstrap sample of size n tends to 1/e.</li><li>Extend the Python tree to regression (MSE impurity, mean leaf) and fit y = sin(x) + noise.</li></ol></section>
+<nav class="series-nav"><span>Start of the series</span><a class="next" href="02-bagging-boosting-xgboost.html"><small>Lecture 2 →</small>Bagging vs Boosting, and XGBoost from the Objective Up</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

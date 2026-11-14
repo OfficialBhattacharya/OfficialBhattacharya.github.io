@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Black–Scholes PDE and Formula | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Delta-hedge away the randomness, demand the riskless return, and a PDE appears. Solve it two ways, via the heat equation and via risk-neutral expectation, and arrive at the formula.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 11 of 12</p>
+<h1>The Black–Scholes PDE and Formula</h1>
+<p class="dek">Delta-hedge away the randomness, demand the riskless return, and a PDE appears. Solve it two ways, via the heat equation and via risk-neutral expectation, and arrive at the formula.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Assumptions</h2>
+<p>Stock follows GBM with constant σ; constant risk-free rate $r$; no dividends; continuous frictionless trading; short-selling allowed; no arbitrage. Lecture 12 discusses what happens when these fail.</p>
+
+<h2>Derivation by delta hedging</h2>
+<p>Hold one option worth $V(t,S)$ and short $\Delta$ shares: $\Pi=V-\Delta S$. Over $dt$, by Itô (Lecture 8):</p>
+<div class="math">$$d\Pi=\Big(V_t+\mu SV_S+\tfrac12\sigma^2S^2V_{SS}-\Delta\mu S\Big)dt+\sigma S\big(V_S-\Delta\big)dW.$$</div>
+<p>Choose $\Delta=V_S$. The $dW$ term vanishes, and <em>so does every μ</em>. The portfolio is now riskless over $dt$, so by no-arbitrage it must earn the risk-free rate: $d\Pi=r\Pi\,dt=r(V-SV_S)\,dt$. Equate:</p>
+<div class="box def"><strong class="tag">Black–Scholes PDE</strong>$$\frac{\partial V}{\partial t}+rS\frac{\partial V}{\partial S}+\frac12\sigma^2S^2\frac{\partial^2V}{\partial S^2}-rV=0,\qquad V(T,S)=\text{payoff}(S).$$</div>
+<p>Three remarks. (i) μ has disappeared: two people who disagree about the stock's expected return agree on the option's price. (ii) The PDE is linear, so prices of portfolios add. (iii) Reading it as $\Theta+\tfrac12\sigma^2S^2\Gamma=r(V-S\Delta)$ gives the trader's intuition: <em>theta pays for gamma</em>.</p>
+
+<h2>Solution 1: reduce to the heat equation</h2>
+<p>Substitute $S=Ke^{x}$, $\tau=\tfrac12\sigma^2(T-t)$, $V=K\,e^{\alpha x+\beta\tau}u(\tau,x)$ with $k=2r/\sigma^2$, $\alpha=-\tfrac12(k-1)$, $\beta=-\tfrac14(k+1)^2$. The first-order and zeroth-order terms cancel and</p>
+<div class="math">$$u_\tau=u_{xx},$$</div>
+<p>the heat equation from Lecture 5 (with diffusion constant 1). Its solution is a Gaussian average of the transformed payoff. Doing the integral gives the formula below. The financial picture: the payoff "diffuses" backward in time and gets smoothed into today's value curve.</p>
+
+<h2>Solution 2: risk-neutral expectation</h2>
+<p>By Lecture 9, $C=e^{-rT}\mathbb E^{\mathbb Q}[(S_T-K)^+]$ with $S_T=S_0e^{(r-\sigma^2/2)T+\sigma\sqrt T Z}$. Split the payoff:</p>
+<div class="math">$$C=e^{-rT}\mathbb E^{\mathbb Q}\big[S_T\mathbf 1_{\{S_T \gt K\}}\big]-Ke^{-rT}\,\mathbb Q(S_T \gt K).$$</div>
+<p>From Lecture 2 with μ replaced by $r$: $\mathbb Q(S_T \gt K)=N(d_2)$ and $\mathbb E^{\mathbb Q}[S_T\mathbf 1_{\{S_T \gt K\}}]=S_0e^{rT}N(d_1)$. Therefore</p>
+<div class="box def"><strong class="tag">Black–Scholes formula</strong>$$C=S_0N(d_1)-Ke^{-rT}N(d_2),\qquad P=Ke^{-rT}N(-d_2)-S_0N(-d_1),$$
+$$d_{1,2}=\frac{\ln(S_0/K)+\big(r\pm\tfrac12\sigma^2\big)T}{\sigma\sqrt T},\qquad d_1=d_2+\sigma\sqrt T.$$</div>
+<p><strong>Reading the formula.</strong> $N(d_2)$ is the risk-neutral probability the call finishes in the money. $N(d_1)$ is the call's delta, the number of shares in the replicating portfolio. So $C$ is the cost of holding $N(d_1)$ shares minus a loan of $Ke^{-rT}N(d_2)$, which is exactly the replicating portfolio from the binomial model.</p>
+
+<div class="widget" data-widget="bscalc" data-title="Black–Scholes calculator"></div>
+
+<p>Things to try in the calculator: shrink $T$ towards zero and the value curve collapses onto the payoff. Raise σ and the curve lifts everywhere: options love volatility. Check parity: call − put should equal $S-Ke^{-rT}$ for any σ.</p>
+
+<pre><code>from math import log, sqrt, exp
+from statistics import NormalDist
+N = NormalDist().cdf
+def bs_call(S, K, T, r, sigma):
+    d1 = (log(S / K) + (r + sigma**2 / 2) * T) / (sigma * sqrt(T))
+    d2 = d1 - sigma * sqrt(T)
+    return S * N(d1) - K * exp(-r * T) * N(d2)
+bs_call(100, 100, 1, 0.05, 0.2)   # 10.4506</code></pre>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Delta hedging with Δ = V_S removes risk and μ; no-arbitrage then gives the Black–Scholes PDE.</li><li>The PDE turns into the heat equation; equivalently C = e^{−rT}E^Q[(S_T − K)⁺].</li><li>C = S₀N(d₁) − Ke^{−rT}N(d₂): N(d₁) is delta, N(d₂) is the Q-probability of exercise.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Verify by differentiation that the call formula satisfies the PDE (use S n(d₁) = K e^{−rT} n(d₂)).</li><li>Price a call and put with S = 100, K = 110, T = 0.5, r = 4%, σ = 25%, and verify put–call parity.</li><li>Show the call price tends to max(S − Ke^{−rT}, 0) as σ → 0 and to S as σ → ∞.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="10-binomial-model.html"><small>← Lecture 10</small>The Binomial Model: Replication with Arithmetic</a><a class="next" href="12-greeks-hedging-limits.html"><small>Lecture 12 →</small>Greeks, Hedging, Monte Carlo, and Where Black–Scholes Breaks</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

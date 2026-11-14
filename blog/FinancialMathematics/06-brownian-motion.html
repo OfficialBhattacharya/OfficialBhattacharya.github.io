@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Random Walks to Brownian Motion | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Shrink the coin-flip walk in time and scale it by √n, and a continuous but nowhere-smooth random path appears. Its strange properties are why ordinary calculus breaks.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 6 of 12</p>
+<h1>From Random Walks to Brownian Motion</h1>
+<p class="dek">Shrink the coin-flip walk in time and scale it by √n, and a continuous but nowhere-smooth random path appears. Its strange properties are why ordinary calculus breaks.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Scaling a random walk</h2>
+<p>Take the ±1 walk from Lecture 1 with $n$ steps in unit time. Each step is shrunk to $\pm1/\sqrt n$ (not $1/n$, which would wash out to zero by the law of large numbers):</p>
+<div class="math">$$W^{(n)}(t)=\frac{1}{\sqrt n}\sum_{i=1}^{\lfloor nt\rfloor}\xi_i,\qquad \operatorname{Var}W^{(n)}(t)\approx t.$$</div>
+<p>As $n\to\infty$ the CLT makes $W^{(n)}(t)$ normal with variance $t$, and the whole path converges (Donsker's theorem) to <strong>Brownian motion</strong>.</p>
+
+<div class="widget" data-widget="randomwalk" data-title="Scaled random walks: increase n"></div>
+
+<h2>Definition</h2>
+<div class="box def"><strong class="tag">Standard Brownian motion</strong>A process $W_t$ with
+<ol><li>$W_0=0$;</li><li>independent increments: $W_t-W_s$ is independent of the past before $s$;</li><li>stationary Gaussian increments: $W_t-W_s\sim\mathcal N(0,t-s)$;</li><li>continuous paths.</li></ol></div>
+<p>Consequences: $\mathbb E W_t=0$, $\operatorname{Var}W_t=t$, $\operatorname{Cov}(W_s,W_t)=\min(s,t)$, and the scaling property $W_{ct}\overset{d}{=}\sqrt c\,W_t$.</p>
+
+<h2>Strange but crucial properties</h2>
+<h3>1. Nowhere differentiable</h3>
+<p>Over a step $h$, $\Delta W\sim\sqrt h$, so $\frac{\Delta W}{h}\sim\frac{1}{\sqrt h}\to\infty$. The path is continuous but has no slope anywhere. "$dW/dt$" doesn't exist, which is why we write SDEs with $dW$ rather than ODEs with $dW/dt$.</p>
+<h3>2. Infinite total variation</h3>
+<p>Summing $|\Delta W|$ over a partition of $[0,t]$ gives roughly $n\cdot\sqrt{t/n}=\sqrt{nt}\to\infty$. Classical (Riemann–Stieltjes) integration against $W$ is therefore impossible.</p>
+<h3>3. Finite quadratic variation</h3>
+<p>But the sum of <em>squared</em> increments settles down:</p>
+<div class="math">$$\sum_{i=1}^n\big(W_{t_i}-W_{t_{i-1}}\big)^2\;\longrightarrow\;t\qquad\text{as the mesh}\to0.$$</div>
+<p>Each term has mean $t/n$ and variance $2t^2/n^2$, so the sum has mean $t$ and variance $2t^2/n\to0$. A random sum becomes deterministic. This is written informally as</p>
+<div class="math">$$(dW_t)^2=dt,\qquad dW_t\,dt=0,\qquad (dt)^2=0.$$</div>
+<p>In the random-walk figure, the printed sum of squared steps is exactly 1 for any path. Lecture 8 shows the same convergence for true Brownian increments. These multiplication rules are all you need to use Itô's lemma.</p>
+
+<h2>Brownian motion with drift and scale</h2>
+<p>$X_t=\mu t+\sigma W_t$ is normal with mean $\mu t$ and variance $\sigma^2t$. Over short horizons the noise ($\sigma\sqrt t$) dominates the drift ($\mu t$). This is why daily returns look like pure noise even for a stock with a healthy expected return, and why μ is so hard to estimate.</p>
+<div class="box warn"><strong class="tag">Estimation fact</strong>With σ = 20% and μ = 8%, distinguishing μ from 0 at two standard errors needs about $(2\sigma/\mu)^2=25$ years of data. Volatility, on the other hand, can be estimated from a few weeks of intraday data. Black–Scholes needs σ but not μ, which is a gift.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Brownian motion is the √n-scaled limit of a random walk: Gaussian, independent increments, continuous paths.</li><li>Paths are nowhere differentiable with infinite total variation, so ordinary calculus fails.</li><li>Quadratic variation is finite and deterministic: (dW)² = dt. This is the seed of Itô calculus.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Compute Cov(W₂, W₅) and Var(W₅ − 2W₂).</li><li>Show that −W_t and W_{ct}/√c are also Brownian motions.</li><li>If daily σ = 1.25%, what is the annualised σ (252 days)? Why is it not 252 × 1.25%?</li></ol></section>
+<nav class="series-nav"><a class="prev" href="05-differential-equations.html"><small>← Lecture 5</small>Differential Equations: From Compounding to the Heat Equation</a><a class="next" href="07-sdes.html"><small>Lecture 7 →</small>Stochastic Differential Equations</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

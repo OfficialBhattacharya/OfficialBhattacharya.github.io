@@ -1,0 +1,81 @@
+/* Lecture series: Black-Scholes from Scratch, ML from Scratch */
+:root {
+    --ink: #1d2733;
+    --ink-soft: #4a5866;
+    --paper: #fbfaf7;
+    --rule: #e6e2d9;
+    --accent: #0f8a5f;
+    --accent-2: #2563eb;
+    --warn: #c2410c;
+    --code-bg: #f3f1ec;
+    --night: #0a0a0a;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    margin: 0;
+    background: var(--night);
+    background-image: radial-gradient(900px 400px at 50% -100px, rgba(0, 255, 157, 0.12), transparent 70%);
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--ink);
+}
+.topbar { max-width: 860px; margin: 0 auto; padding: 18px 16px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: 'Inter', system-ui, sans-serif; font-size: 0.92rem; }
+.topbar a { color: #9fe9c8; text-decoration: none; font-weight: 600; }
+.topbar a:hover { color: #fff; }
+article.lecture { max-width: 860px; margin: 0 auto 48px; background: var(--paper); border-radius: 16px; padding: clamp(20px, 5vw, 56px); box-shadow: 0 30px 80px -30px rgba(0, 255, 157, 0.25); }
+.kicker { font-family: 'Inter', system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); line-height: 1.12; margin: 0 0 12px; letter-spacing: -0.01em; }
+.dek { font-size: 1.18rem; color: var(--ink-soft); margin: 0 0 18px; line-height: 1.5; }
+.meta { font-family: 'Inter', system-ui, sans-serif; font-size: 0.85rem; color: var(--ink-soft); display: flex; gap: 14px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid var(--rule); margin-bottom: 26px; }
+.lecture h2 { font-size: 1.55rem; margin: 2.2rem 0 0.8rem; line-height: 1.25; }
+.lecture h3 { font-size: 1.15rem; margin: 1.6rem 0 0.5rem; font-family: 'Inter', system-ui, sans-serif; }
+.lecture p, .lecture li { font-size: 1.08rem; line-height: 1.72; }
+.lecture ul, .lecture ol { padding-left: 1.3rem; }
+.lecture a { color: var(--accent-2); }
+.math { overflow-x: auto; overflow-y: hidden; margin: 1rem 0; padding: 0.6rem 1rem; background: var(--code-bg); border-radius: 8px; }
+.box { border-left: 4px solid var(--accent); background: #eef8f3; padding: 0.9rem 1.1rem; border-radius: 0 10px 10px 0; margin: 1.3rem 0; }
+.box.warn { border-color: var(--warn); background: #fdf1ea; }
+.box.def { border-color: var(--accent-2); background: #eef3fd; }
+.box > :first-child { margin-top: 0; }
+.box > :last-child { margin-bottom: 0; }
+.box strong.tag { font-family: 'Inter', system-ui, sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+pre { background: #0f172a; color: #e2e8f0; padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: 0.88rem; line-height: 1.55; }
+code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.9em; }
+p code, li code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+.takeaways { background: #10261d; color: #d9f5e8; border-radius: 12px; padding: 1.1rem 1.4rem; margin-top: 2rem; }
+.takeaways h2 { color: #7ff0bf; margin-top: 0; font-size: 1.2rem; font-family: 'Inter', system-ui, sans-serif; letter-spacing: 0.04em; }
+.takeaways li { font-size: 1.02rem; }
+.exercises h2 { font-size: 1.2rem; }
+.series-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 2.5rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); font-family: 'Inter', system-ui, sans-serif; flex-wrap: wrap; }
+.series-nav a, .series-nav span { flex: 1 1 220px; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: var(--ink); font-size: 0.92rem; }
+.series-nav a:hover { border-color: var(--accent); }
+.series-nav .next { text-align: right; }
+.series-nav small { display: block; color: var(--ink-soft); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.series-nav span { opacity: 0.4; }
+
+/* Widgets */
+.widget { margin: 1.6rem 0; border: 1px solid var(--rule); border-radius: 12px; background: #fff; overflow: hidden; }
+.widget .w-head { font-family: 'Inter', system-ui, sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); padding: 10px 14px; border-bottom: 1px solid var(--rule); background: #f7fbf9; }
+.widget canvas { display: block; width: 100%; height: auto; touch-action: none; }
+.widget .w-ctrl { display: flex; flex-wrap: wrap; gap: 10px 18px; padding: 10px 14px; border-top: 1px solid var(--rule); font-family: 'Inter', system-ui, sans-serif; font-size: 0.85rem; align-items: center; }
+.widget label { display: flex; align-items: center; gap: 8px; }
+.widget input[type=range] { width: 130px; accent-color: var(--accent); }
+.widget .val { font-family: 'JetBrains Mono', monospace; min-width: 3.5em; display: inline-block; }
+.widget button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); background: #fff; color: var(--accent); border-radius: 6px; cursor: pointer; min-height: 34px; }
+.widget button:hover { background: #eef8f3; }
+.widget .w-out { padding: 8px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ink-soft); border-top: 1px solid var(--rule); white-space: pre-wrap; }
+.widget select { font: inherit; padding: 4px 6px; }
+
+/* Series landing */
+.syllabus { list-style: none; padding: 0; counter-reset: lec; }
+.syllabus li { counter-increment: lec; border: 1px solid var(--rule); border-radius: 12px; margin: 10px 0; }
+.syllabus a { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 14px 16px; text-decoration: none; color: var(--ink); }
+.syllabus a::before { content: counter(lec, decimal-leading-zero); font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: var(--accent); }
+.syllabus a:hover { background: #f4faf7; border-radius: 12px; }
+.syllabus b { display: block; font-size: 1.1rem; }
+.syllabus small { color: var(--ink-soft); font-size: 0.95rem; }
+
+@media (max-width: 560px) {
+    .lecture p, .lecture li { font-size: 1.02rem; }
+    .widget input[type=range] { width: 100px; }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taylor Series: Local Approximations That Run Finance | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Duration, convexity, delta, gamma and Itô&#x27;s lemma are all Taylor expansions in disguise. Here is the tool, its error term, and why the second-order term is the one that matters.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 4 of 12</p>
+<h1>Taylor Series: Local Approximations That Run Finance</h1>
+<p class="dek">Duration, convexity, delta, gamma and Itô&#x27;s lemma are all Taylor expansions in disguise. Here is the tool, its error term, and why the second-order term is the one that matters.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>The idea</h2>
+<p>Near a point $a$, a smooth function looks like a polynomial:</p>
+<div class="math">$$f(a+h)=f(a)+f'(a)h+\frac{f''(a)}{2!}h^2+\frac{f^{(3)}(a)}{3!}h^3+\cdots$$</div>
+<p>Truncate after $n$ terms and you get the Taylor polynomial $T_n$. The error is controlled by the next derivative (Lagrange form):</p>
+<div class="math">$$f(a+h)-T_n(a+h)=\frac{f^{(n+1)}(\xi)}{(n+1)!}h^{n+1}\quad\text{for some }\xi\text{ between }a\text{ and }a+h.$$</div>
+<p>So for small $h$ each extra term buys a whole extra power of $h$ in accuracy.</p>
+
+<div class="widget" data-widget="taylor" data-title="Taylor polynomials of increasing order"></div>
+
+<h2>Expansions you will use</h2>
+<div class="math">$$e^x = 1+x+\frac{x^2}{2}+\frac{x^3}{6}+\cdots,\qquad \ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots\;(|x| \lt 1),\qquad \sqrt{1+x}\approx 1+\frac x2.$$</div>
+<ul>
+<li>Simple vs log returns: $\ln(1+R)\approx R-\tfrac12R^2$. Averaging this over many periods, $\mathbb{E}[R^2]\approx\sigma^2$, gives the −σ²/2 from Lecture 2 again.</li>
+<li>$(1+r/m)^m=e^{m\ln(1+r/m)}=e^{r-r^2/(2m)+\cdots}\to e^r$, which is continuous compounding.</li>
+</ul>
+
+<h2>Two variables</h2>
+<p>For $f(t,x)$ with small changes $\Delta t,\Delta x$:</p>
+<div class="math">$$\Delta f\approx f_t\,\Delta t+f_x\,\Delta x+\tfrac12 f_{xx}(\Delta x)^2+f_{tx}\,\Delta t\,\Delta x+\tfrac12 f_{tt}(\Delta t)^2.$$</div>
+<p>In ordinary calculus we keep only first-order terms, because $(\Delta x)^2$ is negligible next to $\Delta x$ when $x$ is smooth. <strong>Hold that thought.</strong> When $x$ is a Brownian path, $(\Delta x)^2$ is of the same order as $\Delta t$, so the $\tfrac12 f_{xx}(\Delta x)^2$ term survives. That single surviving term is Itô's lemma (Lecture 8).</p>
+
+<h2>Finance as Taylor series</h2>
+<table style="width:100%;border-collapse:collapse;font-size:1rem">
+<tr><th style="text-align:left;border-bottom:1px solid #ddd;padding:6px">Object</th><th style="text-align:left;border-bottom:1px solid #ddd;padding:6px">First order</th><th style="text-align:left;border-bottom:1px solid #ddd;padding:6px">Second order</th></tr>
+<tr><td style="padding:6px">Bond price $P(y)$</td><td style="padding:6px">duration $-\frac{1}{P}\frac{dP}{dy}$</td><td style="padding:6px">convexity $\frac1P\frac{d^2P}{dy^2}$</td></tr>
+<tr><td style="padding:6px">Option value $V(S)$</td><td style="padding:6px">delta $\Delta=\partial V/\partial S$</td><td style="padding:6px">gamma $\Gamma=\partial^2V/\partial S^2$</td></tr>
+<tr><td style="padding:6px">Option value $V(t)$</td><td style="padding:6px">theta $\Theta=\partial V/\partial t$</td><td style="padding:6px">—</td></tr>
+</table>
+<p>A delta-hedged option book has P&L over a small step of roughly</p>
+<div class="math">$$\Delta \Pi \approx \Theta\,\Delta t+\tfrac12\Gamma(\Delta S)^2.$$</div>
+<p>Gamma earns money when the stock moves, theta bleeds money as time passes, and Black–Scholes is the statement that these balance exactly when $(\Delta S)^2$ averages $\sigma^2S^2\Delta t$. Lectures 11–12 make this precise.</p>
+
+<div class="box warn"><strong class="tag">When Taylor fails</strong>Expansions are local. A 20% gap move is not "small", and higher-order terms (and jumps) matter. Risk systems that rely only on delta and gamma underestimate tail losses for exactly this reason.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Taylor: f(a+h) ≈ Σ f⁽ᵏ⁾(a)hᵏ/k!, with error of order h^{n+1}.</li><li>Duration/convexity and delta/gamma are first and second Taylor coefficients.</li><li>In stochastic calculus (Δx)² ~ Δt, so the second-order term survives. That is Itô&#x27;s lemma.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Expand e^{−rT} to second order and compare with the exact value for r = 5%, T = 2.</li><li>Using ln(1+R) ≈ R − R²/2, show E[ln(1+R)] ≈ μ − σ²/2 when E R = μ and Var R = σ².</li><li>A position has Δ = 0, Γ = 0.05 per ₹ and Θ = −2 per day. How big a daily move breaks even?</li></ol></section>
+<nav class="series-nav"><a class="prev" href="03-finance-basics.html"><small>← Lecture 3</small>Finance Basics: Interest, Forwards, Options and No-Arbitrage</a><a class="next" href="05-differential-equations.html"><small>Lecture 5 →</small>Differential Equations: From Compounding to the Heat Equation</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

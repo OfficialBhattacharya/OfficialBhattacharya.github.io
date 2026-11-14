@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Differential Equations: From Compounding to the Heat Equation | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="How quantities evolve: ordinary differential equations, how to solve them by hand and by computer, and a first look at the partial differential equation Black–Scholes turns into.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 5 of 12</p>
+<h1>Differential Equations: From Compounding to the Heat Equation</h1>
+<p class="dek">How quantities evolve: ordinary differential equations, how to solve them by hand and by computer, and a first look at the partial differential equation Black–Scholes turns into.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Ordinary differential equations</h2>
+<p>An ODE relates a function to its own rate of change. The money-market account grows in proportion to its size:</p>
+<div class="math">$$\frac{dB}{dt}=rB,\qquad B(0)=B_0.$$</div>
+<p><strong>Separation of variables:</strong> $\frac{dB}{B}=r\,dt\Rightarrow \ln B=rt+c\Rightarrow B(t)=B_0e^{rt}$. That's continuous compounding again, now as the solution of an equation.</p>
+<p>A second classic is <strong>mean reversion</strong> (it reappears as the Vasicek and Ornstein–Uhlenbeck models):</p>
+<div class="math">$$\frac{dx}{dt}=\kappa(\theta-x)\;\Rightarrow\;x(t)=\theta+(x_0-\theta)e^{-\kappa t}.$$</div>
+<p>The gap to the long-run level θ decays exponentially at speed κ, with half-life $\ln 2/\kappa$.</p>
+
+<h2>Numerical solution: Euler's method</h2>
+<p>Most equations have no closed form. Euler's method replaces $dt$ by a small step $h$:</p>
+<div class="math">$$B_{k+1}=B_k+rB_k\,h=B_k(1+rh)\quad\Rightarrow\quad B_n=B_0(1+rh)^{n}.$$</div>
+<p>With $h=T/n$ this is exactly discrete compounding, and it converges to $e^{rT}$ as $n\to\infty$. The error is proportional to $h$.</p>
+
+<div class="widget" data-widget="euler" data-title="Euler steps vs the exact solution"></div>
+
+<p>Keep Euler in mind: the stochastic version (Euler–Maruyama, Lecture 7) is how we'll simulate stock prices, and it's the engine behind most Monte Carlo pricers.</p>
+
+<h2>Linear ODEs and integrating factors</h2>
+<p>For $\frac{dy}{dt}+a(t)y=b(t)$, multiply by $e^{\int a}$:</p>
+<div class="math">$$\frac{d}{dt}\Big(y\,e^{\int_0^t a}\Big)=b(t)\,e^{\int_0^t a}.$$</div>
+<p>The same trick, "multiply by an exponential to make the left side a total derivative", solves the Ornstein–Uhlenbeck SDE and underlies discounting $e^{-rt}V$.</p>
+
+<h2>Partial differential equations</h2>
+<p>When a quantity depends on two variables, say time and position, its evolution is a PDE. The most important one for us is the <strong>heat (diffusion) equation</strong>:</p>
+<div class="math">$$\frac{\partial u}{\partial \tau}=\frac12\frac{\partial^2u}{\partial x^2}.$$</div>
+<p>Think of $u(\tau,x)$ as temperature along a rod. Heat flows from hot to cold, smoothing out bumps, and the curvature $u_{xx}$ drives the change. Its fundamental solution is a Gaussian that spreads like $\sqrt{\tau}$:</p>
+<div class="math">$$u(\tau,x)=\int \frac{1}{\sqrt{2\pi\tau}}e^{-\frac{(x-y)^2}{2\tau}}\,u_0(y)\,dy.$$</div>
+<div class="box"><strong class="tag">Preview</strong>The heat equation smooths an initial profile by averaging it against a normal density. In Lecture 11 the Black–Scholes PDE, after a change of variables, <em>becomes</em> this heat equation. The initial profile is the option's payoff, and the Gaussian average is the expectation from Lecture 2. Diffusion of heat and diffusion of prices are the same mathematics.</div>
+
+<h2>Boundary and terminal conditions</h2>
+<p>A PDE needs side conditions. For options we know the value at <em>expiry</em> (the payoff) and solve <em>backwards</em> in time to today. That's why we'll write time-to-expiry τ = T − t, which turns a backward problem into a standard forward heat equation.</p>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>dB = rB dt ⇒ B = B₀e^{rt}. Mean reversion dx = κ(θ − x)dt ⇒ exponential decay to θ.</li><li>Euler&#x27;s method is discrete compounding, with error O(h). Its stochastic sibling simulates prices.</li><li>The heat equation u_τ = ½u_xx smooths by Gaussian averaging. Black–Scholes reduces to it.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Solve dx/dt = 2(5 − x), x(0) = 1. When is x within 1% of 5?</li><li>Use Euler with h = 0.5 on dB/dt = 0.1B from t = 0 to 2. Compare with e^{0.2}.</li><li>Verify that u(τ,x) = (2πτ)^{−1/2} e^{−x²/(2τ)} satisfies the heat equation.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="04-taylor-series.html"><small>← Lecture 4</small>Taylor Series: Local Approximations That Run Finance</a><a class="next" href="06-brownian-motion.html"><small>Lecture 6 →</small>From Random Walks to Brownian Motion</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

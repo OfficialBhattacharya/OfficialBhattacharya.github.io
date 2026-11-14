@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martingales and the Risk-Neutral Measure | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Fair games, conditional expectation, and the astonishing result that we can price as if every investor were indifferent to risk, by changing the probability measure.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 9 of 12</p>
+<h1>Martingales and the Risk-Neutral Measure</h1>
+<p class="dek">Fair games, conditional expectation, and the astonishing result that we can price as if every investor were indifferent to risk, by changing the probability measure.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Information and conditional expectation</h2>
+<p>As time passes we learn more. The information available at time $t$ is a σ-algebra $\mathcal F_t$, and the growing family $(\mathcal F_t)$ is a <strong>filtration</strong>. $\mathbb E[X\mid\mathcal F_t]$ is the best forecast of $X$ given what we know at $t$. Two rules do almost all the work:</p>
+<ul>
+<li><strong>Tower property:</strong> $\mathbb E\big[\mathbb E[X\mid\mathcal F_t]\mid\mathcal F_s\big]=\mathbb E[X\mid\mathcal F_s]$ for $s\le t$.</li>
+<li><strong>Taking out what is known:</strong> if $Y$ is known at $t$, $\mathbb E[YX\mid\mathcal F_t]=Y\,\mathbb E[X\mid\mathcal F_t]$.</li>
+</ul>
+
+<h2>Martingales</h2>
+<div class="box def"><strong class="tag">Definition</strong>$M_t$ is a <strong>martingale</strong> if $\mathbb E|M_t| \lt \infty$ and $\mathbb E[M_t\mid\mathcal F_s]=M_s$ for all $s\le t$. Your best guess of its future value is its current value: a fair game.</div>
+<p>Examples: $W_t$; $W_t^2-t$; $\exp(\theta W_t-\tfrac12\theta^2t)$ (by the MGF from Lecture 2). A practical test from Itô's lemma: an Itô process is a (local) martingale exactly when its $dt$ term is zero. Stochastic integrals $\int H\,dW$ are martingales because each increment has conditional mean zero.</p>
+<div class="box"><strong class="tag">Why martingales matter</strong>If $M$ is a martingale then $M_0=\mathbb E[M_T]$: today's value is the expected terminal value. Pricing comes down to finding a quantity that is a martingale and whose terminal value is the payoff.</div>
+
+<h2>The problem with the real-world measure</h2>
+<p>Under the real-world measure $\mathbb P$, $d(e^{-rt}S)=e^{-rt}S\big((\mu-r)\,dt+\sigma\,dW\big)$. Investors demand $\mu \gt r$ for bearing risk, so the discounted stock drifts upward and isn't a martingale. If we priced an option as $e^{-rT}\mathbb E^{\mathbb P}[\text{payoff}]$, we'd need to know μ and also some risk premium for the option itself. That's hopeless in practice.</p>
+
+<h2>Changing measure: Girsanov</h2>
+<p>Define the <strong>market price of risk</strong> $\lambda=(\mu-r)/\sigma$ and a new measure $\mathbb Q$ by reweighting each path:</p>
+<div class="math">$$\frac{d\mathbb Q}{d\mathbb P}\Big|_{\mathcal F_T}=\exp\!\Big(-\lambda W_T-\tfrac12\lambda^2T\Big).$$</div>
+<p><strong>Girsanov's theorem:</strong> under $\mathbb Q$, $\widetilde W_t=W_t+\lambda t$ is a Brownian motion. This is the "exponential tilt shifts a normal's mean" fact from Lecture 2, applied to whole paths. Substituting:</p>
+<div class="math">$$dS=\mu S\,dt+\sigma S\,(d\widetilde W-\lambda\,dt)=rS\,dt+\sigma S\,d\widetilde W.$$</div>
+<p>Under $\mathbb Q$ the stock grows at the risk-free rate and $e^{-rt}S_t$ is a martingale. $\mathbb Q$ is the <strong>risk-neutral</strong> (equivalent martingale) measure. It agrees with $\mathbb P$ on which events are possible and disagrees only on how likely they are.</p>
+
+<div class="widget" data-widget="martingale" data-title="Discounted prices under P and Q"></div>
+
+<h2>The pricing formula</h2>
+<div class="box def"><strong class="tag">Risk-neutral valuation</strong>For a payoff $H$ at $T$ that can be replicated by trading the stock and bond:
+$$V_t=e^{-r(T-t)}\,\mathbb E^{\mathbb Q}\big[H\mid\mathcal F_t\big].$$</div>
+<p><strong>Why it holds.</strong> A self-financing portfolio of stock and bond, once discounted, is a stochastic integral against the discounted stock, so it's a $\mathbb Q$-martingale. If it replicates $H$, its value today is the $\mathbb Q$-expectation of discounted $H$. By no-arbitrage the option must cost the same. This is the <strong>fundamental theorem of asset pricing</strong>: no arbitrage ⇔ an equivalent martingale measure exists. If the market is also complete, which means every payoff can be replicated, that measure is unique.</p>
+
+<div class="box warn"><strong class="tag">Interpretation</strong>$\mathbb Q$ is not a forecast. Nobody believes the stock is expected to earn $r$. $\mathbb Q$ is a bookkeeping device that bakes the cost of hedging into the probabilities. Q-probabilities are "prices of Arrow–Debreu securities, scaled up by $e^{rT}$".</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>A martingale is a fair game: E[M_T | F_t] = M_t, so today&#x27;s value is the expected future value.</li><li>Girsanov: reweighting paths by an exponential martingale shifts the drift of Brownian motion.</li><li>Under Q the stock earns r and discounted prices are martingales: V₀ = e^{−rT} E^Q[payoff].</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Show that W_t² − t is a martingale using Itô&#x27;s lemma.</li><li>Show exp(θW_t − θ²t/2) is a martingale using the MGF.</li><li>Under Q, compute the forward price E^Q[S_T] and check it equals S₀e^{rT} from Lecture 3.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="08-itos-lemma.html"><small>← Lecture 8</small>Itô&#x27;s Lemma: The Chain Rule for Randomness</a><a class="next" href="10-binomial-model.html"><small>Lecture 10 →</small>The Binomial Model: Replication with Arithmetic</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

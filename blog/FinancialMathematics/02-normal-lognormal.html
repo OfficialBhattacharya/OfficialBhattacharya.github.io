@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Normal and Lognormal: The Shape of Returns | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Prices can&#x27;t go negative, but returns can. The normal distribution and its exponential cousin, the lognormal, and the moment-generating trick that produces the famous −σ²/2.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 2 of 12</p>
+<h1>Normal and Lognormal: The Shape of Returns</h1>
+<p class="dek">Prices can&#x27;t go negative, but returns can. The normal distribution and its exponential cousin, the lognormal, and the moment-generating trick that produces the famous −σ²/2.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>The normal distribution</h2>
+<p>$X\sim\mathcal{N}(\mu,\sigma^2)$ has density</p>
+<div class="math">$$f(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\!\Big(-\frac{(x-\mu)^2}{2\sigma^2}\Big).$$</div>
+<p>We write $N(x)$ for the standard normal CDF, $N(x)=\mathbb{P}(Z\le x)$ with $Z\sim\mathcal{N}(0,1)$. The Black–Scholes formula is literally built out of two evaluations of $N$. Useful facts:</p>
+<ul>
+<li>Standardising: $X=\mu+\sigma Z$, so $\mathbb{P}(X\le x)=N\!\big(\tfrac{x-\mu}{\sigma}\big)$.</li>
+<li>Symmetry: $N(-x)=1-N(x)$.</li>
+<li>Sums of independent normals are normal: means add, variances add.</li>
+</ul>
+
+<h2>The moment-generating function</h2>
+<p>The single most useful identity in this series:</p>
+<div class="math">$$\mathbb{E}\big[e^{\theta X}\big]=\exp\!\Big(\theta\mu+\tfrac12\theta^2\sigma^2\Big)\qquad X\sim\mathcal N(\mu,\sigma^2).$$</div>
+<p><em>Proof sketch.</em> Complete the square in the exponent: $\theta x-\frac{(x-\mu)^2}{2\sigma^2}=-\frac{(x-\mu-\theta\sigma^2)^2}{2\sigma^2}+\theta\mu+\frac{\theta^2\sigma^2}{2}$. The remaining integral is a normal density shifted by $\theta\sigma^2$, which integrates to 1. ∎</p>
+<div class="box"><strong class="tag">Remember the shift</strong>Multiplying a normal density by $e^{\theta x}$ just <em>shifts its mean</em> by $\theta\sigma^2$. That is Girsanov's theorem in miniature (Lecture 9), and it's where $d_1 = d_2+\sigma\sqrt T$ comes from (Lecture 11).</div>
+
+<h2>Why prices are lognormal</h2>
+<p>Suppose the continuously compounded return over $[0,T]$ is normal:</p>
+<div class="math">$$\ln\frac{S_T}{S_0}\sim\mathcal N\!\Big(\big(\mu-\tfrac12\sigma^2\big)T,\;\sigma^2T\Big).$$</div>
+<p>Then $S_T=S_0e^{X}$ is <strong>lognormal</strong>. It's always positive, right-skewed, and can't fall below zero, which fits limited liability for a stock. Over many small periods, returns multiply, so log-returns add, and by the CLT a sum of small log-returns is roughly normal.</p>
+
+<h2>The −σ²/2 puzzle</h2>
+<p>Using the MGF with $\theta=1$:</p>
+<div class="math">$$\mathbb{E}[S_T]=S_0\,e^{(\mu-\frac12\sigma^2)T+\frac12\sigma^2T}=S_0e^{\mu T}.$$</div>
+<p>So the <em>mean</em> price grows at $\mu$, but the <em>median</em>, $S_0e^{(\mu-\sigma^2/2)T}$, grows more slowly. A few huge winners pull the mean up while the typical path lags behind. This is <strong>volatility drag</strong>: a +50% year followed by a −50% year leaves you at 75%, not 100%.</p>
+
+<div class="widget" data-widget="lognormal" data-title="Simulated S_T: mean vs median"></div>
+
+<p>Raise σ in the figure: the mean stays put while the median slides left and the right tail stretches out. The −σ²/2 term will reappear when we apply Itô's lemma to $\ln S$ in Lecture 8. Then it won't be an assumption but a consequence of the calculus.</p>
+
+<h2>Two quantities we'll need later</h2>
+<p>For $S_T$ lognormal as above, and with $d_2=\frac{\ln(S_0/K)+(\mu-\sigma^2/2)T}{\sigma\sqrt T}$:</p>
+<div class="math">$$\mathbb{P}(S_T \gt K)=N(d_2),\qquad \mathbb{E}\big[S_T\mathbf 1_{\{S_T \gt K\}}\big]=S_0e^{\mu T}N(d_2+\sigma\sqrt T).$$</div>
+<p>The second follows from the "shifted mean" remark. Replace μ by the risk-free rate r, discount, and these two lines <em>are</em> the Black–Scholes formula. We'll derive that properly in Lecture 11.</p>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>N(x), the standard normal CDF, is the building block of the Black–Scholes formula.</li><li>MGF: E[e^{θX}] = e^{θμ + θ²σ²/2}. Exponential tilting shifts a normal&#x27;s mean.</li><li>Lognormal prices: mean grows at μ, median at μ − σ²/2. The gap is volatility drag.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Prove N(−x) = 1 − N(x) from the symmetry of the density.</li><li>If S₀ = 100, μ = 8%, σ = 30%, T = 1, compute the mean, median and P(S_T &gt; 120).</li><li>Derive E[S_T 1{S_T &gt; K}] using the shifted-mean idea.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="01-probability-foundations.html"><small>← Lecture 1</small>Probability: The Language of Uncertainty</a><a class="next" href="03-finance-basics.html"><small>Lecture 3 →</small>Finance Basics: Interest, Forwards, Options and No-Arbitrage</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

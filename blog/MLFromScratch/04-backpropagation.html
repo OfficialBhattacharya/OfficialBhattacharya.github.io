@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Networks II: Backpropagation from Scratch | ML from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="The chain rule, organised so that one backward sweep gives every gradient. Worked by hand on a tiny network, then vectorised.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← ML from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">ML from Scratch · Lecture 4 of 5</p>
+<h1>Neural Networks II: Backpropagation from Scratch</h1>
+<p class="dek">The chain rule, organised so that one backward sweep gives every gradient. Worked by hand on a tiny network, then vectorised.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>The problem</h2>
+<p>A network is a composition $L=\ell(f_K(\cdots f_2(f_1(x;\theta_1);\theta_2)\cdots))$. Gradient descent needs $\partial L/\partial\theta$ for <em>every</em> parameter. Doing each by finite differences costs one forward pass per parameter, millions of passes. Backpropagation gets all of them for the cost of about two passes.</p>
+
+<h2>The chain rule on a computational graph</h2>
+<p>Write the forward pass as a graph of simple operations. For our network from Lecture 3:</p>
+<div class="math">$$z=Wx+b\;\to\;h=\tanh(z)\;\to\;s=u^\top h+c\;\to\;p=\sigma(s)\;\to\;L=-[y\ln p+(1-y)\ln(1-p)].$$</div>
+<p>Going <em>backwards</em>, each node multiplies the incoming gradient by its local derivative:</p>
+<div class="math">$$\frac{\partial L}{\partial s}=p-y\quad(\text{sigmoid + cross-entropy simplify beautifully})$$
+$$\frac{\partial L}{\partial u}=\frac{\partial L}{\partial s}\,h,\qquad \frac{\partial L}{\partial c}=\frac{\partial L}{\partial s},\qquad \frac{\partial L}{\partial h}=\frac{\partial L}{\partial s}\,u$$
+$$\frac{\partial L}{\partial z}=\frac{\partial L}{\partial h}\odot(1-h^2),\qquad \frac{\partial L}{\partial W}=\frac{\partial L}{\partial z}\,x^\top,\qquad \frac{\partial L}{\partial b}=\frac{\partial L}{\partial z}.$$</div>
+<div class="box"><strong class="tag">Derivation of ∂L/∂s = p − y</strong>$\frac{\partial L}{\partial p}=-\frac yp+\frac{1-y}{1-p}=\frac{p-y}{p(1-p)}$ and $\frac{\partial p}{\partial s}=p(1-p)$. Multiply and the denominator cancels. This is why sigmoid outputs are paired with cross-entropy (and softmax with categorical cross-entropy): the gradient is just "prediction − target".</div>
+
+<h2>Worked example</h2>
+<p>Below is a 2-input, 2-hidden-unit, 1-output network with fixed weights $W=\begin{pmatrix}0.5&-0.3\\0.8&0.2\end{pmatrix}$, $b=(0.1,-0.1)$, $u=(1.2,-0.7)$, $c=0.05$. Move the inputs and target and every forward value and gradient updates. Try checking one entry by hand, e.g. $\partial L/\partial W_{11}=\frac{\partial L}{\partial z_1}x_1$.</p>
+
+<div class="widget" data-widget="backprop" data-title="Forward and backward pass, live"></div>
+
+<h2>Vectorised for a mini-batch</h2>
+<pre><code>def backward(X, y, Z1, H, p, w2):
+    n = len(y)
+    ds  = (p - y) / n                    # (n,)
+    dw2 = H.T @ ds                       # (H,)
+    db2 = ds.sum()
+    dH  = np.outer(ds, w2)               # (n, H)
+    dZ1 = dH * (1 - H ** 2)              # tanh'
+    dW1 = dZ1.T @ X                      # (H, d)
+    db1 = dZ1.sum(axis=0)
+    return dW1, db1, dw2, db2
+
+for epoch in range(5000):
+    Z1, H, p = forward(X, W1, b1, w2, b2)
+    dW1, db1, dw2, db2 = backward(X, y, Z1, H, p, w2)
+    W1 -= lr * dW1; b1 -= lr * db1; w2 -= lr * dw2; b2 -= lr * db2</code></pre>
+<p>This is exactly what runs inside the training widget of Lecture 3.</p>
+
+<h2>Always gradient-check</h2>
+<p>Compare backprop with a centred finite difference on a few random weights:</p>
+<div class="math">$$\frac{\partial L}{\partial\theta}\approx\frac{L(\theta+\epsilon)-L(\theta-\epsilon)}{2\epsilon},\qquad \text{relative error}\lesssim10^{-6}\text{ with }\epsilon=10^{-5}.$$</div>
+
+<h2>Vanishing and exploding gradients</h2>
+<p>Backprop multiplies one local derivative per layer. Sigmoid's derivative is at most ¼, so through 20 layers gradients shrink like $4^{-20}$ and early layers stop learning. Large weights do the opposite and gradients explode. Remedies (next lecture): ReLU activations, careful initialisation, normalisation layers, residual connections and gradient clipping.</p>
+<div class="box"><strong class="tag">Automatic differentiation</strong>PyTorch and JAX build this graph for you and run reverse-mode autodiff, which is backprop generalised to any program. Writing it by hand once is the best way to stop treating <code>loss.backward()</code> as magic.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Backprop is the chain rule applied right to left on the computational graph: all gradients in ~2 passes.</li><li>Sigmoid/softmax + cross-entropy give the clean output gradient p − y.</li><li>Gradient-check with centred differences; watch for vanishing/exploding gradients in deep nets.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Extend the backward pass to a second hidden layer and verify it with a gradient check.</li><li>Derive the gradient of softmax + categorical cross-entropy and show it equals p − y (one-hot y).</li><li>Why does initialising all weights to zero break learning in a hidden layer? (Think about symmetry.)</li></ol></section>
+<nav class="series-nav"><a class="prev" href="03-neural-nets-perceptron-mlp.html"><small>← Lecture 3</small>Neural Networks I: From the Perceptron to the Multilayer Network</a><a class="next" href="05-training-neural-nets.html"><small>Lecture 5 →</small>Neural Networks III: Training That Actually Works</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

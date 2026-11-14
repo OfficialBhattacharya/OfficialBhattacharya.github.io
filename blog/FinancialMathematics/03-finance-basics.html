@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Basics: Interest, Forwards, Options and No-Arbitrage | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="The minimum finance you need: discounting, forwards, what an option actually is, and the one principle that drives all of derivatives pricing.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 3 of 12</p>
+<h1>Finance Basics: Interest, Forwards, Options and No-Arbitrage</h1>
+<p class="dek">The minimum finance you need: discounting, forwards, what an option actually is, and the one principle that drives all of derivatives pricing.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Time value of money</h2>
+<p>₹100 today is worth more than ₹100 next year, because today's money can be invested. With annual rate $r$ compounded $m$ times a year, $B_T=B_0(1+r/m)^{mT}$. Let $m\to\infty$:</p>
+<div class="math">$$B_T = B_0\,e^{rT},\qquad \text{present value of } X \text{ at } T = X e^{-rT}.$$</div>
+<p>The limit $(1+r/m)^m\to e^r$ is our first glimpse of calculus in finance. In Lecture 5 we'll see the same thing as the solution of $dB=rB\,dt$.</p>
+
+<h2>Forwards</h2>
+<p>A <strong>forward</strong> obliges you to buy the stock at time $T$ for a price $F$ fixed today. What should $F$ be? Consider:</p>
+<ul><li>Borrow $S_0$, buy the stock today. At $T$ you own the stock and owe $S_0e^{rT}$.</li></ul>
+<p>That is a forward with delivery price $S_0e^{rT}$, built from things you can trade. If the market quoted any other $F$, you could buy the cheap one, sell the expensive one and lock in riskless profit. So</p>
+<div class="math">$$F_0 = S_0e^{rT}\quad\text{(no dividends).}$$</div>
+<div class="box"><strong class="tag">Notice</strong>The expected return of the stock, μ, appears nowhere. The forward price comes from <em>replication</em>, not from forecasting. This is the central miracle of Black–Scholes in its simplest form.</div>
+
+<h2>Options</h2>
+<p>A <strong>European call</strong> gives the right, but not the obligation, to buy at strike $K$ at expiry $T$. A <strong>put</strong> gives the right to sell. Payoffs at expiry:</p>
+<div class="math">$$\text{call: } (S_T-K)^+ = \max(S_T-K,0), \qquad \text{put: } (K-S_T)^+.$$</div>
+<p>Because the holder never has to act against themselves, the payoff is never negative, so the option must cost something today. That cost is the premium, and finding it is the goal of this series.</p>
+
+<div class="widget" data-widget="payoff" data-title="Payoff diagrams"></div>
+
+<h2>No-arbitrage</h2>
+<div class="box def"><strong class="tag">Definition</strong>An <strong>arbitrage</strong> is a strategy that costs nothing (or less than nothing), can never lose money, and has a positive chance of making money. Pricing theory assumes arbitrages don't persist in liquid markets.</div>
+<p>From this alone we get model-free facts:</p>
+<ul>
+<li><strong>Bounds:</strong> $\max(S_0-Ke^{-rT},0)\le C\le S_0$.</li>
+<li><strong>Put–call parity:</strong> a call minus a put pays $S_T-K$ in every state, which is a forward. So</li>
+</ul>
+<div class="math">$$C-P = S_0 - Ke^{-rT}.$$</div>
+<p>Choose "call − put" in the widget: the kinked lines combine into a straight one. Parity means we only need to price calls. Puts follow.</p>
+
+<h2>Replication: the idea that prices everything</h2>
+<p>If a portfolio of traded assets <em>exactly reproduces</em> an option's payoff in every state of the world, the option must cost what the portfolio costs. The forward was replicated with stock and borrowing held fixed. An option needs a <strong>dynamic</strong> portfolio: the amount of stock is adjusted continuously as the price moves. Making that precise needs Taylor series (Lecture 4), differential equations (Lecture 5) and stochastic calculus (Lectures 6–8). The binomial model (Lecture 10) shows the idea with arithmetic only.</p>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Continuous compounding: B_T = B₀e^{rT}. Discount with e^{−rT}.</li><li>The forward price S₀e^{rT} comes from replication. The stock&#x27;s expected return μ is irrelevant.</li><li>No-arbitrage gives model-free results such as put–call parity C − P = S₀ − Ke^{−rT}.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>A stock is at 100, r = 5%, T = 1. The market quotes a 1-year forward at 103. Describe the arbitrage and its profit.</li><li>A 1-year call with K = 100 is 10.45 and r = 5%. Use parity to find the put price.</li><li>Draw the payoff of a bull spread (long call K = 90, short call K = 110). What is its maximum payoff?</li></ol></section>
+<nav class="series-nav"><a class="prev" href="02-normal-lognormal.html"><small>← Lecture 2</small>Normal and Lognormal: The Shape of Returns</a><a class="next" href="04-taylor-series.html"><small>Lecture 4 →</small>Taylor Series: Local Approximations That Run Finance</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

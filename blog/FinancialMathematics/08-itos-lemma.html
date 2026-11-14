@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itô&#x27;s Lemma: The Chain Rule for Randomness | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Taylor-expand a function of Brownian motion, apply (dW)² = dt, and an extra term appears. The single most important formula in quantitative finance, derived and used.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 8 of 12</p>
+<h1>Itô&#x27;s Lemma: The Chain Rule for Randomness</h1>
+<p class="dek">Taylor-expand a function of Brownian motion, apply (dW)² = dt, and an extra term appears. The single most important formula in quantitative finance, derived and used.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Derivation in four lines</h2>
+<p>Let $dX=a\,dt+b\,dW$ and let $f(t,x)$ be smooth. Taylor-expand (Lecture 4):</p>
+<div class="math">$$df=f_t\,dt+f_x\,dX+\tfrac12f_{xx}(dX)^2+f_{tx}\,dt\,dX+\tfrac12 f_{tt}(dt)^2+\cdots$$</div>
+<p>Now apply the Brownian multiplication table from Lecture 6: $(dW)^2=dt$, $dW\,dt=0$, $(dt)^2=0$. So $(dX)^2=b^2(dW)^2=b^2\,dt$ and every other second-order term vanishes:</p>
+<div class="box def"><strong class="tag">Itô's lemma</strong>$$df(t,X_t)=\Big(f_t+a\,f_x+\tfrac12b^2f_{xx}\Big)dt+b\,f_x\,dW_t.$$</div>
+<p>Compared with the ordinary chain rule there is one extra term, $\tfrac12b^2f_{xx}\,dt$. It exists because Brownian motion wiggles so much that its squared increments add up to something of size $dt$.</p>
+
+<div class="widget" data-widget="ito" data-title="Why (dW)² = dt: quadratic variation in action"></div>
+
+<p>The last line of the figure's output is a classic example. Ordinary calculus would say $\int_0^1W\,dW=\tfrac12W_1^2$. Itô's lemma applied to $f(x)=x^2$ gives $d(W^2)=2W\,dW+dt$, so</p>
+<div class="math">$$\int_0^1 W\,dW=\tfrac12W_1^2-\tfrac12,$$</div>
+<p>and the simulated left-point sums agree.</p>
+
+<h2>Solving geometric Brownian motion</h2>
+<p>Take $f(S)=\ln S$ with $dS=\mu S\,dt+\sigma S\,dW$. Then $f_S=1/S$, $f_{SS}=-1/S^2$, $b=\sigma S$:</p>
+<div class="math">$$d\ln S=\Big(\mu S\cdot\frac1S+\frac12\sigma^2S^2\cdot\Big(-\frac1{S^2}\Big)\Big)dt+\sigma S\cdot\frac1S\,dW=\Big(\mu-\frac{\sigma^2}{2}\Big)dt+\sigma\,dW.$$</div>
+<p>The right-hand side has constant coefficients, so integrate directly:</p>
+<div class="math">$$S_T=S_0\exp\!\Big(\big(\mu-\tfrac12\sigma^2\big)T+\sigma W_T\Big).$$</div>
+<p>This is the lognormal law from Lecture 2, now <em>derived</em>. The −σ²/2 that looked like a convention is the Itô correction term.</p>
+
+<h2>Itô for products and several variables</h2>
+<p>For two Itô processes the product rule gains a cross term:</p>
+<div class="math">$$d(XY)=X\,dY+Y\,dX+dX\,dY,\qquad dW^{(1)}dW^{(2)}=\rho\,dt.$$</div>
+<p>Example: discounting. With $B_t=e^{rt}$, $d(e^{-rt}S_t)=e^{-rt}(dS_t-rS_t\,dt)=e^{-rt}S_t\big((\mu-r)dt+\sigma\,dW_t\big)$. The discounted stock has drift $\mu-r$. Lecture 9 changes measure to kill exactly this drift.</p>
+
+<h2>Itô applied to an option</h2>
+<p>Let $V(t,S)$ be the value of an option. Itô's lemma with $a=\mu S$, $b=\sigma S$:</p>
+<div class="math">$$dV=\Big(V_t+\mu SV_S+\tfrac12\sigma^2S^2V_{SS}\Big)dt+\sigma SV_S\,dW.$$</div>
+<p>The random part is $\sigma S V_S\,dW$, and the stock's random part is $\sigma S\,dW$. So holding $V_S$ shares against a short option cancels the randomness <em>exactly</em> over each instant. That is delta hedging, and it gives the Black–Scholes PDE in Lecture 11.</p>
+
+<div class="box warn"><strong class="tag">Common mistake</strong>Forgetting the ½b²f_xx term. A quick check: apply the lemma to $f=W^2$. If you get $d(W^2)=2W\,dW$, the expectation would be zero, but $\mathbb E W_t^2=t$. The missing $dt$ is the Itô term.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Itô&#x27;s lemma: df = (f_t + a f_x + ½ b² f_xx) dt + b f_x dW, which is Taylor plus (dW)² = dt.</li><li>Applied to ln S it solves GBM: S_T = S₀ exp((μ − σ²/2)T + σW_T).</li><li>Applied to V(t, S), the dW term is σS V_S dW, so holding V_S shares cancels risk. That is delta hedging.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Compute d(W_t³) and use it to find E[W_t³] and E[W_t⁴] (hint: take expectations and integrate).</li><li>If dX = κ(θ − X)dt + σdW, apply Itô to e^{κt}X_t and solve the OU process.</li><li>Let Y = S² with S GBM. Show Y is also GBM and find its drift and volatility.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="07-sdes.html"><small>← Lecture 7</small>Stochastic Differential Equations</a><a class="next" href="09-martingales-risk-neutral.html"><small>Lecture 9 →</small>Martingales and the Risk-Neutral Measure</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

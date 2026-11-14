@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stochastic Differential Equations | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Add a noise term to an ODE and you get an SDE. What dX = μ dt + σ dW actually means, how to simulate it, and the model Black–Scholes assumes for stock prices.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 7 of 12</p>
+<h1>Stochastic Differential Equations</h1>
+<p class="dek">Add a noise term to an ODE and you get an SDE. What dX = μ dt + σ dW actually means, how to simulate it, and the model Black–Scholes assumes for stock prices.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>From ODE to SDE</h2>
+<p>An ODE says "change = rate × time". An SDE adds "+ noise × Brownian increment":</p>
+<div class="math">$$dX_t=a(t,X_t)\,dt+b(t,X_t)\,dW_t.$$</div>
+<p>Here $a$ is the <strong>drift</strong> and $b$ the <strong>diffusion</strong> or volatility coefficient. Because $W$ isn't differentiable (Lecture 6), the equation is shorthand for an integral equation:</p>
+<div class="math">$$X_t=X_0+\int_0^t a(s,X_s)\,ds+\int_0^t b(s,X_s)\,dW_s.$$</div>
+<p>The first integral is ordinary. The second is an <strong>Itô integral</strong>, defined as a limit of sums that always evaluate the integrand at the <em>left</em> endpoint:</p>
+<div class="math">$$\int_0^t H_s\,dW_s=\lim\sum_i H_{t_{i-1}}\big(W_{t_i}-W_{t_{i-1}}\big).$$</div>
+<p>Left endpoints mean the integrand is decided <em>before</em> the next random shock arrives, exactly like a trader who picks a position and then watches the market move. Two key properties follow:</p>
+<div class="math">$$\mathbb E\Big[\int_0^tH\,dW\Big]=0,\qquad \mathbb E\Big[\Big(\int_0^tH\,dW\Big)^2\Big]=\mathbb E\int_0^tH_s^2\,ds\quad\text{(Itô isometry).}$$</div>
+
+<h2>Geometric Brownian motion</h2>
+<p>Black–Scholes assumes the stock's <em>percentage</em> changes have constant drift and volatility:</p>
+<div class="math">$$\frac{dS_t}{S_t}=\mu\,dt+\sigma\,dW_t\qquad\Longleftrightarrow\qquad dS_t=\mu S_t\,dt+\sigma S_t\,dW_t.$$</div>
+<p>Over a small step $\Delta t$, the return is roughly $\mathcal N(\mu\Delta t,\sigma^2\Delta t)$. Proportional noise keeps prices positive and makes a ₹1 move on a ₹10 stock as significant as a ₹10 move on a ₹100 stock.</p>
+
+<h2>Simulation: Euler–Maruyama</h2>
+<p>Discretise exactly as in Lecture 5, but replace $dW$ by $\sqrt{\Delta t}\,Z$ with $Z\sim\mathcal N(0,1)$:</p>
+<div class="math">$$S_{k+1}=S_k+\mu S_k\,\Delta t+\sigma S_k\sqrt{\Delta t}\,Z_k.$$</div>
+<pre><code>import numpy as np
+def gbm_paths(S0, mu, sigma, T, n, m, seed=0):
+    rng = np.random.default_rng(seed)
+    dt = T / n
+    Z = rng.standard_normal((m, n))
+    S = np.empty((m, n + 1)); S[:, 0] = S0
+    for k in range(n):
+        S[:, k + 1] = S[:, k] * (1 + mu * dt + sigma * np.sqrt(dt) * Z[:, k])
+    return S</code></pre>
+
+<div class="widget" data-widget="gbm" data-title="Geometric Brownian motion paths"></div>
+
+<p>The average of the simulated paths follows $S_0e^{\mu t}$ (red), but individual paths fan out and most finish <em>below</em> the mean: the lognormal skew from Lecture 2. Push σ up and watch it happen.</p>
+
+<h2>Other SDEs you will meet</h2>
+<ul>
+<li><strong>Ornstein–Uhlenbeck / Vasicek:</strong> $dr=\kappa(\theta-r)\,dt+\sigma\,dW$. Mean-reverting interest rates (it appears in the Vasicek post in the Finance in Banks series).</li>
+<li><strong>CIR:</strong> $dr=\kappa(\theta-r)\,dt+\sigma\sqrt r\,dW$. Rates stay non-negative.</li>
+<li><strong>Heston:</strong> stochastic volatility, $dv=\kappa(\theta-v)dt+\xi\sqrt v\,dW^{(2)}$, correlated with the stock. One way to fix Black–Scholes' constant-σ assumption (Lecture 12).</li>
+</ul>
+<div class="box"><strong class="tag">The question for next lecture</strong>Euler–Maruyama gives us paths, but can we solve $dS=\mu S\,dt+\sigma S\,dW$ exactly? The natural guess is $\ln S$, because $d\ln S=dS/S$ in ordinary calculus. That guess is <em>wrong</em> by exactly $-\tfrac12\sigma^2dt$, and Itô's lemma explains why.</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>An SDE dX = a dt + b dW is shorthand for an ordinary integral plus an Itô integral.</li><li>Itô integrals use left endpoints (non-anticipating), have mean zero, and obey the Itô isometry.</li><li>GBM dS = μS dt + σS dW is the Black–Scholes stock model. Simulate it with Euler–Maruyama.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Use the Itô isometry to compute Var(∫₀ᵗ s dW_s).</li><li>Simulate 10,000 GBM paths with μ = 10%, σ = 30%, T = 1. Compare the sample mean and median of S_T with Lecture 2&#x27;s formulas.</li><li>For the OU process, guess E[r_t] by taking expectations of the SDE (the dW term has mean zero).</li></ol></section>
+<nav class="series-nav"><a class="prev" href="06-brownian-motion.html"><small>← Lecture 6</small>From Random Walks to Brownian Motion</a><a class="next" href="08-itos-lemma.html"><small>Lecture 8 →</small>Itô&#x27;s Lemma: The Chain Rule for Randomness</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

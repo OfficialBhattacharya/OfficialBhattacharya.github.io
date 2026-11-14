@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Binomial Model: Replication with Arithmetic | Black–Scholes from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="All of the previous lecture&#x27;s measure theory, done with one step, two states and high-school algebra. Then stack the steps into a tree and watch it converge to Black–Scholes.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← Black–Scholes from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">Financial Mathematics · Lecture 10 of 12</p>
+<h1>The Binomial Model: Replication with Arithmetic</h1>
+<p class="dek">All of the previous lecture&#x27;s measure theory, done with one step, two states and high-school algebra. Then stack the steps into a tree and watch it converge to Black–Scholes.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>One step, two states</h2>
+<p>Today the stock is $S$. Tomorrow it is $uS$ or $dS$ (with $d \lt e^{r\Delta t} \lt u$, else there's an arbitrage). An option pays $V_u$ or $V_d$. Build a portfolio of $\Delta$ shares and $B$ in the bank that matches both outcomes:</p>
+<div class="math">$$\Delta uS+Be^{r\Delta t}=V_u,\qquad \Delta dS+Be^{r\Delta t}=V_d.$$</div>
+<p>Subtract to get the <strong>hedge ratio</strong>, the discrete delta:</p>
+<div class="math">$$\Delta=\frac{V_u-V_d}{uS-dS}.$$</div>
+<p>The portfolio costs $\Delta S+B$, so by no-arbitrage the option costs the same. Rearranging:</p>
+<div class="math">$$V=e^{-r\Delta t}\big(qV_u+(1-q)V_d\big),\qquad q=\frac{e^{r\Delta t}-d}{u-d}.$$</div>
+<p>$q$ lies in $(0,1)$ and acts like a probability, but it was never assumed. It fell out of replication. The real probability of an up-move doesn't appear. $q$ is the risk-neutral probability, and $\mathbb E^q[S_{\Delta t}]=Se^{r\Delta t}$: the stock earns the risk-free rate on average under $q$, exactly like $\mathbb Q$ in Lecture 9.</p>
+
+<div class="box"><strong class="tag">Worked example</strong>$S=100$, $u=1.2$, $d=0.8$, $r=0$, call with $K=100$: $V_u=20$, $V_d=0$. Then $\Delta=20/40=0.5$ and $q=(1-0.8)/0.4=0.5$, so $V=10$. Check the hedge: buy ½ share for 50 and borrow 40, cost 10. Up: $60-40=20$ ✓. Down: $40-40=0$ ✓.</div>
+
+<h2>Many steps: the CRR tree</h2>
+<p>Split $[0,T]$ into $n$ steps of $\Delta t=T/n$ and choose (Cox–Ross–Rubinstein)</p>
+<div class="math">$$u=e^{\sigma\sqrt{\Delta t}},\qquad d=1/u,\qquad q=\frac{e^{r\Delta t}-d}{u-d}.$$</div>
+<p>The $\sqrt{\Delta t}$ is the Brownian scaling from Lecture 6, so the log-price variance per step is $\sigma^2\Delta t$. Price by <strong>backward induction</strong>: payoffs at the leaves, then repeatedly apply the one-step formula back to the root:</p>
+<pre><code>def crr_call(S, K, T, r, sigma, n):
+    dt = T / n; u = exp(sigma * sqrt(dt)); d = 1 / u
+    q = (exp(r * dt) - d) / (u - d); disc = exp(-r * dt)
+    V = [max(S * u**j * d**(n - j) - K, 0) for j in range(n + 1)]
+    for i in range(n - 1, -1, -1):
+        V = [disc * (q * V[j + 1] + (1 - q) * V[j]) for j in range(i + 1)]
+    return V[0]</code></pre>
+
+<div class="widget" data-widget="crr" data-title="Binomial price → Black–Scholes as steps grow"></div>
+
+<h2>Why the limit is Black–Scholes</h2>
+<p>At expiry, the number of up-moves $j$ is binomial$(n,q)$ and $\ln S_T=\ln S+(2j-n)\sigma\sqrt{\Delta t}$. By the CLT (Lecture 1), as $n\to\infty$ this is normal with mean $(r-\tfrac12\sigma^2)T$ and variance $\sigma^2T$, which is the risk-neutral lognormal law. So the tree price converges to $e^{-rT}\mathbb E^{\mathbb Q}[(S_T-K)^+]$, the Black–Scholes price. The zig-zag in the figure (odd vs even $n$) comes from where the strike falls relative to the terminal nodes.</p>
+
+<h2>What trees can do that formulas can't</h2>
+<ul>
+<li><strong>American options:</strong> at each node take $\max(\text{continuation},\text{exercise})$. No closed form exists, and trees handle it in one line (see the callable-bond and Bermudan-swaption posts in Finance in Banks).</li>
+<li><strong>Dividends, barriers, varying rates</strong>: adjust the tree node by node.</li>
+<li><strong>Intuition</strong>: delta at each node is the hedge ratio, and you can watch it move.</li>
+</ul>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>One-step replication gives Δ = (V_u − V_d)/(uS − dS) and V = e^{−rΔt}(qV_u + (1−q)V_d).</li><li>q = (e^{rΔt} − d)/(u − d) is the risk-neutral probability. Real-world probabilities never enter.</li><li>With u = e^{σ√Δt}, the CRR tree converges to Black–Scholes by the CLT and handles American exercise.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Price a one-step put with S = 50, u = 1.1, d = 0.9, r = 0, K = 50, and give the replicating portfolio.</li><li>Build a 3-step CRR tree for S = K = 100, σ = 20%, r = 5%, T = 1. Compare with Black–Scholes.</li><li>Modify the code for an American put. When is early exercise optimal?</li></ol></section>
+<nav class="series-nav"><a class="prev" href="09-martingales-risk-neutral.html"><small>← Lecture 9</small>Martingales and the Risk-Neutral Measure</a><a class="next" href="11-black-scholes.html"><small>Lecture 11 →</small>The Black–Scholes PDE and Formula</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

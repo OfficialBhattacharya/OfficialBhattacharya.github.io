@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bagging vs Boosting, and XGBoost from the Objective Up | ML from Scratch · Diganta Bhattacharya</title>
+<meta name="description" content="Two opposite ways to combine weak learners: average independent ones, or build them in sequence to fix each other&#x27;s mistakes. Gradient boosting as gradient descent, and the second-order maths inside XGBoost.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="../series/series.css">
+</head>
+<body>
+<nav class="topbar"><a href="index.html">← ML from Scratch: all lectures</a><a href="../../index.html#blog">Portfolio blog</a></nav>
+<article class="lecture">
+<p class="kicker">ML from Scratch · Lecture 2 of 5</p>
+<h1>Bagging vs Boosting, and XGBoost from the Objective Up</h1>
+<p class="dek">Two opposite ways to combine weak learners: average independent ones, or build them in sequence to fix each other&#x27;s mistakes. Gradient boosting as gradient descent, and the second-order maths inside XGBoost.</p>
+<div class="meta"><span>November 15, 2026</span><span>By Diganta Bhattacharya</span><span>5 min read</span></div>
+
+<h2>Bias, variance and two strategies</h2>
+<p>Expected test error decomposes as $\text{bias}^2+\text{variance}+\text{noise}$.</p>
+<ul>
+<li><strong>Bagging</strong> (Lecture 1) trains strong, low-bias models <em>in parallel</em> on bootstrap samples and averages them, which <strong>reduces variance</strong>.</li>
+<li><strong>Boosting</strong> trains weak, high-bias models (shallow trees, even stumps) <em>in sequence</em>, each focused on what the ensemble so far gets wrong, which <strong>reduces bias</strong>.</li>
+</ul>
+
+<h2>AdaBoost: reweighting mistakes</h2>
+<p>Start with equal sample weights. At round $m$ fit a weak classifier $h_m$, compute its weighted error $\varepsilon_m$, give it a vote $\alpha_m=\tfrac12\ln\frac{1-\varepsilon_m}{\varepsilon_m}$, and multiply the weights of misclassified points by $e^{\alpha_m}$. The final model is $\operatorname{sign}\sum_m\alpha_mh_m(x)$. AdaBoost turns out to be stagewise minimisation of the exponential loss $e^{-yF(x)}$, a hint at the general view below.</p>
+
+<h2>Gradient boosting: descent in function space</h2>
+<p>We want $F$ minimising $\sum_i\ell(y_i,F(x_i))$. Treat the predictions $F(x_i)$ as parameters and take a gradient step:</p>
+<div class="math">$$r_{im}=-\frac{\partial\ell(y_i,F(x_i))}{\partial F(x_i)}\Big|_{F=F_{m-1}},\qquad F_m=F_{m-1}+\eta\,h_m,\quad h_m\approx r_{\cdot m}.$$</div>
+<p>We can't move each $F(x_i)$ freely (we need a function that generalises), so we fit a small tree $h_m$ to the <strong>pseudo-residuals</strong> $r_{im}$. For squared loss $\ell=\tfrac12(y-F)^2$, $r=y-F$: each tree literally fits what's left over.</p>
+
+<div class="widget" data-widget="boosting" data-title="Boosting stumps on residuals"></div>
+
+<p>With few rounds the fit is a crude staircase (high bias). As rounds increase it hugs the curve. With a large learning rate and many rounds, the test error eventually rises as the model starts fitting noise. The shrinkage η trades rounds for robustness: small η plus many trees usually generalises best.</p>
+
+<h2>XGBoost: a regularised, second-order version</h2>
+<p>XGBoost (Chen & Guestrin, 2016) writes the objective at round $t$ with an explicit penalty on tree complexity:</p>
+<div class="math">$$\mathcal L^{(t)}=\sum_i\ell\big(y_i,\hat y_i^{(t-1)}+f_t(x_i)\big)+\gamma T+\tfrac12\lambda\sum_{j=1}^Tw_j^2,$$</div>
+<p>where $T$ is the number of leaves and $w_j$ the leaf values. Take a <strong>second-order Taylor expansion</strong> (the same trick as Lecture 4 of the Black–Scholes series) with $g_i=\partial_{\hat y}\ell$ and $h_i=\partial^2_{\hat y}\ell$:</p>
+<div class="math">$$\mathcal L^{(t)}\approx\sum_{j=1}^T\Big[G_jw_j+\tfrac12(H_j+\lambda)w_j^2\Big]+\gamma T,\qquad G_j=\sum_{i\in I_j}g_i,\;H_j=\sum_{i\in I_j}h_i.$$</div>
+<p>Each leaf is an independent quadratic in $w_j$, minimised at</p>
+<div class="math">$$w_j^{*}=-\frac{G_j}{H_j+\lambda},\qquad \mathcal L^{*}=-\frac12\sum_j\frac{G_j^2}{H_j+\lambda}+\gamma T.$$</div>
+<p>So a split of a leaf into $L$ and $R$ is worth</p>
+<div class="box def"><strong class="tag">Split gain</strong>$$\text{Gain}=\frac12\Big[\frac{G_L^2}{H_L+\lambda}+\frac{G_R^2}{H_R+\lambda}-\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}\Big]-\gamma.$$</div>
+<p>Split only if Gain > 0, so γ acts as a minimum gain and automatically prunes. λ shrinks leaf weights, which is ridge regularisation on the tree. Because only $g$ and $h$ are needed, any twice-differentiable loss works: squared error ($g=\hat y-y$, $h=1$), logistic ($g=p-y$, $h=p(1-p)$), Poisson, ranking losses and so on.</p>
+
+<h2>The engineering that made it win Kaggle</h2>
+<ul>
+<li><strong>Shrinkage η</strong> and <strong>row/column subsampling</strong> (borrowed from random forests).</li>
+<li><strong>Histogram / approximate split finding</strong>: bucket features into quantiles so split search is fast.</li>
+<li><strong>Sparsity-aware splits</strong>: each split learns a default direction for missing values.</li>
+<li><strong>Cache-aware, parallel</strong> column blocks. LightGBM and CatBoost push the same ideas further (leaf-wise growth, ordered boosting for categoricals).</li>
+</ul>
+<pre><code>import xgboost as xgb
+model = xgb.XGBRegressor(n_estimators=2000, learning_rate=0.03, max_depth=6,
+                         subsample=0.8, colsample_bytree=0.8, reg_lambda=1.0, gamma=0.0,
+                         early_stopping_rounds=100)
+model.fit(X_tr, y_tr, eval_set=[(X_va, y_va)], verbose=200)</code></pre>
+<div class="box warn"><strong class="tag">Tuning order that works</strong>Fix η ≈ 0.05 and use early stopping for the number of trees. Then tune depth / min_child_weight, then subsampling, then λ/γ. Lower η at the end. (Most of the Kaggle playground pages in the Kaggle section follow exactly this loop.)</div>
+
+<section class="takeaways"><h2>Key takeaways</h2><ul><li>Bagging averages parallel strong learners (variance ↓). Boosting adds sequential weak learners (bias ↓).</li><li>Gradient boosting fits each new tree to the negative gradient of the loss: descent in function space.</li><li>XGBoost: second-order Taylor gives w* = −G/(H+λ) and a closed-form split gain with γ as built-in pruning.</li></ul></section>
+<section class="exercises"><h2>Exercises</h2><ol><li>Derive g and h for the logistic loss ℓ = −[y ln p + (1−y) ln(1−p)], p = σ(ŷ).</li><li>Compute the XGBoost gain for G_L = −4, H_L = 3, G_R = 2, H_R = 2, λ = 1, γ = 0.5. Do we split?</li><li>Implement gradient boosting with depth-2 regression trees from Lecture 1 and compare η = 1 with η = 0.1.</li></ol></section>
+<nav class="series-nav"><a class="prev" href="01-cart-random-forests.html"><small>← Lecture 1</small>Decision Trees (CART) and Random Forests</a><a class="next" href="03-neural-nets-perceptron-mlp.html"><small>Lecture 3 →</small>Neural Networks I: From the Perceptron to the Multilayer Network</a></nav>
+</article>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],ignoredTags:["script","noscript","style","textarea","pre","code"]}));</script>
+<script src="../series/widgets.js"></script>
+</body></html>

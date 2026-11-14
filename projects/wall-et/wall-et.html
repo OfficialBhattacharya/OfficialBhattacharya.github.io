@@ -348,6 +348,12 @@
             .flow-step::after { display:none; }
         }
         @media (max-width: 560px) { .flow { grid-template-columns:1fr; } .project-nav { top:.75rem; left:.75rem; } }
+        .td-links { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; position:static; }
+        .td-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr)); gap:1rem; }
+        .td-card { margin:0; background:var(--card-bg); }
+        .td-card figcaption { padding:.7rem .9rem; display:flex; flex-direction:column; gap:.2rem; }
+        .td-card figcaption b { color:#fff; font-family:var(--header-font); font-size:.85rem; letter-spacing:.04em; }
+        .td-card figcaption span { color:rgba(255,255,255,.7); font-size:.95rem; }
     </style>
 </head>
 <body>
@@ -673,6 +679,24 @@
                         <p>Both sheets live in <code>Screener Suggestions/Watchlist.xlsx</code>, along with optional per-stock overrides on the <code>Watchlist</code> sheet.</p>
                     </div>
                 </article>
+            </div>
+        </section>
+
+        <!-- Previous version -->
+        <section class="project-section" id="tradedash">
+            <h2 class="section-title">Previous Version: TradeDash</h2>
+            <p style="max-width:900px;margin:0 auto 1.5rem;color:rgba(255,255,255,.8);line-height:1.65;text-align:center">Before Money Tracker there was <b>TradeDash</b>, a Python and PyQt5 trading desktop app with real-time charts, a stock scanner, model-driven recommendations, similar-stock search, strategy backtesting and a P&amp;L dashboard. Wall_ET grew out of it: the trading and screening ideas became the Strategies tab, and the P&amp;L dashboard became the Daily tracker.</p>
+            <div class="td-grid">
+                <figure class="td-card tab-shot" data-caption="TradeDash › Advanced charting"><img src="../../src/assets/TradeDash/tradedash-charts.JPG" alt="TradeDash Advanced charting" loading="lazy"><figcaption><b>Advanced charting</b><span>Price charts with technical indicators and live data feeds.</span></figcaption></figure>
+                <figure class="td-card tab-shot" data-caption="TradeDash › P&L dashboard"><img src="../../src/assets/TradeDash/tradedash-pnl.JPG" alt="TradeDash P&L dashboard" loading="lazy"><figcaption><b>P&L dashboard</b><span>Portfolio P&L, risk metrics and performance tracking.</span></figcaption></figure>
+                <figure class="td-card tab-shot" data-caption="TradeDash › Recommendations"><img src="../../src/assets/TradeDash/tradedash-recommendations.JPG" alt="TradeDash Recommendations" loading="lazy"><figcaption><b>Recommendations</b><span>Model-driven trade ideas from market patterns and risk analysis.</span></figcaption></figure>
+                <figure class="td-card tab-shot" data-caption="TradeDash › Stock scanner"><img src="../../src/assets/TradeDash/tradedash-scanner.JPG" alt="TradeDash Stock scanner" loading="lazy"><figcaption><b>Stock scanner</b><span>Screening and filtering to surface opportunities on custom criteria.</span></figcaption></figure>
+                <figure class="td-card tab-shot" data-caption="TradeDash › Similar stocks"><img src="../../src/assets/TradeDash/tradedash-similar.JPG" alt="TradeDash Similar stocks" loading="lazy"><figcaption><b>Similar stocks</b><span>Finds stocks that behave like a chosen one.</span></figcaption></figure>
+                <figure class="td-card tab-shot" data-caption="TradeDash › Strategy backtesting"><img src="../../src/assets/TradeDash/tradedash-strategy.JPG" alt="TradeDash Strategy backtesting" loading="lazy"><figcaption><b>Strategy backtesting</b><span>Test a trading rule on history before using it.</span></figcaption></figure>
+            </div>
+            <div class="td-links">
+                <a href="https://github.com/OfficialBhattacharya/TradeDash" target="_blank" class="project-link"><i class="fab fa-github"></i><span>TradeDash code</span></a>
+                <a href="../tradedash/tradedash.html" class="project-link secondary"><i class="fas fa-clock-rotate-left"></i><span>Original TradeDash page</span></a>
             </div>
         </section>
 
