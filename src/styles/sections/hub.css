@@ -21,7 +21,7 @@
         "about  about  exp    exp    blog"
         "about  about  proj   skills blog"
         "kaggle games  art    travel travel"
-        "kaggle coll   ana    music  music";
+        "acts   coll   ana    music  music";
 }
 
 .hub-about     { grid-area: about; }
@@ -36,6 +36,7 @@
 .hub-coll      { grid-area: coll; }
 .hub-analytics { grid-area: ana; }
 .hub-music     { grid-area: music; }
+.hub-acts      { grid-area: acts; }
 
 .hub-tile {
     --tile-accent: 0, 255, 157;
@@ -260,7 +261,8 @@
             "about  about  proj   skills"
             "blog   kaggle games  art"
             "blog   kaggle travel travel"
-            "coll   ana    music  music";
+            "coll   ana    music  music"
+            "acts   acts   acts   acts";
     }
 }
 
@@ -280,6 +282,7 @@
             "proj   skills"
             "travel travel"
             "music  music"
+            "acts   acts"
             "games  art"
             "coll   ana";
     }
@@ -296,3 +299,7 @@
 .hub-eq i:nth-child(6) { animation-delay: -0.65s; } .hub-eq i:nth-child(7) { animation-delay: -0.95s; }
 @keyframes hubEq { 0%, 100% { height: 8px; } 50% { height: 44px; } }
 @media (prefers-reduced-motion: reduce) { .hub-eq i { animation: none; height: 24px; } }
+
+/* Activities tile */
+.hub-act-icons { display: flex; gap: 8px; margin-top: 1.3rem; color: rgb(var(--tile-accent)); font-size: 1rem; opacity: 0.85; }
+.hub-act-icons i { width: 1.9rem; height: 1.9rem; display: grid; place-items: center; border-radius: 9px; background: rgba(var(--tile-accent), 0.12); }

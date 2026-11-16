@@ -15,7 +15,7 @@
         experience: ['fa-briefcase', 'Experience'], projects: ['fa-code-branch', 'Projects'], skills: ['fa-microchip', 'Skills'],
         blog: ['fa-pen-nib', 'Blog'], games: ['fa-gamepad', 'Games'], art: ['fa-palette', 'Art'], travel: ['fa-globe-asia', 'Travel'],
         collection: ['fa-coins', 'Collection'], kaggle: ['fab fa-kaggle', 'Kaggle'], analytics: ['fa-chart-line', 'Analytics'],
-        music: ['fa-music', 'Music'], others: ['fa-th', 'All apps']
+        music: ['fa-music', 'Music'], activities: ['fa-person-swimming', 'Activities'], others: ['fa-th', 'All apps']
     };
 
     panels.forEach(p => {

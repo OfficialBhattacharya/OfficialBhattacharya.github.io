@@ -152,3 +152,13 @@ body.hx-lock { overflow: hidden; }
   .hx-panel { padding-top: 2rem; }
   .hx-text p { font-size: 1.05rem; }
 }
+
+/* Instagram posts in the Photo Gallery */
+.ig-block { margin-top: 2rem; }
+.ig-head { display: flex; align-items: center; gap: 0.6rem; justify-content: center; margin-bottom: 1.2rem; font-size: 1.1rem; color: #ddd; }
+.ig-head i { font-size: 1.4rem; background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ig-head a { color: #ee6aa7; text-decoration: none; font-weight: 600; }
+.ig-head a:hover { text-decoration: underline; }
+.ig-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+.ig-grid .instagram-media { margin: 0 !important; min-width: 280px !important; max-width: 420px !important; width: 100% !important; background: #fff; border-radius: 12px !important; }
+@media (max-width: 480px) { .ig-grid .instagram-media { min-width: 0 !important; } }

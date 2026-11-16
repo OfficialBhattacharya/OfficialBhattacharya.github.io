@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="src/styles/main.css?v=20261118a">
+    <link rel="stylesheet" href="src/styles/main.css?v=20261118c">
     
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -286,6 +286,18 @@
                         <div>
                             <h3>Kaggle</h3>
                             <p>Every competition, with notes</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#activities" class="hub-tile hub-acts" style="--tile-accent: 0, 190, 255">
+                    <span class="hub-index">13</span>
+                    <div class="hub-act-icons" aria-hidden="true"><i class="fas fa-fish"></i><i class="fas fa-parachute-box"></i><i class="fas fa-mountain"></i><i class="fas fa-water"></i></div>
+                    <div class="hub-foot">
+                        <i class="fas fa-person-swimming"></i>
+                        <div>
+                            <h3>Activities</h3>
+                            <p>Scuba, paragliding, abseiling, surfing</p>
                         </div>
                     </div>
                 </a>
@@ -2124,6 +2136,11 @@
 
 
 
+        <!-- Activities: edit src/data/activities.js -->
+        <section id="activities" class="activities app-panel">
+            <div class="act"></div>
+        </section>
+
         <!-- Others: the phone's app drawer -->
         <section id="others" class="others app-panel">
             <div class="drawer">
@@ -2168,6 +2185,10 @@
                         <span class="drawer-icon"><i class="fas fa-globe-asia"></i></span>
                         <span class="drawer-label">Travel</span>
                     </a>
+                    <a href="#activities" class="drawer-app" style="--c: 0, 190, 255" data-name="activities scuba diving paragliding abseiling surfing">
+                        <span class="drawer-icon"><i class="fas fa-person-swimming"></i></span>
+                        <span class="drawer-label">Activities</span>
+                    </a>
                     <a href="#collection" class="drawer-app" style="--c: 255, 170, 60" data-name="collection">
                         <span class="drawer-icon"><i class="fas fa-coins"></i></span>
                         <span class="drawer-label">Collection</span>
@@ -2211,11 +2232,13 @@
     </main>
 
     <!-- Scripts -->
-    <script src="src/scripts/main.js?v=20261118a"></script>
+    <script src="src/scripts/main.js?v=20261118c"></script>
     <script src="src/data/music.js?v=1"></script>
     <script src="src/scripts/music.js?v=1"></script>
     <script src="src/scripts/skills.js?v=1"></script>
-    <script src="src/scripts/apps.js?v=10"></script>
+    <script src="src/data/activities.js?v=2"></script>
+    <script src="src/scripts/activities.js?v=1"></script>
+    <script src="src/scripts/apps.js?v=11"></script>
     <script src="src/scripts/inapp.js?v=3"></script>
 </body>
 </html>

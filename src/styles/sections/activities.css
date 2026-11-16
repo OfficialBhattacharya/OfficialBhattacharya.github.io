@@ -1,0 +1,87 @@
+/* Activities app */
+body.apps-on .activities.app-panel {
+    display: block;
+    background-color: #071016;
+    background-image:
+        radial-gradient(90% 60% at 0% 0%, rgba(0, 190, 255, 0.14), transparent 60%),
+        radial-gradient(80% 60% at 100% 100%, rgba(255, 140, 60, 0.12), transparent 60%);
+}
+.act { max-width: 900px; margin: 0 auto; padding: 0.5rem 16px 2rem; }
+
+.act-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 1.2rem; }
+.act-stats > div {
+    text-align: center;
+    padding: 0.9rem 0.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.act-stats b { display: block; font-family: var(--header-font); font-size: 1.8rem; color: #fff; }
+.act-stats span { font-family: var(--body-font); font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); }
+
+.act-list { display: flex; flex-direction: column; gap: 14px; }
+.act-card {
+    --c: 0, 255, 157;
+    border-radius: 20px;
+    padding: 1.1rem 1.1rem 1.2rem;
+    background:
+        radial-gradient(90% 70% at 100% 0%, rgba(var(--c), 0.14), transparent 60%),
+        rgba(14, 20, 26, 0.92);
+    border: 1px solid rgba(var(--c), 0.25);
+}
+.act-head { display: flex; align-items: center; gap: 0.9rem; }
+.act-icon {
+    flex: none;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    font-size: 1.4rem;
+    color: #fff;
+    background:
+        radial-gradient(120% 120% at 30% 15%, rgba(255, 255, 255, 0.35), transparent 45%),
+        linear-gradient(150deg, rgba(var(--c), 0.95), rgba(var(--c), 0.45) 70%, rgba(0, 0, 0, 0.4));
+    box-shadow: 0 8px 18px -6px rgba(var(--c), 0.55);
+}
+.act-head h3 { margin: 0; font-family: var(--body-font); font-size: 1.35rem; font-weight: 700; color: #fff; }
+.act-head p { margin: 0.15rem 0 0; font-family: var(--body-font); font-size: 0.98rem; color: rgba(255, 255, 255, 0.65); }
+.act-count {
+    margin-left: auto;
+    flex: none;
+    font-family: var(--mono-font);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    color: rgb(var(--c));
+    border: 1px solid rgba(var(--c), 0.4);
+}
+
+.act-places { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+.act-place {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 12px;
+    font-family: var(--body-font);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+.act-place span { font-size: 1.1rem; }
+.act-place i { font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); }
+a.act-place:hover { background: rgba(var(--c), 0.12); border-color: rgba(var(--c), 0.45); }
+
+.act-ig { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 1rem; }
+.act-ig .instagram-media { margin: 0 !important; min-width: 0 !important; max-width: 400px !important; width: 100% !important; border-radius: 12px !important; }
+
+@media (max-width: 480px) {
+    /* the place chips already show the count */
+    .act-count { display: none; }
+    .act-icon { width: 2.8rem; height: 2.8rem; font-size: 1.2rem; }
+}
