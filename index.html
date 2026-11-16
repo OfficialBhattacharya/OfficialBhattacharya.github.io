@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="src/styles/main.css?v=20261117g">
+    <link rel="stylesheet" href="src/styles/main.css?v=20261118a">
     
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -270,7 +270,7 @@
 
                 <a href="#skills" class="hub-tile hub-skills" style="--tile-accent: 0, 255, 157">
                     <span class="hub-index">05</span>
-                    <div class="hub-chips" aria-hidden="true"><span>q/kdb+</span><span>C++</span><span>PyTorch</span><span>AWS</span></div>
+                    <div class="hub-chips" aria-hidden="true"><span>q/kdb+</span><span>Python</span><span>P&amp;L attribution</span><span>RL</span></div>
                     <div class="hub-foot">
                         <i class="fas fa-microchip"></i>
                         <div><h3>Skills</h3></div>
@@ -739,39 +739,169 @@
 
         <!-- Skills Section -->
         <section id="skills" class="skills app-panel">
-            <div class="container">
+            <div class="container sk">
                 <h2 class="section-title">Skills</h2>
-                <div class="tech-stack-grid">
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-code"></i>
+                <p class="sk-lede">Every skill below links to where I have actually used it. Tap a source to filter.</p>
+                <div class="sk-filter" role="toolbar" aria-label="Filter skills by where they were used">
+                    <button type="button" class="sk-chip active" data-src="all">All</button>
+                    <button type="button" class="sk-chip t-jpm" data-src="jpm">JPMorgan</button>
+                    <button type="button" class="sk-chip t-ms" data-src="ms">Morgan Stanley</button>
+                    <button type="button" class="sk-chip t-isi" data-src="isi">ISI Kolkata</button>
+                    <button type="button" class="sk-chip t-msr" data-src="msr">Microsoft Research</button>
+                    <button type="button" class="sk-chip t-kaggle" data-src="kaggle">Kaggle</button>
+                    <button type="button" class="sk-chip t-proj" data-src="proj">Projects</button>
+                    <button type="button" class="sk-chip t-blog" data-src="blog">Blog</button>
+                </div>
+
+                <div class="sk-card sk-langs" style="--c: 0, 255, 157">
+                    <div class="sk-card-head"><i class="fas fa-code"></i><div><h3>Languages</h3><p>From the CV, with where each one earns its keep</p></div></div>
+                    <div class="sk-lang-grid">
+                        <div class="sk-lang sk-row" data-src="ms">
+                            <b>Q/kdb+</b>
+                            <span>FX P&amp;L / EV models, tick pipelines, hedge engine</span>
+                            <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span></div>
                         </div>
-                        <h3>Programming Languages</h3>
-                        <div class="tech-stack-items">
-                            Python • Q/kdb+ • JavaScript • React • Node.js • WebSocket • Chart.js • R • SQL • Matlab • C • C++
+                        <div class="sk-lang sk-row" data-src="jpm proj kaggle">
+                            <b>Python</b>
+                            <span>Knowledge graph, PPO hedger, fairValue, GyAN, Kaggle</span>
+                            <div class="sk-tags"><span class="sk-tag t-jpm">JPMorgan</span><span class="sk-tag t-proj">Projects</span><span class="sk-tag t-kaggle">Kaggle</span></div>
                         </div>
-                    </div>
-                    
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-tools"></i>
+                        <div class="sk-lang sk-row" data-src="none">
+                            <b>C++</b>
+                            <span>Core language on my CV</span>
+                            <div class="sk-tags"></div>
                         </div>
-                        <h3>Tools & Technologies</h3>
-                        <div class="tech-stack-items">
-                            Jenkins • GitHub • Docker • AWS • Cursor • PySpark • RShiny • LATEX • MS Office • Plotly Dash • Desmos
+                        <div class="sk-lang sk-row" data-src="none">
+                            <b>SQL</b>
+                            <span>Core language on my CV</span>
+                            <div class="sk-tags"></div>
                         </div>
-                    </div>
-                    
-                    <div class="tech-stack-card">
-                        <div class="tech-stack-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3>Areas of Expertise</h3>
-                        <div class="tech-stack-items">
-                            Statistical Modeling • Neural Networks • Mean Field Games • Convex Optimization • Signal Processing • Machine Learning • Number Theory
+                        <div class="sk-lang sk-row" data-src="ms">
+                            <b>R</b>
+                            <span>R–kdb+ framework for property-pricing models</span>
+                            <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span></div>
                         </div>
                     </div>
                 </div>
+
+                <div class="sk-groups">
+                    <div class="sk-card" style="--c: 0, 255, 157">
+                        <div class="sk-card-head"><i class="fas fa-chart-area"></i><div><h3>Quant finance</h3><p>The problems I get paid to solve</p></div></div>
+                        <ul class="sk-list">
+                            <li class="sk-row" data-src="jpm blog">
+                                <b>P&L attribution</b>
+                                <span>Explainable desk P&L: Taylor expansion with cross-gamma terms and residual minimisation, surfacing daily risk drivers.</span>
+                                <div class="sk-tags"><span class="sk-tag t-jpm">JPMorgan</span><span class="sk-tag t-blog">Blog</span></div>
+                            </li>
+                            <li class="sk-row" data-src="jpm">
+                                <b>Stress testing &amp; capital</b>
+                                <span>Primary owner of the firm-wide Stress Forecasting platform behind CCAR / DFAST capital planning and regulatory submissions.</span>
+                                <div class="sk-tags"><span class="sk-tag t-jpm">JPMorgan</span></div>
+                            </li>
+                            <li class="sk-row" data-src="jpm ms blog">
+                                <b>Hedging &amp; optimisation</b>
+                                <span>RL hedge optimiser for interest-rate products; hedge optimisation engine for the structured-products book.</span>
+                                <div class="sk-tags"><span class="sk-tag t-jpm">JPMorgan</span><span class="sk-tag t-ms">Morgan Stanley</span><span class="sk-tag t-blog">Blog</span></div>
+                            </li>
+                            <li class="sk-row" data-src="ms">
+                                <b>FX execution modelling</b>
+                                <span>Microsecond-precision P&amp;L and Expected Value models for spot and forward FX, tuned with front-office traders.</span>
+                                <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span></div>
+                            </li>
+                            <li class="sk-row" data-src="ms blog">
+                                <b>Housing &amp; mortgage analytics</b>
+                                <span>Case-Shiller style index over 25M+ properties (6h+ to ~50 min); hedonic and geo-spatial pricing models.</span>
+                                <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span><span class="sk-tag t-blog">Blog</span></div>
+                            </li>
+                            <li class="sk-row" data-src="blog">
+                                <b>Risk management</b>
+                                <span>FRM (GARP) Part I cleared in 2025; series on duration, OAS, prepayment and credit risk modelling.</span>
+                                <div class="sk-tags"><span class="sk-tag t-blog">Blog</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sk-card" style="--c: 190, 120, 255">
+                        <div class="sk-card-head"><i class="fas fa-brain"></i><div><h3>Machine learning &amp; AI</h3><p>Models that ship, not just notebooks</p></div></div>
+                        <ul class="sk-list">
+                            <li class="sk-row" data-src="jpm">
+                                <b>Reinforcement learning</b>
+                                <span>PPO agent trained on simulated yield-curve scenarios with transaction-cost penalties; beat static delta hedging on risk-adjusted P&amp;L.</span>
+                                <div class="sk-tags"><span class="sk-tag t-jpm">JPMorgan</span></div>
+                            </li>
+                            <li class="sk-row" data-src="jpm">
+                                <b>LLMs &amp; knowledge graphs</b>
+                                <span>Graph-based semantic search over internal quant codebases: natural-language queries over dependencies and risk-factor lineage.</span>
+                                <div class="sk-tags"><span class="sk-tag t-jpm">JPMorgan</span></div>
+                            </li>
+                            <li class="sk-row" data-src="ms kaggle">
+                                <b>Deep learning</b>
+                                <span>ANN property-pricing models with custom distance metrics, deployed through an R–kdb+ framework.</span>
+                                <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span></div>
+                            </li>
+                            <li class="sk-row" data-src="kaggle">
+                                <b>Gradient boosting &amp; tabular ML</b>
+                                <span>67 Kaggle competitions entered, including Jane Street real-time market data and Optiver realized-volatility forecasting.</span>
+                                <div class="sk-tags"><span class="sk-tag t-kaggle">Kaggle</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sk-card" style="--c: 0, 200, 255">
+                        <div class="sk-card-head"><i class="fas fa-server"></i><div><h3>Data &amp; engineering</h3><p>Making it fast and keeping it running</p></div></div>
+                        <ul class="sk-list">
+                            <li class="sk-row" data-src="ms">
+                                <b>Low-latency data pipelines</b>
+                                <span>q/kdb+ tick-stream pipelines for ultra-low-latency automated backtesting; INTEX tick data joined to loan portfolios.</span>
+                                <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span></div>
+                            </li>
+                            <li class="sk-row" data-src="ms">
+                                <b>Model lifecycle</b>
+                                <span>Owned models end to end, from the maths to live production use on the trading desk.</span>
+                                <div class="sk-tags"><span class="sk-tag t-ms">Morgan Stanley</span></div>
+                            </li>
+                            <li class="sk-row" data-src="proj">
+                                <b>Apps &amp; dashboards</b>
+                                <span>React front ends for Wall_ET and fairValue, a FastAPI back end for fairValue, and Plotly Dash dashboards.</span>
+                                <div class="sk-tags"><span class="sk-tag t-proj">Projects</span></div>
+                            </li>
+                            <li class="sk-row" data-src="none">
+                                <b>Cloud &amp; MLOps</b>
+                                <span>AWS (S3, EC2, Lambda), Docker, Kubernetes and GitHub Actions.</span>
+                                <div class="sk-tags"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sk-card" style="--c: 255, 190, 0">
+                        <div class="sk-card-head"><i class="fas fa-square-root-alt"></i><div><h3>Mathematics</h3><p>The foundation underneath</p></div></div>
+                        <ul class="sk-list">
+                            <li class="sk-row" data-src="isi blog">
+                                <b>Probability &amp; stochastic calculus</b>
+                                <span>M.Stat with a Probability major (ISI); blog series from Brownian motion and SDEs to Itô and Black-Scholes.</span>
+                                <div class="sk-tags"><span class="sk-tag t-isi">ISI Kolkata</span><span class="sk-tag t-blog">Blog</span></div>
+                            </li>
+                            <li class="sk-row" data-src="isi">
+                                <b>Statistics</b>
+                                <span>B.Stat and M.Stat at the Indian Statistical Institute; B.Stat merit list rank 10.</span>
+                                <div class="sk-tags"><span class="sk-tag t-isi">ISI Kolkata</span></div>
+                            </li>
+                            <li class="sk-row" data-src="msr">
+                                <b>Algorithms &amp; cryptography</b>
+                                <span>Authored an O(n²) algorithm for the Hidden-Subgroup problem; zero-knowledge authentication prototype.</span>
+                                <div class="sk-tags"><span class="sk-tag t-msr">Microsoft Research</span></div>
+                            </li>
+                            <li class="sk-row" data-src="none">
+                                <b>Competition maths</b>
+                                <span>Simon Marais Asia rank 27 (pairs); Regional Mathematics Olympiad three years running; KVPY scholar.</span>
+                                <div class="sk-tags"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sk-card sk-also" style="--c: 255, 255, 255">
+                    <div class="sk-card-head"><i class="fas fa-toolbox"></i><div><h3>Also in the toolkit</h3><p>Libraries and tools from my CV and projects</p></div></div>
+                    <div class="sk-pills"><span>PyTorch</span><span>TensorFlow</span><span>XGBoost</span><span>Transformers</span><span>AWS</span><span>Docker</span><span>Kubernetes</span><span>GitHub Actions</span><span>Plotly Dash</span><span>React</span><span>FastAPI</span><span>TypeScript</span><span>LaTeX</span></div>
+                </div>
+                <p class="sk-empty" id="skEmpty" hidden>Nothing tagged with that source.</p>
             </div>
         </section>
 
@@ -2081,9 +2211,10 @@
     </main>
 
     <!-- Scripts -->
-    <script src="src/scripts/main.js?v=20261117g"></script>
+    <script src="src/scripts/main.js?v=20261118a"></script>
     <script src="src/data/music.js?v=1"></script>
     <script src="src/scripts/music.js?v=1"></script>
+    <script src="src/scripts/skills.js?v=1"></script>
     <script src="src/scripts/apps.js?v=10"></script>
     <script src="src/scripts/inapp.js?v=3"></script>
 </body>
