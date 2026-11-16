@@ -7,14 +7,18 @@
 window.TRAVEL_INSTAGRAM = {
     profile: 'horizonsmirks',
     posts: {
-        india:    [],
+        india:    ['https://www.instagram.com/p/DY_laVlumKH/',   // Fairy Tale Arc
+                   'https://www.instagram.com/p/DWv1jyFjH4u/',   // Too-tired trek (2026)
+                   'https://www.instagram.com/p/DR1ZUWgk0IN/',   // to old friends and new
+                   'https://www.instagram.com/p/DR9WfdXjB1a/'],  // Stick to the skies
         oman:     [],
         russia:   [],
         vietnam:  ['https://www.instagram.com/p/DSzuPEwjCIW/'],
         thailand: [],
         srilanka: ['https://www.instagram.com/p/DfZ_qZjAJWW/'],
-        kenya:    [],
-        tanzania: ['https://www.instagram.com/p/DVGIscZjKlE/']
+        kenya:    ['https://www.instagram.com/p/DNjb2bxTNLu/'],   // Postcards from Kenya & Tanzania
+        tanzania: ['https://www.instagram.com/p/DVGIscZjKlE/',   // Zanzibar 2025
+                   'https://www.instagram.com/p/DNjb2bxTNLu/']   // Postcards from Kenya & Tanzania
     }
 };
 
