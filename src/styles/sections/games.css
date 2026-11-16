@@ -421,3 +421,180 @@
         font-size: var(--font-size-xs);
     }
 }
+/* Games split into groups: board games / browser games */
+.games-group { margin-top: 2.5rem; }
+.games-group:first-of-type { margin-top: 1.5rem; }
+.games-group-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+    border-radius: 14px;
+    background: linear-gradient(90deg, rgba(0, 255, 157, 0.1), rgba(0, 255, 157, 0.01));
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    border-left: 3px solid var(--secondary-color);
+}
+#browser-games .games-group-head {
+    background: linear-gradient(90deg, rgba(0, 200, 255, 0.1), rgba(0, 200, 255, 0.01));
+    border-color: rgba(0, 200, 255, 0.2);
+    border-left-color: #00c8ff;
+}
+.games-group-head > i {
+    flex: none;
+    width: 2.8rem;
+    height: 2.8rem;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    background: rgba(0, 255, 157, 0.1);
+}
+#browser-games .games-group-head > i { color: #00c8ff; background: rgba(0, 200, 255, 0.1); }
+.games-group-head h3 { margin: 0; font-family: var(--header-font); font-size: 1.25rem; color: #fff; letter-spacing: 0.04em; }
+.games-group-head p { margin: 0.2rem 0 0; font-family: var(--body-font); color: rgba(255, 255, 255, 0.65); }
+.games-count {
+    margin-left: auto;
+    flex: none;
+    font-family: var(--mono-font);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+@media (max-width: 640px) {
+    .games-group-head { flex-wrap: wrap; }
+    .games-count { margin-left: 0; }
+}
+
+/* Board games: single featured card */
+.games-grid-feature { grid-template-columns: minmax(0, 520px); justify-content: center; }
+
+/* Browser games: small square tiles */
+.games-grid-mini {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.games-grid-mini .game-tile {
+    min-width: 0;
+    max-width: none;
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    padding: 1rem 0.75rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-align: center;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 200, 255, 0.2);
+    background:
+        radial-gradient(80% 60% at 50% 30%, rgba(255, 255, 255, 0.05), transparent 70%),
+        rgba(14, 18, 24, 0.9);
+}
+.games-grid-mini .game-tile .game-icon { margin: 0; opacity: 1; }
+.games-grid-mini .game-tile .game-icon i {
+    width: 3.4rem;
+    height: 3.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    color: var(--g);
+    background: color-mix(in srgb, var(--g) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--g) 45%, transparent);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.games-grid-mini .game-tile h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+.games-grid-mini .game-tile .game-description {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+.games-grid-mini .game-tile:hover,
+.games-grid-mini .game-tile:focus-visible {
+    transform: translateY(-4px);
+    border-color: rgba(0, 200, 255, 0.6);
+    box-shadow: 0 10px 26px -10px rgba(0, 200, 255, 0.5);
+    outline: none;
+}
+.games-grid-mini .game-tile:hover .game-icon i {
+    transform: scale(1.08) rotate(-4deg);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--g) 50%, transparent);
+}
+@media (max-width: 640px) {
+    .games-grid-mini { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+    .games-grid-mini .game-tile { padding: 0.5rem; border-radius: 14px; }
+    .games-grid-mini .game-tile .game-icon i { width: 2.6rem; height: 2.6rem; font-size: 1.15rem; }
+    .games-grid-mini .game-tile h3 { font-size: 0.72rem; }
+}
+
+/* Kargill 99: poster tile, same square shape as the browser game tiles but a little bigger */
+.games-grid-poster { grid-template-columns: minmax(0, 250px); justify-content: center; }
+.games-grid-mini .poster-tile {
+    padding: 0;
+    overflow: hidden;
+    justify-content: flex-end;
+    border: 2px solid #1a1714;
+    border-radius: 18px;
+    background: #f4eddb;
+    box-shadow: 0 0 0 1px rgba(240, 138, 36, 0.4), 0 10px 26px -12px rgba(240, 138, 36, 0.5);
+}
+.poster-tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0%;
+    transition: transform 0.5s ease, object-position 1.2s ease;
+}
+.poster-tile:hover img, .poster-tile:focus-visible img { transform: scale(1.04); object-position: 50% 35%; }
+.poster-tile-label {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 2.2rem 0.85rem 0.75rem;
+    background: linear-gradient(to top, rgba(10, 8, 6, 0.92) 40%, transparent);
+}
+.games-grid-mini .poster-tile .poster-tile-label h3 {
+    font-family: var(--header-font);
+    font-size: 1.05rem;
+    color: #fff;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+.poster-tile-label span {
+    flex: none;
+    font-family: var(--header-font);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    color: #1a1714;
+    background: #f08a24;
+    border: 1.5px solid #1a1714;
+}
+.games-grid-mini .poster-tile:hover,
+.games-grid-mini .poster-tile:focus-visible {
+    border-color: #f08a24;
+    box-shadow: 0 0 0 2px #f08a24, 0 14px 30px -10px rgba(240, 138, 36, 0.6);
+}
+@media (max-width: 640px) {
+    .games-grid-poster { grid-template-columns: minmax(0, 220px); }
+}

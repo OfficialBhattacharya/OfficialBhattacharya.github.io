@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Diganta Bhattacharya - Portfolio</title>
     
     <!-- Fonts -->
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/main.css?v=20261117g">
     
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -19,46 +19,28 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="sundial-nav">
-        <div class="sundial-sections">
-            <a href="#home" class="sundial-section active">
-                <span>Home</span>
-            </a>
-            <a href="#about" class="sundial-section">
-                <span>About</span>
-            </a>
-            <a href="#experience" class="sundial-section">
-                <span>Experience</span>
-            </a>
-            <a href="#projects" class="sundial-section">
-                <span>Projects</span>
-            </a>
-            <a href="#skills" class="sundial-section">
-                <span>Skills</span>
-            </a>
-            <a href="#blog" class="sundial-section">
-                <span>Blog</span>
-            </a>
-            <a href="#games" class="sundial-section">
-                <span>Games</span>
-            </a>
-            <a href="#art" class="sundial-section">
-                <span>Art</span>
-            </a>
-            <a href="#travel" class="sundial-section">
-                <span>Travel</span>
-            </a>
-            <a href="#collection" class="sundial-section">
-                <span>Collection</span>
-            </a>
-            <a href="#kaggle" class="sundial-section">
-                <span>Kaggle</span>
-            </a>
-            <a href="#analytics" class="sundial-section">
-                <span>Analytics</span>
-            </a>
-        </div>
+    <!-- Phone status bar -->
+    <div class="status-bar" aria-hidden="true">
+        <span class="sb-time" id="sbTime">9:41</span>
+        <span class="sb-island"></span>
+        <span class="sb-icons">
+            <span class="sb-signal"><i></i><i></i><i></i><i></i></span>
+            <i class="fas fa-wifi"></i>
+            <span class="sb-battery"><span></span></span>
+        </span>
+    </div>
+
+    <!-- Navigation: a phone-style bar with three buttons -->
+    <nav class="phone-nav" aria-label="Main">
+        <a href="#home" class="phone-nav-btn active" aria-label="Home">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a href="#hub" class="phone-nav-btn" aria-label="Grid">
+            <i class="fas fa-th-large"></i><span>Grid</span>
+        </a>
+        <a href="#others" class="phone-nav-btn" aria-label="Others: every section">
+            <i class="fas fa-ellipsis-h"></i><span>Others</span>
+        </a>
     </nav>
 
     <!-- Main Container -->
@@ -124,7 +106,7 @@
                         </div>
                         <div class="hero-resume-row">
                             <div class="resume-button-container">
-                                <a href="src/assets/Resume_PostISI.pdf" target="_blank" class="resume-button">
+                                <a href="src/assets/Resume_Diganta_Bhattacharya.pdf" target="_blank" class="resume-button">
                                     <i class="fas fa-download"></i>
                                     View Resume
                                 </a>
@@ -218,161 +200,471 @@
             </div>
         </section>
 
+        <!-- Hub: bento grid of every section -->
+        <section id="hub" class="hub" aria-label="Site map">
+            <div class="hub-grid">
+                <a href="#about" class="hub-tile hub-about" style="--tile-accent: 0, 255, 157">
+                    <span class="hub-index">01</span>
+                    <div class="hub-mini-term" aria-hidden="true">
+                        <div><span class="p">$</span> whoami</div>
+                        <div class="o">diganta · quant research @ JPMorgan</div>
+                        <div><span class="p">$</span> cat education.txt</div>
+                        <div class="o">ISI Kolkata · M.Stat · B.Stat</div>
+                        <div><span class="p">$</span> cat stack.yml</div>
+                        <div class="o">q/kdb+ · c++ · python · sql · r</div>
+                        <div><span class="p">$</span> <span class="hub-cursor">_</span></div>
+                    </div>
+                    <div class="hub-foot">
+                        <i class="fas fa-terminal"></i>
+                        <div>
+                            <h3>About / CV</h3>
+                            <p>The whole résumé, as a shell session</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#experience" class="hub-tile hub-exp" style="--tile-accent: 0, 200, 255">
+                    <span class="hub-index">02</span>
+                    <div class="hub-ribbon" aria-hidden="true">
+                        <span style="--w: 14%" class="r-msr">MSR</span>
+                        <span style="--w: 52%" class="r-ms">Morgan Stanley</span>
+                        <span style="--w: 34%" class="r-jpm">JPMorgan</span>
+                    </div>
+                    <div class="hub-foot">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <h3>Experience</h3>
+                            <p>P&amp;L attribution, FX EV models, stress capital, RL hedging</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#blog" class="hub-tile hub-blog" style="--tile-accent: 255, 0, 200">
+                    <span class="hub-index">03</span>
+                    <ul class="hub-list" aria-hidden="true">
+                        <li>Bermudan swaptions</li>
+                        <li>P&amp;L attribution</li>
+                        <li>Hedging MBS by duration</li>
+                        <li>Prepayment risk &amp; PSA</li>
+                        <li>Securitization waterfalls</li>
+                    </ul>
+                    <div class="hub-foot">
+                        <i class="fas fa-pen-nib"></i>
+                        <div>
+                            <h3>Blog</h3>
+                            <p>Finance, stats, ML from scratch, trivia</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#projects" class="hub-tile hub-proj" style="--tile-accent: 255, 190, 0">
+                    <span class="hub-index">04</span>
+                    <div class="hub-foot">
+                        <i class="fas fa-code-branch"></i>
+                        <div>
+                            <h3>Projects</h3>
+                            <p>Wall_ET · GyAN · fairValue</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#skills" class="hub-tile hub-skills" style="--tile-accent: 0, 255, 157">
+                    <span class="hub-index">05</span>
+                    <div class="hub-chips" aria-hidden="true"><span>q/kdb+</span><span>C++</span><span>PyTorch</span><span>AWS</span></div>
+                    <div class="hub-foot">
+                        <i class="fas fa-microchip"></i>
+                        <div><h3>Skills</h3></div>
+                    </div>
+                </a>
+
+                <a href="#kaggle" class="hub-tile hub-kaggle" style="--tile-accent: 32, 190, 255">
+                    <span class="hub-index">06</span>
+                    <div class="hub-big" aria-hidden="true">67<small>competitions</small></div>
+                    <div class="hub-big hub-big-2" aria-hidden="true">191<small>submissions</small></div>
+                    <div class="hub-foot">
+                        <i class="fab fa-kaggle"></i>
+                        <div>
+                            <h3>Kaggle</h3>
+                            <p>Every competition, with notes</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#games" class="hub-tile hub-games" style="--tile-accent: 255, 0, 60">
+                    <span class="hub-index">07</span>
+                    <div class="hub-foot">
+                        <i class="fas fa-gamepad"></i>
+                        <div>
+                            <h3>Games</h3>
+                            <p>Kargill 99 + 6 quick browser games</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#art" class="hub-tile hub-art" style="--tile-accent: 190, 120, 255">
+                    <span class="hub-index">08</span>
+                    <div class="hub-foot">
+                        <i class="fas fa-palette"></i>
+                        <div>
+                            <h3>Art</h3>
+                            <p>Manga, sketches, fiction</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#travel" class="hub-tile hub-travel" style="--tile-accent: 0, 255, 200">
+                    <span class="hub-index">09</span>
+                    <div class="hub-countries" aria-hidden="true">
+                        <span>India</span><span>Oman</span><span>Russia</span><span>Vietnam</span>
+                        <span>Thailand</span><span>Sri Lanka</span><span>Kenya</span><span>Tanzania</span>
+                    </div>
+                    <div class="hub-foot">
+                        <i class="fas fa-globe-asia"></i>
+                        <div>
+                            <h3>Travel</h3>
+                            <p>8 countries and counting</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#collection" class="hub-tile hub-coll" style="--tile-accent: 255, 170, 60">
+                    <span class="hub-index">10</span>
+                    <div class="hub-foot">
+                        <i class="fas fa-coins"></i>
+                        <div>
+                            <h3>Collection</h3>
+                            <p>Coins · notes · stamps</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#analytics" class="hub-tile hub-analytics" style="--tile-accent: 120, 255, 120">
+                    <span class="hub-index">11</span>
+                    <div class="hub-foot">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <h3>Analytics</h3>
+                            <p>Visitors &amp; newsletter</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="#music" class="hub-tile hub-music" style="--tile-accent: 255, 140, 60">
+                    <span class="hub-index">12</span>
+                    <div class="hub-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                    <div class="hub-foot">
+                        <i class="fas fa-music"></i>
+                        <div>
+                            <h3>Music</h3>
+                            <p>Playlists for every mood</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
         <!-- About Section -->
         <section id="about" class="about">
             <div class="container">
-                <h2 class="section-title">About</h2>
-                <div class="about-content">
-                    <div class="terminal-window">
-                        <div class="terminal-header">
-                            <div class="terminal-buttons">
-                                <div class="term-btn term-close"></div>
-                                <div class="term-btn term-minimize"></div>
-                                <div class="term-btn term-maximize"></div>
-                            </div>
-                            <div class="terminal-title">diganta@linux:~$ neofetch</div>
+                <h2 class="section-title">About · CV</h2>
+                <div class="cv-term" id="cvTerm">
+                    <div class="cv-term-bar">
+                        <div class="terminal-buttons">
+                            <div class="term-btn term-close"></div>
+                            <div class="term-btn term-minimize"></div>
+                            <div class="term-btn term-maximize"></div>
                         </div>
-                        <div class="terminal-body">
-                            <div class="terminal-content">
-                                <div class="term-user-info">
-                                    <div class="term-username">diganta@linux</div>
-                                    <div class="term-separator">--------------</div>
-                                    <div class="system-info">
-                                        <div>OS: Ubuntu 20.04 LTS x86_64</div>
-                                        <div>Kernel: 5.4.0-24-generic</div>
-                                        <div>Shell: bash 5.0.16</div>
-                                        <div>CPU: Intel i3-4150 (4) @ 3.50GHz</div>
-                                        <div>Memory: 1905MiB / 7639MiB</div>
-                                    </div>
-                                </div>
-                                <ul class="term-data-list">
-                                    <li>
-                                        <span class="term-label">Education:</span>
-                                        <span class="term-value">Masters and Bachelors in Statistics from the Indian Statistical Institute</span>
-                                        <ul class="term-sub-items">
-                                            <li><span class="term-marker">></span> Major: Probability</li>
-                                            <li><span class="term-marker">></span> Minor: Financial Mathematics</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <span class="term-label">Skills:</span>
-                                        <span class="term-value">Experienced in</span>
-                                        <ul class="term-sub-items">
-                                            <li><span class="term-marker">></span> Developing predictive models</li>
-                                            <li><span class="term-marker">></span> Analyzing financial data</li>
-                                            <li><span class="term-marker">></span> Implementing data-driven solutions</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <span class="term-label">Current Role:</span>
-                                        <span class="term-value">Quant Researcher @ Securities Services, JP Morgan Chase (Mumbai)</span>
-                                    </li>
-                                    
-                                    <li class="location-info">
-                                        <span class="term-label">Location:</span>
-                                        <span class="term-value"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</span>
-                                    </li>
+                        <div class="cv-term-title">diganta@isi-kolkata: ~/cv — bash</div>
+                        <button type="button" class="cv-term-skip" id="cvTermSkip">skip ▸</button>
+                    </div>
 
-                                    <li class="terminal-line">
-                                        <span class="prompt">diganta@linux:~$</span>
-                                        <span class="command blink-cursor">_</span>
-                                    </li>
-                                </ul>
+                    <div class="cv-term-body">
+                        <!-- neofetch -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">neofetch</span></div>
+                            <div class="cv-out cv-neofetch">
+<pre class="cv-ascii" aria-hidden="true">  /\         /\
+ /  \_______/  \
+|   ___   ___   |
+|  (o  ) (o  )  |
+|   ‾‾‾ ^ ‾‾‾   |
+|    \_____/    |
+ \_____________/
+   ace // cat</pre>
+                                <div class="cv-info">
+                                    <div class="cv-info-head">diganta<span>@</span>bhattacharya</div>
+                                    <div class="cv-rule">-----------------------------</div>
+                                    <div><span class="k">Role</span>: Quant Research, Securities Services</div>
+                                    <div><span class="k">Host</span>: JPMorgan Chase &amp; Co.</div>
+                                    <div><span class="k">Location</span>: Mumbai, India</div>
+                                    <div><span class="k">Kernel</span>: M.Stat (Probability) · ISI Kolkata</div>
+                                    <div><span class="k">Uptime</span>: 4+ years in quant finance</div>
+                                    <div><span class="k">Shell</span>: q/kdb+ · C++ · Python</div>
+                                    <div><span class="k">Certs</span>: FRM (GARP) Part I · 2025</div>
+                                    <div class="cv-swatch"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- education -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">cat education.txt</span></div>
+                            <div class="cv-out">
+                                <div class="cv-strong">Indian Statistical Institute (ISI), Kolkata</div>
+                                <div class="cv-row"><span>Master of Statistics · Major Probability, Minor Finance</span><span class="cv-num">80.2%</span><span class="cv-dim">2020 – 2022</span></div>
+                                <div class="cv-row"><span>Bachelor of Statistics (Honours)</span><span class="cv-num">74.5%</span><span class="cv-dim">2017 – 2020</span></div>
+                            </div>
+                        </div>
+
+                        <!-- achievements -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">ls -l achievements/</span></div>
+                            <div class="cv-out cv-ls">
+                                <div class="cv-dim">total 8</div>
+                                <div><span class="cv-perm">-rw-r--r--</span><span class="cv-date">2019</span><span class="cv-file">simon_marais_asia_rank_27_pairs</span></div>
+                                <div><span class="cv-perm">-rw-r--r--</span><span class="cv-date">2018</span><span class="cv-file">simon_marais_top_quartile_asia</span></div>
+                                <div><span class="cv-perm">-rw-r--r--</span><span class="cv-date">2014-16</span><span class="cv-file">regional_math_olympiad_rmo_x3</span></div>
+                                <div><span class="cv-perm">-rw-r--r--</span><span class="cv-date">2017</span><span class="cv-file">isi_bstat_merit_list_rank_10</span></div>
+                                <div><span class="cv-perm">-rw-r--r--</span><span class="cv-date">2016</span><span class="cv-file">kvpy_sa_scholar</span></div>
+                                <div><span class="cv-perm">-rw-r--r--</span><span class="cv-date">—</span><span class="cv-file">nest_junior_air_67__senior_air_240</span></div>
+                                <div><span class="cv-perm">-rwxr-xr-x</span><span class="cv-date">2025</span><span class="cv-file cv-exec">frm_garp_part_1_cleared</span></div>
+                            </div>
+                        </div>
+
+                        <!-- stack -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">cat stack.yml</span></div>
+                            <div class="cv-out cv-yaml">
+                                <div><span class="k">languages</span>: <span class="cv-tags"><b>Q/kdb+</b><b>C++</b><b>Python</b><b>SQL</b><b>R</b></span></div>
+                                <div><span class="k">quant_ml</span>: <span class="cv-tags"><b>Deep Learning</b><b>PyTorch</b><b>TensorFlow</b><b>XGBoost</b><b>Transformers</b><b>LLMs</b></span></div>
+                                <div><span class="k">infra_mlops</span>: <span class="cv-tags"><b>AWS (S3, EC2, Lambda)</b><b>Docker</b><b>Kubernetes</b><b>GitHub Actions</b><b>Plotly Dash</b><b>React</b></span></div>
+                            </div>
+                        </div>
+
+                        <!-- career log -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">git log --oneline --graph career</span></div>
+                            <div class="cv-out cv-git">
+                                <div><span class="cv-graph">*</span> <span class="cv-hash">a1f9c2e</span> <span class="cv-ref">(HEAD -&gt; main)</span> <span class="cv-dim">2025-12</span> JPMorgan Chase · Quant Research, Securities Services</div>
+                                <div><span class="cv-graph">*</span> <span class="cv-hash">7be03d1</span> <span class="cv-dim">2022-05</span> Morgan Stanley FID · Senior Associate, FXEM &amp; SPG Modelling desks</div>
+                                <div><span class="cv-graph">*</span> <span class="cv-hash">3c9a4f0</span> <span class="cv-dim">2021-05</span> Morgan Stanley FID · Summer Associate, SPG Modelling</div>
+                                <div><span class="cv-graph">*</span> <span class="cv-hash">0d12e88</span> <span class="cv-dim">2019-05</span> Microsoft Research India · cryptography research</div>
+                                <div><span class="cv-graph">*</span> <span class="cv-hash">5e7a210</span> <span class="cv-ref cv-ref-tag">(tag: init)</span> <span class="cv-dim">2017-07</span> ISI Kolkata · B.Stat, merit list rank 10</div>
+                                <div class="cv-comment"># full diff → <a href="#experience">./experience</a></div>
+                            </div>
+                        </div>
+
+                        <!-- research -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">cat research/*.md | head</span></div>
+                            <div class="cv-out">
+                                <div><span class="cv-bullet">▸</span> <span class="cv-strong">Market Microstructure (Kaggle)</span> — predictive models for Jane Street Real-Time Market Data Forecasting and Optiver Realized Volatility Prediction.</div>
+                                <div><span class="cv-bullet">▸</span> <span class="cv-strong">Cryptography (Microsoft India)</span> — authored an O(n²) algorithm for the Hidden-Subgroup problem; built a Zero-Knowledge Authentication prototype.</div>
+                            </div>
+                        </div>
+
+                        <!-- contact -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">contact --all</span></div>
+                            <div class="cv-out cv-contact">
+                                <a href="mailto:officialbhattacharya@gmail.com"><i class="fas fa-envelope"></i> officialbhattacharya@gmail.com</a>
+                                <a href="tel:+918388954577"><i class="fas fa-phone"></i> +91-8388954577</a>
+                                <a href="https://www.linkedin.com/in/diganta-bhattacharya-373293135/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> linkedin</a>
+                                <a href="https://github.com/OfficialBhattacharya" target="_blank" rel="noopener"><i class="fab fa-github"></i> github</a>
+                            </div>
+                        </div>
+
+                        <!-- download -->
+                        <div class="cv-block">
+                            <div class="cv-cmd"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-typed">wget ./Resume_Diganta_Bhattacharya.pdf</span></div>
+                            <div class="cv-out">
+                                <a class="cv-download" href="src/assets/Resume_Diganta_Bhattacharya.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume_Diganta_Bhattacharya.pdf <span class="cv-dim">[102 KB] — click to open</span></a>
+                            </div>
+                        </div>
+
+                        <div class="cv-cmd cv-idle"><span class="cv-ps">diganta@isi-kolkata</span>:<span class="cv-path">~/cv</span>$ <span class="cv-caret"></span></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="experience">
+        <section id="experience" class="experience xp app-panel">
             <div class="container">
                 <h2 class="section-title">Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="role">Quant Researcher</div>
-                        <div class="company">JP Morgan Chase, Securities Services</div>
-                        <div class="period">Dec 2025 - Present</div>
-                        <div class="location">Mumbai</div>
-                        <ul class="responsibilities">
-                            <li>Liquidity modelling for the Securities Services deposits book</li>
-                            <li>Hedging simulation for the deposits book across rate scenarios</li>
-                            <li>Building AI solutions for the custody and sales teams</li>
-                        </ul>
-                    </div>
 
-                    <div class="timeline-item">
-                        <div class="role">Sr. Quant Strategist</div>
-                        <div class="company">Morgan Stanley, FID</div>
-                        <div class="period">2022 - 2025</div>
-                        <div class="location">Mumbai</div>
-                        <ul class="responsibilities">
-                            <li>Leading strategic analytics for residential mortgage portfolios worth billions</li>
-                            <li>Developed USA Home Price Index Analytics with 10% MSE reduction</li>
-                            <li>Built automated systems processing 25M+ property transactions</li>
-                            <li>Implemented ML models improving AUC by 0.12-0.17 vs legacy systems</li>
-                        </ul>
+                <!-- Career ribbon: proportional timeline May 2019 → today -->
+                <div class="xp-ribbon" aria-label="Career timeline">
+                    <div class="xp-track">
+                        <button class="xp-seg seg-msr" style="--l: 0%; --w: 15.6%" data-target="xp-msr" aria-label="Microsoft Research India, 2019 to 2020"><span>MSR</span></button>
+                        <button class="xp-seg seg-ms seg-mini" style="--l: 26.7%; --w: 2.2%" data-target="xp-ms" aria-label="Morgan Stanley summer, 2021"><span></span></button>
+                        <button class="xp-seg seg-ms" style="--l: 40%; --w: 46.7%" data-target="xp-ms" aria-label="Morgan Stanley, 2022 to 2025"><span>Morgan Stanley</span></button>
+                        <button class="xp-seg seg-jpm" style="--l: 87.8%; --w: 12.2%" data-target="xp-jpm" aria-label="JPMorgan Chase, 2025 to present"><span>JPMC</span></button>
                     </div>
-
-                    <div class="timeline-item">
-                        <div class="role">Summer Associate</div>
-                        <div class="company">Morgan Stanley, FID</div>
-                        <div class="period">May - July 2021</div>
-                        <div class="location">Mumbai</div>
-                        <ul class="responsibilities">
-                            <li>Implemented ANN Model for American Home Price Prediction</li>
-                            <li>Developed Hedonic & Geo-Spatial Pricing Models</li>
-                            <li>Built comprehensive R-kdb+ framework for model deployment</li>
-                            <li>Performed advanced data processing and matrix manipulation</li>
-                        </ul>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="role">Research Intern</div>
-                        <div class="company">Microsoft Research India</div>
-                        <div class="period">May 2019 - July 2020</div>
-                        <div class="location">Kolkata</div>
-                        <ul class="responsibilities">
-                            <li>Developed O(n²) algorithm for Hidden-Subgroup Problem</li>
-                            <li>Built Zero-Knowledge Authentication proof prototype</li>
-                            <li>Conducted advanced cryptology and quantum computing research</li>
-                            <li>Created alternative proof for Fermat's Theorem</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="stats-container">
-                    <div class="stat-box">
-                        <div class="stat-value">4+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    
-                    <div class="stat-box">
-                        <div class="stat-value">25M+</div>
-                        <div class="stat-label">Projects Delivered</div>
-                    </div>
-                    
-                    <div class="stat-box">
-                        <div class="stat-value">20+</div>
-                        <div class="stat-label">ML Models Deployed</div>
+                    <div class="xp-ticks" aria-hidden="true">
+                        <span style="--l: 7.8%">2020</span><span style="--l: 21.1%">2021</span><span style="--l: 34.4%">2022</span>
+                        <span style="--l: 47.8%">2023</span><span style="--l: 61.1%">2024</span><span style="--l: 74.4%">2025</span><span style="--l: 87.8%">2026</span>
                     </div>
                 </div>
 
-                <!-- View Full Experience Button -->
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a href="experience/experience.html" class="resume-button" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <div class="xp-layout">
+                    <!-- Company tabs -->
+                    <div class="xp-tabs" role="tablist" aria-label="Employers">
+                        <button class="xp-tab active" role="tab" aria-selected="true" data-target="xp-jpm" style="--c: 0, 255, 157">
+                            <span class="xp-mono">JPM</span>
+                            <span class="xp-tab-text"><b>JPMorgan Chase &amp; Co.</b><small>Dec 2025 – Present</small></span>
+                        </button>
+                        <button class="xp-tab" role="tab" aria-selected="false" data-target="xp-ms" style="--c: 0, 200, 255">
+                            <span class="xp-mono">MS</span>
+                            <span class="xp-tab-text"><b>Morgan Stanley</b><small>2021 · 2022 – Nov 2025</small></span>
+                        </button>
+                        <button class="xp-tab" role="tab" aria-selected="false" data-target="xp-msr" style="--c: 190, 140, 255">
+                            <span class="xp-mono">MSR</span>
+                            <span class="xp-tab-text"><b>Microsoft Research India</b><small>May 2019 – Jul 2020</small></span>
+                        </button>
+                    </div>
+
+                    <div class="xp-panels">
+                        <!-- JPMorgan -->
+                        <article class="xp-panel active" id="xp-jpm" role="tabpanel" style="--c: 0, 255, 157">
+                            <header class="xp-head">
+                                <div>
+                                    <h3>Quant Research</h3>
+                                    <p class="xp-org">JPMorgan Chase &amp; Co. · Securities Services</p>
+                                </div>
+                                <div class="xp-meta"><span class="xp-live">● Current</span><span>Dec 2025 – Present</span><span><i class="fas fa-map-marker-alt"></i> Mumbai</span></div>
+                            </header>
+                            <div class="xp-cards">
+                                <div class="xp-card">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <h4>P&amp;L Attribution Engine</h4>
+                                    <p>Led an explainable P&amp;L attribution model for the trading desk: Taylor expansion with cross-gamma decomposition and residual minimisation to explain daily desk performance and surface key risk drivers.</p>
+                                    <div class="xp-tags"><span>Taylor expansion</span><span>Cross-gamma</span><span>Risk drivers</span></div>
+                                </div>
+                                <div class="xp-card">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <h4>Stress &amp; Regulatory Capital</h4>
+                                    <p>Primary owner of the firm's Stress Forecasting platform; partnered with desk heads and quant teams to drive CCAR/DFAST capital planning across regulatory scenarios and submissions.</p>
+                                    <div class="xp-tags"><span>CCAR</span><span>DFAST</span><span>Scenario design</span></div>
+                                </div>
+                                <div class="xp-card">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <h4>Codebase Knowledge Graph</h4>
+                                    <p>Built a graph-based semantic search tool over internal quant codebases: natural-language queries over model dependencies, call chains and risk-factor lineage. Faster onboarding and model-audit root-cause analysis.</p>
+                                    <div class="xp-tags"><span>Knowledge graph</span><span>Semantic search</span><span>LLMs</span></div>
+                                </div>
+                                <div class="xp-card">
+                                    <i class="fas fa-robot"></i>
+                                    <h4>RL Hedge Optimiser · IR products</h4>
+                                    <p>PPO agent that dynamically optimises hedges for interest-rate products, trained on simulated yield-curve scenarios with transaction-cost penalties; beats static delta-hedge benchmarks on risk-adjusted P&amp;L.</p>
+                                    <div class="xp-tags"><span>PPO</span><span>Yield curves</span><span>Hedging</span></div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Morgan Stanley -->
+                        <article class="xp-panel" id="xp-ms" role="tabpanel" style="--c: 0, 200, 255" hidden>
+                            <header class="xp-head">
+                                <div>
+                                    <h3>Senior Associate</h3>
+                                    <p class="xp-org">Morgan Stanley · Fixed Income Division</p>
+                                </div>
+                                <div class="xp-meta"><span>May 2022 – Nov 2025</span><span><i class="fas fa-map-marker-alt"></i> Mumbai</span></div>
+                            </header>
+
+                            <ol class="xp-steps">
+                                <li class="xp-step">
+                                    <div class="xp-step-head"><b>Senior Associate · FXEM Desk</b><span class="xp-badge">latest</span></div>
+                                    <div class="xp-cards xp-cards-2">
+                                        <div class="xp-card">
+                                            <i class="fas fa-bolt"></i>
+                                            <h4>P&amp;L &amp; EV Modelling</h4>
+                                            <p>Designed and owned microsecond-precision P&amp;L and Expected Value models for spot and forward FX; worked with front-office traders to refine execution and improve fill quality.</p>
+                                            <div class="xp-tags"><span>q/kdb+</span><span>FX spot &amp; fwd</span><span>µs precision</span></div>
+                                        </div>
+                                        <div class="xp-card">
+                                            <i class="fas fa-history"></i>
+                                            <h4>Backtesting Pipeline &amp; Model Lifecycle</h4>
+                                            <p>Owned models end to end, from maths to live production; engineered q/kdb+ tick-stream pipelines for ultra-low-latency automated backtesting of trading strategies.</p>
+                                            <div class="xp-tags"><span>Tick streams</span><span>Backtesting</span></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="xp-step">
+                                    <div class="xp-step-head"><b>Senior Associate · SPG Modelling Desk</b></div>
+                                    <div class="xp-cards xp-cards-2">
+                                        <div class="xp-card">
+                                            <i class="fas fa-home"></i>
+                                            <h4>High-Frequency Property Index</h4>
+                                            <p>Case-Shiller style index over a 25M+ property database; re-engineered the core pipeline for near-real-time updates to front-office pricing.</p>
+                                            <div class="xp-metric"><b>6h+ → ~50m</b><span>runtime</span></div>
+                                        </div>
+                                        <div class="xp-card">
+                                            <i class="fas fa-balance-scale"></i>
+                                            <h4>Hedge Optimisation Engine</h4>
+                                            <p>Built from scratch: INTEX tick data joined with internal loan portfolios in kdb+/q, so desk quants can run scenario analysis and rebalance risk across the structured-products book.</p>
+                                            <div class="xp-tags"><span>INTEX</span><span>kdb+/q</span><span>Structured products</span></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="xp-step">
+                                    <div class="xp-step-head"><b>Summer Associate · SPG Modelling Desk</b><span class="xp-dim">May – Jul 2021</span></div>
+                                    <div class="xp-cards xp-cards-1">
+                                        <div class="xp-card">
+                                            <i class="fas fa-map-marked-alt"></i>
+                                            <h4>Hedonic &amp; Geo-Spatial Pricing</h4>
+                                            <p>Pitched and built property pricing models using custom distance metrics and ANNs; set up an R–kdb+ framework for rapid deployment.</p>
+                                            <div class="xp-tags"><span>ANN</span><span>Geo-spatial</span><span>R + kdb+</span></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </article>
+
+                        <!-- Microsoft Research -->
+                        <article class="xp-panel" id="xp-msr" role="tabpanel" style="--c: 190, 140, 255" hidden>
+                            <header class="xp-head">
+                                <div>
+                                    <h3>Research Intern · Cryptography</h3>
+                                    <p class="xp-org">Microsoft Research India</p>
+                                </div>
+                                <div class="xp-meta"><span>May 2019 – Jul 2020</span><span><i class="fas fa-map-marker-alt"></i> Kolkata</span></div>
+                            </header>
+                            <div class="xp-cards xp-cards-2">
+                                <div class="xp-card">
+                                    <i class="fas fa-atom"></i>
+                                    <h4>Hidden-Subgroup Problem</h4>
+                                    <p>Authored an O(n²) algorithm for the Hidden-Subgroup problem.</p>
+                                    <div class="xp-metric"><b>O(n²)</b><span>algorithm</span></div>
+                                </div>
+                                <div class="xp-card">
+                                    <i class="fas fa-user-secret"></i>
+                                    <h4>Zero-Knowledge Authentication</h4>
+                                    <p>Developed a working prototype of a zero-knowledge authentication scheme.</p>
+                                    <div class="xp-tags"><span>ZK proofs</span><span>Cryptology</span></div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="xp-stats">
+                    <div><b>4+</b><span>years in quant finance</span></div>
+                    <div><b>RMO ×3</b><span>Regional Math Olympiad · 2014–16</span></div>
+                    <div><b>Kaggle</b><span>Master</span></div>
+                    <div><b>KVPY</b><span>SA Scholar · 2016</span></div>
+                </div>
+
+                <div class="xp-more">
+                    <a href="experience/experience.html" class="resume-button">
                         <i class="fas fa-eye"></i>
-                        View Full Experience & Projects
+                        View Full Experience &amp; Projects
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="projects">
+        <section id="projects" class="projects app-panel">
             <div class="container">
                 <h2 class="section-title">Projects</h2>
                 <div class="projects-grid">
@@ -446,7 +738,7 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="skills">
+        <section id="skills" class="skills app-panel">
             <div class="container">
                 <h2 class="section-title">Skills</h2>
                 <div class="tech-stack-grid">
@@ -484,7 +776,7 @@
         </section>
 
         <!-- Blog Section -->
-        <section id="blog" class="blog">
+        <section id="blog" class="blog app-panel">
             <div class="container">
                 <h2 class="section-title">Blog</h2>
                 <div class="blog-topics-grid">
@@ -1020,135 +1312,93 @@
                         </div>
                     </div>
 
-                    <!-- Third Row -->
-                    <div class="blog-topics-row blog-topics-row-third">
-                        <!-- Kaggle Grind Topic Card -->
-                        <div class="blog-topic-card kaggle-card">
-                            <div class="topic-header">
-                                <div class="topic-icon">
-                                    <i class="fab fa-kaggle"></i>
-                                </div>
-                                <h3 class="topic-title">Kaggle Grind</h3>
-                                <p class="topic-description">Competition insights, dataset analysis, and machine learning techniques from Kaggle challenges</p>
-                            </div>
-                            <div class="topic-content">
-                                <div class="topic-articles">
-                                    <article class="topic-article featured-article">
-                                        <div class="article-header">
-                                            <h4 class="article-title">Coming Soon</h4>
-                                            <span class="article-date">TBD</span>
-                                        </div>
-                                        <p class="article-excerpt">Comprehensive guides on Kaggle competitions, data preprocessing techniques, ensemble methods, and winning strategies from real competition experiences.</p>
-                                        <div class="article-link">
-                                            <i class="fas fa-clock"></i>
-                                            <span>In Progress</span>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Games Section -->
-        <section id="games" class="games">
+        <section id="games" class="games app-panel">
             <div class="container">
                 <h2 class="section-title">Games</h2>
-                <div class="games-grid">
-                    <div class="game-card" onclick="window.open('games/ultimate-tic-tac-toe/index.html', '_blank')">
+                <div class="games-group" id="board-games">
+                    <div class="games-group-head">
+                        <i class="fas fa-chess-knight"></i>
+                        <div>
+                            <h3>Online Board Games</h3>
+                            <p>A full hex-and-counter wargame you can play in the browser.</p>
+                        </div>
+                        <span class="games-count">1 game</span>
+                    </div>
+                    <div class="games-grid-mini games-grid-poster">
+                    <div class="game-card game-tile poster-tile" role="link" tabindex="0" title="A hex-and-counter wargame of the 1999 Kargil conflict: hold NH1A and Kargil town with the Grenadiers, Rajputana Rifles, J&amp;K Rifles, J&amp;K Light Infantry and Ladakh Scouts. Play the computer, a friend on the same screen, or online with a room code." onclick="window.open('games/kargil-99/index.html', '_blank')" onkeydown="if(event.key==='Enter')this.click()">
+                        <img src="games/kargil-99/art/poster.svg" alt="Kargill 99 poster: Tiger Hill with the tricolour over a hex map of Dras and Kargil" loading="lazy">
+                        <div class="poster-tile-label">
+                            <h3>Kargill 99</h3>
+                            <span><i class="fas fa-chess-board"></i> Play</span>
+                        </div>
+                        <p class="game-description">A hex-and-counter wargame of the 1999 Kargil conflict: hold NH1A and Kargil town with the Grenadiers, Rajputana Rifles, J&amp;K Rifles, J&amp;K Light Infantry and Ladakh Scouts. Play the computer, a friend on the same screen, or online with a room code.</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="games-group" id="browser-games">
+                    <div class="games-group-head">
+                        <i class="fas fa-gamepad"></i>
+                        <div>
+                            <h3>Other Browser Games</h3>
+                            <p>Quick games for when the Wi-Fi drops. Better than the dinosaur.</p>
+                        </div>
+                        <span class="games-count">6 games</span>
+                    </div>
+                    <div class="games-grid-mini">
+                    <div class="game-card game-tile" role="link" tabindex="0" title="A strategic twist on the classic game. Each small board's result determines where your opponent must play next!" onkeydown="if(event.key==='Enter')this.click()" onclick="window.open('games/ultimate-tic-tac-toe/index.html', '_blank')">
                         <div class="game-icon">
-                            <i class="fas fa-th" style="font-size: 2rem; color: #00ff88;"></i>
+                            <i class="fas fa-th" style="--g: #00ff88"></i>
                         </div>
                         <h3>Ultimate Tic-Tac-Toe</h3>
                         <p class="game-description">A strategic twist on the classic game. Each small board's result determines where your opponent must play next!</p>
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                            <span>Play Game</span>
-                        </div>
                     </div>
-                    
-                    <div class="game-card" onclick="window.open('games/reverse-pacman/index.html', '_blank')">
+                    <div class="game-card game-tile" role="link" tabindex="0" title="A strategic game where you play against the computer. Remove 1-3 sticks per turn. The player who takes the last stick wins!" onkeydown="if(event.key==='Enter')this.click()" onclick="window.open('games/game-of-nim/index.html', '_blank')">
                         <div class="game-icon">
-                            <i class="fas fa-ghost" style="font-size: 2rem; color: #ff6b6b;"></i>
-                        </div>
-                        <h3>Reverse Pacman</h3>
-                        <p class="game-description">Play as the ghosts and try to catch Pacman! A fun twist on the classic arcade game.</p>
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                            <span>Play Game</span>
-                        </div>
-                    </div>
-                    
-                    <div class="game-card" onclick="window.open('games/math-wordle/index.html', '_blank')">
-                        <div class="game-icon">
-                            <i class="fas fa-calculator" style="font-size: 2rem; color: #ffa500;"></i>
-                        </div>
-                        <h3>Math Wordle</h3>
-                        <p class="game-description">Find the hidden calculation in 6 tries. Each guess must be a valid calculation. The color of the tiles will show how close your guess was to the solution!</p>
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                            <span>Play Game</span>
-                        </div>
-                    </div>
-                    
-                    <div class="game-card" onclick="window.open('games/game-of-nim/index.html', '_blank')">
-                        <div class="game-icon">
-                            <i class="fas fa-minus" style="font-size: 2rem; color: #8B4513;"></i>
+                            <i class="fas fa-minus" style="--g: #e0a96d"></i>
                         </div>
                         <h3>Game of Nim</h3>
                         <p class="game-description">A strategic game where you play against the computer. Remove 1-3 sticks per turn. The player who takes the last stick wins!</p>
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                            <span>Play Game</span>
-                        </div>
                     </div>
-                    
-                    <div class="game-card" onclick="window.open('games/cards-game/index.html', '_blank')">
+                    <div class="game-card game-tile" role="link" tabindex="0" title="Play as the ghosts and try to catch Pacman! A fun twist on the classic arcade game." onkeydown="if(event.key==='Enter')this.click()" onclick="window.open('games/reverse-pacman/index.html', '_blank')">
                         <div class="game-icon">
-                            <i class="fas fa-heart" style="font-size: 2rem; color: #ff1493;"></i>
+                            <i class="fas fa-ghost" style="--g: #ff6b6b"></i>
+                        </div>
+                        <h3>Reverse Pacman</h3>
+                        <p class="game-description">Play as the ghosts and try to catch Pacman! A fun twist on the classic arcade game.</p>
+                    </div>
+                    <div class="game-card game-tile" role="link" tabindex="0" title="Find the hidden calculation in 6 tries. Each guess must be a valid calculation. The color of the tiles will show how close your guess was to the solution!" onkeydown="if(event.key==='Enter')this.click()" onclick="window.open('games/math-wordle/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-calculator" style="--g: #ffa500"></i>
+                        </div>
+                        <h3>Math Wordle</h3>
+                        <p class="game-description">Find the hidden calculation in 6 tries. Each guess must be a valid calculation. The color of the tiles will show how close your guess was to the solution!</p>
+                    </div>
+                    <div class="game-card game-tile" role="link" tabindex="0" title="Predict whether the next playing card will have a higher or lower value than the previous card. Test your luck and strategy!" onkeydown="if(event.key==='Enter')this.click()" onclick="window.open('games/cards-game/index.html', '_blank')">
+                        <div class="game-icon">
+                            <i class="fas fa-heart" style="--g: #ff1493"></i>
                         </div>
                         <h3>Its All in the Cards</h3>
                         <p class="game-description">Predict whether the next playing card will have a higher or lower value than the previous card. Test your luck and strategy!</p>
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                            <span>Play Game</span>
-                        </div>
                     </div>
-                    
-                    <div class="game-card" onclick="window.open('games/cyber-2048/index.html', '_blank')">
+                    <div class="game-card game-tile" role="link" tabindex="0" title="Merge tiles, build up to 2048 and beyond in this cyberpunk-themed version of the classic game. Use arrow keys or swipe to combine matching numbers." onkeydown="if(event.key==='Enter')this.click()" onclick="window.open('games/cyber-2048/index.html', '_blank')">
                         <div class="game-icon">
-                            <i class="fas fa-cube" style="font-size: 2rem; color: #00ffff;"></i>
+                            <i class="fas fa-cube" style="--g: #00ffff"></i>
                         </div>
                         <h3>Cyber 2048</h3>
                         <p class="game-description">Merge tiles, build up to 2048 and beyond in this cyberpunk-themed version of the classic game. Use arrow keys or swipe to combine matching numbers.</p>
-                        <div class="play-button">
-                            <i class="fas fa-play"></i>
-                            <span>Play Game</span>
-                        </div>
                     </div>
-                </div>
-
-                <h3 class="section-title" id="indie-games" style="font-size:1.6rem;margin-top:3rem">Indie Games</h3>
-                <div class="games-grid">
-                    <div class="game-card" onclick="window.open('games/kargil-99/index.html', '_blank')">
-                        <div class="game-icon">
-                            <i class="fas fa-mountain" style="font-size: 2rem; color: #f08a24;"></i>
-                        </div>
-                        <h3>Kargil '99: Operation Vijay</h3>
-                        <p class="game-description">A hex-and-counter wargame of the 1999 Kargil conflict: hold NH1A and Kargil town with the Grenadiers, Rajputana Rifles, J&amp;K Rifles, J&amp;K Light Infantry and Ladakh Scouts. Play the computer, a friend on the same screen, or online with a room code.</p>
-                        <div class="play-button">
-                            <i class="fas fa-chess-board"></i>
-                            <span>Play Game</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Art Section -->
-        <section id="art" class="art">
+        <section id="art" class="art app-panel">
             <div class="container">
                 <h2 class="section-title">Art</h2>
                 
@@ -1273,7 +1523,7 @@
         </section>
 
         <!-- Travel Section -->
-        <section id="travel" class="travel">
+        <section id="travel" class="travel app-panel">
             <div class="container">
                 <h2 class="section-title">Travel</h2>
                 
@@ -1579,7 +1829,7 @@
         </section>
 
         <!-- Collection Section: Coins, Notes, Stamps -->
-        <section id="collection" class="games">
+        <section id="collection" class="games app-panel">
             <div class="container">
                 <h2 class="section-title">Collection</h2>
                 <div class="games-grid">
@@ -1621,7 +1871,7 @@
         </section>
 
         <!-- Kaggle Section -->
-        <section id="kaggle" class="games">
+        <section id="kaggle" class="games app-panel">
             <div class="container">
                 <h2 class="section-title">Kaggle</h2>
                 <div class="games-grid">
@@ -1663,7 +1913,7 @@
         </section>
 
         <!-- Analytics Section -->
-        <section id="analytics" class="analytics">
+        <section id="analytics" class="analytics app-panel">
             <div class="container">
                 <h2 class="section-title">Visitor Analytics</h2>
                 <div class="analytics-overview">
@@ -1743,9 +1993,98 @@
         </section>
 
 
+
+        <!-- Others: the phone's app drawer -->
+        <section id="others" class="others app-panel">
+            <div class="drawer">
+                <label class="drawer-search">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="drawerSearch" placeholder="Search apps" autocomplete="off" aria-label="Search apps">
+                </label>
+                <div class="drawer-grid" id="drawerGrid">
+                    <a href="#about" class="drawer-app" style="--c: 0, 255, 157" data-name="about">
+                        <span class="drawer-icon"><i class="fas fa-terminal"></i></span>
+                        <span class="drawer-label">About</span>
+                    </a>
+                    <a href="#experience" class="drawer-app" style="--c: 0, 200, 255" data-name="experience">
+                        <span class="drawer-icon"><i class="fas fa-briefcase"></i></span>
+                        <span class="drawer-label">Experience</span>
+                    </a>
+                    <a href="#projects" class="drawer-app" style="--c: 255, 190, 0" data-name="projects">
+                        <span class="drawer-icon"><i class="fas fa-code-branch"></i></span>
+                        <span class="drawer-label">Projects</span>
+                    </a>
+                    <a href="#skills" class="drawer-app" style="--c: 0, 230, 140" data-name="skills">
+                        <span class="drawer-icon"><i class="fas fa-microchip"></i></span>
+                        <span class="drawer-label">Skills</span>
+                    </a>
+                    <a href="#blog" class="drawer-app" style="--c: 255, 0, 200" data-name="blog">
+                        <span class="drawer-icon"><i class="fas fa-pen-nib"></i></span>
+                        <span class="drawer-label">Blog</span>
+                    </a>
+                    <a href="#games" class="drawer-app" style="--c: 255, 60, 90" data-name="games">
+                        <span class="drawer-icon"><i class="fas fa-gamepad"></i></span>
+                        <span class="drawer-label">Games</span>
+                    </a>
+                    <a href="#music" class="drawer-app" style="--c: 255, 140, 60" data-name="music">
+                        <span class="drawer-icon"><i class="fas fa-music"></i></span>
+                        <span class="drawer-label">Music</span>
+                    </a>
+                    <a href="#art" class="drawer-app" style="--c: 190, 120, 255" data-name="art">
+                        <span class="drawer-icon"><i class="fas fa-palette"></i></span>
+                        <span class="drawer-label">Art</span>
+                    </a>
+                    <a href="#travel" class="drawer-app" style="--c: 0, 220, 200" data-name="travel">
+                        <span class="drawer-icon"><i class="fas fa-globe-asia"></i></span>
+                        <span class="drawer-label">Travel</span>
+                    </a>
+                    <a href="#collection" class="drawer-app" style="--c: 255, 170, 60" data-name="collection">
+                        <span class="drawer-icon"><i class="fas fa-coins"></i></span>
+                        <span class="drawer-label">Collection</span>
+                    </a>
+                    <a href="#kaggle" class="drawer-app" style="--c: 32, 190, 255" data-name="kaggle">
+                        <span class="drawer-icon"><i class="fab fa-kaggle"></i></span>
+                        <span class="drawer-label">Kaggle</span>
+                    </a>
+                    <a href="#analytics" class="drawer-app" style="--c: 120, 230, 120" data-name="analytics">
+                        <span class="drawer-icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="drawer-label">Analytics</span>
+                    </a>
+                </div>
+                <p class="drawer-empty" id="drawerEmpty" hidden>No apps match that search.</p>
+            </div>
+        </section>
+
+        <!-- Music: playlists. Fill in src/data/music.js -->
+        <section id="music" class="music app-panel">
+            <div class="music-stage" id="musicStage">
+                <div class="music-top">
+                    <span class="music-clock" id="musicClock">--:--</span>
+                    <div class="music-moods" id="musicMoods" role="tablist" aria-label="Playlists"></div>
+                </div>
+                <div class="music-title-block">
+                    <h2 class="music-title" id="musicTitle"></h2>
+                    <p class="music-subtitle" id="musicSubtitle"></p>
+                </div>
+                <div class="music-note" id="musicNote">
+                    <span class="music-note-label" id="musicNoteLabel"></span>
+                    <p id="musicNoteText"></p>
+                    <button type="button" class="music-note-next" id="musicNoteNext" aria-label="Next note"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="music-player" id="musicPlayer"></div>
+                <div class="music-shelf">
+                    <h3>All playlists</h3>
+                    <div class="music-shelf-list" id="musicShelf"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Scripts -->
-    <script src="src/scripts/main.js"></script>
+    <script src="src/scripts/main.js?v=20261117g"></script>
+    <script src="src/data/music.js?v=1"></script>
+    <script src="src/scripts/music.js?v=1"></script>
+    <script src="src/scripts/apps.js?v=10"></script>
+    <script src="src/scripts/inapp.js?v=3"></script>
 </body>
 </html>

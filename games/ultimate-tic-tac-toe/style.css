@@ -279,3 +279,8 @@
         min-height: 30px;
     }
 } 
+/* Keep the fixed top bar inside the screen width */
+.game-header { box-sizing: border-box; max-width: 100vw; }
+@media (max-width: 480px) {
+    .game-header { padding-left: 14px; padding-right: 14px; }
+}

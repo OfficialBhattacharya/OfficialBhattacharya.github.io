@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
  * Navigation functionality
  */
 function initNavigation() {
-    const navLinks = document.querySelectorAll('.sundial-section');
-    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.phone-nav-btn');
+    const sections = document.querySelectorAll('section:not(.app-panel)');
     
     // Handle navigation clicks
     navLinks.forEach(link => {
@@ -57,9 +57,11 @@ function initNavigation() {
     };
     
     const observer = new IntersectionObserver((entries) => {
+        if (document.body.classList.contains('app-active')) return; // an app owns the dock highlight
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const id = entry.target.id;
+                // About is part of the home scroll, so it lights up Grid
+                const id = entry.target.id === 'about' ? 'hub' : entry.target.id;
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === `#${id}`) {
@@ -1466,3 +1468,102 @@ window.portfolioApp = {
     createBinaryRain,
     initParticles
 };
+
+/**
+ * About: CV terminal plays as a typed shell session the first time it scrolls into view
+ */
+(function initCvTerminal() {
+    const term = document.getElementById('cvTerm');
+    if (!term) return;
+    const blocks = Array.from(term.querySelectorAll('.cv-block'));
+    const idle = term.querySelector('.cv-idle');
+    const skipBtn = document.getElementById('cvTermSkip');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finish = () => {
+        term.classList.remove('animating');
+        term.classList.add('done');
+        blocks.forEach(b => {
+            const t = b.querySelector('.cv-typed');
+            if (t && t.dataset.full) t.textContent = t.dataset.full;
+            if (t) t.classList.remove('cv-typing');
+        });
+    };
+
+    if (reduced || !('IntersectionObserver' in window)) { finish(); return; }
+
+    blocks.forEach(b => {
+        const t = b.querySelector('.cv-typed');
+        if (t) { t.dataset.full = t.textContent; t.textContent = ''; }
+    });
+    term.classList.add('animating');
+
+    let cancelled = false;
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+
+    async function play() {
+        for (const b of blocks) {
+            if (cancelled) return;
+            b.classList.add('shown');
+            const t = b.querySelector('.cv-typed');
+            const full = t.dataset.full;
+            t.classList.add('cv-typing');
+            for (let i = 1; i <= full.length; i++) {
+                if (cancelled) return;
+                t.textContent = full.slice(0, i);
+                await wait(28 + Math.random() * 30);
+            }
+            await wait(160);
+            t.classList.remove('cv-typing');
+            b.classList.add('revealed');
+            await wait(380);
+        }
+        if (idle) idle.classList.add('shown');
+        finish();
+    }
+
+    skipBtn && skipBtn.addEventListener('click', () => { cancelled = true; finish(); });
+
+    const io = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) { io.disconnect(); play(); }
+    }, { threshold: 0.25 });
+    io.observe(term);
+})();
+
+/**
+ * Experience: employer tabs, driven by the tab list and the career ribbon
+ */
+(function initExperienceTabs() {
+    const tabs = Array.from(document.querySelectorAll('.xp-tab'));
+    const segs = Array.from(document.querySelectorAll('.xp-seg'));
+    const panels = Array.from(document.querySelectorAll('.xp-panel'));
+    if (!tabs.length) return;
+
+    const select = (id, focusTab) => {
+        tabs.forEach(t => {
+            const on = t.dataset.target === id;
+            t.classList.toggle('active', on);
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            t.tabIndex = on ? 0 : -1;
+            if (on && focusTab) t.focus();
+        });
+        segs.forEach(s => s.classList.toggle('on', s.dataset.target === id));
+        panels.forEach(p => {
+            const on = p.id === id;
+            p.hidden = !on;
+            p.classList.toggle('active', on);
+        });
+    };
+
+    tabs.forEach((t, i) => {
+        t.addEventListener('click', () => select(t.dataset.target));
+        t.addEventListener('keydown', e => {
+            const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+            if (!d) return;
+            e.preventDefault();
+            select(tabs[(i + d + tabs.length) % tabs.length].dataset.target, true);
+        });
+    });
+    segs.forEach(s => s.addEventListener('click', () => select(s.dataset.target)));
+    select(tabs[0].dataset.target);
+})();
